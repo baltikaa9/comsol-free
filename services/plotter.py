@@ -18,6 +18,10 @@ class Plotter:
         ax.plot(x, -y, color='black')
 
     @staticmethod
-    def plot_data(fig: Figure, ax: Axes, x: Series, y: Series, z: Series, *args, **kwargs) -> Colorbar:
+    def plot_surface(fig: Figure, ax: Axes, x: Series, y: Series, z: Series, *args, **kwargs) -> Colorbar:
         plot = ax.tricontourf(x, y, z, *args, **kwargs)
         return fig.colorbar(plot)
+
+    @staticmethod
+    def plot_streamline():
+        ...

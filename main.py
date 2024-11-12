@@ -55,13 +55,14 @@ class Comsol(QMainWindow):
         Plotter.plot_geometry(self.canvas_visualization.ax)
 
         data = DataParser('data/semicolon.txt').parse()
-        self.color_bar = Plotter.plot_data(
+
+        self.color_bar = Plotter.plot_surface(
             self.canvas_visualization.fig,
             self.canvas_visualization.ax,
             data['x'],
             data['y'],
-            data['p (Pa) @ alpha=18'],
-            levels=100,
+            data['spf.U (m/s) @ alpha=18'],
+            levels=500,
             cmap='rainbow',
         )
 

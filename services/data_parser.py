@@ -21,8 +21,11 @@ class DataParser:
         prepared_data = []
         split_data = map(lambda s: s.split(self.separator), data)
 
+        def to_float(s: str) -> float:
+            return float(0) if s == 'NaN' else float(s)
+
         for row in split_data:
-            prepared_data.append(list(map(lambda s: float(s), row)))
+            prepared_data.append(list(map(lambda s: to_float(s), row)))
         return prepared_data
 
 
@@ -37,4 +40,3 @@ class DataParser:
 if __name__ == '__main__':
     parser = DataParser('../data/semicolon.txt')
     data = parser.parse()
-    c=1
