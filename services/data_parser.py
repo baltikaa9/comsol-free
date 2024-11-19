@@ -1,9 +1,16 @@
 from pandas import DataFrame
 
 class DataParser:
-    def __init__(self, file_path: str, separator=';'):
-        self.file_path = file_path
-        self.separator = separator
+    def __init__(self, file_path: str, separator: str = ';'):
+        self.file_path: str = file_path
+        self.separator: str = separator
+
+    def test(self):
+        with open(self.file_path, 'r') as f:
+            t = f.readlines()[8:]
+
+        with open('../data/semicolon.csv', 'w') as f:
+            f.writelines(t)
 
     def parse(self) -> DataFrame:
         file_text = self.__read_file()
@@ -39,4 +46,5 @@ class DataParser:
 
 if __name__ == '__main__':
     parser = DataParser('../data/semicolon.txt')
+    parser.test()
     data = parser.parse()

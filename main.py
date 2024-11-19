@@ -62,8 +62,16 @@ class Comsol(QMainWindow):
             data['x'],
             data['y'],
             data['spf.U (m/s) @ alpha=18'],
-            levels=500,
+            levels=100,
             cmap='rainbow',
+        )
+        Plotter.plot_streamline(
+            self.canvas_visualization.fig,
+            self.canvas_visualization.ax,
+            data['x'],
+            data['y'],
+            data['u (m/s) @ alpha=18'],
+            data['v (m/s) @ alpha=18'],
         )
 
 if __name__ == '__main__':
