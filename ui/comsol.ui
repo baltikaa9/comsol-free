@@ -32,42 +32,75 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Данные</string>
+            <string>Полный путь к данным</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="lineEdit_data_path"/>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Тип графика</string>
+            <string>Что рисовать</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="comboBox_expression">
+           <item>
+            <property name="text">
+             <string>Скорость</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Давление</string>
+            </property>
+           </item>
+          </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Выражение</string>
+            <string>Линии тока</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QCheckBox" name="checkBox_stream_lines">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Ед. измерения</string>
+            <string>Количество уровней</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QComboBox" name="comboBox_3"/>
+          <widget class="QLineEdit" name="lineEdit_levels">
+           <property name="text">
+            <string>100</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Цвет контура крыла</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="lineEdit_geometry_color">
+           <property name="text">
+            <string>black</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

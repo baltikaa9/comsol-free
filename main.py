@@ -3,6 +3,7 @@ import sys
 import matplotlib
 import numpy as np
 from PySide6.QtWidgets import QMainWindow, QApplication, QVBoxLayout
+from PySide6.QtCore import Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
@@ -35,6 +36,10 @@ class Comsol(QMainWindow):
 
         self.ui.pushButton_plot.clicked.connect(self.__plot)
 
+        self.ui.comboBox_expression.currentIndexChanged.connect(
+            lambda: self.__toggle_streamlines_check_box(self.ui.comboBox_expression.currentIndex())
+        )
+
         self.show()
 
     def __plot(self):
@@ -46,33 +51,60 @@ class Comsol(QMainWindow):
             self.canvas_visualization.hide()
             self.toolbar.hide()
 
-        self.canvas_visualization = MplCanvas(self, num=1, width=5, height=5, dpi=100, title='Поле скоростей')
+        self.canvas_visualization = MplCanvas(self, num=1, width=5, height=5, dpi=100)
         self.toolbar = NavigationToolbar(self.canvas_visualization, self)
 
         self.layout_visualization.addWidget(self.canvas_visualization)
         self.layout_visualization.addWidget(self.toolbar)
 
-        Plotter.plot_geometry(self.canvas_visualization.ax)
+        data_path, expression, stream_lines, levels, color = self.__get_plot_settings()
 
-        data = DataParser('data/semicolon.txt').parse()
+        Plotter.plot_geometry(self.canvas_visualization.ax, color)
+
+        print(data_path, expression, stream_lines, levels)
+
+        if not data_path or not levels:
+            return
+
+        data = DataParser(data_path).parse()
+
+        print(data)
 
         self.color_bar = Plotter.plot_surface(
             self.canvas_visualization.fig,
             self.canvas_visualization.ax,
             data['x'],
             data['y'],
-            data['spf.U (m/s) @ alpha=18'],
-            levels=100,
+            data['p (Pa) @ alpha=18' if expression else 'spf.U (m/s) @ alpha=18'],
+            levels=levels,
             cmap='rainbow',
         )
-        Plotter.plot_streamline(
-            self.canvas_visualization.fig,
-            self.canvas_visualization.ax,
-            data['x'],
-            data['y'],
-            data['u (m/s) @ alpha=18'],
-            data['v (m/s) @ alpha=18'],
-        )
+
+        self.canvas_visualization.ax.set_title('Поле скоростей' if not expression else 'Поле давления')
+
+        if stream_lines:
+            Plotter.plot_streamline(
+                self.canvas_visualization.fig,
+                self.canvas_visualization.ax,
+                data['x'],
+                data['y'],
+                data['u (m/s) @ alpha=18'],
+                data['v (m/s) @ alpha=18'],
+            )
+
+    def __get_plot_settings(self) -> tuple[str, int, bool, int, str]:
+        data_path = self.ui.lineEdit_data_path.text()
+        expression = self.ui.comboBox_expression.currentIndex()
+        stream_lines = self.ui.checkBox_stream_lines.isChecked()
+        levels = self.ui.lineEdit_levels.text()
+        color = self.ui.lineEdit_geometry_color.text()
+        return data_path, expression, stream_lines, int(levels), color
+
+    def __toggle_streamlines_check_box(self, current_index: int):
+        self.ui.checkBox_stream_lines.setDisabled(current_index != 0)
+        if current_index != 0:
+            self.ui.checkBox_stream_lines.setCheckState(Qt.CheckState.Unchecked)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
