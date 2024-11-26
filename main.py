@@ -75,7 +75,7 @@ class Comsol(QMainWindow):
             self.canvas_visualization.ax,
             data['x'],
             data['y'],
-            data['p (Pa) @ alpha=18' if expression else 'spf.U (m/s) @ alpha=18'],
+            data['p' if expression else 'U'],
             levels=levels,
             cmap='rainbow',
         )
@@ -88,8 +88,8 @@ class Comsol(QMainWindow):
                 self.canvas_visualization.ax,
                 data['x'],
                 data['y'],
-                data['u (m/s) @ alpha=18'],
-                data['v (m/s) @ alpha=18'],
+                data['u'],
+                data['v'],
             )
 
     def __get_plot_settings(self) -> tuple[str, int, bool, int, str]:

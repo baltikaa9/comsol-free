@@ -5,24 +5,17 @@ class DataParser:
         self.file_path: str = file_path
         self.separator: str = separator
 
-    def test(self):
-        with open(self.file_path, 'r') as f:
-            t = f.readlines()[8:]
-
-        with open('../data/semicolon.csv', 'w') as f:
-            f.writelines(t)
-
     def parse(self) -> DataFrame:
         file_text = self.__read_file()
         prepared_rows = self.__prepare_rows(file_text)
 
-        headers = prepared_rows[0].strip('% ').split(self.separator)
-        data = self.__prepare_data(prepared_rows[1:])
-        return DataFrame(data, columns=headers)
+        # headers = prepared_rows[0].strip('% ').split(self.separator)
+        data = self.__prepare_data(prepared_rows)
+        return DataFrame(data, columns=['x', 'y', 'U', 'u', 'v', 'p'])
 
     def __read_file(self) -> list[str]:
         with open(self.file_path, 'r') as f:
-            return f.readlines()[8:]
+            return f.readlines()[9:]
 
     def __prepare_data(self, data: list[str]) -> list[list[float]]:
         prepared_data = []
@@ -46,5 +39,5 @@ class DataParser:
 
 if __name__ == '__main__':
     parser = DataParser('../data/semicolon.txt')
-    parser.test()
     data = parser.parse()
+    c=1
