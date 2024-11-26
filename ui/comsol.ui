@@ -32,12 +32,9 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Полный путь к данным</string>
+            <string>Файл данных</string>
            </property>
           </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_data_path"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
@@ -101,6 +98,29 @@
             <string>black</string>
            </property>
           </widget>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_data_path"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_select_file">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>24</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>

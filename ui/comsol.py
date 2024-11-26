@@ -41,11 +41,6 @@ class Ui_MainWindow(object):
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label)
 
-        self.lineEdit_data_path = QLineEdit(self.groupBox_plot_settings)
-        self.lineEdit_data_path.setObjectName(u"lineEdit_data_path")
-
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.lineEdit_data_path)
-
         self.label_3 = QLabel(self.groupBox_plot_settings)
         self.label_3.setObjectName(u"label_3")
 
@@ -88,6 +83,23 @@ class Ui_MainWindow(object):
 
         self.formLayout.setWidget(4, QFormLayout.FieldRole, self.lineEdit_geometry_color)
 
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.lineEdit_data_path = QLineEdit(self.groupBox_plot_settings)
+        self.lineEdit_data_path.setObjectName(u"lineEdit_data_path")
+
+        self.horizontalLayout_2.addWidget(self.lineEdit_data_path)
+
+        self.pushButton_select_file = QPushButton(self.groupBox_plot_settings)
+        self.pushButton_select_file.setObjectName(u"pushButton_select_file")
+        self.pushButton_select_file.setEnabled(True)
+        self.pushButton_select_file.setMaximumSize(QSize(24, 16777215))
+
+        self.horizontalLayout_2.addWidget(self.pushButton_select_file)
+
+
+        self.formLayout.setLayout(0, QFormLayout.FieldRole, self.horizontalLayout_2)
+
 
         self.verticalLayout_3.addLayout(self.formLayout)
 
@@ -114,7 +126,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.groupBox_plot_settings.setTitle(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043b\u043d\u044b\u0439 \u043f\u0443\u0442\u044c \u043a \u0434\u0430\u043d\u043d\u044b\u043c", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0424\u0430\u0439\u043b \u0434\u0430\u043d\u043d\u044b\u0445", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0427\u0442\u043e \u0440\u0438\u0441\u043e\u0432\u0430\u0442\u044c", None))
         self.comboBox_expression.setItemText(0, QCoreApplication.translate("MainWindow", u"\u0421\u043a\u043e\u0440\u043e\u0441\u0442\u044c", None))
         self.comboBox_expression.setItemText(1, QCoreApplication.translate("MainWindow", u"\u0414\u0430\u0432\u043b\u0435\u043d\u0438\u0435", None))
@@ -125,6 +137,7 @@ class Ui_MainWindow(object):
         self.lineEdit_levels.setText(QCoreApplication.translate("MainWindow", u"100", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u0426\u0432\u0435\u0442 \u043a\u043e\u043d\u0442\u0443\u0440\u0430 \u043a\u0440\u044b\u043b\u0430", None))
         self.lineEdit_geometry_color.setText(QCoreApplication.translate("MainWindow", u"black", None))
+        self.pushButton_select_file.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.pushButton_plot.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c", None))
     # retranslateUi
 
