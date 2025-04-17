@@ -5,10 +5,10 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QFileDialog
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
-from mpl_canvas import MplCanvas
-from services.data_parser import DataParser
-from services.plotter import Plotter
-from ui.comsol import Ui_MainWindow
+from src.mpl_canvas import MplCanvas
+from src.services.data_parser import DataParser
+from src.services.plotter import Plotter
+from src.ui.comsol import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
