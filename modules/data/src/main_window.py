@@ -1,9 +1,10 @@
 from PySide6.QtCore import Qt, QPointF, QRectF, QEvent
-from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainterPath
+from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainterPath, QPainter
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsScene,
                                QGraphicsLineItem, QGraphicsEllipseItem,
-                               QGraphicsRectItem, QGraphicsPathItem)
+                               QGraphicsRectItem, QGraphicsPathItem, QGraphicsView)
 from src.ui.template import Ui_MainWindow
+from src.grid_scene import GridScene
 
 
 class MainWindow(QMainWindow):
@@ -12,8 +13,13 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.scene = QGraphicsScene()
+        # self.scene = QGraphicsScene()
+        self.scene = GridScene(spacing=50)
+        self.scene.setSceneRect(-500, -500, 1000, 1000)
         self.ui.graphicsView.setScene(self.scene)
+        self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
+        self.ui.graphicsView.scale(1, -1)  # 1 пикселей на 1 юнит, переворачиваем Y
+        self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
         self.selected_items = set()
         self.default_pen = QPen(Qt.black, 2)
