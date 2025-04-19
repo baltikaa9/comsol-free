@@ -1,10 +1,10 @@
 from PySide6.QtCore import Qt, QPointF, QRectF, QEvent
 from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainterPath, QPainter
-from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsScene,
-                               QGraphicsLineItem, QGraphicsEllipseItem,
+from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
                                QGraphicsRectItem, QGraphicsPathItem, QGraphicsView)
-from src.ui.template import Ui_MainWindow
+
 from src.grid_scene import GridScene
+from src.ui.template import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
 
         # self.scene = QGraphicsScene()
         self.scene = GridScene(spacing=50)
-        self.scene.setSceneRect(-500, -500, 1000, 1000)
+        self.scene.setSceneRect(-5000, -5000, 10000, 10000)
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
         self.ui.graphicsView.scale(1, -1)  # 1 пикселей на 1 юнит, переворачиваем Y
@@ -68,8 +68,12 @@ class MainWindow(QMainWindow):
             if event.type() == QEvent.MouseButtonPress and event.button() == Qt.LeftButton:
                 return self.mouse_press(event)
             elif event.type() == QEvent.MouseMove:
-                return self.mouse_move(event)
+                if event.buttons() & Qt.LeftButton:
+                    return self.mouse_move(event)
+                return False
             elif event.type() == QEvent.MouseButtonRelease:
+                if event.button() == Qt.MiddleButton:
+                    return False
                 return self.mouse_release(event)
         return super().eventFilter(obj, event)
 

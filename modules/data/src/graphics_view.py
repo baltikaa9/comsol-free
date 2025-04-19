@@ -8,12 +8,12 @@ from PySide6.QtWidgets import (
 class GraphicsView(QGraphicsView):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # при панорамировании будем перерисовывать весь viewport
+        # Полная перерисовка при обновлении
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-        # масштаб происходит относительно курсора
+        # Масштаб относительно курсора
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
         self._panning = False
-        self._pan_start = QPointF()
+        self._pan_start = None
 
     def mousePressEvent(self, event: QMouseEvent):
         if event.button() == Qt.MiddleButton:
@@ -24,7 +24,7 @@ class GraphicsView(QGraphicsView):
             super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        if self._panning:
+        if self._panning and self._pan_start is not None:
             delta = self._pan_start - event.pos()
             self._pan_start = event.pos()
             self.horizontalScrollBar().setValue(self.horizontalScrollBar().value() + delta.x())
@@ -41,7 +41,6 @@ class GraphicsView(QGraphicsView):
 
     def wheelEvent(self, event: QWheelEvent):
         if event.modifiers() & Qt.ControlModifier:
-            # Ctrl+колесико = zoom in/out
             delta = event.angleDelta().y()
             factor = 1.15 if delta > 0 else 1 / 1.15
             self.scale(factor, factor)

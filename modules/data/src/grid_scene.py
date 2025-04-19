@@ -15,7 +15,7 @@ class GridScene(QGraphicsScene):
         self.spacing = spacing
         self.grid_pen = QPen(Qt.lightGray, 0)
         self.axis_pen = QPen(Qt.black, 0)
-        self.font = QFont("Arial",  eight := 8)  # размер шрифта для меток
+        self.font = QFont("Arial",  8)  # размер шрифта для меток
         self._labels = []
         # Как только изменяется область сцены, перерисуем все метки:
         self.sceneRectChanged.connect(self.update_labels)
@@ -43,37 +43,37 @@ class GridScene(QGraphicsScene):
         painter.drawLine(0, rect.top(),   0, rect.bottom()) # Y‑ось
 
     def update_labels(self, rect: QRectF):
-        # Стираем старые метки
+        # Удаляем старые метки
         for lab in self._labels:
             self.removeItem(lab)
         self._labels.clear()
 
         left, top, right, bottom = rect.left(), rect.top(), rect.right(), rect.bottom()
 
-        # --- Метки по X ---
+        # Метки по X
         first_x = int(left) - (int(left) % self.spacing)
         x = first_x
-        while x < right:
+        while x <= right:
             unit = int(x / self.spacing)
             lab = QGraphicsTextItem(str(unit))
             lab.setFont(self.font)
             lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
-            lab.setPos(QPointF(x + 2, 2))  # чуть сместим внутрь
+            lab.setPos(QPointF(x + 2, 2))
             self.addItem(lab)
             self._labels.append(lab)
             x += self.spacing
 
-        # --- Метки по Y ---
-        first_y = int(bottom) - (int(bottom) % self.spacing)
+        # Метки по Y
+        first_y = int(top) - (int(top) % self.spacing)
         y = first_y
-        while y < top:
-            unit = int(y / self.spacing)
-            lab = QGraphicsTextItem(str(unit))
-            lab.setFont(self.font)
-            lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
-            lab.setPos(QPointF(2, y - 2))  # чуть вверх, чтобы текст не заходил на линию
-            self.addItem(lab)
-            self._labels.append(lab)
+        while y <= bottom:
+            if y != 0:
+                unit = int(y / self.spacing)
+                lab = QGraphicsTextItem(str(unit))
+                lab.setFont(self.font)
+                lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
+                # Смещение вниз, чтобы текст не пересекал линию
+                lab.setPos(QPointF(2, y - 2))
+                self.addItem(lab)
+                self._labels.append(lab)
             y += self.spacing
-
-
