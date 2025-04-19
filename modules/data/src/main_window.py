@@ -1,8 +1,8 @@
 from PySide6.QtCore import Qt, QPointF, QRectF, QEvent
-from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush
+from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainterPath
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsScene,
-                               QGraphicsLineItem, QGraphicsEllipseItem, QGraphicsRectItem)
-
+                               QGraphicsLineItem, QGraphicsEllipseItem,
+                               QGraphicsRectItem, QGraphicsPathItem)
 from src.ui.template import Ui_MainWindow
 
 
@@ -31,18 +31,31 @@ class MainWindow(QMainWindow):
         self.current_tool = 'select'
         self.start_point = None
         self.temp_item = None
+        self.curve_points = []
+        self.temp_curve_item = None
 
+        # Подключаем инструменты
         self.ui.actionSelect.triggered.connect(lambda: self.set_tool('select'))
         self.ui.actionDrawLine.triggered.connect(lambda: self.set_tool('line'))
         self.ui.actionDrawRect.triggered.connect(lambda: self.set_tool('rect'))
         self.ui.actionDrawCircle.triggered.connect(lambda: self.set_tool('circle'))
+        self.ui.actionDrawCurve.triggered.connect(lambda: self.set_tool('curve'))
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
     def set_tool(self, tool):
         if tool != self.current_tool:
             self.clear_selection()
+            self.finish_curve()  # Завершаем текущую кривую при смене инструмента
         self.current_tool = tool
+
+    def finish_curve(self):
+        """Завершает рисование текущей кривой"""
+        if self.temp_curve_item and len(self.curve_points) > 1:
+            self.temp_curve_item.setPen(self.default_pen)
+            self.select_item(self.temp_curve_item)
+        self.curve_points = []
+        self.temp_curve_item = None
 
     def eventFilter(self, obj, event):
         if obj is self.ui.graphicsView.viewport():
@@ -50,7 +63,7 @@ class MainWindow(QMainWindow):
                 return self.mouse_press(event)
             elif event.type() == QEvent.MouseMove:
                 return self.mouse_move(event)
-            elif event.type() == QEvent.MouseButtonRelease and event.button() == Qt.LeftButton:
+            elif event.type() == QEvent.MouseButtonRelease:
                 return self.mouse_release(event)
         return super().eventFilter(obj, event)
 
@@ -81,6 +94,20 @@ class MainWindow(QMainWindow):
                 self.selection_rect.setBrush(self.selection_brush)
                 self.scene.addItem(self.selection_rect)
 
+        elif self.current_tool == 'curve':
+            if event.button() == Qt.LeftButton:
+                if not self.curve_points:  # Начало новой кривой
+                    self.curve_points = [scene_pos]
+                    path = QPainterPath()
+                    path.moveTo(scene_pos)
+                    self.temp_curve_item = QGraphicsPathItem(path)
+                    self.temp_curve_item.setPen(self.default_pen)
+                    self.scene.addItem(self.temp_curve_item)
+                else:  # Добавление точки к кривой
+                    self.curve_points.append(scene_pos)
+                    self.update_curve()
+            return True
+
         elif self.current_tool in ['line', 'rect', 'circle']:
             self.clear_selection()
             if self.current_tool == 'line':
@@ -94,6 +121,31 @@ class MainWindow(QMainWindow):
             self.scene.addItem(self.temp_item)
 
         return True
+
+    def update_curve(self):
+        """Обновляет отображение текущей кривой"""
+        if not self.curve_points or not self.temp_curve_item:
+            return
+
+        path = QPainterPath()
+        path.moveTo(self.curve_points[0])
+
+        # Создаем плавную кривую через все точки
+        for i in range(1, len(self.curve_points)):
+            # Используем кубические кривые Безье для плавности
+            if i == 1:
+                control1 = self.curve_points[0]
+            else:
+                control1 = self.curve_points[i - 1] + (self.curve_points[i - 1] - self.curve_points[i - 2]) * 0.3
+
+            if i == len(self.curve_points) - 1:
+                control2 = self.curve_points[i]
+            else:
+                control2 = self.curve_points[i] - (self.curve_points[i + 1] - self.curve_points[i]) * 0.3
+
+            path.cubicTo(control1, control2, self.curve_points[i])
+
+        self.temp_curve_item.setPath(path)
 
     def toggle_item_selection(self, item):
         if item in self.selected_items:
@@ -116,7 +168,8 @@ class MainWindow(QMainWindow):
         new_selection = set()
 
         for item in self.scene.items():
-            if isinstance(item, (QGraphicsLineItem, QGraphicsRectItem, QGraphicsEllipseItem)):
+            if isinstance(item, (QGraphicsLineItem, QGraphicsRectItem,
+                                 QGraphicsEllipseItem, QGraphicsPathItem)):
                 if selection_rect.intersects(item.sceneBoundingRect()):
                     new_selection.add(item)
 
@@ -153,6 +206,14 @@ class MainWindow(QMainWindow):
                     self.last_selection_rect = rect
             return True
 
+        if self.current_tool == 'curve':
+            if self.temp_curve_item and self.curve_points:
+                # Показываем предварительный просмотр следующего сегмента
+                temp_path = QPainterPath(self.temp_curve_item.path())
+                temp_path.lineTo(scene_pos)
+                self.temp_curve_item.setPath(temp_path)
+            return True
+
         if not self.temp_item or not self.start_point:
             return True
 
@@ -166,6 +227,7 @@ class MainWindow(QMainWindow):
             self.temp_item.setRect(rect)
         elif isinstance(self.temp_item, QGraphicsEllipseItem):
             self.temp_item.setRect(rect)
+
         return True
 
     def mouse_release(self, event: QMouseEvent):
@@ -174,6 +236,10 @@ class MainWindow(QMainWindow):
                 self.scene.removeItem(self.selection_rect)
                 self.selection_rect = None
             self.moving_items = False
+        elif self.current_tool == 'curve':
+            if event.button() == Qt.RightButton:  # Завершаем кривую ПКМ
+                self.finish_curve()
+            return True
         else:
             if self.temp_item:
                 self.temp_item.setPen(self.default_pen)
