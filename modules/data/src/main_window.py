@@ -3,8 +3,9 @@ from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainterPath, QPain
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
                                QGraphicsRectItem, QGraphicsPathItem, QGraphicsView)
 
-from src.grid_scene import GridScene
-from src.ui.template import Ui_MainWindow
+from .grid_scene import GridScene
+from .ui.template import Ui_MainWindow
+from .editable_bezier import EditableBezierCurveItem
 
 
 class MainWindow(QMainWindow):
@@ -40,6 +41,9 @@ class MainWindow(QMainWindow):
         self.curve_points = []
         self.temp_curve_item = None
 
+        # self.temp_curve_item = EditableBezierCurveItem(self.curve_points, pen=self.default_pen)
+        # self.temp_curve_item.setScene(self.scene)
+
         # Подключаем инструменты
         self.ui.actionSelect.triggered.connect(lambda: self.set_tool('select'))
         self.ui.actionDrawLine.triggered.connect(lambda: self.set_tool('line'))
@@ -56,12 +60,14 @@ class MainWindow(QMainWindow):
         self.current_tool = tool
 
     def finish_curve(self):
-        """Завершает рисование текущей кривой"""
-        if self.temp_curve_item and len(self.curve_points) > 1:
-            self.temp_curve_item.setPen(self.default_pen)
-            self.select_item(self.temp_curve_item)
+        if len(self.curve_points) > 1:
+            curve = EditableBezierCurveItem(self.curve_points, pen=self.default_pen, scene=self.scene)
+            curve.add_to_scene()
+            self.select_item(curve)
+        if self.temp_curve_item:
+            self.scene.removeItem(self.temp_curve_item)
+            self.temp_curve_item = None
         self.curve_points = []
-        self.temp_curve_item = None
 
     def eventFilter(self, obj, event):
         if obj is self.ui.graphicsView.viewport():
@@ -133,27 +139,40 @@ class MainWindow(QMainWindow):
         return True
 
     def update_curve(self):
-        """Обновляет отображение текущей кривой"""
         if not self.curve_points or not self.temp_curve_item:
             return
 
         path = QPainterPath()
         path.moveTo(self.curve_points[0])
 
-        # Создаем плавную кривую через все точки
+        # Если только одна точка, ничего не рисуем
+        if len(self.curve_points) < 2:
+            self.temp_curve_item.setPath(path)
+            return
+
+        # Вычисляем контрольные точки для каждого сегмента
         for i in range(1, len(self.curve_points)):
-            # Используем кубические кривые Безье для плавности
+            p0 = self.curve_points[i - 1]
+            p1 = self.curve_points[i]
+
+            # Контрольные точки для текущего сегмента
             if i == 1:
-                control1 = self.curve_points[0]
+                # Для первого сегмента контрольная точка ближе к p1
+                ctrl1 = p0 + (p1 - p0) * 0.33
             else:
-                control1 = self.curve_points[i - 1] + (self.curve_points[i - 1] - self.curve_points[i - 2]) * 0.3
+                # Для промежуточных точек используем симметрию относительно p0
+                prev_p = self.curve_points[i - 2]
+                ctrl1 = p0 + (p0 - prev_p) * 0.33  # Симметричное продолжение
 
             if i == len(self.curve_points) - 1:
-                control2 = self.curve_points[i]
+                # Для последнего сегмента контрольная точка ближе к p0
+                ctrl2 = p1 - (p1 - p0) * 0.33
             else:
-                control2 = self.curve_points[i] - (self.curve_points[i + 1] - self.curve_points[i]) * 0.3
+                # Для промежуточных точек используем следующую точку
+                next_p = self.curve_points[i + 1]
+                ctrl2 = p1 - (next_p - p1) * 0.33
 
-            path.cubicTo(control1, control2, self.curve_points[i])
+            path.cubicTo(ctrl1, ctrl2, p1)
 
         self.temp_curve_item.setPath(path)
 
@@ -218,10 +237,30 @@ class MainWindow(QMainWindow):
 
         if self.current_tool == 'curve':
             if self.temp_curve_item and self.curve_points:
-                # Показываем предварительный просмотр следующего сегмента
-                temp_path = QPainterPath(self.temp_curve_item.path())
-                temp_path.lineTo(scene_pos)
-                self.temp_curve_item.setPath(temp_path)
+                # Создаем временный список точек, добавляя текущую позицию мыши
+                temp_points = self.curve_points + [scene_pos]
+                path = QPainterPath()
+                path.moveTo(temp_points[0])
+
+                for i in range(1, len(temp_points)):
+                    p0 = temp_points[i - 1]
+                    p1 = temp_points[i]
+
+                    if i == 1:
+                        ctrl1 = p0 + (p1 - p0) * 0.33
+                    else:
+                        prev_p = temp_points[i - 2]
+                        ctrl1 = p0 + (p0 - prev_p) * 0.33
+
+                    if i == len(temp_points) - 1:
+                        ctrl2 = p1 - (p1 - p0) * 0.33
+                    else:
+                        next_p = temp_points[i + 1] if i + 1 < len(temp_points) else p1
+                        ctrl2 = p1 - (next_p - p1) * 0.33
+
+                    path.cubicTo(ctrl1, ctrl2, p1)
+
+                self.temp_curve_item.setPath(path)
             return True
 
         if not self.temp_item or not self.start_point:
