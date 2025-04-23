@@ -10,8 +10,8 @@ class ParametricDialog(QDialog):
         layout = QVBoxLayout(self)
         form_layout = QFormLayout()
 
-        self.expr_x = QLineEdit("100 * cos(t)")
-        self.expr_y = QLineEdit("100 * sin(t)")
+        self.expr_x = QLineEdit("1.8 * t - 1.8")
+        self.expr_y = QLineEdit("1.8 * 0.594689181 * (0.298222773 * sqrt(t) - 0.127125232 * t - 0.357907906 * t**2 + 0.291984971 * t**3 - 0.105174696 * t**4)")
         self.t_min = QDoubleSpinBox()
         self.t_max = QDoubleSpinBox()
         self.samples = QSpinBox()
@@ -21,7 +21,7 @@ class ParametricDialog(QDialog):
         self.samples.setRange(3, 10000)
 
         self.t_min.setValue(0)
-        self.t_max.setValue(6.28)
+        self.t_max.setValue(1)
         self.samples.setValue(100)
 
         form_layout.addRow("x(t):", self.expr_x)
