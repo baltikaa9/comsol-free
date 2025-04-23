@@ -3,9 +3,12 @@ from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainterPath, QPain
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
                                QGraphicsRectItem, QGraphicsPathItem, QGraphicsView)
 
+from .commands.add_command import AddCommand
+from .commands.delete_command import DeleteCommand
+from .commands.move_command import MoveCommand
+from .editable_bezier import EditableBezierCurveItem
 from .grid_scene import GridScene
 from .ui.template import Ui_MainWindow
-from .editable_bezier import EditableBezierCurveItem
 
 
 class MainWindow(QMainWindow):
@@ -14,12 +17,11 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # self.scene = QGraphicsScene()
         self.scene = GridScene(spacing=50)
         self.scene.setSceneRect(-5000, -5000, 10000, 10000)
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
-        self.ui.graphicsView.scale(1, -1)  # 1 пикселей на 1 юнит, переворачиваем Y
+        self.ui.graphicsView.scale(1, -1)  # 1 пиксель на 1 юнит, переворачиваем Y
         self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
         self.selected_items = set()
@@ -41,8 +43,8 @@ class MainWindow(QMainWindow):
         self.curve_points = []
         self.temp_curve_item = None
 
-        # self.temp_curve_item = EditableBezierCurveItem(self.curve_points, pen=self.default_pen)
-        # self.temp_curve_item.setScene(self.scene)
+        # Стек для отмены действий
+        self.undo_stack = []
 
         # Подключаем инструменты
         self.ui.actionSelect.triggered.connect(lambda: self.set_tool('select'))
@@ -62,7 +64,9 @@ class MainWindow(QMainWindow):
     def finish_curve(self):
         if len(self.curve_points) > 1:
             curve = EditableBezierCurveItem(self.curve_points, pen=self.default_pen, scene=self.scene)
-            curve.add_to_scene()
+            command = AddCommand(self.scene, curve)
+            command.execute()
+            self.undo_stack.append(command)
             self.select_item(curve)
         if self.temp_curve_item:
             self.scene.removeItem(self.temp_curve_item)
@@ -139,36 +143,30 @@ class MainWindow(QMainWindow):
         return True
 
     def update_curve(self):
+        """Обновляет отображение текущей кривой"""
         if not self.curve_points or not self.temp_curve_item:
             return
 
         path = QPainterPath()
         path.moveTo(self.curve_points[0])
 
-        # Если только одна точка, ничего не рисуем
         if len(self.curve_points) < 2:
             self.temp_curve_item.setPath(path)
             return
 
-        # Вычисляем контрольные точки для каждого сегмента
         for i in range(1, len(self.curve_points)):
             p0 = self.curve_points[i - 1]
             p1 = self.curve_points[i]
 
-            # Контрольные точки для текущего сегмента
             if i == 1:
-                # Для первого сегмента контрольная точка ближе к p1
                 ctrl1 = p0 + (p1 - p0) * 0.33
             else:
-                # Для промежуточных точек используем симметрию относительно p0
                 prev_p = self.curve_points[i - 2]
-                ctrl1 = p0 + (p0 - prev_p) * 0.33  # Симметричное продолжение
+                ctrl1 = p0 + (p0 - prev_p) * 0.33
 
             if i == len(self.curve_points) - 1:
-                # Для последнего сегмента контрольная точка ближе к p0
                 ctrl2 = p1 - (p1 - p0) * 0.33
             else:
-                # Для промежуточных точек используем следующую точку
                 next_p = self.curve_points[i + 1]
                 ctrl2 = p1 - (next_p - p1) * 0.33
 
@@ -210,10 +208,25 @@ class MainWindow(QMainWindow):
 
         self.selected_items = new_selection
 
+    def select_all(self):
+        self.clear_selection()
+        for item in self.scene.items():
+            if isinstance(item, (QGraphicsLineItem, QGraphicsRectItem,
+                                 QGraphicsEllipseItem, EditableBezierCurveItem)):
+                self.select_item(item)
+
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Delete and self.selected_items:
-            for item in list(self.selected_items):
-                self.scene.removeItem(item)
+        if event.modifiers() & Qt.ControlModifier and event.key() == Qt.Key_A:
+            self.select_all()
+        elif event.modifiers() & Qt.ControlModifier and event.key() == Qt.Key_Z:
+            if self.undo_stack:
+                command = self.undo_stack.pop()
+                command.undo()
+                self.clear_selection()  # Очищаем выделение после отмены
+        elif event.key() == Qt.Key_Delete and self.selected_items:
+            command = DeleteCommand(self.scene, list(self.selected_items))
+            command.execute()
+            self.undo_stack.append(command)
             self.selected_items.clear()
 
     def mouse_move(self, event: QMouseEvent):
@@ -237,7 +250,6 @@ class MainWindow(QMainWindow):
 
         if self.current_tool == 'curve':
             if self.temp_curve_item and self.curve_points:
-                # Создаем временный список точек, добавляя текущую позицию мыши
                 temp_points = self.curve_points + [scene_pos]
                 path = QPainterPath()
                 path.moveTo(temp_points[0])
@@ -284,6 +296,11 @@ class MainWindow(QMainWindow):
             if self.selection_rect:
                 self.scene.removeItem(self.selection_rect)
                 self.selection_rect = None
+            if self.moving_items and self.selected_items:
+                delta = self.ui.graphicsView.mapToScene(event.position().toPoint()) - self.move_start_pos
+                if delta.x() != 0 or delta.y() != 0:  # Добавляем команду только если было перемещение
+                    command = MoveCommand(list(self.selected_items), delta)
+                    self.undo_stack.append(command)
             self.moving_items = False
         elif self.current_tool == 'curve':
             if event.button() == Qt.RightButton:  # Завершаем кривую ПКМ
@@ -292,6 +309,8 @@ class MainWindow(QMainWindow):
         else:
             if self.temp_item:
                 self.temp_item.setPen(self.default_pen)
+                command = AddCommand(self.scene, self.temp_item)
+                self.undo_stack.append(command)
                 self.select_item(self.temp_item)
 
         self.temp_item = None
