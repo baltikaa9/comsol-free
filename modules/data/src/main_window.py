@@ -24,11 +24,10 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.scene = GridScene(spacing=1)
-        self.scene.setSceneRect(-5000, -5000, 10000, 10000)
+        self.scene.setSceneRect(-500, -500, 1000, 1000)
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
-        # self.ui.graphicsView.scale(1, -1)
-        self.grid_spacing = 10  # пикселей на одну клетку
+        self.grid_spacing = 50  # пикселей на одну клетку
         self.ui.graphicsView.scale(self.grid_spacing, -self.grid_spacing)
         self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 

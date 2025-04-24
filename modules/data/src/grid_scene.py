@@ -28,19 +28,19 @@ class GridScene(QGraphicsScene):
         x = left
         while x < rect.right():
             painter.setPen(self.grid_pen)
-            painter.drawLine(x, rect.top(), x, rect.bottom())
+            painter.drawLine(x, rect.top() - 1, x, rect.bottom() + 1)
             x += self.spacing
 
         y = top
         while y < rect.bottom():
             painter.setPen(self.grid_pen)
-            painter.drawLine(rect.left(), y, rect.right(), y)
+            painter.drawLine(rect.left() - 1, y, rect.right() + 1, y)
             y += self.spacing
 
         # 2) рисуем толстые оси
         painter.setPen(self.axis_pen)
-        painter.drawLine(rect.left(), 0, rect.right(), 0)   # X‑ось
-        painter.drawLine(0, rect.top(),   0, rect.bottom()) # Y‑ось
+        painter.drawLine(rect.left() - 1, 0, rect.right() + 1, 0)   # X‑ось
+        painter.drawLine(0, rect.top() - 1,   0, rect.bottom() + 1) # Y‑ось
 
     def update_labels(self, rect: QRectF):
         # Удаляем старые метки
