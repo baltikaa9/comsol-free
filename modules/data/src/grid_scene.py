@@ -15,7 +15,7 @@ class GridScene(QGraphicsScene):
         self.spacing = spacing
         self.grid_pen = QPen(Qt.lightGray, 0)
         self.axis_pen = QPen(Qt.black, 0)
-        self.font = QFont("Arial",  8)  # размер шрифта для меток
+        self.font = QFont("Arial",  6)  # размер шрифта для меток
         self._labels = []
         # Как только изменяется область сцены, перерисуем все метки:
         self.sceneRectChanged.connect(self.update_labels)
@@ -58,7 +58,7 @@ class GridScene(QGraphicsScene):
             lab = QGraphicsTextItem(str(unit))
             lab.setFont(self.font)
             lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
-            lab.setPos(QPointF(x + 2, 2))
+            lab.setPos(QPointF(x, 0))
             self.addItem(lab)
             self._labels.append(lab)
             x += self.spacing
@@ -72,8 +72,7 @@ class GridScene(QGraphicsScene):
                 lab = QGraphicsTextItem(str(unit))
                 lab.setFont(self.font)
                 lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
-                # Смещение вниз, чтобы текст не пересекал линию
-                lab.setPos(QPointF(2, y - 2))
+                lab.setPos(QPointF(0, y))
                 self.addItem(lab)
                 self._labels.append(lab)
             y += self.spacing

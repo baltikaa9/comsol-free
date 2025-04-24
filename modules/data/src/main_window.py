@@ -28,14 +28,14 @@ class MainWindow(QMainWindow):
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
         # self.ui.graphicsView.scale(1, -1)
-        self.grid_spacing = 50  # пикселей на одну клетку
+        self.grid_spacing = 10  # пикселей на одну клетку
         self.ui.graphicsView.scale(self.grid_spacing, -self.grid_spacing)
         self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
         self.selected_items = set()
-        self.default_pen = QPen(Qt.black, 2)
-        self.selected_pen = QPen(Qt.red, 2)
-        self.selection_pen = QPen(Qt.blue, 1, Qt.DashLine)
+        self.default_pen = QPen(Qt.black, 0)
+        self.selected_pen = QPen(Qt.red, 0)
+        self.selection_pen = QPen(Qt.blue, 0, Qt.DashLine)
         self.selection_brush = QBrush(QColor(0, 0, 255, 50))
 
         self.dragging = False
