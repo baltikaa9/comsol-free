@@ -1,12 +1,12 @@
 import math
 import numpy as np
-from PySide6.QtCore import Qt, QPointF, QRectF, QEvent
-from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainter
-from PySide6.QtGui import QPainterPath
+from PySide6.QtCore import Qt, QPointF, QRectF, QEvent, QLineF
+from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainter, QPainterPath, QTransform
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
-                               QGraphicsRectItem, QGraphicsView, QDialog, QGraphicsItem)
-from PySide6.QtWidgets import QGraphicsPathItem
+                               QGraphicsRectItem, QGraphicsView, QDialog, QGraphicsPathItem, QInputDialog,
+                               QGraphicsItem)
 
+from .commands.command import Command
 from .commands.add_command import AddCommand
 from .commands.delete_command import DeleteCommand
 from .commands.move_command import MoveCommand
@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.scene = GridScene(spacing=50)
-        self.scene.setSceneRect(-500, -500, 1000, 1000)
+        self.scene.setSceneRect(-5000, -5000, 10000, 10000)
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
         self.grid_spacing = 1
@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         self.curve_points = []
         self.temp_curve_item = None
 
-        self.undo_stack = []
+        self.undo_stack: list[Command] = []
 
         self.ui.actionSelect.triggered.connect(lambda: self.set_tool('select'))
         self.ui.actionDrawLine.triggered.connect(lambda: self.set_tool('line'))
@@ -340,22 +340,14 @@ class MainWindow(QMainWindow):
             return
 
         item = selected[0]
-
-        from PySide6.QtWidgets import QInputDialog
         axis, ok = QInputDialog.getItem(
             self, 'Выбор оси отражения',
             'Отразить по оси:',
             ['По горизонтали (X)', 'По вертикали (Y)', 'По диагонали (XY)'],
             0, False
         )
-
         if not ok:
             return
-
-        path = item.path()
-        center = path.boundingRect().center()
-
-        from PySide6.QtGui import QTransform
 
         if axis == 'По горизонтали (X)':
             transform = QTransform().scale(1, -1)
@@ -366,8 +358,40 @@ class MainWindow(QMainWindow):
         else:
             return
 
-        path = transform.map(path)
-        item.setPath(path)
+        pen = item.pen()  # Копируем стиль пера
+        bounding_rect = item.sceneBoundingRect()
+
+        if isinstance(item, QGraphicsLineItem):
+            line = item.line()
+            new_line = transform.map(line)
+            new_item = QGraphicsLineItem(new_line)
+        elif isinstance(item, QGraphicsRectItem):
+            rect = item.rect()
+            new_rect = transform.mapRect(rect)
+            new_item = QGraphicsRectItem(new_rect)
+        elif isinstance(item, QGraphicsEllipseItem):
+            rect = item.rect()
+            new_rect = transform.mapRect(rect)
+            new_item = QGraphicsEllipseItem(new_rect)
+        elif isinstance(item, QGraphicsPathItem):
+            path = item.path()
+            new_path = transform.map(path)
+            new_item = QGraphicsPathItem(new_path)
+        elif isinstance(item, EditableBezierCurveItem):
+            points = item.get_control_points()
+            new_points = [transform.map(p) for p in points]
+            new_item = EditableBezierCurveItem(new_points, pen=pen, scene=self.scene)
+        else:
+            print(f'Тип фигуры не поддерживается для отражения: {type(item)}')
+            return
+
+        # Настраиваем новый элемент
+        new_item.setPen(pen)
+        new_item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        command = AddCommand(self.scene, new_item)
+        command.execute()
+        self.undo_stack.append(command)
+        self.select_item(new_item)
 
     def boolean_operation(self, op_type: str):
         selected = self.scene.selectedItems()
