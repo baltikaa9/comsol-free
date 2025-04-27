@@ -76,6 +76,7 @@ class MainWindow(QMainWindow):
     def finish_curve(self):
         if len(self.curve_points) > 1:
             curve = EditableBezierCurveItem(self.curve_points, pen=self.default_pen, scene=self.scene)
+            curve.setFlag(QGraphicsPathItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
             command = AddCommand(self.scene, curve)
             command.execute()
             self.undo_stack.append(command)
@@ -110,6 +111,7 @@ class MainWindow(QMainWindow):
 
         item = QGraphicsPathItem(path)
         item.setPen(self.default_pen)
+        item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
         self.scene.addItem(item)
         self.select_item(item)
 
@@ -174,6 +176,7 @@ class MainWindow(QMainWindow):
             elif self.current_tool == 'circle':
                 self.temp_item = QGraphicsEllipseItem()
             self.temp_item.setPen(self.default_pen)
+            self.temp_item.setFlag(QGraphicsLineItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
             self.scene.addItem(self.temp_item)
         return True
 
@@ -210,10 +213,14 @@ class MainWindow(QMainWindow):
             self.selected_items.add(item)
 
     def select_item(self, item):
+        # self.scene.clearSelection()
         item.setPen(self.selected_pen)
+        self.scene.selectedItems().append(item)
+        item.setSelected(True)
         self.selected_items.add(item)
 
     def clear_selection(self):
+        self.scene.clearSelection()
         for item in self.selected_items:
             item.setPen(self.default_pen)
         self.selected_items.clear()
@@ -397,6 +404,7 @@ class MainWindow(QMainWindow):
         # Создаём новый элемент
         new_item = QGraphicsPathItem(result)
         new_item.setPen(self.default_pen)
+        new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
         self.scene.addItem(new_item)
 
         # Удаляем старые
