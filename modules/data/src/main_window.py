@@ -1,18 +1,21 @@
 import math
 import numpy as np
-from PySide6.QtCore import Qt, QPointF, QRectF, QEvent, QLineF
+from PySide6.QtCore import Qt, QPointF, QRectF, QEvent, QLineF, QSizeF
 from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainter, QPainterPath, QTransform
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
                                QGraphicsRectItem, QGraphicsView, QDialog, QGraphicsPathItem, QInputDialog,
-                               QGraphicsItem)
+                               QGraphicsItem, QFormLayout, QLineEdit, QPushButton, QDialogButtonBox)
 
-from .commands.command import Command
+from modules.data.src.dialogs.bezier_dialog import BezierDialog
+from modules.data.src.dialogs.ellipse_dialog import EllipseDialog
+from modules.data.src.dialogs.line_dialog import LineDialog
+from modules.data.src.dialogs.rect_dialog import RectDialog
 from .commands.add_command import AddCommand
 from .commands.delete_command import DeleteCommand
 from .commands.move_command import MoveCommand
 from .editable_bezier import EditableBezierCurveItem
 from .grid_scene import GridScene
-from .parametric_dialog import ParametricDialog
+from .dialogs.parametric_dialog import ParametricDialog
 from .ui.template import Ui_MainWindow
 
 
@@ -49,13 +52,17 @@ class MainWindow(QMainWindow):
         self.curve_points = []
         self.temp_curve_item = None
 
-        self.undo_stack: list[Command] = []
+        self.undo_stack = []
 
         self.ui.actionSelect.triggered.connect(lambda: self.set_tool('select'))
         self.ui.actionDrawLine.triggered.connect(lambda: self.set_tool('line'))
+        self.ui.actionDrawLineByParams.triggered.connect(self.on_draw_line_by_params)
         self.ui.actionDrawRect.triggered.connect(lambda: self.set_tool('rect'))
+        self.ui.actionDrawRectByParams.triggered.connect(self.on_draw_rect_by_params)
         self.ui.actionDrawCircle.triggered.connect(lambda: self.set_tool('circle'))
+        self.ui.actionDrawCircleByParams.triggered.connect(self.on_draw_circle_by_params)
         self.ui.actionDrawCurve.triggered.connect(lambda: self.set_tool('curve'))
+        self.ui.actionDrawCurveByParams.triggered.connect(self.on_draw_curve_by_params)
         self.ui.actionDrawParametric.triggered.connect(self.on_draw_parametric)
         self.ui.actionUnion.triggered.connect(self.perform_union)
         self.ui.actionDifference.triggered.connect(self.perform_difference)
@@ -70,6 +77,81 @@ class MainWindow(QMainWindow):
             self.finish_curve()
         self.current_tool = tool
         print(f'Current tool set to: {tool}')
+
+    def on_draw_line_by_params(self):
+        dlg = LineDialog(self)
+        if dlg.exec() != QDialog.Accepted:
+            return
+        data = dlg.get_data()
+        if not data:
+            print("Invalid line parameters")
+            return
+
+        scale = self.scene.spacing
+        line = QLineF(data['start'] * scale, data['end'] * scale)
+        item = QGraphicsLineItem(line)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        command = AddCommand(self.scene, item)
+        command.execute()
+        self.undo_stack.append(command)
+        self.select_item(item)
+
+    def on_draw_rect_by_params(self):
+        dlg = RectDialog(self)
+        if dlg.exec() != QDialog.Accepted:
+            return
+        data = dlg.get_data()
+        if not data:
+            print("Invalid rectangle parameters")
+            return
+
+        scale = self.scene.spacing
+        rect = QRectF(data['top_left'] * scale, QSizeF(data['width'] * scale, data['height'] * scale))
+        item = QGraphicsRectItem(rect)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        command = AddCommand(self.scene, item)
+        command.execute()
+        self.undo_stack.append(command)
+        self.select_item(item)
+
+    def on_draw_circle_by_params(self):
+        dlg = EllipseDialog(self)
+        if dlg.exec() != QDialog.Accepted:
+            return
+        data = dlg.get_data()
+        if not data:
+            print("Invalid ellipse parameters")
+            return
+
+        scale = self.scene.spacing
+        rect = QRectF(data['center'].x() * scale - data['radius_x'] * scale,
+                      data['center'].y() * scale - data['radius_y'] * scale,
+                      2 * data['radius_x'] * scale, 2 * data['radius_y'] * scale)
+        item = QGraphicsEllipseItem(rect)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        command = AddCommand(self.scene, item)
+        command.execute()
+        self.undo_stack.append(command)
+        self.select_item(item)
+
+    def on_draw_curve_by_params(self):
+        dlg = BezierDialog(self)
+        if dlg.exec() != QDialog.Accepted:
+            return
+        points = dlg.get_data()
+        if not points:
+            print("Invalid Bezier curve parameters")
+            return
+
+        item = EditableBezierCurveItem(points, pen=self.default_pen, scene=self.scene)
+        item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
+        command = AddCommand(self.scene, item)
+        command.execute()
+        self.undo_stack.append(command)
+        self.select_item(item)
 
     def finish_curve(self):
         if len(self.curve_points) > 1:
@@ -95,12 +177,16 @@ class MainWindow(QMainWindow):
         }
 
         data = dlg.get_data()
+        if not data:
+            print("Invalid parametric curve parameters")
+            return
+
         t_vals = np.linspace(data['t_min'], data['t_max'], data['samples'])
         try:
             x_vals = [eval(data['x_expr'], {'t': t, **safe_globals}) for t in t_vals]
             y_vals = [eval(data['y_expr'], {'t': t, **safe_globals}) for t in t_vals]
         except Exception as e:
-            print(f'Ошибка в выражении: {e}')
+            print(f'Error in expression: {e}')
             return
 
         scale = self.scene.spacing
@@ -115,7 +201,9 @@ class MainWindow(QMainWindow):
         item = QGraphicsPathItem(path)
         item.setPen(self.default_pen)
         item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
-        self.scene.addItem(item)
+        command = AddCommand(self.scene, item)
+        command.execute()
+        self.undo_stack.append(command)
         self.select_item(item)
 
     def eventFilter(self, obj, event):
@@ -151,7 +239,8 @@ class MainWindow(QMainWindow):
                         self.clear_selection()
                     item.setSelected(True)
                 self.moving_items = True
-                self.move_start_pos = self.move_initial_pos = scene_pos  # Запоминаем начальную точку мыши
+                self.move_initial_pos = scene_pos
+                self.move_start_pos = scene_pos
             else:
                 self.selection_rect = QGraphicsRectItem()
                 self.selection_rect.setPen(self.selection_pen)
@@ -244,11 +333,9 @@ class MainWindow(QMainWindow):
             if self.moving_items:
                 selected = self.scene.selectedItems()
                 if selected:
-                    # Вычисляем полное смещение от начальной до конечной точки мыши
                     scene_pos = self.ui.graphicsView.mapToScene(event.position().toPoint())
                     delta = scene_pos - self.move_initial_pos
                     if delta.x() != 0 or delta.y() != 0:
-                        # Создаём команду для отмены перемещения
                         command = MoveCommand(selected, delta)
                         self.undo_stack.append(command)
                 self.moving_items = False
@@ -425,6 +512,7 @@ class MainWindow(QMainWindow):
         self.scene.removeItem(item2)
 
         self.select_item(new_item)
+
 
 if __name__ == '__main__':
     app = QApplication([])

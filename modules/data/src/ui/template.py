@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'template4.ui'
+## Form generated from reading UI file 'template5.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -31,12 +31,20 @@ class Ui_MainWindow(object):
         self.actionSelect.setObjectName(u"actionSelect")
         self.actionDrawLine = QAction(MainWindow)
         self.actionDrawLine.setObjectName(u"actionDrawLine")
+        self.actionDrawLineByParams = QAction(MainWindow)
+        self.actionDrawLineByParams.setObjectName(u"actionDrawLineByParams")
         self.actionDrawRect = QAction(MainWindow)
         self.actionDrawRect.setObjectName(u"actionDrawRect")
+        self.actionDrawRectByParams = QAction(MainWindow)
+        self.actionDrawRectByParams.setObjectName(u"actionDrawRectByParams")
         self.actionDrawCircle = QAction(MainWindow)
         self.actionDrawCircle.setObjectName(u"actionDrawCircle")
+        self.actionDrawCircleByParams = QAction(MainWindow)
+        self.actionDrawCircleByParams.setObjectName(u"actionDrawCircleByParams")
         self.actionDrawCurve = QAction(MainWindow)
         self.actionDrawCurve.setObjectName(u"actionDrawCurve")
+        self.actionDrawCurveByParams = QAction(MainWindow)
+        self.actionDrawCurveByParams.setObjectName(u"actionDrawCurveByParams")
         self.actionDrawParametric = QAction(MainWindow)
         self.actionDrawParametric.setObjectName(u"actionDrawParametric")
         self.actionUnion = QAction(MainWindow)
@@ -85,9 +93,13 @@ class Ui_MainWindow(object):
 
         self.mainToolBar.addAction(self.actionSelect)
         self.mainToolBar.addAction(self.actionDrawLine)
+        self.mainToolBar.addAction(self.actionDrawLineByParams)
         self.mainToolBar.addAction(self.actionDrawRect)
+        self.mainToolBar.addAction(self.actionDrawRectByParams)
         self.mainToolBar.addAction(self.actionDrawCircle)
+        self.mainToolBar.addAction(self.actionDrawCircleByParams)
         self.mainToolBar.addAction(self.actionDrawCurve)
+        self.mainToolBar.addAction(self.actionDrawCurveByParams)
         self.mainToolBar.addAction(self.actionDrawParametric)
         self.mainToolBar.addAction(self.actionUnion)
         self.mainToolBar.addAction(self.actionDifference)
@@ -102,10 +114,14 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.actionSelect.setText(QCoreApplication.translate("MainWindow", u"Select", None))
-        self.actionDrawLine.setText(QCoreApplication.translate("MainWindow", u"Draw Line", None))
-        self.actionDrawRect.setText(QCoreApplication.translate("MainWindow", u"Draw Rectangle", None))
-        self.actionDrawCircle.setText(QCoreApplication.translate("MainWindow", u"Draw Circle", None))
-        self.actionDrawCurve.setText(QCoreApplication.translate("MainWindow", u"Draw Curve", None))
+        self.actionDrawLine.setText(QCoreApplication.translate("MainWindow", u"Draw Line (Mouse)", None))
+        self.actionDrawLineByParams.setText(QCoreApplication.translate("MainWindow", u"Draw Line (Params)", None))
+        self.actionDrawRect.setText(QCoreApplication.translate("MainWindow", u"Draw Rectangle (Mouse)", None))
+        self.actionDrawRectByParams.setText(QCoreApplication.translate("MainWindow", u"Draw Rectangle (Params)", None))
+        self.actionDrawCircle.setText(QCoreApplication.translate("MainWindow", u"Draw Circle (Mouse)", None))
+        self.actionDrawCircleByParams.setText(QCoreApplication.translate("MainWindow", u"Draw Circle (Params)", None))
+        self.actionDrawCurve.setText(QCoreApplication.translate("MainWindow", u"Draw Curve (Mouse)", None))
+        self.actionDrawCurveByParams.setText(QCoreApplication.translate("MainWindow", u"Draw Curve (Params)", None))
         self.actionDrawParametric.setText(QCoreApplication.translate("MainWindow", u"Draw Parametric Curve", None))
         self.actionUnion.setText(QCoreApplication.translate("MainWindow", u"Union", None))
         self.actionDifference.setText(QCoreApplication.translate("MainWindow", u"Difference", None))
