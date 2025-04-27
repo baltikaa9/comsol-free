@@ -58,13 +58,13 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionSelect"/>
-   <addaction name="actionDrawLine"/>
+<!--   <addaction name="actionDrawLine"/>-->
    <addaction name="actionDrawLineByParams"/>
-   <addaction name="actionDrawRect"/>
+<!--   <addaction name="actionDrawRect"/>-->
    <addaction name="actionDrawRectByParams"/>
-   <addaction name="actionDrawCircle"/>
+<!--   <addaction name="actionDrawCircle"/>-->
    <addaction name="actionDrawCircleByParams"/>
-   <addaction name="actionDrawCurve"/>
+<!--   <addaction name="actionDrawCurve"/>-->
    <addaction name="actionDrawCurveByParams"/>
    <addaction name="actionDrawParametric"/>
    <addaction name="actionUnion"/>
@@ -74,72 +74,72 @@
   </widget>
   <action name="actionSelect">
    <property name="text">
-    <string>Select</string>
+    <string>Выбор</string>
    </property>
   </action>
-  <action name="actionDrawLine">
-   <property name="text">
-    <string>Draw Line (Mouse)</string>
-   </property>
-  </action>
+<!--  <action name="actionDrawLine">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Line (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
   <action name="actionDrawLineByParams">
    <property name="text">
-    <string>Draw Line (Params)</string>
+    <string>Прямая</string>
    </property>
   </action>
-  <action name="actionDrawRect">
-   <property name="text">
-    <string>Draw Rectangle (Mouse)</string>
-   </property>
-  </action>
+<!--  <action name="actionDrawRect">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Rectangle (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
   <action name="actionDrawRectByParams">
    <property name="text">
-    <string>Draw Rectangle (Params)</string>
+    <string>Прямоугольник</string>
    </property>
   </action>
-  <action name="actionDrawCircle">
-   <property name="text">
-    <string>Draw Circle (Mouse)</string>
-   </property>
-  </action>
+<!--  <action name="actionDrawCircle">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Circle (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
   <action name="actionDrawCircleByParams">
    <property name="text">
-    <string>Draw Circle (Params)</string>
+    <string>Эллипс</string>
    </property>
   </action>
-  <action name="actionDrawCurve">
-   <property name="text">
-    <string>Draw Curve (Mouse)</string>
-   </property>
-  </action>
+<!--  <action name="actionDrawCurve">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Curve (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
   <action name="actionDrawCurveByParams">
    <property name="text">
-    <string>Draw Curve (Params)</string>
+    <string>Кривая Безье</string>
    </property>
   </action>
   <action name="actionDrawParametric">
    <property name="text">
-    <string>Draw Parametric Curve</string>
+    <string>Параметрическая кривая</string>
    </property>
   </action>
   <action name="actionUnion">
     <property name="text">
-     <string>Union</string>
+     <string>Объединение</string>
     </property>
    </action>
    <action name="actionDifference">
     <property name="text">
-     <string>Difference</string>
+     <string>Разница</string>
     </property>
    </action>
    <action name="actionIntersection">
     <property name="text">
-     <string>Intersection</string>
+     <string>Пересечение</string>
     </property>
    </action>
    <action name="actionMirror">
     <property name="text">
-     <string>Mirror</string>
+     <string>Отражение</string>
     </property>
    </action>
  </widget>

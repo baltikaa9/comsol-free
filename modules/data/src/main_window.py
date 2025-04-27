@@ -1,10 +1,11 @@
 import math
+
 import numpy as np
 from PySide6.QtCore import Qt, QPointF, QRectF, QEvent, QLineF, QSizeF
 from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainter, QPainterPath, QTransform
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
                                QGraphicsRectItem, QGraphicsView, QDialog, QGraphicsPathItem, QInputDialog,
-                               QGraphicsItem, QFormLayout, QLineEdit, QPushButton, QDialogButtonBox)
+                               QGraphicsItem)
 
 from modules.data.src.dialogs.bezier_dialog import BezierDialog
 from modules.data.src.dialogs.ellipse_dialog import EllipseDialog
@@ -13,9 +14,9 @@ from modules.data.src.dialogs.rect_dialog import RectDialog
 from .commands.add_command import AddCommand
 from .commands.delete_command import DeleteCommand
 from .commands.move_command import MoveCommand
+from .dialogs.parametric_dialog import ParametricDialog
 from .editable_bezier import EditableBezierCurveItem
 from .grid_scene import GridScene
-from .dialogs.parametric_dialog import ParametricDialog
 from .ui.template import Ui_MainWindow
 
 
@@ -54,14 +55,9 @@ class MainWindow(QMainWindow):
 
         self.undo_stack = []
 
-        self.ui.actionSelect.triggered.connect(lambda: self.set_tool('select'))
-        self.ui.actionDrawLine.triggered.connect(lambda: self.set_tool('line'))
         self.ui.actionDrawLineByParams.triggered.connect(self.on_draw_line_by_params)
-        self.ui.actionDrawRect.triggered.connect(lambda: self.set_tool('rect'))
         self.ui.actionDrawRectByParams.triggered.connect(self.on_draw_rect_by_params)
-        self.ui.actionDrawCircle.triggered.connect(lambda: self.set_tool('circle'))
         self.ui.actionDrawCircleByParams.triggered.connect(self.on_draw_circle_by_params)
-        self.ui.actionDrawCurve.triggered.connect(lambda: self.set_tool('curve'))
         self.ui.actionDrawCurveByParams.triggered.connect(self.on_draw_curve_by_params)
         self.ui.actionDrawParametric.triggered.connect(self.on_draw_parametric)
         self.ui.actionUnion.triggered.connect(self.perform_union)
@@ -71,20 +67,13 @@ class MainWindow(QMainWindow):
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
-    def set_tool(self, tool):
-        if tool != self.current_tool:
-            self.clear_selection()
-            self.finish_curve()
-        self.current_tool = tool
-        print(f'Current tool set to: {tool}')
-
     def on_draw_line_by_params(self):
         dlg = LineDialog(self)
         if dlg.exec() != QDialog.Accepted:
             return
         data = dlg.get_data()
         if not data:
-            print("Invalid line parameters")
+            print('Invalid line parameters')
             return
 
         scale = self.scene.spacing
@@ -103,7 +92,7 @@ class MainWindow(QMainWindow):
             return
         data = dlg.get_data()
         if not data:
-            print("Invalid rectangle parameters")
+            print('Invalid rectangle parameters')
             return
 
         scale = self.scene.spacing
@@ -122,7 +111,7 @@ class MainWindow(QMainWindow):
             return
         data = dlg.get_data()
         if not data:
-            print("Invalid ellipse parameters")
+            print('Invalid ellipse parameters')
             return
 
         scale = self.scene.spacing
@@ -143,7 +132,7 @@ class MainWindow(QMainWindow):
             return
         points = dlg.get_data()
         if not points:
-            print("Invalid Bezier curve parameters")
+            print('Invalid Bezier curve parameters')
             return
 
         item = EditableBezierCurveItem(points, pen=self.default_pen, scene=self.scene)
@@ -178,7 +167,7 @@ class MainWindow(QMainWindow):
 
         data = dlg.get_data()
         if not data:
-            print("Invalid parametric curve parameters")
+            print('Invalid parametric curve parameters')
             return
 
         t_vals = np.linspace(data['t_min'], data['t_max'], data['samples'])
@@ -225,95 +214,47 @@ class MainWindow(QMainWindow):
         self.start_point = scene_pos
         self.last_selection_rect = QRectF()
 
-        if event.button() != Qt.LeftButton and self.current_tool != 'curve':
+        if event.button() != Qt.LeftButton:
             return False
 
-        if self.current_tool == 'select':
-            item = self.scene.itemAt(scene_pos, self.ui.graphicsView.transform())
-            ctrl_pressed = event.modifiers() & Qt.ControlModifier
-            if item:
-                if ctrl_pressed:
-                    item.setSelected(not item.isSelected())
-                else:
-                    if not item.isSelected():
-                        self.clear_selection()
-                    item.setSelected(True)
-                self.moving_items = True
-                self.move_initial_pos = scene_pos
-                self.move_start_pos = scene_pos
+        item = self.scene.itemAt(scene_pos, self.ui.graphicsView.transform())
+        ctrl_pressed = event.modifiers() & Qt.ControlModifier
+        if item:
+            if ctrl_pressed:
+                item.setSelected(not item.isSelected())
             else:
-                self.selection_rect = QGraphicsRectItem()
-                self.selection_rect.setPen(self.selection_pen)
-                self.selection_brush = QBrush(QColor(0, 0, 255, 50))
-                self.selection_rect.setBrush(self.selection_brush)
-                self.scene.addItem(self.selection_rect)
-        elif self.current_tool == 'curve':
-            if event.button() == Qt.LeftButton:
-                if not self.curve_points:
-                    self.curve_points = [scene_pos]
-                    path = QPainterPath()
-                    path.moveTo(scene_pos)
-                    self.temp_curve_item = QGraphicsPathItem(path)
-                    self.temp_curve_item.setPen(self.default_pen)
-                    self.scene.addItem(self.temp_curve_item)
-                else:
-                    self.curve_points.append(scene_pos)
-                    self.update_curve()
-            return True
-        elif self.current_tool in ['line', 'rect', 'circle']:
-            self.clear_selection()
-            if self.current_tool == 'line':
-                self.temp_item = QGraphicsLineItem()
-            elif self.current_tool == 'rect':
-                self.temp_item = QGraphicsRectItem()
-            elif self.current_tool == 'circle':
-                self.temp_item = QGraphicsEllipseItem()
-            self.temp_item.setPen(self.default_pen)
-            self.temp_item.setFlag(QGraphicsItem.ItemIsSelectable, True)
-            self.scene.addItem(self.temp_item)
+                if not item.isSelected():
+                    self.clear_selection()
+                item.setSelected(True)
+            self.moving_items = True
+            self.move_initial_pos = scene_pos
+            self.move_start_pos = scene_pos
+        else:
+            self.selection_rect = QGraphicsRectItem()
+            self.selection_rect.setPen(self.selection_pen)
+            self.selection_brush = QBrush(QColor(0, 0, 255, 50))
+            self.selection_rect.setBrush(self.selection_brush)
+            self.scene.addItem(self.selection_rect)
         return True
 
     def mouse_move(self, event: QMouseEvent):
         scene_pos = self.ui.graphicsView.mapToScene(event.position().toPoint())
-        if self.current_tool == 'select':
-            if self.moving_items:
-                selected = self.scene.selectedItems()
-                if selected:
-                    delta = scene_pos - self.move_start_pos
-                    for item in selected:
-                        item.moveBy(delta.x(), delta.y())
-                    self.move_start_pos = scene_pos
-                return True
-            elif self.selection_rect:
-                rect = QRectF(self.start_point, scene_pos).normalized()
-                self.selection_rect.setRect(rect)
-                if rect != self.last_selection_rect:
-                    self.update_selection(rect)
-                    self.last_selection_rect = rect
-                return True
-        elif self.current_tool == 'curve':
-            if self.temp_curve_item and self.curve_points:
-                temp_points = self.curve_points + [scene_pos]
-                path = QPainterPath()
-                path.moveTo(temp_points[0])
-                for i in range(1, len(temp_points)):
-                    p0 = temp_points[i - 1]
-                    p1 = temp_points[i]
-                    if i == 1:
-                        ctrl1 = p0 + (p1 - p0) * 0.33
-                    else:
-                        prev_p = self.curve_points[i - 2]
-                        ctrl1 = p0 + (p0 - prev_p) * 0.33
-                    if i == len(temp_points) - 1:
-                        ctrl2 = p1 - (p1 - p0) * 0.33
-                    else:
-                        next_p = temp_points[i + 1] if i + 1 < len(temp_points) else p1
-                        ctrl2 = p1 - (next_p - p1) * 0.33
-                    path.cubicTo(ctrl1, ctrl2, p1)
-                self.temp_curve_item.setPath(path)
+        if self.moving_items:
+            selected = self.scene.selectedItems()
+            if selected:
+                delta = scene_pos - self.move_start_pos
+                for item in selected:
+                    item.moveBy(delta.x(), delta.y())
+                self.move_start_pos = scene_pos
             return True
-        elif not self.temp_item or not self.start_point:
+        elif self.selection_rect:
+            rect = QRectF(self.start_point, scene_pos).normalized()
+            self.selection_rect.setRect(rect)
+            if rect != self.last_selection_rect:
+                self.update_selection(rect)
+                self.last_selection_rect = rect
             return True
+
         current_pos = scene_pos
         rect = QRectF(self.start_point, current_pos).normalized()
         if isinstance(self.temp_item, QGraphicsLineItem):
@@ -326,31 +267,19 @@ class MainWindow(QMainWindow):
         return True
 
     def mouse_release(self, event: QMouseEvent):
-        if self.current_tool == 'select':
-            if self.selection_rect:
-                self.scene.removeItem(self.selection_rect)
-                self.selection_rect = None
-            if self.moving_items:
-                selected = self.scene.selectedItems()
-                if selected:
-                    scene_pos = self.ui.graphicsView.mapToScene(event.position().toPoint())
-                    delta = scene_pos - self.move_initial_pos
-                    if delta.x() != 0 or delta.y() != 0:
-                        command = MoveCommand(selected, delta)
-                        self.undo_stack.append(command)
-                self.moving_items = False
-        elif self.current_tool == 'curve':
-            if event.button() == Qt.RightButton:
-                self.finish_curve()
-            return True
-        elif self.current_tool in ['line', 'rect', 'circle']:
-            if self.temp_item:
-                command = AddCommand(self.scene, self.temp_item)
-                command.execute()
-                self.undo_stack.append(command)
-                self.select_item(self.temp_item)
-            self.temp_item = None
-            self.start_point = None
+        if self.selection_rect:
+            self.scene.removeItem(self.selection_rect)
+            self.selection_rect = None
+        if self.moving_items:
+            selected = self.scene.selectedItems()
+            if selected:
+                scene_pos = self.ui.graphicsView.mapToScene(event.position().toPoint())
+                delta = scene_pos - self.move_initial_pos
+                if delta.x() != 0 or delta.y() != 0:
+                    command = MoveCommand(selected, delta)
+                    self.undo_stack.append(command)
+            self.moving_items = False
+
         return True
 
     def update_curve(self):
