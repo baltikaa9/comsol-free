@@ -5,19 +5,20 @@ from PySide6.QtCore import Qt, QPointF, QRectF, QEvent, QLineF, QSizeF
 from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainter, QPainterPath, QTransform
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
                                QGraphicsRectItem, QGraphicsView, QDialog, QGraphicsPathItem, QInputDialog,
-                               QGraphicsItem)
+                               QGraphicsItem, QMessageBox)
 
+from modules.data.src.commands.command import Command
 from modules.data.src.dialogs.bezier_dialog import BezierDialog
 from modules.data.src.dialogs.ellipse_dialog import EllipseDialog
 from modules.data.src.dialogs.line_dialog import LineDialog
 from modules.data.src.dialogs.rect_dialog import RectDialog
-from .commands.add_command import AddCommand
-from .commands.delete_command import DeleteCommand
-from .commands.move_command import MoveCommand
-from .dialogs.parametric_dialog import ParametricDialog
-from .editable_bezier import EditableBezierCurveItem
-from .grid_scene import GridScene
-from .ui.template import Ui_MainWindow
+from modules.data.src.commands.add_command import AddCommand
+from modules.data.src.commands.delete_command import DeleteCommand
+from modules.data.src.commands.move_command import MoveCommand
+from modules.data.src.dialogs.parametric_dialog import ParametricDialog
+from modules.data.src.editable_bezier import EditableBezierCurveItem
+from modules.data.src.grid_scene import GridScene
+from modules.data.src.ui.template import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
@@ -53,7 +54,8 @@ class MainWindow(QMainWindow):
         self.curve_points = []
         self.temp_curve_item = None
 
-        self.undo_stack = []
+        self.undo_stack: list[Command] = []
+        self.bool_selection: list[QGraphicsItem] = []
 
         self.ui.actionDrawLineByParams.triggered.connect(self.on_draw_line_by_params)
         self.ui.actionDrawRectByParams.triggered.connect(self.on_draw_rect_by_params)
@@ -221,10 +223,12 @@ class MainWindow(QMainWindow):
         ctrl_pressed = event.modifiers() & Qt.ControlModifier
         if item:
             if ctrl_pressed:
+                if item not in self.bool_selection:
+                    self.bool_selection.append(item)
                 item.setSelected(not item.isSelected())
             else:
-                if not item.isSelected():
-                    self.clear_selection()
+                self.clear_selection()
+                self.bool_selection = [item]
                 item.setSelected(True)
             self.moving_items = True
             self.move_initial_pos = scene_pos
@@ -310,25 +314,24 @@ class MainWindow(QMainWindow):
         self.clear_selection()
         item.setSelected(True)
 
-    def toggle_item_selection(self, item):
-        item.setSelected(not item.isSelected())
-
     def clear_selection(self):
         self.scene.clearSelection()
+        self.bool_selection.clear()
 
     def update_selection(self, selection_rect):
         self.clear_selection()
         for item in self.scene.items():
-            if isinstance(item, (QGraphicsLineItem, QGraphicsRectItem,
-                                 QGraphicsEllipseItem, QGraphicsPathItem)):
+            if item.flags() & QGraphicsItem.ItemIsSelectable:
                 if selection_rect.intersects(item.sceneBoundingRect()):
                     item.setSelected(True)
+                    self.bool_selection.append(item)
 
     def select_all(self):
         self.clear_selection()
         for item in self.scene.items():
             if item.flags() & QGraphicsItem.ItemIsSelectable:
                 item.setSelected(True)
+                self.bool_selection.append(item)
 
     def keyPressEvent(self, event):
         if event.modifiers() & Qt.ControlModifier and event.key() == Qt.Key_A:
@@ -413,34 +416,77 @@ class MainWindow(QMainWindow):
         self.undo_stack.append(command)
         self.select_item(new_item)
 
+    def _item_to_scene_path(self, item):
+        """
+        Преобразует любой поддерживаемый QGraphicsItem
+        в замкнутый QPainterPath в координатах сцены.
+        """
+        # 1) Берём локальный path
+        if isinstance(item, QGraphicsPathItem):
+            path = item.path()
+        elif isinstance(item, QGraphicsRectItem):
+            path = QPainterPath()
+            path.addRect(item.rect())
+        elif isinstance(item, QGraphicsEllipseItem):
+            path = QPainterPath()
+            path.addEllipse(item.rect())
+        elif isinstance(item, QGraphicsLineItem):
+            path = QPainterPath()
+            line = item.line()
+            path.moveTo(line.p1())
+            path.lineTo(line.p2())
+        else:
+            return None
+
+        # 2) Замыкаем, если надо
+        if not path.isEmpty():
+            # первая точка
+            e0 = path.elementAt(0)
+            start = QPointF(e0.x, e0.y)
+            end = path.currentPosition()
+            if start != end:
+                path.closeSubpath()
+
+        # 3) Преобразуем в координаты сцены
+        transform = item.sceneTransform()
+        return transform.map(path)
+
     def boolean_operation(self, op_type: str):
-        selected = self.scene.selectedItems()
-        if len(selected) != 2:
-            print(f'Выберите ровно 2 фигуры! А не {len(selected)}')
+        if len(self.bool_selection) != 2:
+            QMessageBox.warning(self, 'Ошибка',
+                                'Выберите сначала первую фигуру, потом вторую с зажатым Ctrl!')
             return
 
-        item1, item2 = selected
-        path1 = item1.mapToScene(item1.shape())
-        path2 = item2.mapToScene(item2.shape())
+        p1 = self._item_to_scene_path(self.bool_selection[0])
+        p2 = self._item_to_scene_path(self.bool_selection[1])
+
+        if p1 is None or p2 is None:
+            QMessageBox.warning(self, 'Ошибка',
+                                'Булевы операции поддерживаются только для линий, прямоугольников, эллипсов и путей.')
+            return
 
         if op_type == 'union':
-            result = path1.united(path2)
+            result = p1.united(p2)
         elif op_type == 'difference':
-            result = path1.subtracted(path2)
-        elif op_type == 'intersection':
-            result = path1.intersected(path2)
-        else:
-            return
+            result = p1.subtracted(p2)
+        else:  # 'intersection'
+            result = p1.intersected(p2)
 
         new_item = QGraphicsPathItem(result)
         new_item.setPen(self.default_pen)
         new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
-        self.scene.addItem(new_item)
+        cmd = AddCommand(self.scene, new_item)
+        cmd.execute()
+        self.undo_stack.append(cmd)
 
-        self.scene.removeItem(item1)
-        self.scene.removeItem(item2)
+        cmd = DeleteCommand(self.scene, self.bool_selection)
+        cmd.execute()
+        self.undo_stack.append(cmd)
 
-        self.select_item(new_item)
+        self.scene.clearSelection()
+        new_item.setSelected(True)
+
+        self.bool_selection.clear()
 
 
 if __name__ == '__main__':

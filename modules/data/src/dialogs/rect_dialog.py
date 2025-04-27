@@ -10,8 +10,8 @@ class RectDialog(QDialog):
 
         self.top_left_x = QLineEdit('0')
         self.top_left_y = QLineEdit('0')
-        self.width = QLineEdit('100')
-        self.height = QLineEdit('50')
+        self.width = QLineEdit('18')
+        self.height = QLineEdit('18')
 
         layout.addRow('Bot-Left X:', self.top_left_x)
         layout.addRow('Bot-Left Y:', self.top_left_y)
