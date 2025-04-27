@@ -22,11 +22,11 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.scene = GridScene(spacing=1)
+        self.scene = GridScene(spacing=50)
         self.scene.setSceneRect(-500, -500, 1000, 1000)
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
-        self.grid_spacing = 50  # пикселей на одну клетку
+        self.grid_spacing = 1  # пикселей на одну клетку
         self.ui.graphicsView.scale(self.grid_spacing, -self.grid_spacing)
         self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
@@ -101,6 +101,12 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(f'Ошибка в выражении: {e}')
             return
+
+        # Масштабирование координат на основе размера сетки
+        scale = self.scene.spacing
+        x_vals = [x * scale for x in x_vals]
+        y_vals = [y * scale for y in y_vals]
+
         path = QPainterPath()
         path.moveTo(x_vals[0], y_vals[0])
         for x, y in zip(x_vals[1:], y_vals[1:]):
@@ -372,12 +378,9 @@ class MainWindow(QMainWindow):
             return
 
         item1, item2 = selected
-        if not (hasattr(item1, 'path') and hasattr(item2, 'path')):
-            print('Выберите фигуры с путями!')
-            return
-
-        path1 = item1.path()
-        path2 = item2.path()
+        # Получаем форму каждого элемента в координатах сцены
+        path1 = item1.mapToScene(item1.shape())
+        path2 = item2.mapToScene(item2.shape())
 
         if op_type == 'union':
             result = path1.united(path2)
@@ -388,14 +391,17 @@ class MainWindow(QMainWindow):
         else:
             return
 
+        # Создаем новый элемент с результатом операции
         new_item = QGraphicsPathItem(result)
         new_item.setPen(self.default_pen)
         new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.scene.addItem(new_item)
 
+        # Удаляем исходные элементы
         self.scene.removeItem(item1)
         self.scene.removeItem(item2)
 
+        # Выбираем новый элемент
         self.select_item(new_item)
 
 if __name__ == '__main__':
