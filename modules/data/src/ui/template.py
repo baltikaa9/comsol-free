@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'template3.ui'
+## Form generated from reading UI file 'template4.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -39,6 +39,14 @@ class Ui_MainWindow(object):
         self.actionDrawCurve.setObjectName(u"actionDrawCurve")
         self.actionDrawParametric = QAction(MainWindow)
         self.actionDrawParametric.setObjectName(u"actionDrawParametric")
+        self.actionUnion = QAction(MainWindow)
+        self.actionUnion.setObjectName(u"actionUnion")
+        self.actionDifference = QAction(MainWindow)
+        self.actionDifference.setObjectName(u"actionDifference")
+        self.actionIntersection = QAction(MainWindow)
+        self.actionIntersection.setObjectName(u"actionIntersection")
+        self.actionMirror = QAction(MainWindow)
+        self.actionMirror.setObjectName(u"actionMirror")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -81,6 +89,10 @@ class Ui_MainWindow(object):
         self.mainToolBar.addAction(self.actionDrawCircle)
         self.mainToolBar.addAction(self.actionDrawCurve)
         self.mainToolBar.addAction(self.actionDrawParametric)
+        self.mainToolBar.addAction(self.actionUnion)
+        self.mainToolBar.addAction(self.actionDifference)
+        self.mainToolBar.addAction(self.actionIntersection)
+        self.mainToolBar.addAction(self.actionMirror)
 
         self.retranslateUi(MainWindow)
 
@@ -95,6 +107,10 @@ class Ui_MainWindow(object):
         self.actionDrawCircle.setText(QCoreApplication.translate("MainWindow", u"Draw Circle", None))
         self.actionDrawCurve.setText(QCoreApplication.translate("MainWindow", u"Draw Curve", None))
         self.actionDrawParametric.setText(QCoreApplication.translate("MainWindow", u"Draw Parametric Curve", None))
+        self.actionUnion.setText(QCoreApplication.translate("MainWindow", u"Union", None))
+        self.actionDifference.setText(QCoreApplication.translate("MainWindow", u"Difference", None))
+        self.actionIntersection.setText(QCoreApplication.translate("MainWindow", u"Intersection", None))
+        self.actionMirror.setText(QCoreApplication.translate("MainWindow", u"Mirror", None))
         ___qtreewidgetitem = self.projectTree.headerItem()
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Project", None));
         self.mainToolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"Tools", None))

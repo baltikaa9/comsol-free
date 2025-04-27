@@ -59,6 +59,10 @@ class MainWindow(QMainWindow):
         self.ui.actionDrawCurve.triggered.connect(lambda: self.set_tool('curve'))
         # self.ui.actionDrawParametric.triggered.connect(lambda: self.set_tool('parametric'))
         self.ui.actionDrawParametric.triggered.connect(self.on_draw_parametric)
+        self.ui.actionUnion.triggered.connect(self.perform_union)
+        self.ui.actionDifference.triggered.connect(self.perform_difference)
+        self.ui.actionIntersection.triggered.connect(self.perform_intersection)
+        self.ui.actionMirror.triggered.connect(self.perform_mirror)
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
@@ -67,7 +71,7 @@ class MainWindow(QMainWindow):
             self.clear_selection()
             self.finish_curve()
         self.current_tool = tool
-        print(f"Current tool set to: {tool}")  # Отладочный вывод
+        print(f'Current tool set to: {tool}')  # Отладочный вывод
 
     def finish_curve(self):
         if len(self.curve_points) > 1:
@@ -87,17 +91,17 @@ class MainWindow(QMainWindow):
             return
 
         safe_globals = {
-            "math": math,
-            **{name: getattr(math, name) for name in dir(math) if not name.startswith("_")}
+            'math': math,
+            **{name: getattr(math, name) for name in dir(math) if not name.startswith('_')}
         }
 
         data = dlg.get_data()
-        t_vals = np.linspace(data["t_min"], data["t_max"], data["samples"])
+        t_vals = np.linspace(data['t_min'], data['t_max'], data['samples'])
         try:
-            x_vals = [eval(data["x_expr"], {"t": t, **safe_globals}) for t in t_vals]
-            y_vals = [eval(data["y_expr"], {"t": t, **safe_globals}) for t in t_vals]
+            x_vals = [eval(data['x_expr'], {'t': t, **safe_globals}) for t in t_vals]
+            y_vals = [eval(data['y_expr'], {'t': t, **safe_globals}) for t in t_vals]
         except Exception as e:
-            print(f"Ошибка в выражении: {e}")
+            print(f'Ошибка в выражении: {e}')
             return
         path = QPainterPath()
         path.moveTo(x_vals[0], y_vals[0])
@@ -108,21 +112,6 @@ class MainWindow(QMainWindow):
         item.setPen(self.default_pen)
         self.scene.addItem(item)
         self.select_item(item)
-
-    # def generate_parametric_path(self, start_pos):
-    #     print("Generating parametric path at:", start_pos)  # Отладочный вывод
-    #     num_points = 1000
-    #     c = 100.0
-    #     s = [i / (num_points - 1) for i in range(num_points)]
-    #     x = [c * si for si in s]
-    #     y = [c * 0.594689181 * (0.298222773 * math.sqrt(si) - 0.127125232 * si -
-    #                             0.357907906 * si**2 + 0.291984971 * si**3 -
-    #                             0.105174696 * si**4) for si in s]
-    #     path = QPainterPath()
-    #     path.moveTo(start_pos.x() + x[0], start_pos.y() + y[0])
-    #     for i in range(1, num_points):
-    #         path.lineTo(start_pos.x() + x[i], start_pos.y() + y[i])
-    #     return path
 
     def eventFilter(self, obj, event):
         if obj is self.ui.graphicsView.viewport():
@@ -176,17 +165,6 @@ class MainWindow(QMainWindow):
                     self.curve_points.append(scene_pos)
                     self.update_curve()
             return True
-        # elif self.current_tool == 'parametric':
-        #     print("Drawing parametric curve at:", scene_pos)  # Отладочный вывод
-        #     path = self.generate_parametric_path(scene_pos)
-        #     item = QGraphicsPathItem(path)
-        #     item.setPen(self.default_pen)
-        #     command = AddCommand(self.scene, item)
-        #     command.execute()
-        #     self.undo_stack.append(command)
-        #     self.select_item(item)
-        #     print("Items in scene:", len(self.scene.items()))  # Отладочный вывод
-        #     return True
         elif self.current_tool in ['line', 'rect', 'circle']:
             self.clear_selection()
             if self.current_tool == 'line':
@@ -348,8 +326,86 @@ class MainWindow(QMainWindow):
         self.start_point = None
         return True
 
+    def perform_union(self):
+        self.boolean_operation('union')
 
-if __name__ == "__main__":
+    def perform_difference(self):
+        self.boolean_operation('difference')
+
+    def perform_intersection(self):
+        self.boolean_operation('intersection')
+
+    def perform_mirror(self):
+        selected = self.scene.selectedItems()
+        if len(selected) != 1:
+            print(f'Выберите одну фигуру для отражения! {len(selected)}')
+            return
+
+        item = selected[0]
+
+        from PySide6.QtWidgets import QInputDialog
+        axis, ok = QInputDialog.getItem(
+            self, 'Выбор оси отражения',
+            'Отразить по оси:',
+            ['По горизонтали (X)', 'По вертикали (Y)', 'По диагонали (XY)'],
+            0, False
+        )
+
+        if not ok:
+            return
+
+        path = item.path()
+        center = path.boundingRect().center()
+
+        from PySide6.QtGui import QTransform
+
+        if axis == 'По горизонтали (X)':
+            transform = QTransform().scale(1, -1)
+        elif axis == 'По вертикали (Y)':
+            transform = QTransform().scale(-1, 1)
+        elif axis == 'По диагонали (XY)':
+            transform = QTransform().scale(-1, -1)
+        else:
+            return
+
+        path = transform.map(path)
+        item.setPath(path)
+
+    def boolean_operation(self, op_type: str):
+        selected = self.scene.selectedItems()
+        if len(selected) != 2:
+            print(f'Выберите ровно 2 фигуры! А не {len(selected)}')
+            return
+
+        item1, item2 = selected
+        if not (hasattr(item1, 'path') and hasattr(item2, 'path')):
+            print('Выберите фигуры с путями!')
+            return
+
+        path1 = item1.path()
+        path2 = item2.path()
+
+        if op_type == 'union':
+            result = path1.united(path2)
+        elif op_type == 'difference':
+            result = path1.subtracted(path2)
+        elif op_type == 'intersection':
+            result = path1.intersected(path2)
+        else:
+            return
+
+        # Создаём новый элемент
+        new_item = QGraphicsPathItem(result)
+        new_item.setPen(self.default_pen)
+        self.scene.addItem(new_item)
+
+        # Удаляем старые
+        self.scene.removeItem(item1)
+        self.scene.removeItem(item2)
+
+        self.select_item(new_item)
+
+if __name__ == '__main__':
     app = QApplication([])
     window = MainWindow()
     window.show()
