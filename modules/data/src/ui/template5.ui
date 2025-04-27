@@ -71,6 +71,7 @@
    <addaction name="actionDifference"/>
    <addaction name="actionIntersection"/>
    <addaction name="actionMirror"/>
+   <addaction name="actionRotate"/>
   </widget>
   <action name="actionSelect">
    <property name="text">
@@ -140,6 +141,11 @@
    <action name="actionMirror">
     <property name="text">
      <string>Отражение</string>
+    </property>
+   </action>
+   <action name="actionRotate">
+    <property name="text">
+     <string>Поворот</string>
     </property>
    </action>
  </widget>

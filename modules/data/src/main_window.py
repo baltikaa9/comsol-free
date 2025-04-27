@@ -66,6 +66,7 @@ class MainWindow(QMainWindow):
         self.ui.actionDifference.triggered.connect(self.perform_difference)
         self.ui.actionIntersection.triggered.connect(self.perform_intersection)
         self.ui.actionMirror.triggered.connect(self.perform_mirror)
+        self.ui.actionRotate.triggered.connect(self.perform_rotate)
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
@@ -313,6 +314,7 @@ class MainWindow(QMainWindow):
     def select_item(self, item):
         self.clear_selection()
         item.setSelected(True)
+        self.bool_selection.append(item)
 
     def clear_selection(self):
         self.scene.clearSelection()
@@ -487,6 +489,36 @@ class MainWindow(QMainWindow):
         new_item.setSelected(True)
 
         self.bool_selection.clear()
+
+    def perform_rotate(self):
+        # Должна быть ровно одна фигура
+        if len(self.bool_selection) != 1:
+            QMessageBox.warning(
+                self, 'Ошибка',
+                'Для поворота выберите ровно одну фигуру (обычный клик).'
+            )
+            return
+
+        item = self.bool_selection[0]
+
+        # Спрашиваем угол в градусах
+        angle, ok = QInputDialog.getDouble(
+            self, 'Поворот', 'Угол поворота (градусы):',
+            0.0,  # начальное значение
+            -3600.0,  # мин
+            3600.0,  # макс
+            1  # шаг
+        )
+        if not ok:
+            return
+
+        # Определяем точку поворота — центр boundingRect()
+        center = item.sceneBoundingRect().center()
+        item.setTransformOriginPoint(center)
+
+        # Прибавляем угол к текущей ротации
+        current_rotation = item.rotation()
+        item.setRotation(current_rotation + angle)
 
 
 if __name__ == '__main__':

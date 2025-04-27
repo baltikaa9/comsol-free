@@ -47,6 +47,8 @@ class Ui_MainWindow(object):
         self.actionIntersection.setObjectName(u"actionIntersection")
         self.actionMirror = QAction(MainWindow)
         self.actionMirror.setObjectName(u"actionMirror")
+        self.actionRotate = QAction(MainWindow)
+        self.actionRotate.setObjectName(u"actionRotate")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -93,6 +95,7 @@ class Ui_MainWindow(object):
         self.mainToolBar.addAction(self.actionDifference)
         self.mainToolBar.addAction(self.actionIntersection)
         self.mainToolBar.addAction(self.actionMirror)
+        self.mainToolBar.addAction(self.actionRotate)
 
         self.retranslateUi(MainWindow)
 
@@ -111,6 +114,7 @@ class Ui_MainWindow(object):
         self.actionDifference.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0430\u0437\u043d\u0438\u0446\u0430", None))
         self.actionIntersection.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0441\u0435\u0447\u0435\u043d\u0438\u0435", None))
         self.actionMirror.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
+        self.actionRotate.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0432\u043e\u0440\u043e\u0442", None))
         ___qtreewidgetitem = self.projectTree.headerItem()
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Project", None));
         self.mainToolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"Tools", None))
