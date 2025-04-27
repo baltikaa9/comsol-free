@@ -1,11 +1,10 @@
 import math
-
 import numpy as np
 from PySide6.QtCore import Qt, QPointF, QRectF, QEvent
 from PySide6.QtGui import QMouseEvent, QPen, QColor, QBrush, QPainter
 from PySide6.QtGui import QPainterPath
 from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGraphicsEllipseItem,
-                               QGraphicsRectItem, QGraphicsView, QDialog)
+                               QGraphicsRectItem, QGraphicsView, QDialog, QGraphicsItem)
 from PySide6.QtWidgets import QGraphicsPathItem
 
 from .commands.add_command import AddCommand
@@ -31,7 +30,6 @@ class MainWindow(QMainWindow):
         self.ui.graphicsView.scale(self.grid_spacing, -self.grid_spacing)
         self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
-        self.selected_items = set()
         self.default_pen = QPen(Qt.black, 0)
         self.selected_pen = QPen(Qt.red, 0)
         self.selection_pen = QPen(Qt.blue, 0, Qt.DashLine)
@@ -57,7 +55,6 @@ class MainWindow(QMainWindow):
         self.ui.actionDrawRect.triggered.connect(lambda: self.set_tool('rect'))
         self.ui.actionDrawCircle.triggered.connect(lambda: self.set_tool('circle'))
         self.ui.actionDrawCurve.triggered.connect(lambda: self.set_tool('curve'))
-        # self.ui.actionDrawParametric.triggered.connect(lambda: self.set_tool('parametric'))
         self.ui.actionDrawParametric.triggered.connect(self.on_draw_parametric)
         self.ui.actionUnion.triggered.connect(self.perform_union)
         self.ui.actionDifference.triggered.connect(self.perform_difference)
@@ -71,12 +68,12 @@ class MainWindow(QMainWindow):
             self.clear_selection()
             self.finish_curve()
         self.current_tool = tool
-        print(f'Current tool set to: {tool}')  # Отладочный вывод
+        print(f'Current tool set to: {tool}')
 
     def finish_curve(self):
         if len(self.curve_points) > 1:
             curve = EditableBezierCurveItem(self.curve_points, pen=self.default_pen, scene=self.scene)
-            curve.setFlag(QGraphicsPathItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
+            curve.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
             command = AddCommand(self.scene, curve)
             command.execute()
             self.undo_stack.append(command)
@@ -111,7 +108,7 @@ class MainWindow(QMainWindow):
 
         item = QGraphicsPathItem(path)
         item.setPen(self.default_pen)
-        item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
+        item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.scene.addItem(item)
         self.select_item(item)
 
@@ -140,13 +137,13 @@ class MainWindow(QMainWindow):
         if self.current_tool == 'select':
             item = self.scene.itemAt(scene_pos, self.ui.graphicsView.transform())
             ctrl_pressed = event.modifiers() & Qt.ControlModifier
-            if not ctrl_pressed and item not in self.selected_items:
-                self.clear_selection()
             if item:
                 if ctrl_pressed:
-                    self.toggle_item_selection(item)
+                    item.setSelected(not item.isSelected())
                 else:
-                    self.select_item(item)
+                    if not item.isSelected():
+                        self.clear_selection()
+                    item.setSelected(True)
                 self.moving_items = True
                 self.move_start_pos = scene_pos
             else:
@@ -176,7 +173,7 @@ class MainWindow(QMainWindow):
             elif self.current_tool == 'circle':
                 self.temp_item = QGraphicsEllipseItem()
             self.temp_item.setPen(self.default_pen)
-            self.temp_item.setFlag(QGraphicsLineItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
+            self.temp_item.setFlag(QGraphicsItem.ItemIsSelectable, True)
             self.scene.addItem(self.temp_item)
         return True
 
@@ -204,46 +201,30 @@ class MainWindow(QMainWindow):
             path.cubicTo(ctrl1, ctrl2, p1)
         self.temp_curve_item.setPath(path)
 
-    def toggle_item_selection(self, item):
-        if item in self.selected_items:
-            item.setPen(self.default_pen)
-            self.selected_items.remove(item)
-        else:
-            item.setPen(self.selected_pen)
-            self.selected_items.add(item)
-
     def select_item(self, item):
-        # self.scene.clearSelection()
-        item.setPen(self.selected_pen)
-        self.scene.selectedItems().append(item)
+        self.clear_selection()
         item.setSelected(True)
-        self.selected_items.add(item)
+
+    def toggle_item_selection(self, item):
+        item.setSelected(not item.isSelected())
 
     def clear_selection(self):
         self.scene.clearSelection()
-        for item in self.selected_items:
-            item.setPen(self.default_pen)
-        self.selected_items.clear()
 
     def update_selection(self, selection_rect):
-        new_selection = set()
+        self.clear_selection()
         for item in self.scene.items():
             if isinstance(item, (QGraphicsLineItem, QGraphicsRectItem,
                                  QGraphicsEllipseItem, QGraphicsPathItem)):
                 if selection_rect.intersects(item.sceneBoundingRect()):
-                    new_selection.add(item)
-        for item in self.selected_items - new_selection:
-            item.setPen(self.default_pen)
-        for item in new_selection - self.selected_items:
-            item.setPen(self.selected_pen)
-        self.selected_items = new_selection
+                    item.setSelected(True)
 
     def select_all(self):
         self.clear_selection()
         for item in self.scene.items():
             if isinstance(item, (QGraphicsLineItem, QGraphicsRectItem,
                                  QGraphicsEllipseItem, EditableBezierCurveItem)):
-                self.select_item(item)
+                item.setSelected(True)
 
     def keyPressEvent(self, event):
         if event.modifiers() & Qt.ControlModifier and event.key() == Qt.Key_A:
@@ -253,20 +234,23 @@ class MainWindow(QMainWindow):
                 command = self.undo_stack.pop()
                 command.undo()
                 self.clear_selection()
-        elif event.key() == Qt.Key_Delete and self.selected_items:
-            command = DeleteCommand(self.scene, list(self.selected_items))
-            command.execute()
-            self.undo_stack.append(command)
-            self.selected_items.clear()
+        elif event.key() == Qt.Key_Delete:
+            selected = self.scene.selectedItems()
+            if selected:
+                command = DeleteCommand(self.scene, selected)
+                command.execute()
+                self.undo_stack.append(command)
 
     def mouse_move(self, event: QMouseEvent):
         scene_pos = self.ui.graphicsView.mapToScene(event.position().toPoint())
         if self.current_tool == 'select':
-            if self.moving_items and self.selected_items:
-                delta = scene_pos - self.move_start_pos
-                for item in self.selected_items:
-                    item.moveBy(delta.x(), delta.y())
-                self.move_start_pos = scene_pos
+            if self.moving_items:
+                selected = self.scene.selectedItems()
+                if selected:
+                    delta = scene_pos - self.move_start_pos
+                    for item in selected:
+                        item.moveBy(delta.x(), delta.y())
+                    self.move_start_pos = scene_pos
                 return True
             elif self.selection_rect:
                 rect = QRectF(self.start_point, scene_pos).normalized()
@@ -274,8 +258,8 @@ class MainWindow(QMainWindow):
                 if rect != self.last_selection_rect:
                     self.update_selection(rect)
                     self.last_selection_rect = rect
-            return True
-        if self.current_tool == 'curve':
+                return True
+        elif self.current_tool == 'curve':
             if self.temp_curve_item and self.curve_points:
                 temp_points = self.curve_points + [scene_pos]
                 path = QPainterPath()
@@ -296,7 +280,7 @@ class MainWindow(QMainWindow):
                     path.cubicTo(ctrl1, ctrl2, p1)
                 self.temp_curve_item.setPath(path)
             return True
-        if not self.temp_item or not self.start_point:
+        elif not self.temp_item or not self.start_point:
             return True
         current_pos = scene_pos
         rect = QRectF(self.start_point, current_pos).normalized()
@@ -314,11 +298,13 @@ class MainWindow(QMainWindow):
             if self.selection_rect:
                 self.scene.removeItem(self.selection_rect)
                 self.selection_rect = None
-            if self.moving_items and self.selected_items:
-                delta = self.ui.graphicsView.mapToScene(event.position().toPoint()) - self.move_start_pos
-                if delta.x() != 0 or delta.y() != 0:
-                    command = MoveCommand(list(self.selected_items), delta)
-                    self.undo_stack.append(command)
+            if self.moving_items:
+                selected = self.scene.selectedItems()
+                if selected:
+                    delta = self.ui.graphicsView.mapToScene(event.position().toPoint()) - self.move_start_pos
+                    if delta.x() != 0 or delta.y() != 0:
+                        command = MoveCommand(selected, delta)
+                        self.undo_stack.append(command)
             self.moving_items = False
         elif self.current_tool == 'curve':
             if event.button() == Qt.RightButton:
@@ -327,10 +313,11 @@ class MainWindow(QMainWindow):
         elif self.current_tool in ['line', 'rect', 'circle']:
             if self.temp_item:
                 command = AddCommand(self.scene, self.temp_item)
+                command.execute()
                 self.undo_stack.append(command)
                 self.select_item(self.temp_item)
-        self.temp_item = None
-        self.start_point = None
+            self.temp_item = None
+            self.start_point = None
         return True
 
     def perform_union(self):
@@ -401,13 +388,11 @@ class MainWindow(QMainWindow):
         else:
             return
 
-        # Создаём новый элемент
         new_item = QGraphicsPathItem(result)
         new_item.setPen(self.default_pen)
-        new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)  # <--- ДОБАВИТЬ!
+        new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.scene.addItem(new_item)
 
-        # Удаляем старые
         self.scene.removeItem(item1)
         self.scene.removeItem(item2)
 
