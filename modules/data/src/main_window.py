@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         self.scene.setSceneRect(-500, -500, 1000, 1000)
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing)
-        self.grid_spacing = 1  # пикселей на одну клетку
+        self.grid_spacing = 1
         self.ui.graphicsView.scale(self.grid_spacing, -self.grid_spacing)
         self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
@@ -102,7 +102,6 @@ class MainWindow(QMainWindow):
             print(f'Ошибка в выражении: {e}')
             return
 
-        # Масштабирование координат на основе размера сетки
         scale = self.scene.spacing
         x_vals = [x * scale for x in x_vals]
         y_vals = [y * scale for y in y_vals]
@@ -228,8 +227,7 @@ class MainWindow(QMainWindow):
     def select_all(self):
         self.clear_selection()
         for item in self.scene.items():
-            if isinstance(item, (QGraphicsLineItem, QGraphicsRectItem,
-                                 QGraphicsEllipseItem, EditableBezierCurveItem)):
+            if item.flags() & QGraphicsItem.ItemIsSelectable:
                 item.setSelected(True)
 
     def keyPressEvent(self, event):
@@ -378,7 +376,6 @@ class MainWindow(QMainWindow):
             return
 
         item1, item2 = selected
-        # Получаем форму каждого элемента в координатах сцены
         path1 = item1.mapToScene(item1.shape())
         path2 = item2.mapToScene(item2.shape())
 
@@ -391,17 +388,14 @@ class MainWindow(QMainWindow):
         else:
             return
 
-        # Создаем новый элемент с результатом операции
         new_item = QGraphicsPathItem(result)
         new_item.setPen(self.default_pen)
         new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.scene.addItem(new_item)
 
-        # Удаляем исходные элементы
         self.scene.removeItem(item1)
         self.scene.removeItem(item2)
 
-        # Выбираем новый элемент
         self.select_item(new_item)
 
 if __name__ == '__main__':
