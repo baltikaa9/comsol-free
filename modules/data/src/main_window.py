@@ -8,6 +8,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QGraphicsLineItem, QGr
                                QGraphicsItem, QMessageBox)
 
 from modules.data.src.commands.command import Command
+from modules.data.src.commands.rotate_command import RotateCommand
 from modules.data.src.dialogs.bezier_dialog import BezierDialog
 from modules.data.src.dialogs.ellipse_dialog import EllipseDialog
 from modules.data.src.dialogs.line_dialog import LineDialog
@@ -516,9 +517,9 @@ class MainWindow(QMainWindow):
         center = item.sceneBoundingRect().center()
         item.setTransformOriginPoint(center)
 
-        # Прибавляем угол к текущей ротации
-        current_rotation = item.rotation()
-        item.setRotation(current_rotation + angle)
+        cmd = RotateCommand(item, angle)
+        cmd.execute()
+        self.undo_stack.append(cmd)
 
 
 if __name__ == '__main__':
