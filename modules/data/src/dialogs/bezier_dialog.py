@@ -1,9 +1,11 @@
 from PySide6.QtCore import QPointF
-from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QDialog
+from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QWidget
+
+from modules.data.src.dialogs.dialog import Dialog
 
 
-class BezierDialog(QDialog):
-    def __init__(self, parent=None):
+class BezierDialog(Dialog):
+    def __init__(self, parent: QWidget):
         super().__init__(parent)
         self.setWindowTitle('Draw Bezier Curve by Parameters')
         layout = QFormLayout()

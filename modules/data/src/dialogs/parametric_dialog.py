@@ -1,8 +1,10 @@
-from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QDialog
+from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QWidget
+
+from modules.data.src.dialogs.dialog import Dialog
 
 
-class ParametricDialog(QDialog):
-    def __init__(self, parent=None):
+class ParametricDialog(Dialog):
+    def __init__(self, parent: QWidget):
         super().__init__(parent)
         self.setWindowTitle('Draw Parametric Curve')
         layout = QFormLayout()

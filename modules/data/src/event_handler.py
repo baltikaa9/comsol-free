@@ -107,7 +107,7 @@ class EventHandler:
 
         return True
 
-    def event_filter(self, event: QMouseEvent) -> bool:
+    def event_filter(self, event: QEvent) -> bool:
         if event.type() == QEvent.MouseButtonPress:
             return self.mouse_press(event)
         elif event.type() == QEvent.MouseMove:

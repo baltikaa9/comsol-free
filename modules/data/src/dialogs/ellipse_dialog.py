@@ -1,9 +1,11 @@
 from PySide6.QtCore import QPointF
-from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QDialog
+from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QWidget
+
+from modules.data.src.dialogs.dialog import Dialog
 
 
-class EllipseDialog(QDialog):
-    def __init__(self, parent=None):
+class EllipseDialog(Dialog):
+    def __init__(self, parent: QWidget):
         super().__init__(parent)
         self.setWindowTitle('Draw Ellipse by Parameters')
         layout = QFormLayout()
@@ -25,7 +27,7 @@ class EllipseDialog(QDialog):
 
         self.setLayout(layout)
 
-    def get_data(self):
+    def get_data(self) -> dict[str, QPointF | float] | None:
         try:
             return {
                 'center': QPointF(float(self.center_x.text()), float(self.center_y.text())),
