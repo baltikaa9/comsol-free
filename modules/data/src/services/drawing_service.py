@@ -1,10 +1,20 @@
 import math
 
 import numpy as np
-from PySide6.QtCore import Qt, QRectF, QLineF, QSizeF, QPointF
-from PySide6.QtGui import QPen, QPainterPath
-from PySide6.QtWidgets import (QGraphicsLineItem, QGraphicsEllipseItem,
-                               QGraphicsRectItem, QDialog, QGraphicsPathItem, QGraphicsItem, QWidget)
+from PySide6.QtCore import QLineF
+from PySide6.QtCore import QPointF
+from PySide6.QtCore import QRectF
+from PySide6.QtCore import QSizeF
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QPainterPath
+from PySide6.QtGui import QPen
+from PySide6.QtWidgets import QDialog
+from PySide6.QtWidgets import QGraphicsEllipseItem
+from PySide6.QtWidgets import QGraphicsItem
+from PySide6.QtWidgets import QGraphicsLineItem
+from PySide6.QtWidgets import QGraphicsPathItem
+from PySide6.QtWidgets import QGraphicsRectItem
+from PySide6.QtWidgets import QWidget
 
 from modules.data.src.commands.add_command import AddCommand
 from modules.data.src.dialogs.dialog import Dialog
@@ -18,20 +28,20 @@ from modules.data.src.services.selection_service import SelectionService
 class DrawingService:
     def __init__(
             self,
+            parent: QWidget,
             scene: GridScene,
-            dialog_parent: QWidget,
             command_service: CommandService,
             selection_service: SelectionService,
     ):
         self.scene = scene
-        self.dialog_parent = dialog_parent
+        self.parent = parent
         self.command_service = command_service
         self.selection_service = selection_service
 
         self.default_pen = QPen(Qt.black, 0)
 
     def draw_line_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('line', self.dialog_parent))
+        data = self.__get_data(DialogFactory.create_dialog('line', self.parent))
 
         scale = self.scene.spacing
         line = QLineF(data['start'] * scale, data['end'] * scale)
@@ -42,7 +52,7 @@ class DrawingService:
         self.selection_service.select_item(item)
 
     def draw_rect_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('rect', self.dialog_parent))
+        data = self.__get_data(DialogFactory.create_dialog('rect', self.parent))
 
         scale = self.scene.spacing
         rect = QRectF(data['top_left'] * scale, QSizeF(data['width'] * scale, data['height'] * scale))
@@ -53,7 +63,7 @@ class DrawingService:
         self.selection_service.select_item(item)
 
     def draw_ellipse_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('ellipse', self.dialog_parent))
+        data = self.__get_data(DialogFactory.create_dialog('ellipse', self.parent))
 
         scale = self.scene.spacing
         rect = QRectF(data['center'].x() * scale - data['radius_x'] * scale,
@@ -66,7 +76,7 @@ class DrawingService:
         self.selection_service.select_item(item)
 
     def draw_curve_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('bezier', self.dialog_parent))
+        data = self.__get_data(DialogFactory.create_dialog('bezier', self.parent))
 
         item = EditableBezierCurveItem(data, pen=self.default_pen, scene=self.scene)
         item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
@@ -74,7 +84,7 @@ class DrawingService:
         self.selection_service.select_item(item)
 
     def draw_parametric(self):
-        data = self.__get_data(DialogFactory.create_dialog('parametric', self.dialog_parent))
+        data = self.__get_data(DialogFactory.create_dialog('parametric', self.parent))
 
         safe_globals = {
             'math': math,
