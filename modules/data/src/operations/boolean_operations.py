@@ -11,6 +11,7 @@ from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.drawing_service import DrawingService
+from modules.data.src.services.mesh_service import MeshService
 from modules.data.src.services.selection_service import SelectionService
 
 
@@ -69,7 +70,7 @@ class BooleanOperations:
         new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, new_item))
 
-        self.command_service.execute(DeleteCommand(self.scene, sel))
+        self.command_service.execute(DeleteCommand(self.scene, sel, MeshService.mesh_map))
 
         self.scene.clearSelection()
         new_item.setSelected(True)

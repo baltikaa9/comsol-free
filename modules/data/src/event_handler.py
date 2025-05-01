@@ -8,6 +8,7 @@ from modules.data.src.commands.move_command import MoveCommand
 from modules.data.src.graphics_view import GraphicsView
 from modules.data.src.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
+from modules.data.src.services.mesh_service import MeshService
 from modules.data.src.services.selection_service import SelectionService
 
 
@@ -38,11 +39,11 @@ class EventHandler:
         self.start_point = scene_pos
         self.selection_service.last_selection_rect = QRectF()
 
-        if event.button() != Qt.LeftButton:
+        if event.button() != Qt.MouseButton.LeftButton:
             return False
 
         item = self.scene.itemAt(scene_pos, self.graphics_view.transform())
-        ctrl_pressed = event.modifiers() & Qt.ControlModifier
+        ctrl_pressed = event.modifiers() & Qt.KeyboardModifier.ControlModifier
         if item:
             if ctrl_pressed:
                 if item not in self.selection_service.bool_selection:
@@ -108,28 +109,28 @@ class EventHandler:
         return True
 
     def event_filter(self, event: QEvent) -> bool:
-        if event.type() == QEvent.MouseButtonPress:
+        if event.type() == QEvent.Type.MouseButtonPress:
             return self.mouse_press(event)
-        elif event.type() == QEvent.MouseMove:
-            if event.buttons() & Qt.LeftButton:
+        elif event.type() == QEvent.Type.MouseMove:
+            if event.buttons() & Qt.MouseButton.LeftButton:
                 return self.mouse_move(event)
             return False
-        elif event.type() == QEvent.MouseButtonRelease:
-            if event.button() == Qt.MiddleButton:
+        elif event.type() == QEvent.Type.MouseButtonRelease:
+            if event.button() == Qt.MouseButton.MiddleButton:
                 return False
             return self.mouse_release(event)
         return False
 
     def key_press_event(self, event: QKeyEvent):
-        if event.modifiers() & Qt.ControlModifier and event.key() == Qt.Key_A:
+        if event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.key() == Qt.Key.Key_A:
             self.selection_service.select_all()
-        elif event.modifiers() & Qt.ControlModifier and event.key() == Qt.Key_Z:
+        elif event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.key() == Qt.Key.Key_Z:
             self.command_service.undo()
             self.selection_service.clear_selection()
-        elif event.modifiers() & Qt.ControlModifier and event.key() == Qt.Key_Y:
+        elif event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.key() == Qt.Key.Key_Y:
             self.command_service.redo()
             self.selection_service.clear_selection()
-        elif event.key() == Qt.Key_Delete:
+        elif event.key() == Qt.Key.Key_Delete:
             selected = self.scene.selectedItems()
             if selected:
-                self.command_service.execute(DeleteCommand(self.scene, selected))
+                self.command_service.execute(DeleteCommand(self.scene, selected, MeshService.mesh_map))

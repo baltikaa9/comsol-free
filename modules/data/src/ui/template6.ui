@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTreeWidget" name="projectTree">
+      <column>
+       <property name="text">
+        <string>Project</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="GraphicsView" name="graphicsView"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="propertiesLayout"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>Tools</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSelect"/>
+<!--   <addaction name="actionDrawLine"/>-->
+   <addaction name="actionDrawLineByParams"/>
+<!--   <addaction name="actionDrawRect"/>-->
+   <addaction name="actionDrawRectByParams"/>
+<!--   <addaction name="actionDrawCircle"/>-->
+   <addaction name="actionDrawCircleByParams"/>
+<!--   <addaction name="actionDrawCurve"/>-->
+   <addaction name="actionDrawCurveByParams"/>
+   <addaction name="actionDrawParametric"/>
+   <addaction name="actionUnion"/>
+   <addaction name="actionDifference"/>
+   <addaction name="actionIntersection"/>
+   <addaction name="actionMirror"/>
+   <addaction name="actionRotate"/>
+   <addaction name="actionBuildMesh"/>
+  </widget>
+  <action name="actionSelect">
+   <property name="text">
+    <string>Выбор</string>
+   </property>
+  </action>
+<!--  <action name="actionDrawLine">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Line (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
+  <action name="actionDrawLineByParams">
+   <property name="text">
+    <string>Прямая</string>
+   </property>
+  </action>
+<!--  <action name="actionDrawRect">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Rectangle (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
+  <action name="actionDrawRectByParams">
+   <property name="text">
+    <string>Прямоугольник</string>
+   </property>
+  </action>
+<!--  <action name="actionDrawCircle">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Circle (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
+  <action name="actionDrawCircleByParams">
+   <property name="text">
+    <string>Эллипс</string>
+   </property>
+  </action>
+<!--  <action name="actionDrawCurve">-->
+<!--   <property name="text">-->
+<!--    <string>Draw Curve (Mouse)</string>-->
+<!--   </property>-->
+<!--  </action>-->
+  <action name="actionDrawCurveByParams">
+   <property name="text">
+    <string>Кривая Безье</string>
+   </property>
+  </action>
+  <action name="actionDrawParametric">
+   <property name="text">
+    <string>Параметрическая кривая</string>
+   </property>
+  </action>
+  <action name="actionUnion">
+    <property name="text">
+     <string>Объединение</string>
+    </property>
+   </action>
+   <action name="actionDifference">
+    <property name="text">
+     <string>Разница</string>
+    </property>
+   </action>
+   <action name="actionIntersection">
+    <property name="text">
+     <string>Пересечение</string>
+    </property>
+   </action>
+   <action name="actionMirror">
+    <property name="text">
+     <string>Отражение</string>
+    </property>
+   </action>
+   <action name="actionRotate">
+    <property name="text">
+     <string>Поворот</string>
+    </property>
+   </action>
+   <action name="actionBuildMesh">
+    <property name="text">
+     <string>Построить сетку</string>
+    </property>
+   </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>src.graphics_view</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

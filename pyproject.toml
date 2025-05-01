@@ -9,5 +9,4 @@ dependencies = [
     "pandas>=2.2.3",
     "pyside6>=6.9.0",
     "scipy>=1.15.2",
-    "triangle>=20250106",
 ]

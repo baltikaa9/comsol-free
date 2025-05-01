@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'template5.ui'
+## Form generated from reading UI file 'template6.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -49,6 +49,8 @@ class Ui_MainWindow(object):
         self.actionMirror.setObjectName(u"actionMirror")
         self.actionRotate = QAction(MainWindow)
         self.actionRotate.setObjectName(u"actionRotate")
+        self.actionBuildMesh = QAction(MainWindow)
+        self.actionBuildMesh.setObjectName(u"actionBuildMesh")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -96,6 +98,7 @@ class Ui_MainWindow(object):
         self.mainToolBar.addAction(self.actionIntersection)
         self.mainToolBar.addAction(self.actionMirror)
         self.mainToolBar.addAction(self.actionRotate)
+        self.mainToolBar.addAction(self.actionBuildMesh)
 
         self.retranslateUi(MainWindow)
 
@@ -115,6 +118,7 @@ class Ui_MainWindow(object):
         self.actionIntersection.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0441\u0435\u0447\u0435\u043d\u0438\u0435", None))
         self.actionMirror.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
         self.actionRotate.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0432\u043e\u0440\u043e\u0442", None))
+        self.actionBuildMesh.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0441\u0435\u0442\u043a\u0443", None))
         ___qtreewidgetitem = self.projectTree.headerItem()
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Project", None));
         self.mainToolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"Tools", None))

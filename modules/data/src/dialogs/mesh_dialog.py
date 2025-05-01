@@ -1,0 +1,34 @@
+from PySide6.QtWidgets import QDialogButtonBox
+from PySide6.QtWidgets import QDoubleSpinBox
+from PySide6.QtWidgets import QFormLayout
+from PySide6.QtWidgets import QWidget
+
+from modules.data.src.dialogs.dialog import Dialog
+
+
+class MeshDialog(Dialog):
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
+        self.setWindowTitle('Параметры сетки')
+
+        self.dx_spin = QDoubleSpinBox()
+        self.dy_spin = QDoubleSpinBox()
+
+        for spin in (self.dx_spin, self.dy_spin):
+            spin.setDecimals(2)
+            spin.setRange(0.01, 100.0)
+            spin.setValue(0.1)
+            spin.setSingleStep(0.01)
+
+        layout = QFormLayout(self)
+        layout.addRow("dx:", self.dx_spin)
+        layout.addRow("dy:", self.dy_spin)
+
+        buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        box = QDialogButtonBox(buttons)
+        box.accepted.connect(self.accept)
+        box.rejected.connect(self.reject)
+        layout.addWidget(box)
+
+    def get_data(self) -> tuple[float, float]:
+        return self.dx_spin.value(), self.dy_spin.value()

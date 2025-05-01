@@ -5,5 +5,5 @@ from PySide6.QtWidgets import QDialog
 
 class Dialog(QDialog):
     @abstractmethod
-    def get_data(self) -> dict:
+    def get_data(self) -> dict | tuple:
         ...
