@@ -12,17 +12,14 @@ class MeshDialog(Dialog):
         self.setWindowTitle('Параметры сетки')
 
         self.dx_spin = QDoubleSpinBox()
-        self.dy_spin = QDoubleSpinBox()
 
-        for spin in (self.dx_spin, self.dy_spin):
-            spin.setDecimals(2)
-            spin.setRange(0.01, 100.0)
-            spin.setValue(0.1)
-            spin.setSingleStep(0.01)
+        self.dx_spin.setDecimals(2)
+        self.dx_spin.setRange(0.01, 100.0)
+        self.dx_spin.setValue(1)
+        self.dx_spin.setSingleStep(0.01)
 
         layout = QFormLayout(self)
-        layout.addRow("dx:", self.dx_spin)
-        layout.addRow("dy:", self.dy_spin)
+        layout.addRow('Максимальный размер элемента', self.dx_spin)
 
         buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         box = QDialogButtonBox(buttons)
@@ -30,5 +27,5 @@ class MeshDialog(Dialog):
         box.rejected.connect(self.reject)
         layout.addWidget(box)
 
-    def get_data(self) -> tuple[float, float]:
-        return self.dx_spin.value(), self.dy_spin.value()
+    def get_data(self) -> float:
+        return self.dx_spin.value()

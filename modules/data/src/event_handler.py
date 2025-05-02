@@ -1,14 +1,20 @@
-from PySide6.QtCore import QRectF, Qt, QPointF, QEvent
-from PySide6.QtGui import QMouseEvent, QBrush, QColor, QKeyEvent
-from PySide6.QtWidgets import (QGraphicsLineItem, QGraphicsEllipseItem,
-                               QGraphicsRectItem)
+from PySide6.QtCore import QEvent
+from PySide6.QtCore import QPointF
+from PySide6.QtCore import QRectF
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QBrush
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QKeyEvent
+from PySide6.QtGui import QMouseEvent
+from PySide6.QtWidgets import QGraphicsEllipseItem
+from PySide6.QtWidgets import QGraphicsLineItem
+from PySide6.QtWidgets import QGraphicsRectItem
 
 from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.commands.move_command import MoveCommand
 from modules.data.src.graphics_view import GraphicsView
 from modules.data.src.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
-from modules.data.src.services.mesh_service import MeshService
 from modules.data.src.services.selection_service import SelectionService
 
 
@@ -133,4 +139,4 @@ class EventHandler:
         elif event.key() == Qt.Key.Key_Delete:
             selected = self.scene.selectedItems()
             if selected:
-                self.command_service.execute(DeleteCommand(self.scene, selected, MeshService.mesh_map))
+                self.command_service.execute(DeleteCommand(self.scene, selected))

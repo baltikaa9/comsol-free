@@ -1,8 +1,12 @@
 from PySide6.QtCore import QEvent
 from PySide6.QtGui import QKeyEvent
 from PySide6.QtGui import QPainter
+from PySide6.QtGui import QPainterPath
 from PySide6.QtWidgets import QApplication
 from PySide6.QtWidgets import QDialog
+from PySide6.QtWidgets import QGraphicsEllipseItem
+from PySide6.QtWidgets import QGraphicsLineItem
+from PySide6.QtWidgets import QGraphicsRectItem
 from PySide6.QtWidgets import QGraphicsView
 from PySide6.QtWidgets import QMainWindow
 
@@ -13,7 +17,7 @@ from modules.data.src.operations.boolean_operations import BooleanOperations
 from modules.data.src.operations.transformation_operations import TransformationOperations
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.drawing_service import DrawingService
-from modules.data.src.services.mesh_service import MeshService
+from modules.data.src.services.gmsh_mesh_builder import GmshMeshBuilder
 from modules.data.src.services.selection_service import SelectionService
 from modules.data.src.ui.template import Ui_MainWindow
 
@@ -54,7 +58,6 @@ class MainWindow(QMainWindow):
             command_service,
             selection_service
         )
-        self.mesh_service = MeshService(self.scene, self.drawing_service)
 
         self.ui.actionDrawLineByParams.triggered.connect(self.drawing_service.draw_line_by_params)
         self.ui.actionDrawRectByParams.triggered.connect(self.drawing_service.draw_rect_by_params)
@@ -66,7 +69,7 @@ class MainWindow(QMainWindow):
         self.ui.actionIntersection.triggered.connect(self.boolean_operations.perform_intersection)
         self.ui.actionMirror.triggered.connect(self.transformation_operations.perform_mirror)
         self.ui.actionRotate.triggered.connect(self.transformation_operations.perform_rotate)
-        self.ui.actionBuildMesh.triggered.connect(self.build_mesh)
+        self.ui.actionBuildMesh.triggered.connect(self.build_gmsh_mesh)
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
@@ -79,18 +82,34 @@ class MainWindow(QMainWindow):
     def keyPressEvent(self, event: QKeyEvent):
         self.event_handler.key_press_event(event)
 
-    def build_mesh(self):
-        selected = self.scene.selectedItems()
-        if not selected:
-            print("Нет выбранных фигур.")
-            return
-
+    def build_gmsh_mesh(self):
         dialog = MeshDialog(self)
         if dialog.exec() != QDialog.Accepted:
             return
 
-        dx, dy = dialog.get_data()
-        self.mesh_service.build_mesh(selected, dx * self.grid_spacing, dy * self.grid_spacing)
+        dx = dialog.get_data()
+
+        item = self.scene.selectedItems()[0]
+
+        if hasattr(item, 'path'):
+            path: QPainterPath = item.path()
+        elif isinstance(item, QGraphicsRectItem):
+            path = QPainterPath()
+            path.addRect(item.rect())
+        elif isinstance(item, QGraphicsEllipseItem):
+            path = QPainterPath()
+            path.addEllipse(item.rect())
+        elif isinstance(item, QGraphicsLineItem):
+            path = QPainterPath()
+            line = item.line()
+            path.moveTo(line.p1())
+            path.lineTo(line.p2())
+        else:
+            print(f"Тип {type(item)} не поддерживается.")
+            return
+
+        builder = GmshMeshBuilder(self.grid_spacing)
+        builder.build_mesh(item.mapToScene(path), dx)
 
 if __name__ == '__main__':
     app = QApplication([])

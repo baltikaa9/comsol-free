@@ -1,17 +1,18 @@
 from PySide6.QtCore import QPointF
 from PySide6.QtGui import QPainterPath
 from PySide6.QtWidgets import QGraphicsEllipseItem
-from PySide6.QtWidgets import QGraphicsLineItem, QWidget, QGraphicsItem
+from PySide6.QtWidgets import QGraphicsItem
+from PySide6.QtWidgets import QGraphicsLineItem
 from PySide6.QtWidgets import QGraphicsPathItem
 from PySide6.QtWidgets import QGraphicsRectItem
 from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QWidget
 
 from modules.data.src.commands.add_command import AddCommand
 from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.drawing_service import DrawingService
-from modules.data.src.services.mesh_service import MeshService
 from modules.data.src.services.selection_service import SelectionService
 
 
@@ -70,7 +71,7 @@ class BooleanOperations:
         new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, new_item))
 
-        self.command_service.execute(DeleteCommand(self.scene, sel, MeshService.mesh_map))
+        self.command_service.execute(DeleteCommand(self.scene, sel))
 
         self.scene.clearSelection()
         new_item.setSelected(True)
