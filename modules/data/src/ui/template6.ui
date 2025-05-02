@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1008</width>
     <height>600</height>
    </rect>
   </property>
@@ -41,7 +41,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1008</width>
      <height>22</height>
     </rect>
    </property>
@@ -58,13 +58,9 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionSelect"/>
-<!--   <addaction name="actionDrawLine"/>-->
    <addaction name="actionDrawLineByParams"/>
-<!--   <addaction name="actionDrawRect"/>-->
    <addaction name="actionDrawRectByParams"/>
-<!--   <addaction name="actionDrawCircle"/>-->
    <addaction name="actionDrawCircleByParams"/>
-<!--   <addaction name="actionDrawCurve"/>-->
    <addaction name="actionDrawCurveByParams"/>
    <addaction name="actionDrawParametric"/>
    <addaction name="actionUnion"/>
@@ -79,41 +75,21 @@
     <string>Выбор</string>
    </property>
   </action>
-<!--  <action name="actionDrawLine">-->
-<!--   <property name="text">-->
-<!--    <string>Draw Line (Mouse)</string>-->
-<!--   </property>-->
-<!--  </action>-->
   <action name="actionDrawLineByParams">
    <property name="text">
     <string>Прямая</string>
    </property>
   </action>
-<!--  <action name="actionDrawRect">-->
-<!--   <property name="text">-->
-<!--    <string>Draw Rectangle (Mouse)</string>-->
-<!--   </property>-->
-<!--  </action>-->
   <action name="actionDrawRectByParams">
    <property name="text">
     <string>Прямоугольник</string>
    </property>
   </action>
-<!--  <action name="actionDrawCircle">-->
-<!--   <property name="text">-->
-<!--    <string>Draw Circle (Mouse)</string>-->
-<!--   </property>-->
-<!--  </action>-->
   <action name="actionDrawCircleByParams">
    <property name="text">
     <string>Эллипс</string>
    </property>
   </action>
-<!--  <action name="actionDrawCurve">-->
-<!--   <property name="text">-->
-<!--    <string>Draw Curve (Mouse)</string>-->
-<!--   </property>-->
-<!--  </action>-->
   <action name="actionDrawCurveByParams">
    <property name="text">
     <string>Кривая Безье</string>
@@ -125,35 +101,35 @@
    </property>
   </action>
   <action name="actionUnion">
-    <property name="text">
-     <string>Объединение</string>
-    </property>
-   </action>
-   <action name="actionDifference">
-    <property name="text">
-     <string>Разница</string>
-    </property>
-   </action>
-   <action name="actionIntersection">
-    <property name="text">
-     <string>Пересечение</string>
-    </property>
-   </action>
-   <action name="actionMirror">
-    <property name="text">
-     <string>Отражение</string>
-    </property>
-   </action>
-   <action name="actionRotate">
-    <property name="text">
-     <string>Поворот</string>
-    </property>
-   </action>
-   <action name="actionBuildMesh">
-    <property name="text">
-     <string>Построить сетку</string>
-    </property>
-   </action>
+   <property name="text">
+    <string>Объединение</string>
+   </property>
+  </action>
+  <action name="actionDifference">
+   <property name="text">
+    <string>Разница</string>
+   </property>
+  </action>
+  <action name="actionIntersection">
+   <property name="text">
+    <string>Пересечение</string>
+   </property>
+  </action>
+  <action name="actionMirror">
+   <property name="text">
+    <string>Отражение</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="text">
+    <string>Поворот</string>
+   </property>
+  </action>
+  <action name="actionBuildMesh">
+   <property name="text">
+    <string>Построить сетку</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
