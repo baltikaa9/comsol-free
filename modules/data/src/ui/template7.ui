@@ -17,6 +17,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QTreeWidget" name="projectTree">
+      <property name="minimumSize">
+        <size>
+          <width>200</width>
+          <height>0</height>
+        </size>
+      </property>
       <column>
        <property name="text">
         <string>Project</string>

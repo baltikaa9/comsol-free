@@ -65,6 +65,7 @@ class Ui_MainWindow(object):
         QTreeWidgetItem(__qtreewidgetitem2)
         QTreeWidgetItem(__qtreewidgetitem2)
         self.projectTree.setObjectName(u"projectTree")
+        self.projectTree.setMinimumSize(QSize(200, 0))
 
         self.horizontalLayout.addWidget(self.projectTree)
 
