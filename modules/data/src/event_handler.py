@@ -13,11 +13,15 @@ from PySide6.QtWidgets import QGraphicsLineItem
 from PySide6.QtWidgets import QGraphicsRectItem
 from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QLineEdit
+from PySide6.QtWidgets import QGraphicsPathItem
 
 from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.commands.move_command import MoveCommand
+from modules.data.src.dialogs.boundary_condition_dialog import BoundaryConditionDialog
+from modules.data.src.dialogs.turbulence_dialog import TurbulenceDialog
 from modules.data.src.graphics_view import GraphicsView
 from modules.data.src.grid_scene import GridScene
+from modules.data.src.physics.turbulence_models import BoundaryCondition
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.selection_service import SelectionService
 
@@ -25,12 +29,14 @@ from modules.data.src.services.selection_service import SelectionService
 class EventHandler:
     def __init__(
             self,
+            main_window,
             scene: GridScene,
             graphics_view: GraphicsView,
             properties_layout: QBoxLayout,
             selection_service: SelectionService,
             command_service: CommandService,
     ):
+        self.main_window = main_window
         self.scene = scene
         self.graphics_view = graphics_view
         self.properties_layout = properties_layout
@@ -163,3 +169,20 @@ class EventHandler:
         self.properties_layout.addWidget(x_edit)
         self.properties_layout.addWidget(QLabel("Y:"))
         self.properties_layout.addWidget(y_edit)
+
+    # В классе EventHandler добавьте:
+    def handle_item_selected(self, item):
+        if isinstance(item, (QGraphicsPathItem, QGraphicsLineItem)):
+            self.assign_boundary_condition(item)
+
+    def assign_boundary_condition(self, geometry_item):
+        dialog = BoundaryConditionDialog(self.main_window.turbulence_params.model)
+        if dialog.exec():
+            bc = BoundaryCondition(
+                name=f"BC_{len(self.main_window.boundary_conditions) + 1}",
+                bc_type=dialog.get_bc_type(),
+                values=dialog.get_values(),
+            )
+            geometry_item.setData(0, bc)  # Привязываем BC к геометрии
+            self.main_window.boundary_conditions.append(bc)
+            self.main_window.update_project_tree()

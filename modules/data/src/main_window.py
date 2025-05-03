@@ -1,20 +1,33 @@
+from PySide6.QtCore import Qt
 from PySide6.QtCore import QEvent
 from PySide6.QtGui import QKeyEvent
 from PySide6.QtGui import QPainter
 from PySide6.QtGui import QPainterPath
+from PySide6.QtGui import QPen
 from PySide6.QtWidgets import QApplication
 from PySide6.QtWidgets import QDialog
 from PySide6.QtWidgets import QGraphicsEllipseItem
 from PySide6.QtWidgets import QGraphicsLineItem
 from PySide6.QtWidgets import QGraphicsRectItem
+from PySide6.QtWidgets import QGraphicsPathItem
 from PySide6.QtWidgets import QGraphicsView
 from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QMenu
+from PySide6.QtWidgets import QTreeWidgetItem
 
+from modules.data.src.dialogs.boundary_condition_dialog import BoundaryConditionDialog
+from modules.data.src.dialogs.initial_condition_dialog import InitialConditionDialog
 from modules.data.src.dialogs.mesh_dialog import MeshDialog
+from modules.data.src.dialogs.turbulence_dialog import TurbulenceDialog
 from modules.data.src.event_handler import EventHandler
 from modules.data.src.grid_scene import GridScene
 from modules.data.src.operations.boolean_operations import BooleanOperations
 from modules.data.src.operations.transformation_operations import TransformationOperations
+from modules.data.src.physics.turbulence_models import BoundaryCondition
+from modules.data.src.physics.turbulence_models import InitialCondition
+from modules.data.src.physics.turbulence_models import TurbulenceModel
+from modules.data.src.physics.turbulence_models import TurbulenceParams
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.drawing_service import DrawingService
 from modules.data.src.services.gmsh_mesh_builder import GmshMeshBuilder
@@ -39,6 +52,7 @@ class MainWindow(QMainWindow):
         selection_service = SelectionService(self.scene)
         command_service = CommandService()
         self.event_handler = EventHandler(
+            self,
             self.scene,
             self.ui.graphicsView,
             self.ui.propertiesLayout,
@@ -73,6 +87,14 @@ class MainWindow(QMainWindow):
         self.ui.actionBuildMesh.triggered.connect(self.build_gmsh_mesh)
 
         self.ui.graphicsView.viewport().installEventFilter(self)
+
+        # Инициализация параметров
+        self.turbulence_params = TurbulenceParams()
+        self.boundary_conditions: list[BoundaryCondition] = []
+        self.initial_conditions = InitialCondition()
+
+        # Инициализация UI
+        self.init_turbulence_ui()
 
     def eventFilter(self, obj, event: QEvent):
         if obj is self.ui.graphicsView.viewport():
@@ -111,6 +133,162 @@ class MainWindow(QMainWindow):
 
         builder = GmshMeshBuilder(self.grid_spacing)
         builder.build_mesh(item.mapToScene(path), dx)
+
+    def init_turbulence_ui(self):
+        self.ui.projectTree.itemDoubleClicked.connect(self.on_tree_item_clicked)
+        self.ui.projectTree.setContextMenuPolicy(Qt.CustomContextMenu)  # <-- Добавить эту строку
+        self.ui.projectTree.customContextMenuRequested.connect(self.show_tree_context_menu)
+        self.update_project_tree()
+
+    def update_project_tree(self):
+        self.ui.projectTree.clear()
+
+        # Модель турбулентности
+        turbulence_item = QTreeWidgetItem(["Turbulence Model"])
+        turbulence_item.addChild(QTreeWidgetItem([
+            f"{self.turbulence_params.model.value}"
+        ]))
+
+        # Начальные условия
+        init_item = QTreeWidgetItem(["Initial Conditions"])
+        init_item.addChild(QTreeWidgetItem([
+            f"Velocity: {self.initial_conditions.velocity} m/s"
+        ]))
+        if self.turbulence_params.model != TurbulenceModel.LAMINAR:
+            init_item.addChild(QTreeWidgetItem([
+                f"Turbulent k: {self.initial_conditions.turbulent_k}"
+            ]))
+
+        # Граничные условия
+        bc_item = QTreeWidgetItem(["Boundary Conditions"])
+        for bc in self.boundary_conditions:
+            bc_child = QTreeWidgetItem([bc.name])
+            bc_child.setData(0, Qt.UserRole, bc)
+            bc_child.addChild(QTreeWidgetItem([f"Type: {bc.bc_type}"]))
+            for k, v in bc.values.items():
+                bc_child.addChild(QTreeWidgetItem([f"{k}: {v}"]))
+            bc_item.addChild(bc_child)
+
+        self.ui.projectTree.addTopLevelItem(turbulence_item)
+        self.ui.projectTree.addTopLevelItem(init_item)
+        self.ui.projectTree.addTopLevelItem(bc_item)
+
+    def on_tree_item_clicked(self, item, column):
+        parent = item.parent()
+
+        # Для верхнеуровневых элементов
+        if not parent:
+            if item.text(0) == "Turbulence Model":
+                self.edit_turbulence_model()
+            elif item.text(0) == "Initial Conditions":
+                self.edit_initial_conditions()
+            elif item.text(0) == "Boundary Conditions":
+                self.add_boundary_condition()
+            return
+
+        # Для дочерних элементов
+        parent_text = parent.text(0)
+
+        if parent_text == "Initial Conditions":
+            self.edit_initial_conditions()
+
+        elif parent_text == "Boundary Conditions":
+            self.edit_boundary_condition(item)
+
+    def add_boundary_condition(self):
+        # Проверяем, выбран ли геометрический объект на сцене
+        selected_items = self.scene.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Ошибка", "Сначала выберите геометрический объект на сцене!")
+            return
+
+        geometry_item = selected_items[0]
+        dialog = BoundaryConditionDialog(self.turbulence_params.model)
+        if dialog.exec():
+            bc = dialog.get_data()
+            bc.geometry_item = geometry_item  # Привязываем к геометрии
+            self.boundary_conditions.append(bc)
+            self.update_project_tree()
+            self.highlight_boundary(geometry_item)  # Подсветка на сцене
+
+    def highlight_boundary(self, item):
+        # Убираем предыдущую подсветку
+        for elem in self.scene.items():
+            if elem.data(Qt.UserRole) == "BC_HIGHLIGHT":
+                self.scene.removeItem(elem)
+
+        # Создаем путь в зависимости от типа элемента
+        path = QPainterPath()
+
+        if isinstance(item, QGraphicsPathItem):
+            path = item.path()
+        elif isinstance(item, QGraphicsRectItem):
+            path.addRect(item.rect())
+        elif isinstance(item, QGraphicsEllipseItem):
+            path.addEllipse(item.rect())
+        elif isinstance(item, QGraphicsLineItem):
+            line = item.line()
+            path.moveTo(line.p1())
+            path.lineTo(line.p2())
+        else:
+            return  # Неподдерживаемый тип
+
+        # Преобразуем путь в координаты сцены
+        path = item.mapToScene(path)
+
+        # Создаем подсветку
+        pen = QPen(Qt.red, 3)
+        pen.setStyle(Qt.DashLine)
+        highlight = self.scene.addPath(path, pen)
+        highlight.setData(Qt.UserRole, "BC_HIGHLIGHT")
+        highlight.setZValue(100)
+
+    def edit_turbulence_model(self):
+        dialog = TurbulenceDialog(self.turbulence_params, self)
+        if dialog.exec():
+            self.turbulence_params = dialog.get_data()
+            self.update_project_tree()
+
+    def edit_initial_conditions(self):
+        dialog = InitialConditionDialog(
+            self.initial_conditions,
+            self.turbulence_params.model,
+            self
+        )
+        if dialog.exec():
+            self.initial_conditions = dialog.get_data()
+            self.update_project_tree()
+
+    def edit_boundary_condition(self, item):
+        bc = item.data(0, Qt.UserRole)
+        dialog = BoundaryConditionDialog(
+            self.turbulence_params.model,
+            bc=bc,
+            parent=self
+        )
+        if dialog.exec():
+            new_bc = dialog.get_data()
+            new_bc.geometry_item = bc.geometry_item  # Сохраняем привязку к геометрии
+            index = self.boundary_conditions.index(bc)
+            self.boundary_conditions[index] = new_bc
+            self.update_project_tree()
+            self.highlight_boundary(new_bc.geometry_item)
+
+    def show_tree_context_menu(self, position):
+        item = self.ui.projectTree.itemAt(position)
+        menu = QMenu()
+
+        if item and item.text(0) == "Boundary Conditions":
+            menu.addAction("Добавить условие", self.add_boundary_condition)
+        elif item and item.parent() and item.parent().text(0) == "Boundary Conditions":
+            menu.addAction("Удалить условие", lambda: self.delete_boundary_condition(item))
+
+        menu.exec(self.ui.projectTree.viewport().mapToGlobal(position))
+
+    def delete_boundary_condition(self, item):
+        bc = item.data(0, Qt.UserRole)
+        self.boundary_conditions.remove(bc)
+        self.update_project_tree()
 
 if __name__ == '__main__':
     app = QApplication([])
