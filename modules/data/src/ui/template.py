@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'template6.ui'
+## Form generated from reading UI file 'template7.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -56,6 +56,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.projectTree = QTreeWidget(self.centralwidget)
+        __qtreewidgetitem = QTreeWidgetItem(self.projectTree)
+        QTreeWidgetItem(__qtreewidgetitem)
+        __qtreewidgetitem1 = QTreeWidgetItem(self.projectTree)
+        QTreeWidgetItem(__qtreewidgetitem1)
+        QTreeWidgetItem(__qtreewidgetitem1)
+        __qtreewidgetitem2 = QTreeWidgetItem(self.projectTree)
+        QTreeWidgetItem(__qtreewidgetitem2)
+        QTreeWidgetItem(__qtreewidgetitem2)
         self.projectTree.setObjectName(u"projectTree")
 
         self.horizontalLayout.addWidget(self.projectTree)
@@ -121,6 +129,27 @@ class Ui_MainWindow(object):
         self.actionBuildMesh.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0441\u0435\u0442\u043a\u0443", None))
         ___qtreewidgetitem = self.projectTree.headerItem()
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Project", None));
+
+        __sortingEnabled = self.projectTree.isSortingEnabled()
+        self.projectTree.setSortingEnabled(False)
+        ___qtreewidgetitem1 = self.projectTree.topLevelItem(0)
+        ___qtreewidgetitem1.setText(0, QCoreApplication.translate("MainWindow", u"Physics", None));
+        ___qtreewidgetitem2 = ___qtreewidgetitem1.child(0)
+        ___qtreewidgetitem2.setText(0, QCoreApplication.translate("MainWindow", u"Turbulence Model: Laminar", None));
+        ___qtreewidgetitem3 = self.projectTree.topLevelItem(1)
+        ___qtreewidgetitem3.setText(0, QCoreApplication.translate("MainWindow", u"Initial Conditions", None));
+        ___qtreewidgetitem4 = ___qtreewidgetitem3.child(0)
+        ___qtreewidgetitem4.setText(0, QCoreApplication.translate("MainWindow", u"Velocity: (0, 0)", None));
+        ___qtreewidgetitem5 = ___qtreewidgetitem3.child(1)
+        ___qtreewidgetitem5.setText(0, QCoreApplication.translate("MainWindow", u"Pressure: 0", None));
+        ___qtreewidgetitem6 = self.projectTree.topLevelItem(2)
+        ___qtreewidgetitem6.setText(0, QCoreApplication.translate("MainWindow", u"Boundary Conditions", None));
+        ___qtreewidgetitem7 = ___qtreewidgetitem6.child(0)
+        ___qtreewidgetitem7.setText(0, QCoreApplication.translate("MainWindow", u"Inlet: Velocity (1, 0)", None));
+        ___qtreewidgetitem8 = ___qtreewidgetitem6.child(1)
+        ___qtreewidgetitem8.setText(0, QCoreApplication.translate("MainWindow", u"Outlet: Pressure 0", None));
+        self.projectTree.setSortingEnabled(__sortingEnabled)
+
         self.mainToolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"Tools", None))
     # retranslateUi
 

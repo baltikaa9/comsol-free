@@ -41,6 +41,7 @@ class MainWindow(QMainWindow):
         self.event_handler = EventHandler(
             self.scene,
             self.ui.graphicsView,
+            self.ui.propertiesLayout,
             selection_service,
             command_service
         )
@@ -84,7 +85,7 @@ class MainWindow(QMainWindow):
 
     def build_gmsh_mesh(self):
         dialog = MeshDialog(self)
-        if dialog.exec() != QDialog.Accepted:
+        if dialog.exec() != QDialog.DialogCode.Accepted:
             return
 
         dx = dialog.get_data()

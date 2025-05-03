@@ -6,9 +6,13 @@ from PySide6.QtGui import QBrush
 from PySide6.QtGui import QColor
 from PySide6.QtGui import QKeyEvent
 from PySide6.QtGui import QMouseEvent
+from PySide6.QtWidgets import QBoxLayout
 from PySide6.QtWidgets import QGraphicsEllipseItem
+from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QGraphicsLineItem
 from PySide6.QtWidgets import QGraphicsRectItem
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QLineEdit
 
 from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.commands.move_command import MoveCommand
@@ -23,12 +27,14 @@ class EventHandler:
             self,
             scene: GridScene,
             graphics_view: GraphicsView,
+            properties_layout: QBoxLayout,
             selection_service: SelectionService,
             command_service: CommandService,
     ):
         self.scene = scene
-        self.selection_service = selection_service
         self.graphics_view = graphics_view
+        self.properties_layout = properties_layout
+        self.selection_service = selection_service
         self.command_service = command_service
 
         self.moving_items = False
@@ -62,6 +68,7 @@ class EventHandler:
             self.moving_items = True
             self.move_initial_pos = scene_pos
             self.move_start_pos = scene_pos
+            self.__update_properties(item)
         else:
             self.selection_service.selection_rect = QGraphicsRectItem()
             self.selection_service.selection_rect.setPen(self.selection_service.selection_pen)
@@ -79,6 +86,7 @@ class EventHandler:
                 for item in selected:
                     item.moveBy(delta.x(), delta.y())
                 self.move_start_pos = scene_pos
+                self.__update_properties(selected[0])
             return True
         elif self.selection_service.selection_rect:
             rect = QRectF(self.start_point, scene_pos).normalized()
@@ -140,3 +148,18 @@ class EventHandler:
             selected = self.scene.selectedItems()
             if selected:
                 self.command_service.execute(DeleteCommand(self.scene, selected))
+
+    def __update_properties(self, item: QGraphicsItem):
+        # Очистить layout
+        while self.properties_layout.count():
+            child = self.properties_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Пример: добавить поля для позиции
+        x_edit = QLineEdit(str(item.x()), readOnly=True)
+        y_edit = QLineEdit(str(item.y()), readOnly=True)
+        self.properties_layout.addWidget(QLabel("X:"))
+        self.properties_layout.addWidget(x_edit)
+        self.properties_layout.addWidget(QLabel("Y:"))
+        self.properties_layout.addWidget(y_edit)
