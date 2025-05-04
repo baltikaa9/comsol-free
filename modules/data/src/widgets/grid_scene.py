@@ -1,9 +1,11 @@
-from PySide6.QtCore import Qt, QRectF, QPointF
-from PySide6.QtGui import QPen, QFont
-from PySide6.QtWidgets import (
-    QGraphicsScene,
-    QGraphicsTextItem,
-)
+from PySide6.QtCore import QPointF
+from PySide6.QtCore import QRectF
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont
+from PySide6.QtGui import QPen
+from PySide6.QtWidgets import QGraphicsItem
+from PySide6.QtWidgets import QGraphicsScene
+from PySide6.QtWidgets import QGraphicsTextItem
 
 
 class GridScene(QGraphicsScene):
@@ -76,3 +78,10 @@ class GridScene(QGraphicsScene):
                 self.addItem(lab)
                 self._labels.append(lab)
             y += self.spacing
+
+    def find_edge_by_id(self, edge_id: int) -> QGraphicsItem | None:
+        """Находит ребро на сцене по его ID."""
+        for item in self.items():
+            if hasattr(item, 'id') and item.id == edge_id:
+                return item
+        return None

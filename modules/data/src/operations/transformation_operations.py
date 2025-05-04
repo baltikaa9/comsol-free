@@ -8,8 +8,8 @@ from PySide6.QtWidgets import QMessageBox
 
 from modules.data.src.commands.add_command import AddCommand
 from modules.data.src.commands.rotate_command import RotateCommand
-from modules.data.src.editable_bezier import EditableBezierCurveItem
-from modules.data.src.grid_scene import GridScene
+from modules.data.src.widgets.editable_bezier import EditableBezierCurveItem
+from modules.data.src.widgets.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.selection_service import SelectionService
 

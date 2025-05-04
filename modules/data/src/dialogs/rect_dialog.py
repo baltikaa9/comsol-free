@@ -30,7 +30,8 @@ class RectDialog(Dialog):
     def get_data(self):
         try:
             return {
-                'top_left': QPointF(float(self.top_left_x.text()), float(self.top_left_y.text())),
+                'top_left_x': float(self.top_left_x.text()),
+                'top_left_y': float(self.top_left_y.text()),
                 'width': float(self.width.text()),
                 'height': float(self.height.text())
             }

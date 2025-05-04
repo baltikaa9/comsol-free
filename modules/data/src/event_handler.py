@@ -10,19 +10,17 @@ from PySide6.QtWidgets import QBoxLayout
 from PySide6.QtWidgets import QGraphicsEllipseItem
 from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QGraphicsLineItem
-from PySide6.QtWidgets import QGraphicsPathItem
 from PySide6.QtWidgets import QGraphicsRectItem
 from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QLineEdit
 
 from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.commands.move_command import MoveCommand
-from modules.data.src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
-from modules.data.src.graphics_view import GraphicsView
-from modules.data.src.grid_scene import GridScene
-from modules.data.src.physics.turbulence_models import BoundaryConditions
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.selection_service import SelectionService
+from modules.data.src.widgets.edge_item import EdgeItem
+from modules.data.src.widgets.graphics_view import GraphicsView
+from modules.data.src.widgets.grid_scene import GridScene
 
 
 class EventHandler:
@@ -61,11 +59,18 @@ class EventHandler:
 
         item = self.scene.itemAt(scene_pos, self.graphics_view.transform())
         ctrl_pressed = event.modifiers() & Qt.KeyboardModifier.ControlModifier
+        alt_pressed = event.modifiers() & Qt.KeyboardModifier.AltModifier
         if item:
             if ctrl_pressed:
                 if item not in self.selection_service.bool_selection:
                     self.selection_service.bool_selection.append(item)
                 item.setSelected(not item.isSelected())
+            elif alt_pressed:
+                items = self.graphics_view.items(event.pos())
+                for item in items:
+                    if isinstance(item, EdgeItem):
+                        self.selection_service.select_edge(item)
+                        return True
             else:
                 self.selection_service.clear_selection()
                 self.selection_service.bool_selection = [item]
@@ -164,9 +169,9 @@ class EventHandler:
         # Пример: добавить поля для позиции
         x_edit = QLineEdit(str(item.x()), readOnly=True)
         y_edit = QLineEdit(str(item.y()), readOnly=True)
-        self.properties_layout.addWidget(QLabel("X:"))
+        self.properties_layout.addWidget(QLabel('X:'))
         self.properties_layout.addWidget(x_edit)
-        self.properties_layout.addWidget(QLabel("Y:"))
+        self.properties_layout.addWidget(QLabel('Y:'))
         self.properties_layout.addWidget(y_edit)
 
     # def handle_item_selected(self, item):
@@ -177,7 +182,7 @@ class EventHandler:
     #     dialog = BoundaryConditionsDialog(self.main_window.turbulence_params.model)
     #     if dialog.exec():
     #         bc = BoundaryConditions(
-    #             name=f"BC_{len(self.main_window.boundary_conditions) + 1}",
+    #             name=f'BC_{len(self.main_window.boundary_conditions) + 1}',
     #             bc_type=dialog.get_bc_type(),
     #             values=dialog.get_values(),
     #         )

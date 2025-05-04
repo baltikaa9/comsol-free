@@ -25,6 +25,7 @@ class TurbulenceParams:
 
 @dataclass
 class BoundaryConditions:
+    edge_id: int
     type: BoundaryConditionType = BoundaryConditionType.INLET
     u: float = 0
     v: float = 0

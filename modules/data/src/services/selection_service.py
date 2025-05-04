@@ -1,13 +1,15 @@
 from PySide6.QtCore import Qt, QRectF
 from PySide6.QtGui import QPen, QColor, QBrush
-from PySide6.QtWidgets import (QGraphicsItem)
+from PySide6.QtWidgets import QGraphicsItem
 
-from modules.data.src.grid_scene import GridScene
+from modules.data.src.widgets.edge_item import EdgeItem
+from modules.data.src.widgets.grid_scene import GridScene
 
 
 class SelectionService:
     def __init__(self, scene: GridScene):
         self.bool_selection: list[QGraphicsItem] = []
+        self.selected_edges: list[EdgeItem] = []  # Храним выбранные рёбра
         self.scene = scene
 
         self.selected_pen = QPen(Qt.red, 0)
@@ -39,3 +41,15 @@ class SelectionService:
             if item.flags() & QGraphicsItem.ItemIsSelectable:
                 item.setSelected(True)
                 self.bool_selection.append(item)
+
+    def select_edge(self, edge: QGraphicsItem):
+        # Снимаем выделение с других рёбер
+        for e in self.selected_edges:
+            e.setSelected(False)
+        self.selected_edges = [edge]
+        edge.setSelected(True)
+
+    def clear_edge_selection(self):
+        for edge in self.selected_edges:
+            edge.setSelected(False)
+        self.selected_edges = []

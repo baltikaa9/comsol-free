@@ -18,10 +18,10 @@
     <item>
      <widget class="QTreeWidget" name="projectTree">
       <property name="minimumSize">
-        <size>
-          <width>200</width>
-          <height>0</height>
-        </size>
+       <size>
+        <width>200</width>
+        <height>0</height>
+       </size>
       </property>
       <column>
        <property name="text">
@@ -181,7 +181,7 @@
   <customwidget>
    <class>GraphicsView</class>
    <extends>QGraphicsView</extends>
-   <header>src.graphics_view</header>
+   <header>src.widgets.graphics_view</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -19,10 +19,11 @@ from PySide6.QtWidgets import QWidget
 from modules.data.src.commands.add_command import AddCommand
 from modules.data.src.dialogs.dialog import Dialog
 from modules.data.src.dialogs.dialog_factory import DialogFactory
-from modules.data.src.editable_bezier import EditableBezierCurveItem
-from modules.data.src.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.selection_service import SelectionService
+from modules.data.src.widgets.editable_bezier import EditableBezierCurveItem
+from modules.data.src.widgets.edge_item import EdgeItem
+from modules.data.src.widgets.grid_scene import GridScene
 
 
 class DrawingService:
@@ -55,12 +56,24 @@ class DrawingService:
         data = self.__get_data(DialogFactory.create_dialog('rect', self.parent))
 
         scale = self.scene.spacing
-        rect = QRectF(data['top_left'] * scale, QSizeF(data['width'] * scale, data['height'] * scale))
-        item = QGraphicsRectItem(rect)
-        item.setPen(self.default_pen)
-        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
-        self.command_service.execute(AddCommand(self.scene, item))
-        self.selection_service.select_item(item)
+        x, y, width, height = data['top_left_x'] * scale, data['top_left_y'] * scale, data['width'] * scale, data['height'] * scale
+        # rect = QRectF(data['top_left'] * scale, QSizeF(data['width'] * scale, data['height'] * scale))
+        rect = QGraphicsRectItem(x, y, width, height)
+        # item = QGraphicsRectItem(rect)
+        rect.setPen(self.default_pen)
+        rect.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        self.command_service.execute(AddCommand(self.scene, rect))
+        self.selection_service.select_item(rect)
+
+        edges = [
+            EdgeItem(x, y, x + width, y),           # Верхнее ребро
+            EdgeItem(x + width, y, x + width, y + height),  # Правое
+            EdgeItem(x, y + height, x + width, y + height), # Нижнее
+            EdgeItem(x, y, x, y + height)            # Левое
+        ]
+        for edge in edges:
+            edge.setParentItem(rect)  # Связываем рёбра с родительской фигурой
+            edge.setFlag(QGraphicsItem.ItemIsSelectable, True)
 
     def draw_ellipse_by_params(self):
         data = self.__get_data(DialogFactory.create_dialog('ellipse', self.parent))

@@ -6,18 +6,21 @@ from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QVBoxLayout
 
 from modules.data.src.dialogs.dialog import Dialog
+from modules.data.src.physics.turbulence_models import BoundaryConditionType
 from modules.data.src.physics.turbulence_models import BoundaryConditions
 
 
 class BoundaryConditionsDialog(Dialog):
     def __init__(self, edge_id: int):
         super().__init__()
-        self.setWindowTitle(f"Граничное условие для ребра {edge_id}")
+        self.setWindowTitle(f'Граничное условие для ребра {edge_id}')
+        self.edge_id = edge_id  # Сохраняем ID ребра
         layout = QVBoxLayout()
 
         self.type_combo = QComboBox()
-        self.type_combo.addItems(["inlet", "wall", "open"])
-        self.type_combo.currentTextChanged.connect(self.on_type_change)
+        for condition in BoundaryConditionType:
+            self.type_combo.addItem(condition.value, condition)
+        self.type_combo.currentIndexChanged.connect(self.on_type_change)
         layout.addWidget(QLabel("Тип граничного условия:"))
         layout.addWidget(self.type_combo)
 
@@ -44,10 +47,11 @@ class BoundaryConditionsDialog(Dialog):
         layout.addWidget(self.button_box)
 
         self.setLayout(layout)
-        self.on_type_change("inlet")
+        self.on_type_change(0)
 
-    def on_type_change(self, text):
-        enabled = text == "inlet"
+    def on_type_change(self, index: int):
+        condition_type = self.type_combo.itemData(index)
+        enabled = condition_type == BoundaryConditionType.INLET
         for i in range(self.inputs_layout.count()):
             item = self.inputs_layout.itemAt(i).widget()
             if item:
@@ -55,7 +59,8 @@ class BoundaryConditionsDialog(Dialog):
 
     def get_data(self) -> BoundaryConditions:
         return BoundaryConditions(
-            self.type_combo.currentText(),
+            self.edge_id,
+            self.type_combo.currentData(),
             self.u_input.value(),
             self.v_input.value(),
             self.k_input.value(),

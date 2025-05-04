@@ -21,7 +21,8 @@ from modules.data.src.dialogs.initial_conditions_dialog import InitialConditions
 from modules.data.src.dialogs.mesh_dialog import MeshDialog
 from modules.data.src.dialogs.turbulence_dialog import TurbulenceDialog
 from modules.data.src.event_handler import EventHandler
-from modules.data.src.grid_scene import GridScene
+from modules.data.src.physics.turbulence_models import BoundaryConditionType
+from modules.data.src.widgets.grid_scene import GridScene
 from modules.data.src.operations.boolean_operations import BooleanOperations
 from modules.data.src.operations.transformation_operations import TransformationOperations
 from modules.data.src.physics.turbulence_models import BoundaryConditions
@@ -49,29 +50,29 @@ class MainWindow(QMainWindow):
         self.ui.graphicsView.scale(1, -1)
         self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.ViewportUpdateMode.FullViewportUpdate)
 
-        selection_service = SelectionService(self.scene)
+        self.selection_service = SelectionService(self.scene)
         command_service = CommandService()
         self.event_handler = EventHandler(
             self,
             self.scene,
             self.ui.graphicsView,
             self.ui.propertiesLayout,
-            selection_service,
+            self.selection_service,
             command_service
         )
-        self.drawing_service = DrawingService(self, self.scene, command_service, selection_service)
+        self.drawing_service = DrawingService(self, self.scene, command_service, self.selection_service)
         self.boolean_operations = BooleanOperations(
             self,
             self.scene,
             command_service,
             self.drawing_service,
-            selection_service
+            self.selection_service
         )
         self.transformation_operations = TransformationOperations(
             self,
             self.scene,
             command_service,
-            selection_service
+            self.selection_service
         )
 
         self.ui.actionDrawLineByParams.triggered.connect(self.drawing_service.draw_line_by_params)
@@ -131,7 +132,18 @@ class MainWindow(QMainWindow):
             print(f'Тип {type(item)} не поддерживается.')
             return
 
+        mesh_params = {
+            "edges": [
+                {
+                    "id": bc.edge_id,
+                    "type": bc.type,
+                    "values": {"u": bc.u, "v": bc.v, "k": bc.k, "omega": bc.omega}
+                } for bc in self.boundary_conditions
+            ]
+        }
+
         builder = GmshMeshBuilder(self.grid_spacing)
+        builder.set_parameters(mesh_params)
         builder.build_mesh(item.mapToScene(path), dx)
 
     def init_turbulence_ui(self):
@@ -172,7 +184,7 @@ class MainWindow(QMainWindow):
         # Граничные условия
         bc_item = QTreeWidgetItem(['Boundary Conditions'])
         for bc in self.boundary_conditions:
-            bc_child = QTreeWidgetItem([bc.type])
+            bc_child = QTreeWidgetItem([bc.type.value])
             bc_child.setData(0, Qt.UserRole, bc)
             # bc_child.addChild(QTreeWidgetItem([f'Type: {bc.bc_type}']))
 
@@ -221,52 +233,26 @@ class MainWindow(QMainWindow):
             self.edit_boundary_condition(item)
 
     def add_boundary_condition(self):
-        # Проверяем, выбран ли геометрический объект на сцене
-        selected_items = self.scene.selectedItems()
-        if not selected_items:
-            QMessageBox.warning(self, 'Ошибка', 'Сначала выберите геометрический объект на сцене!')
+        selected_edges = self.selection_service.selected_edges
+        if not selected_edges:
+            QMessageBox.warning(self, "Ошибка", "Выберите ребро (Alt + клик)!")
             return
 
-        geometry_item = selected_items[0]
-        dialog = BoundaryConditionsDialog(1)
-        if dialog.exec():
-            bc = dialog.get_data()
-            bc.geometry_item = geometry_item  # Привязываем к геометрии
-            self.boundary_conditions.append(bc)
-            self.update_project_tree()
-            self.highlight_boundary(geometry_item)  # Подсветка на сцене
+        for edge in selected_edges:
+            dialog = BoundaryConditionsDialog(edge_id=edge.id)
+            if dialog.exec():
+                bc = dialog.get_data()
+                bc.edge_id = edge.id  # Привязываем к ID ребра
+                self.boundary_conditions.append(bc)
 
-    def highlight_boundary(self, item):
-        # Убираем предыдущую подсветку
-        for elem in self.scene.items():
-            if elem.data(Qt.UserRole) == 'BC_HIGHLIGHT':
-                self.scene.removeItem(elem)
+        self.update_project_tree()
+        self.highlight_edges()
 
-        # Создаем путь в зависимости от типа элемента
-        path = QPainterPath()
-
-        if isinstance(item, QGraphicsPathItem):
-            path = item.path()
-        elif isinstance(item, QGraphicsRectItem):
-            path.addRect(item.rect())
-        elif isinstance(item, QGraphicsEllipseItem):
-            path.addEllipse(item.rect())
-        elif isinstance(item, QGraphicsLineItem):
-            line = item.line()
-            path.moveTo(line.p1())
-            path.lineTo(line.p2())
-        else:
-            return  # Неподдерживаемый тип
-
-        # Преобразуем путь в координаты сцены
-        path = item.mapToScene(path)
-
-        # Создаем подсветку
-        pen = QPen(Qt.red, 3)
-        pen.setStyle(Qt.DashLine)
-        highlight = self.scene.addPath(path, pen)
-        highlight.setData(Qt.UserRole, 'BC_HIGHLIGHT')
-        highlight.setZValue(100)
+    def highlight_edges(self):
+        for bc in self.boundary_conditions:
+            edge = self.scene.find_edge_by_id(bc.edge_id)
+            color = Qt.red if bc.type == BoundaryConditionType.INLET else Qt.blue
+            edge.setPen(QPen(color, 3))
 
     def edit_turbulence_model(self):
         dialog = TurbulenceDialog(self.turbulence_params, self)

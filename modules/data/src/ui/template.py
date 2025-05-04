@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QMainWind
     QMenuBar, QSizePolicy, QStatusBar, QToolBar,
     QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
-from src.graphics_view import GraphicsView
+from src.widgets.graphics_view import GraphicsView
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
