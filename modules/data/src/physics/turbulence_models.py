@@ -3,9 +3,15 @@ from dataclasses import dataclass
 
 
 class TurbulenceModel(Enum):
-    LAMINAR = "Laminar"
-    SST = "k-omega SST"
-    K_EPSILON = "k-epsilon"
+    LAMINAR = 'Laminar'
+    SST = 'SST'
+    K_EPSILON = 'k-epsilon'
+
+class BoundaryConditionType(Enum):
+    INLET = 'inlet'
+    OUTLET = 'outlet'
+    WALL = 'wall'
+    OPEN = 'open boundary'
 
 @dataclass
 class TurbulenceParams:
@@ -18,13 +24,17 @@ class TurbulenceParams:
     spec_length_scale: float | None = 0.01  # м
 
 @dataclass
-class BoundaryCondition:
-    name: str
-    bc_type: str  # "velocity", "pressure", "wall"
-    values: dict  # {"velocity": (1,0), "turbulent_intensity": 0.05, ...}
+class BoundaryConditions:
+    type: BoundaryConditionType = BoundaryConditionType.INLET
+    u: float = 0
+    v: float = 0
+    k: float = 0.001  # м²/с² (только для SST/k-epsilon)
+    omega: float = 0
 
 @dataclass
-class InitialCondition:
-    velocity: tuple[float, float] = (0, 0)
-    pressure: float = 101325  # Па
-    turbulent_k: float = 0.001  # м²/с² (только для SST/k-epsilon)
+class InitialConditions:
+    u: float = 0
+    v: float = 0
+    p: float = 101325   # Па
+    k: float = 0.001    # м²/с² (только для SST/k-epsilon)
+    omega: float = 0

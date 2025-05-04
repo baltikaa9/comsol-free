@@ -16,16 +16,16 @@ from PySide6.QtWidgets import QMessageBox
 from PySide6.QtWidgets import QMenu
 from PySide6.QtWidgets import QTreeWidgetItem
 
-from modules.data.src.dialogs.boundary_condition_dialog import BoundaryConditionDialog
-from modules.data.src.dialogs.initial_condition_dialog import InitialConditionDialog
+from modules.data.src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
+from modules.data.src.dialogs.initial_conditions_dialog import InitialConditionsDialog
 from modules.data.src.dialogs.mesh_dialog import MeshDialog
 from modules.data.src.dialogs.turbulence_dialog import TurbulenceDialog
 from modules.data.src.event_handler import EventHandler
 from modules.data.src.grid_scene import GridScene
 from modules.data.src.operations.boolean_operations import BooleanOperations
 from modules.data.src.operations.transformation_operations import TransformationOperations
-from modules.data.src.physics.turbulence_models import BoundaryCondition
-from modules.data.src.physics.turbulence_models import InitialCondition
+from modules.data.src.physics.turbulence_models import BoundaryConditions
+from modules.data.src.physics.turbulence_models import InitialConditions
 from modules.data.src.physics.turbulence_models import TurbulenceModel
 from modules.data.src.physics.turbulence_models import TurbulenceParams
 from modules.data.src.services.command_service import CommandService
@@ -90,8 +90,8 @@ class MainWindow(QMainWindow):
 
         # Инициализация параметров
         self.turbulence_params = TurbulenceParams()
-        self.boundary_conditions: list[BoundaryCondition] = []
-        self.initial_conditions = InitialCondition()
+        self.boundary_conditions: list[BoundaryConditions] = []
+        self.initial_conditions = InitialConditions()
 
         # Инициализация UI
         self.init_turbulence_ui()
@@ -128,14 +128,14 @@ class MainWindow(QMainWindow):
             path.moveTo(line.p1())
             path.lineTo(line.p2())
         else:
-            print(f"Тип {type(item)} не поддерживается.")
+            print(f'Тип {type(item)} не поддерживается.')
             return
 
         builder = GmshMeshBuilder(self.grid_spacing)
         builder.build_mesh(item.mapToScene(path), dx)
 
     def init_turbulence_ui(self):
-        self.ui.projectTree.itemDoubleClicked.connect(self.on_tree_item_clicked)
+        self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
         self.ui.projectTree.setContextMenuPolicy(Qt.CustomContextMenu)  # <-- Добавить эту строку
         self.ui.projectTree.customContextMenuRequested.connect(self.show_tree_context_menu)
         self.update_project_tree()
@@ -144,29 +144,54 @@ class MainWindow(QMainWindow):
         self.ui.projectTree.clear()
 
         # Модель турбулентности
-        turbulence_item = QTreeWidgetItem(["Turbulence Model"])
+        turbulence_item = QTreeWidgetItem(['Turbulence Model'])
         turbulence_item.addChild(QTreeWidgetItem([
-            f"{self.turbulence_params.model.value}"
+            f'{self.turbulence_params.model.value}'
         ]))
 
         # Начальные условия
-        init_item = QTreeWidgetItem(["Initial Conditions"])
+        init_item = QTreeWidgetItem(['Initial Conditions'])
         init_item.addChild(QTreeWidgetItem([
-            f"Velocity: {self.initial_conditions.velocity} m/s"
+            f'u: {self.initial_conditions.u} м/с'
         ]))
+        init_item.addChild(QTreeWidgetItem([
+            f'v: {self.initial_conditions.v} м/с'
+        ]))
+        init_item.addChild(QTreeWidgetItem([
+            f'p: {self.initial_conditions.p} Па'
+        ]))
+
         if self.turbulence_params.model != TurbulenceModel.LAMINAR:
             init_item.addChild(QTreeWidgetItem([
-                f"Turbulent k: {self.initial_conditions.turbulent_k}"
+                f'k: {self.initial_conditions.k} м²/с²'
+            ]))
+            init_item.addChild(QTreeWidgetItem([
+                f'omega: {self.initial_conditions.omega}'
             ]))
 
         # Граничные условия
-        bc_item = QTreeWidgetItem(["Boundary Conditions"])
+        bc_item = QTreeWidgetItem(['Boundary Conditions'])
         for bc in self.boundary_conditions:
-            bc_child = QTreeWidgetItem([bc.name])
+            bc_child = QTreeWidgetItem([bc.type])
             bc_child.setData(0, Qt.UserRole, bc)
-            bc_child.addChild(QTreeWidgetItem([f"Type: {bc.bc_type}"]))
-            for k, v in bc.values.items():
-                bc_child.addChild(QTreeWidgetItem([f"{k}: {v}"]))
+            # bc_child.addChild(QTreeWidgetItem([f'Type: {bc.bc_type}']))
+
+            bc_child.addChild(QTreeWidgetItem([
+                f'u: {bc.u} м/с'
+            ]))
+
+            bc_child.addChild(QTreeWidgetItem([
+                f'v: {bc.v} м/с'
+            ]))
+
+            bc_child.addChild(QTreeWidgetItem([
+                f'k: {bc.k} м/с'
+            ]))
+
+            bc_child.addChild(QTreeWidgetItem([
+                f'omega: {bc.omega} м/с'
+            ]))
+
             bc_item.addChild(bc_child)
 
         self.ui.projectTree.addTopLevelItem(turbulence_item)
@@ -178,32 +203,32 @@ class MainWindow(QMainWindow):
 
         # Для верхнеуровневых элементов
         if not parent:
-            if item.text(0) == "Turbulence Model":
+            if item.text(0) == 'Turbulence Model':
                 self.edit_turbulence_model()
-            elif item.text(0) == "Initial Conditions":
+            elif item.text(0) == 'Initial Conditions':
                 self.edit_initial_conditions()
-            elif item.text(0) == "Boundary Conditions":
+            elif item.text(0) == 'Boundary Conditions':
                 self.add_boundary_condition()
             return
 
         # Для дочерних элементов
         parent_text = parent.text(0)
 
-        if parent_text == "Initial Conditions":
+        if parent_text == 'Initial Conditions':
             self.edit_initial_conditions()
 
-        elif parent_text == "Boundary Conditions":
+        elif parent_text == 'Boundary Conditions':
             self.edit_boundary_condition(item)
 
     def add_boundary_condition(self):
         # Проверяем, выбран ли геометрический объект на сцене
         selected_items = self.scene.selectedItems()
         if not selected_items:
-            QMessageBox.warning(self, "Ошибка", "Сначала выберите геометрический объект на сцене!")
+            QMessageBox.warning(self, 'Ошибка', 'Сначала выберите геометрический объект на сцене!')
             return
 
         geometry_item = selected_items[0]
-        dialog = BoundaryConditionDialog(self.turbulence_params.model)
+        dialog = BoundaryConditionsDialog(1)
         if dialog.exec():
             bc = dialog.get_data()
             bc.geometry_item = geometry_item  # Привязываем к геометрии
@@ -214,7 +239,7 @@ class MainWindow(QMainWindow):
     def highlight_boundary(self, item):
         # Убираем предыдущую подсветку
         for elem in self.scene.items():
-            if elem.data(Qt.UserRole) == "BC_HIGHLIGHT":
+            if elem.data(Qt.UserRole) == 'BC_HIGHLIGHT':
                 self.scene.removeItem(elem)
 
         # Создаем путь в зависимости от типа элемента
@@ -240,7 +265,7 @@ class MainWindow(QMainWindow):
         pen = QPen(Qt.red, 3)
         pen.setStyle(Qt.DashLine)
         highlight = self.scene.addPath(path, pen)
-        highlight.setData(Qt.UserRole, "BC_HIGHLIGHT")
+        highlight.setData(Qt.UserRole, 'BC_HIGHLIGHT')
         highlight.setZValue(100)
 
     def edit_turbulence_model(self):
@@ -250,22 +275,14 @@ class MainWindow(QMainWindow):
             self.update_project_tree()
 
     def edit_initial_conditions(self):
-        dialog = InitialConditionDialog(
-            self.initial_conditions,
-            self.turbulence_params.model,
-            self
-        )
+        dialog = InitialConditionsDialog()
         if dialog.exec():
             self.initial_conditions = dialog.get_data()
             self.update_project_tree()
 
     def edit_boundary_condition(self, item):
         bc = item.data(0, Qt.UserRole)
-        dialog = BoundaryConditionDialog(
-            self.turbulence_params.model,
-            bc=bc,
-            parent=self
-        )
+        dialog = BoundaryConditionsDialog()
         if dialog.exec():
             new_bc = dialog.get_data()
             new_bc.geometry_item = bc.geometry_item  # Сохраняем привязку к геометрии
@@ -278,10 +295,10 @@ class MainWindow(QMainWindow):
         item = self.ui.projectTree.itemAt(position)
         menu = QMenu()
 
-        if item and item.text(0) == "Boundary Conditions":
-            menu.addAction("Добавить условие", self.add_boundary_condition)
-        elif item and item.parent() and item.parent().text(0) == "Boundary Conditions":
-            menu.addAction("Удалить условие", lambda: self.delete_boundary_condition(item))
+        if item and item.text(0) == 'Boundary Conditions':
+            menu.addAction('Добавить условие', self.add_boundary_condition)
+        elif item and item.parent() and item.parent().text(0) == 'Boundary Conditions':
+            menu.addAction('Удалить условие', lambda: self.delete_boundary_condition(item))
 
         menu.exec(self.ui.projectTree.viewport().mapToGlobal(position))
 
