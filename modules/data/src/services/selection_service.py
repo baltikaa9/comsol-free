@@ -18,10 +18,16 @@ class SelectionService:
         self.selection_rect = None
         self.last_selection_rect = QRectF()
 
-    def select_item(self, item):
+    def clear_and_select_item(self, item):
         self.clear_selection()
-        item.setSelected(True)
-        self.bool_selection.append(item)
+        if not isinstance(item, EdgeItem):
+            item.setSelected(True)
+            self.bool_selection.append(item)
+
+    def select_item(self, item):
+        if not isinstance(item, EdgeItem):
+            item.setSelected(True)
+            self.bool_selection.append(item)
 
     def clear_selection(self):
         self.scene.clearSelection()
@@ -32,15 +38,13 @@ class SelectionService:
         for item in self.scene.items():
             if item.flags() & QGraphicsItem.ItemIsSelectable:
                 if selection_rect.intersects(item.sceneBoundingRect()):
-                    item.setSelected(True)
-                    self.bool_selection.append(item)
+                    self.select_item(item)
 
     def select_all(self):
         self.clear_selection()
         for item in self.scene.items():
             if item.flags() & QGraphicsItem.ItemIsSelectable:
-                item.setSelected(True)
-                self.bool_selection.append(item)
+                self.select_item(item)
 
     def select_edge(self, edge: QGraphicsItem):
         # Снимаем выделение с других рёбер

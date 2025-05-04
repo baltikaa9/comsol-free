@@ -1,5 +1,5 @@
-from PySide6.QtCore import Qt
 from PySide6.QtCore import QEvent
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QKeyEvent
 from PySide6.QtGui import QPainter
 from PySide6.QtGui import QPainterPath
@@ -9,11 +9,10 @@ from PySide6.QtWidgets import QDialog
 from PySide6.QtWidgets import QGraphicsEllipseItem
 from PySide6.QtWidgets import QGraphicsLineItem
 from PySide6.QtWidgets import QGraphicsRectItem
-from PySide6.QtWidgets import QGraphicsPathItem
 from PySide6.QtWidgets import QGraphicsView
 from PySide6.QtWidgets import QMainWindow
-from PySide6.QtWidgets import QMessageBox
 from PySide6.QtWidgets import QMenu
+from PySide6.QtWidgets import QMessageBox
 from PySide6.QtWidgets import QTreeWidgetItem
 
 from modules.data.src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
@@ -21,10 +20,9 @@ from modules.data.src.dialogs.initial_conditions_dialog import InitialConditions
 from modules.data.src.dialogs.mesh_dialog import MeshDialog
 from modules.data.src.dialogs.turbulence_dialog import TurbulenceDialog
 from modules.data.src.event_handler import EventHandler
-from modules.data.src.physics.turbulence_models import BoundaryConditionType
-from modules.data.src.widgets.grid_scene import GridScene
 from modules.data.src.operations.boolean_operations import BooleanOperations
 from modules.data.src.operations.transformation_operations import TransformationOperations
+from modules.data.src.physics.turbulence_models import BoundaryConditionType
 from modules.data.src.physics.turbulence_models import BoundaryConditions
 from modules.data.src.physics.turbulence_models import InitialConditions
 from modules.data.src.physics.turbulence_models import TurbulenceModel
@@ -34,6 +32,7 @@ from modules.data.src.services.drawing_service import DrawingService
 from modules.data.src.services.gmsh_mesh_builder import GmshMeshBuilder
 from modules.data.src.services.selection_service import SelectionService
 from modules.data.src.ui.template import Ui_MainWindow
+from modules.data.src.widgets.grid_scene import GridScene
 
 
 class MainWindow(QMainWindow):
@@ -143,7 +142,7 @@ class MainWindow(QMainWindow):
         }
 
         builder = GmshMeshBuilder(self.grid_spacing)
-        builder.set_parameters(mesh_params)
+        # builder.set_parameters(mesh_params)
         builder.build_mesh(item.mapToScene(path), dx)
 
     def init_turbulence_ui(self):

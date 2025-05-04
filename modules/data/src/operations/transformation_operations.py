@@ -82,7 +82,7 @@ class TransformationOperations:
         new_item.setPen(pen)
         new_item.setFlag(QGraphicsItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, new_item))
-        self.selection_service.select_item(new_item)
+        self.selection_service.clear_and_select_item(new_item)
 
     def perform_rotate(self):
         sel = self.selection_service.bool_selection
