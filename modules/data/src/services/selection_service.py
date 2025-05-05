@@ -12,14 +12,29 @@ class SelectionService:
     def __init__(self, scene: GridScene):
         self.scene = scene
         self.bool_selection: list[QGraphicsItem] = []
-        # self.selected_edges: list[EdgeItem] = []  # Храним выбранные рёбра
-        self.selected_edge: LineEdgeItem | None = None
+        self.selected_edges: list = []  # Храним выбранные рёбра
 
         self.selected_pen = QPen(Qt.red, 0)
         self.selection_pen = QPen(Qt.blue, 0, Qt.DashLine)
         self.selection_brush = QBrush(QColor(0, 0, 255, 50))
         self.selection_rect = None
         self.last_selection_rect = QRectF()
+
+    def add_edge(self, edge):
+        if edge not in self.selected_edges:
+            self.selected_edges.append(edge)
+            self.highlight_edge(edge)
+
+    def remove_edge(self, edge):
+        if edge in self.selected_edges:
+            self.selected_edges.remove(edge)
+
+    def clear_edges(self):
+        # Восстанавливаем цвета и очищаем список
+        for edge in self.selected_edges:
+            edge.setPen(QPen(Qt.black))
+        self.selected_edges.clear()
+        # self.original_colors.clear()
 
     def clear_and_select_item(self, item):
         self.clear_selection()
@@ -49,21 +64,6 @@ class SelectionService:
             if item.flags() & QGraphicsItem.ItemIsSelectable and not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
                 self.select_item(item)
 
-    def select_edge(self, edge: QGraphicsItem):
-        # Снимаем выделение с других рёбер
-        # for e in self.selected_edges:
-        #     e.setSelected(False)
-        # self.selected_edges = [edge]
-        self.selected_edge = edge
-        edge.setSelected(True)
-        self.highlight_edge(edge)
-
-    def clear_edge_selection(self):
-        # for edge in self.selected_edges:
-        #     edge.setSelected(False)
-        self.selected_edges = []
-        # self.selected_edge = None
-
     def highlight_edge(self, edge):
         color = Qt.blue
-        edge.setPen(QPen(color, 3))
+        edge.setPen(QPen(color, 2))

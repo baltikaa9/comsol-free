@@ -65,10 +65,14 @@ class EventHandler:
 
         target_item = None
 
+        if not items:
+            self.selection_service.clear_edges()
+            return True
+
         if alt_pressed:
             for item in items:
                 if isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
-                    self.selection_service.select_edge(item)
+                    self.selection_service.add_edge(item)
                     return True
 
         for item in items:
@@ -186,19 +190,3 @@ class EventHandler:
         self.properties_layout.addWidget(x_edit)
         self.properties_layout.addWidget(QLabel('Y:'))
         self.properties_layout.addWidget(y_edit)
-
-    # def handle_item_selected(self, item):
-    #     if isinstance(item, (QGraphicsPathItem, QGraphicsLineItem)):
-    #         self.assign_boundary_condition(item)
-    #
-    # def assign_boundary_condition(self, geometry_item):
-    #     dialog = BoundaryConditionsDialog(self.main_window.turbulence_params.model)
-    #     if dialog.exec():
-    #         bc = BoundaryConditions(
-    #             name=f'BC_{len(self.main_window.boundary_conditions) + 1}',
-    #             bc_type=dialog.get_bc_type(),
-    #             values=dialog.get_values(),
-    #         )
-    #         geometry_item.setData(0, bc)  # Привязываем BC к геометрии
-    #         self.main_window.boundary_conditions.append(bc)
-    #         self.main_window.update_project_tree()

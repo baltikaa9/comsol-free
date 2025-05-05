@@ -11,7 +11,7 @@ from modules.data.src.physics.turbulence_models import BoundaryConditions
 
 
 class BoundaryConditionsDialog(Dialog):
-    def __init__(self, edge_id: int):
+    def __init__(self, edge_id: int | list[int]):
         super().__init__()
         self.setWindowTitle(f'Граничное условие для ребра {edge_id}')
         self.edge_id = edge_id  # Сохраняем ID ребра
