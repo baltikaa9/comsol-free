@@ -1,17 +1,19 @@
 from PySide6.QtGui import QTransform
-from PySide6.QtWidgets import QGraphicsEllipseItem
-from PySide6.QtWidgets import QGraphicsLineItem, QWidget, QGraphicsItem
-from PySide6.QtWidgets import QGraphicsPathItem
-from PySide6.QtWidgets import QGraphicsRectItem
+from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QInputDialog
 from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QWidget
 
 from modules.data.src.commands.add_command import AddCommand
 from modules.data.src.commands.rotate_command import RotateCommand
-from modules.data.src.widgets.editable_bezier import EditableBezierCurveItem
-from modules.data.src.widgets.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.selection_service import SelectionService
+from modules.data.src.shapes.ellipse_item import EllipseItem
+from modules.data.src.shapes.line_item import LineItem
+from modules.data.src.shapes.parametric_curve_item import ParametricCurveItem
+from modules.data.src.shapes.rectangle_item import RectangleItem
+from modules.data.src.widgets.editable_bezier import EditableBezierCurveItem
+from modules.data.src.widgets.grid_scene import GridScene
 
 
 class TransformationOperations:
@@ -55,22 +57,22 @@ class TransformationOperations:
 
         pen = item.pen()
 
-        if isinstance(item, QGraphicsLineItem):
+        if isinstance(item, LineItem):
             line = item.line()
             new_line = transform.map(line)
-            new_item = QGraphicsLineItem(new_line)
-        elif isinstance(item, QGraphicsRectItem):
+            new_item = LineItem(new_line)
+        elif isinstance(item, RectangleItem):
             rect = item.rect()
             new_rect = transform.mapRect(rect)
-            new_item = QGraphicsRectItem(new_rect)
-        elif isinstance(item, QGraphicsEllipseItem):
+            new_item = RectangleItem(new_rect)
+        elif isinstance(item, EllipseItem):
             rect = item.rect()
             new_rect = transform.mapRect(rect)
-            new_item = QGraphicsEllipseItem(new_rect)
-        elif isinstance(item, QGraphicsPathItem):
+            new_item = EllipseItem(new_rect)
+        elif isinstance(item, ParametricCurveItem):
             path = item.path()
             new_path = transform.map(path)
-            new_item = QGraphicsPathItem(new_path)
+            new_item = ParametricCurveItem(new_path)
         elif isinstance(item, EditableBezierCurveItem):
             points = item.get_control_points()
             new_points = [transform.map(p) for p in points]

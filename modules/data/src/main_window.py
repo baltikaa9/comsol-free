@@ -232,21 +232,6 @@ class MainWindow(QMainWindow):
             self.edit_boundary_condition(item)
 
     def add_boundary_condition(self):
-        # selected_edges = self.selection_service.selected_edges
-        # if not selected_edges:
-        #     QMessageBox.warning(self, "Ошибка", "Выберите ребро (Alt + клик)!")
-        #     return
-        #
-        # for edge in selected_edges:
-        #     dialog = BoundaryConditionsDialog(edge_id=edge.id)
-        #     if dialog.exec():
-        #         bc = dialog.get_data()
-        #         bc.edge_id = edge.id  # Привязываем к ID ребра
-        #         self.boundary_conditions.append(bc)
-        #
-        # self.update_project_tree()
-        # self.highlight_edges()
-
         selected_edge = self.selection_service.selected_edge
         if not selected_edge:
             QMessageBox.warning(self, "Ошибка", "Выберите ребро (Alt + клик)!")

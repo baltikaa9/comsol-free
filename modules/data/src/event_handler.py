@@ -18,7 +18,9 @@ from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.commands.move_command import MoveCommand
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.selection_service import SelectionService
-from modules.data.src.widgets.edge_item import EdgeItem
+from modules.data.src.widgets.edge_item import ArcEdgeItem
+from modules.data.src.widgets.edge_item import LineEdgeItem
+from modules.data.src.widgets.edge_item import PathEdgeItem
 from modules.data.src.widgets.graphics_view import GraphicsView
 from modules.data.src.widgets.grid_scene import GridScene
 
@@ -57,34 +59,44 @@ class EventHandler:
         if event.button() != Qt.MouseButton.LeftButton:
             return False
 
-        item = self.scene.itemAt(scene_pos, self.graphics_view.transform())
+        items = self.graphics_view.items(event.pos())
         ctrl_pressed = event.modifiers() & Qt.KeyboardModifier.ControlModifier
         alt_pressed = event.modifiers() & Qt.KeyboardModifier.AltModifier
-        if item:
+
+        target_item = None
+
+        if alt_pressed:
+            for item in items:
+                if isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+                    self.selection_service.select_edge(item)
+                    return True
+
+        for item in items:
+            if not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+                if hasattr(item, "edges"):
+                    target_item = item
+                    break
+
+        if target_item:
             if ctrl_pressed:
-                if item not in self.selection_service.bool_selection:
-                    self.selection_service.bool_selection.append(item)
-                item.setSelected(not item.isSelected())
-            elif alt_pressed:
-                items = self.graphics_view.items(event.pos())
-                for item in items:
-                    if isinstance(item, EdgeItem):
-                        self.selection_service.select_edge(item)
-                        return True
+                if target_item not in self.selection_service.bool_selection:
+                    self.selection_service.bool_selection.append(target_item)
+                target_item.setSelected(not target_item.isSelected())
             else:
-                self.selection_service.clear_selection()
-                self.selection_service.bool_selection = [item]
-                item.setSelected(True)
+                self.selection_service.clear_and_select_item(target_item)
+
             self.moving_items = True
             self.move_initial_pos = scene_pos
             self.move_start_pos = scene_pos
-            self.__update_properties(item)
+            self.__update_properties(target_item)
         else:
+            # Обработка выделения прямоугольником, если клик не на элементе
             self.selection_service.selection_rect = QGraphicsRectItem()
             self.selection_service.selection_rect.setPen(self.selection_service.selection_pen)
             self.selection_service.selection_brush = QBrush(QColor(0, 0, 255, 50))
             self.selection_service.selection_rect.setBrush(self.selection_service.selection_brush)
             self.scene.addItem(self.selection_service.selection_rect)
+
         return True
 
     def mouse_move(self, event: QMouseEvent) -> bool:
@@ -94,7 +106,8 @@ class EventHandler:
             if selected:
                 delta = scene_pos - self.move_start_pos
                 for item in selected:
-                    item.moveBy(delta.x(), delta.y())
+                    if not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+                        item.moveBy(delta.x(), delta.y())
                 self.move_start_pos = scene_pos
                 self.__update_properties(selected[0])
             return True

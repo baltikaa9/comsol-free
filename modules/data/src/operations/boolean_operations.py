@@ -10,6 +10,7 @@ from PySide6.QtWidgets import QWidget
 
 from modules.data.src.commands.add_command import AddCommand
 from modules.data.src.commands.delete_command import DeleteCommand
+from modules.data.src.shapes.boolean_item import BooleanShapeItem
 from modules.data.src.widgets.grid_scene import GridScene
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.drawing_service import DrawingService
@@ -66,7 +67,7 @@ class BooleanOperations:
         else:  # 'intersection'
             result = p1.intersected(p2)
 
-        new_item = QGraphicsPathItem(result)
+        new_item = BooleanShapeItem(result, sel[0], sel[1])
         new_item.setPen(self.drawing_service.default_pen)
         new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, new_item))
