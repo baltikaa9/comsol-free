@@ -9,7 +9,8 @@ from modules.data.src.widgets.grid_scene import GridScene
 class SelectionService:
     def __init__(self, scene: GridScene):
         self.bool_selection: list[QGraphicsItem] = []
-        self.selected_edges: list[EdgeItem] = []  # Храним выбранные рёбра
+        # self.selected_edges: list[EdgeItem] = []  # Храним выбранные рёбра
+        self.selected_edge: EdgeItem | None = None
         self.scene = scene
 
         self.selected_pen = QPen(Qt.red, 0)
@@ -48,12 +49,14 @@ class SelectionService:
 
     def select_edge(self, edge: QGraphicsItem):
         # Снимаем выделение с других рёбер
-        for e in self.selected_edges:
-            e.setSelected(False)
-        self.selected_edges = [edge]
+        # for e in self.selected_edges:
+        #     e.setSelected(False)
+        # self.selected_edges = [edge]
+        self.selected_edge = edge
         edge.setSelected(True)
 
     def clear_edge_selection(self):
-        for edge in self.selected_edges:
-            edge.setSelected(False)
-        self.selected_edges = []
+        # for edge in self.selected_edges:
+        #     edge.setSelected(False)
+        # self.selected_edges = []
+        self.selected_edge = None

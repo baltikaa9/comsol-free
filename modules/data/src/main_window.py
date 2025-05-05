@@ -232,17 +232,31 @@ class MainWindow(QMainWindow):
             self.edit_boundary_condition(item)
 
     def add_boundary_condition(self):
-        selected_edges = self.selection_service.selected_edges
-        if not selected_edges:
+        # selected_edges = self.selection_service.selected_edges
+        # if not selected_edges:
+        #     QMessageBox.warning(self, "Ошибка", "Выберите ребро (Alt + клик)!")
+        #     return
+        #
+        # for edge in selected_edges:
+        #     dialog = BoundaryConditionsDialog(edge_id=edge.id)
+        #     if dialog.exec():
+        #         bc = dialog.get_data()
+        #         bc.edge_id = edge.id  # Привязываем к ID ребра
+        #         self.boundary_conditions.append(bc)
+        #
+        # self.update_project_tree()
+        # self.highlight_edges()
+
+        selected_edge = self.selection_service.selected_edge
+        if not selected_edge:
             QMessageBox.warning(self, "Ошибка", "Выберите ребро (Alt + клик)!")
             return
 
-        for edge in selected_edges:
-            dialog = BoundaryConditionsDialog(edge_id=edge.id)
-            if dialog.exec():
-                bc = dialog.get_data()
-                bc.edge_id = edge.id  # Привязываем к ID ребра
-                self.boundary_conditions.append(bc)
+        dialog = BoundaryConditionsDialog(edge_id=selected_edge.id)
+        if dialog.exec():
+            bc = dialog.get_data()
+            bc.edge_id = selected_edge.id  # Привязываем к ID ребра
+            self.boundary_conditions.append(bc)
 
         self.update_project_tree()
         self.highlight_edges()
@@ -267,14 +281,15 @@ class MainWindow(QMainWindow):
 
     def edit_boundary_condition(self, item):
         bc = item.data(0, Qt.UserRole)
-        dialog = BoundaryConditionsDialog()
+        dialog = BoundaryConditionsDialog(bc.edge_id)
         if dialog.exec():
             new_bc = dialog.get_data()
-            new_bc.geometry_item = bc.geometry_item  # Сохраняем привязку к геометрии
+            # new_bc.edge_id = bc.geometry_item  # Сохраняем привязку к геометрии
             index = self.boundary_conditions.index(bc)
             self.boundary_conditions[index] = new_bc
             self.update_project_tree()
-            self.highlight_boundary(new_bc.geometry_item)
+            # self.highlight_boundary(new_bc.geometry_item)
+            self.highlight_edges()
 
     def show_tree_context_menu(self, position):
         item = self.ui.projectTree.itemAt(position)

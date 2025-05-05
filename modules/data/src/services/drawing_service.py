@@ -52,14 +52,16 @@ class DrawingService:
         self.command_service.execute(AddCommand(self.scene, item))
         self.selection_service.clear_and_select_item(item)
 
+        edge = EdgeItem(line)
+        edge.setParentItem(item)
+        edge.setFlag(QGraphicsItem.ItemIsSelectable, True)
+
     def draw_rect_by_params(self):
         data = self.__get_data(DialogFactory.create_dialog('rect', self.parent))
 
         scale = self.scene.spacing
         x, y, width, height = data['top_left_x'] * scale, data['top_left_y'] * scale, data['width'] * scale, data['height'] * scale
-        # rect = QRectF(data['top_left'] * scale, QSizeF(data['width'] * scale, data['height'] * scale))
         rect = QGraphicsRectItem(x, y, width, height)
-        # item = QGraphicsRectItem(rect)
         rect.setPen(self.default_pen)
         rect.setFlag(QGraphicsItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, rect))
