@@ -2,14 +2,13 @@ from PySide6.QtCore import QRectF
 from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QGraphicsRectItem
 
-from modules.data.src.widgets.edge_item import EdgeItem
 from modules.data.src.widgets.edge_item import LineEdgeItem
 
 
 class RectangleItem(QGraphicsRectItem):
     def __init__(self, rect: QRectF):
         super().__init__(rect)
-        self.edges: list[EdgeItem] = []
+        self.edges: list = []
         self.generate_edges()
 
 

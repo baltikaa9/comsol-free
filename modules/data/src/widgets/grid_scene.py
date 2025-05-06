@@ -79,7 +79,7 @@ class GridScene(QGraphicsScene):
                 self._labels.append(lab)
             y += self.spacing
 
-    def find_edge_by_id(self, edge_id: int) -> QGraphicsItem | None:
+    def find_edge_by_id(self, edge_id: str) -> QGraphicsItem | None:
         """Находит ребро на сцене по его ID."""
         for item in self.items():
             if hasattr(item, 'id') and item.id == edge_id:

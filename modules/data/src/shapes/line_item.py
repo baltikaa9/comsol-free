@@ -2,14 +2,13 @@ from PySide6.QtCore import QLineF
 from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QGraphicsLineItem
 
-from modules.data.src.widgets.edge_item import EdgeItem
 from modules.data.src.widgets.edge_item import LineEdgeItem
 
 
 class LineItem(QGraphicsLineItem):
     def __init__(self, line: QLineF):
         super().__init__(line)
-        self.edges: list[EdgeItem] = []
+        self.edges: list = []
         self.generate_edges()
 
     def generate_edges(self):

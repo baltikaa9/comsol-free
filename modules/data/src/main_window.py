@@ -112,38 +112,28 @@ class MainWindow(QMainWindow):
 
         dx = dialog.get_data()
 
-        item = self.scene.selectedItems()[0]
-
-        if hasattr(item, 'path'):
-            path: QPainterPath = item.path()
-        elif isinstance(item, QGraphicsRectItem):
-            path = QPainterPath()
-            path.addRect(item.rect())
-        elif isinstance(item, QGraphicsEllipseItem):
-            path = QPainterPath()
-            path.addEllipse(item.rect())
-        elif isinstance(item, QGraphicsLineItem):
-            path = QPainterPath()
-            line = item.line()
-            path.moveTo(line.p1())
-            path.lineTo(line.p2())
-        else:
-            print(f'Тип {type(item)} не поддерживается.')
-            return
-
-        mesh_params = {
-            "edges": [
-                {
-                    "id": bc.edge_id,
-                    "type": bc.type,
-                    "values": {"u": bc.u, "v": bc.v, "k": bc.k, "omega": bc.omega}
-                } for bc in self.boundary_conditions
-            ]
-        }
+        # item = self.scene.selectedItems()[0]
+        #
+        # if hasattr(item, 'path'):
+        #     path: QPainterPath = item.path()
+        # elif isinstance(item, QGraphicsRectItem):
+        #     path = QPainterPath()
+        #     path.addRect(item.rect())
+        # elif isinstance(item, QGraphicsEllipseItem):
+        #     path = QPainterPath()
+        #     path.addEllipse(item.rect())
+        # elif isinstance(item, QGraphicsLineItem):
+        #     path = QPainterPath()
+        #     line = item.line()
+        #     path.moveTo(line.p1())
+        #     path.lineTo(line.p2())
+        # else:
+        #     print(f'Тип {type(item)} не поддерживается.')
+        #     return
 
         builder = GmshMeshBuilder(self.grid_spacing)
-        # builder.set_parameters(mesh_params)
-        builder.build_mesh(item.mapToScene(path), dx)
+        # builder.build_mesh(item.mapToScene(path), self.boundary_conditions, dx)
+        builder.build_mesh(self.boundary_conditions, dx)
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
@@ -237,7 +227,7 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Ошибка", "Выберите ребра (Alt + клик)!")
             return
 
-        dialog = BoundaryConditionsDialog(edge_id=[selected_edge.id for selected_edge in selected_edges])
+        dialog = BoundaryConditionsDialog(edges=selected_edges)
         if dialog.exec():
             bc = dialog.get_data()
             self.boundary_conditions.append(bc)
@@ -247,9 +237,9 @@ class MainWindow(QMainWindow):
 
     def highlight_edges(self):
         for bc in self.boundary_conditions:
-            edge = self.scene.find_edge_by_id(bc.edge_id)
-            color = Qt.red if bc.type == BoundaryConditionType.INLET else Qt.blue
-            edge.setPen(QPen(color, 3))
+            for edge in bc.edges:
+                color = Qt.red if bc.type == BoundaryConditionType.INLET else Qt.blue
+                edge.setPen(QPen(color, 3))
 
     def edit_turbulence_model(self):
         dialog = TurbulenceDialog(self.turbulence_params, self)

@@ -3,13 +3,12 @@ from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QGraphicsEllipseItem
 
 from modules.data.src.widgets.edge_item import ArcEdgeItem
-from modules.data.src.widgets.edge_item import EdgeItem
 
 
 class EllipseItem(QGraphicsEllipseItem):
     def __init__(self, rect: QRectF):
         super().__init__(rect)
-        self.edges: list[EdgeItem] = []
+        self.edges: list = []
         self.generate_edges()
 
     def generate_edges(self):

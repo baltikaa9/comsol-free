@@ -11,10 +11,10 @@ from modules.data.src.physics.turbulence_models import BoundaryConditions
 
 
 class BoundaryConditionsDialog(Dialog):
-    def __init__(self, edge_id: int | list[int]):
+    def __init__(self, edges: list):
         super().__init__()
-        self.setWindowTitle(f'Граничное условие для ребра {edge_id}')
-        self.edge_id = edge_id  # Сохраняем ID ребра
+        self.setWindowTitle(f'Граничное условие для ребер {[edge.id for edge in edges]}')
+        self.edges = edges  # Сохраняем ID ребра
         layout = QVBoxLayout()
 
         self.type_combo = QComboBox()
@@ -59,7 +59,7 @@ class BoundaryConditionsDialog(Dialog):
 
     def get_data(self) -> BoundaryConditions:
         return BoundaryConditions(
-            self.edge_id,
+            self.edges.copy(),
             self.type_combo.currentData(),
             self.u_input.value(),
             self.v_input.value(),

@@ -24,8 +24,8 @@ class TurbulenceParams:
     spec_length_scale: float | None = 0.01  # м
 
 @dataclass
-class BoundaryConditions:
-    edge_id: int | list[int]
+class BoundaryConditions:   # TODO: сделать норм условия для wall и тд
+    edges: list
     type: BoundaryConditionType = BoundaryConditionType.INLET
     u: float = 0
     v: float = 0
