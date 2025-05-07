@@ -139,7 +139,7 @@ class MainWindow(QMainWindow):
 
         builder = GmshMeshBuilder(self.grid_spacing)
         # builder.build_mesh(item.mapToScene(path), self.boundary_conditions, dx)
-        builder.build_mesh(self.boundary_conditions, dx)
+        builder.build_mesh_2(self.boundary_conditions, dx)
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)

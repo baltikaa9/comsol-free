@@ -14,9 +14,3 @@ class EdgeItem(QGraphicsPathItem):
     def __init__(self, path: QPainterPath, parent=None):
         super().__init__(path, parent)
         self.id = _next_edge_id()
-
-
-class PathEdgeItem(QGraphicsPathItem):
-    def __init__(self, path: QPainterPath, parent=None):
-        super().__init__(path, parent)
-        self.id = _next_edge_id()

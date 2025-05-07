@@ -53,6 +53,31 @@ class GmshMeshBuilder:
 
         return gmsh.model.geo.addCurveLoop(line_tags)
 
+    def build_mesh_2(self, boundary_conditions: list[BoundaryConditions], max_element_size: float, filename: str = 'mesh.msh'):
+        gmsh.initialize()
+        gmsh.model.add("geometry")
+
+        for bc in boundary_conditions:
+            bc_path = QPainterPath()
+
+            for edge in bc.edges:
+                bc_path.connectPath(edge.path())
+
+            points = [p for p in bc_path.toFillPolygon()][:-1]
+
+            point_tags = [gmsh.model.geo.addPoint(p.x(), p.y(), 0, max_element_size) for p in points]
+            line_tags = []
+            for i in range(len(point_tags) - 1):
+                a = point_tags[i]
+                b = point_tags[(i + 1)]
+                line_tags.append(gmsh.model.geo.addLine(a, b))
+
+        gmsh.model.geo.synchronize()
+        gmsh.model.mesh.generate(2)
+        gmsh.write(filename)
+        gmsh.fltk.run()
+        gmsh.finalize()
+
     def build_mesh(self, boundary_conditions: list[BoundaryConditions], max_element_size: float, filename: str = 'mesh.msh'):
         # Инициализация Gmsh
         gmsh.initialize()
