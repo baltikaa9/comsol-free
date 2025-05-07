@@ -18,9 +18,7 @@ from modules.data.src.commands.delete_command import DeleteCommand
 from modules.data.src.commands.move_command import MoveCommand
 from modules.data.src.services.command_service import CommandService
 from modules.data.src.services.selection_service import SelectionService
-from modules.data.src.widgets.edge_item import ArcEdgeItem
-from modules.data.src.widgets.edge_item import LineEdgeItem
-from modules.data.src.widgets.edge_item import PathEdgeItem
+from modules.data.src.widgets.edge_item import EdgeItem
 from modules.data.src.widgets.graphics_view import GraphicsView
 from modules.data.src.widgets.grid_scene import GridScene
 
@@ -71,12 +69,12 @@ class EventHandler:
 
         if alt_pressed:
             for item in items:
-                if isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+                if isinstance(item, EdgeItem):
                     self.selection_service.add_edge(item)
                     return True
 
         for item in items:
-            if not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+            if not isinstance(item, EdgeItem):
                 if hasattr(item, "edges"):
                     target_item = item
                     break
@@ -110,7 +108,7 @@ class EventHandler:
             if selected:
                 delta = scene_pos - self.move_start_pos
                 for item in selected:
-                    if not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+                    if not isinstance(item, EdgeItem):
                         item.moveBy(delta.x(), delta.y())
                 self.move_start_pos = scene_pos
                 self.__update_properties(selected[0])

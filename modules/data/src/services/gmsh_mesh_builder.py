@@ -9,9 +9,7 @@ from PySide6.QtCore import QPointF
 from PySide6.QtGui import QPainterPath
 
 from modules.data.src.physics.turbulence_models import BoundaryConditions
-from modules.data.src.widgets.edge_item import ArcEdgeItem
-from modules.data.src.widgets.edge_item import LineEdgeItem
-from modules.data.src.widgets.edge_item import PathEdgeItem
+from modules.data.src.widgets.edge_item import EdgeItem
 
 
 class GmshMeshBuilder:
@@ -69,7 +67,7 @@ class GmshMeshBuilder:
 
         # Создание кривых в Gmsh
         def create_gmsh_curve(edge, point_dict):
-            if isinstance(edge, LineEdgeItem):
+            if isinstance(edge, EdgeItem):
                 p1 = edge.line().p1()
                 p2 = edge.line().p2()
                 tuple_p1 = (p1.x() / self.grid_spacing, p1.y() / self.grid_spacing)
@@ -135,7 +133,7 @@ class GmshMeshBuilder:
                     end_tag = point_dict[end_tuple]
                 curve_tag = gmsh.model.geo.addEllipseArc(start_tag, center_tag, major_tag, end_tag)
                 return curve_tag, (start_tag, end_tag)
-            elif isinstance(edge, PathEdgeItem):
+            elif isinstance(edge, EdgeItem):
                 path = edge.path()
                 num_samples = 10
                 points = []

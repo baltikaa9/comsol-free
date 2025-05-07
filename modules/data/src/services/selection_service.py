@@ -2,9 +2,7 @@ from PySide6.QtCore import Qt, QRectF
 from PySide6.QtGui import QPen, QColor, QBrush
 from PySide6.QtWidgets import QGraphicsItem
 
-from modules.data.src.widgets.edge_item import ArcEdgeItem
-from modules.data.src.widgets.edge_item import LineEdgeItem
-from modules.data.src.widgets.edge_item import PathEdgeItem
+from modules.data.src.widgets.edge_item import EdgeItem
 from modules.data.src.widgets.grid_scene import GridScene
 
 
@@ -38,12 +36,12 @@ class SelectionService:
 
     def clear_and_select_item(self, item):
         self.clear_selection()
-        if not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+        if not isinstance(item, EdgeItem):
             item.setSelected(True)
             self.bool_selection.append(item)
 
     def select_item(self, item):
-        if not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+        if not isinstance(item, EdgeItem):
             item.setSelected(True)
             self.bool_selection.append(item)
 
@@ -61,7 +59,7 @@ class SelectionService:
     def select_all(self):
         self.clear_selection()
         for item in self.scene.items():
-            if item.flags() & QGraphicsItem.ItemIsSelectable and not isinstance(item, (LineEdgeItem, ArcEdgeItem, PathEdgeItem)):
+            if item.flags() & QGraphicsItem.ItemIsSelectable and not isinstance(item, EdgeItem):
                 self.select_item(item)
 
     def highlight_edge(self, edge):

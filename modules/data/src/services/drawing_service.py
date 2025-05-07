@@ -1,3 +1,4 @@
+import logging
 import math
 
 import numpy as np
@@ -51,6 +52,8 @@ class DrawingService:
         self.command_service.execute(AddCommand(self.scene, item))
         self.selection_service.clear_and_select_item(item)
 
+        logging.info(item)
+
     def draw_rect_by_params(self):
         data = self.__get_data(DialogFactory.create_dialog('rect', self.parent))
 
@@ -66,6 +69,8 @@ class DrawingService:
         rect.setFlag(QGraphicsItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, rect))
         self.selection_service.clear_and_select_item(rect)
+
+        logging.info(rect)
 
     def draw_ellipse_by_params(self):
         data = self.__get_data(DialogFactory.create_dialog('ellipse', self.parent))
@@ -83,6 +88,8 @@ class DrawingService:
         self.command_service.execute(AddCommand(self.scene, item))
         self.selection_service.clear_and_select_item(item)
 
+        logging.info(item)
+
     def draw_curve_by_params(self):
         data = self.__get_data(DialogFactory.create_dialog('bezier', self.parent))
 
@@ -90,6 +97,8 @@ class DrawingService:
         item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, item))
         self.selection_service.clear_and_select_item(item)
+
+        logging.info(item)
 
     def draw_parametric(self):
         data = self.__get_data(DialogFactory.create_dialog('parametric', self.parent))
@@ -122,6 +131,8 @@ class DrawingService:
         item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, item))
         self.selection_service.clear_and_select_item(item)
+
+        logging.info(item)
 
     def __get_data(self, dialog: Dialog) -> dict[str, str | float | int | QPointF] | None:
         if dialog.exec() != QDialog.Accepted:

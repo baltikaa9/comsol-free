@@ -14,6 +14,11 @@ from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QMenu
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtWidgets import QTreeWidgetItem
+from PySide6.QtCore import QPointF
+from PySide6.QtCore import QRectF
+from PySide6.QtGui import QPainterPath
+from PySide6.QtWidgets import QGraphicsItem
+from PySide6.QtWidgets import QGraphicsRectItem
 
 from modules.data.src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
 from modules.data.src.dialogs.initial_conditions_dialog import InitialConditionsDialog
@@ -32,6 +37,7 @@ from modules.data.src.services.drawing_service import DrawingService
 from modules.data.src.services.gmsh_mesh_builder import GmshMeshBuilder
 from modules.data.src.services.selection_service import SelectionService
 from modules.data.src.ui.template import Ui_MainWindow
+from modules.data.src.widgets.edge_item import EdgeItem
 from modules.data.src.widgets.grid_scene import GridScene
 
 
