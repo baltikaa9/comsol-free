@@ -119,28 +119,8 @@ class MainWindow(QMainWindow):
 
         dx = dialog.get_data()
 
-        # item = self.scene.selectedItems()[0]
-        #
-        # if hasattr(item, 'path'):
-        #     path: QPainterPath = item.path()
-        # elif isinstance(item, QGraphicsRectItem):
-        #     path = QPainterPath()
-        #     path.addRect(item.rect())
-        # elif isinstance(item, QGraphicsEllipseItem):
-        #     path = QPainterPath()
-        #     path.addEllipse(item.rect())
-        # elif isinstance(item, QGraphicsLineItem):
-        #     path = QPainterPath()
-        #     line = item.line()
-        #     path.moveTo(line.p1())
-        #     path.lineTo(line.p2())
-        # else:
-        #     print(f'Тип {type(item)} не поддерживается.')
-        #     return
-
         builder = GmshMeshBuilder(self.grid_spacing)
-        # builder.build_mesh(item.mapToScene(path), self.boundary_conditions, dx)
-        builder.build_mesh_2(self.boundary_edges, dx)
+        builder.build_mesh(self.boundary_edges, dx)
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
@@ -265,7 +245,7 @@ class MainWindow(QMainWindow):
 
     def edit_boundary_condition(self, item):
         bc = item.data(0, Qt.UserRole)
-        dialog = BoundaryConditionsDialog(bc.edge_id)
+        dialog = BoundaryConditionsDialog([edge for edge in self.boundary_edges if edge.boundary_conditions == bc])
         if dialog.exec():
             new_bc = dialog.get_data()
             index = self.boundary_conditions.index(bc)
@@ -287,6 +267,9 @@ class MainWindow(QMainWindow):
     def delete_boundary_condition(self, item):
         bc = item.data(0, Qt.UserRole)
         self.boundary_conditions.remove(bc)
+        for edge in self.boundary_edges:
+            if edge.boundary_conditions == bc:
+                self.boundary_edges.remove(edge)
         self.update_project_tree()
 
 if __name__ == '__main__':
