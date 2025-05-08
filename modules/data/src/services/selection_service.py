@@ -10,7 +10,7 @@ class SelectionService:
     def __init__(self, scene: GridScene):
         self.scene = scene
         self.bool_selection: list[QGraphicsItem] = []
-        self.selected_edges: list = []  # Храним выбранные рёбра
+        self.selected_edges: list[EdgeItem] = []  # Храним выбранные рёбра
 
         self.selected_pen = QPen(Qt.red, 0)
         self.selection_pen = QPen(Qt.blue, 0, Qt.DashLine)

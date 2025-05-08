@@ -8,13 +8,13 @@ from PySide6.QtWidgets import QVBoxLayout
 from modules.data.src.dialogs.dialog import Dialog
 from modules.data.src.physics.turbulence_models import BoundaryConditionType
 from modules.data.src.physics.turbulence_models import BoundaryConditions
+from modules.data.src.widgets.edge_item import EdgeItem
 
 
 class BoundaryConditionsDialog(Dialog):
-    def __init__(self, edges: list):
+    def __init__(self, edges: list[EdgeItem]):
         super().__init__()
         self.setWindowTitle(f'Граничное условие для ребер {[edge.id for edge in edges]}')
-        self.edges = edges  # Сохраняем ID ребра
         layout = QVBoxLayout()
 
         self.type_combo = QComboBox()
@@ -59,7 +59,6 @@ class BoundaryConditionsDialog(Dialog):
 
     def get_data(self) -> BoundaryConditions:
         return BoundaryConditions(
-            self.edges.copy(),
             self.type_combo.currentData(),
             self.u_input.value(),
             self.v_input.value(),

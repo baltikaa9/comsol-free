@@ -1,7 +1,5 @@
-from enum import Enum
 from dataclasses import dataclass
-
-from modules.data.src.widgets.edge_item import EdgeItem
+from enum import Enum
 
 
 class TurbulenceModel(Enum):
@@ -27,7 +25,6 @@ class TurbulenceParams:
 
 @dataclass
 class BoundaryConditions:   # TODO: сделать норм условия для wall и тд
-    edges: list[EdgeItem]
     type: BoundaryConditionType = BoundaryConditionType.INLET
     u: float = 0
     v: float = 0

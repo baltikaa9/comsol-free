@@ -17,10 +17,10 @@ class RectangleItem(QGraphicsRectItem):
     def generate_edges(self):
         rect = self.rect()
         self.edges = [
-            EdgeItem(self.get_path(rect.topLeft(), rect.topRight())),
-            EdgeItem(self.get_path(rect.topRight(), rect.bottomRight())),
-            EdgeItem(self.get_path(rect.bottomRight(), rect.bottomLeft())),
-            EdgeItem(self.get_path(rect.bottomLeft(), rect.topLeft()))
+            EdgeItem(self.get_path(rect.bottomLeft(), rect.bottomRight())),
+            EdgeItem(self.get_path(rect.bottomRight(), rect.topRight())),
+            EdgeItem(self.get_path(rect.topRight(), rect.topLeft())),
+            EdgeItem(self.get_path(rect.topLeft(), rect.bottomLeft()))
         ]
         for edge in self.edges:
             edge.setParentItem(self)

@@ -53,24 +53,116 @@ class GmshMeshBuilder:
 
         return gmsh.model.geo.addCurveLoop(line_tags)
 
-    def build_mesh_2(self, boundary_conditions: list[BoundaryConditions], max_element_size: float, filename: str = 'mesh.msh'):
+    def build_closed_loops(self, edges: list[EdgeItem]) -> list[list[EdgeItem]]:
+        """
+        Вернёт список замкнутых циклов (каждый — список EdgeItem в порядке обхода).
+        Если какая-то цепочка не закрылась (открытая), она в результат не попадёт.
+        """
+        unused = set(edges)
+        loops = []
+
+        while unused:
+            current = unused.pop()
+            loop = [current]
+
+            # растём вперёд
+            while True:
+                end_pt = loop[-1].p2
+
+                # ищем неиспользованное ребро, у которого начало совпадает с end_pt
+                candidate = None
+                for e in list(unused):
+                    if self.equal_points(e.p1, end_pt):
+                        candidate = e
+                        break
+                    # если совпадает его p2 — можем перевернуть
+                    if self.equal_points(e.p2, end_pt):
+                        e.reverse()
+                        candidate = e
+                        break
+
+                if not candidate:
+                    # дальше не «цепляется»
+                    break
+
+                unused.remove(candidate)
+                loop.append(candidate)
+
+                # если мы вернулись к стартовой точке — закончили цикл
+                if self.equal_points(loop[0].p1, loop[-1].p2):
+                    loops.append(loop)
+                    break
+            # если цикл не замкнулся, мы его просто отбрасываем
+        return loops
+
+    def equal_points(self, a: QPointF, b: QPointF, tol=1e-3) -> bool:
+        return (a - b).manhattanLength() < tol
+
+    def build_mesh_2(self, edges: list[EdgeItem], max_element_size: float, filename: str = 'mesh.msh'):
         gmsh.initialize()
         gmsh.model.add("geometry")
 
-        for bc in boundary_conditions:
-            bc_path = QPainterPath()
+        loops: list[list[EdgeItem]] = self.build_closed_loops(edges)
+        loop: list[EdgeItem] = []
 
-            for edge in bc.edges:
-                bc_path.connectPath(edge.path())
+        # curr = 0
+        # next = 1
+        #
+        # curr_path = edges[curr].path()
+        # next_path = edges[next].path()
+        # curr_points = (
+        #     QPointF(curr_path.elementAt(0).x, curr_path.elementAt(0).y),
+        #     QPointF(curr_path.elementAt(curr_path.elementCount() - 1).x,
+        #             curr_path.elementAt(curr_path.elementCount() - 1).y),
+        # )
+        # next_points = (
+        #     QPointF(next_path.elementAt(0).x, next_path.elementAt(0).y),
+        #     QPointF(next_path.elementAt(next_path.elementCount() - 1).x,
+        #             next_path.elementAt(next_path.elementCount() - 1).y),
+        # )
+        #
+        # while curr_points[0] != next_points[1]:
+        #     curr_path = edges[curr].path()
+        #     next_path = edges[next % len(edges)].path()
+        #     curr_points = (
+        #         QPointF(curr_path.elementAt(0).x, curr_path.elementAt(0).y),
+        #         QPointF(curr_path.elementAt(curr_path.elementCount() - 1).x, curr_path.elementAt(curr_path.elementCount() - 1).y),
+        #     )
+        #     next_points = (
+        #         QPointF(next_path.elementAt(0).x, next_path.elementAt(0).y),
+        #         QPointF(next_path.elementAt(next_path.elementCount() - 1).x, next_path.elementAt(next_path.elementCount() - 1).y),
+        #     )
+        #
+        #     while curr_points[1] != next_points[0]:
+        #         next += 1
+        #         next_path = edges[next].path()
+        #         next_points = (
+        #             QPointF(next_path.elementAt(0).x, next_path.elementAt(0).y),
+        #             QPointF(next_path.elementAt(next_path.elementCount() - 1).x,
+        #                     next_path.elementAt(next_path.elementCount() - 1).y),
+        #         )
+        #     loop.append(edges[curr])
+        #     curr = next
+        #     next = curr + 1
+        #
+        # loops.append(loop)
 
-            points = [p for p in bc_path.toFillPolygon()][:-1]
 
-            point_tags = [gmsh.model.geo.addPoint(p.x(), p.y(), 0, max_element_size) for p in points]
-            line_tags = []
-            for i in range(len(point_tags) - 1):
-                a = point_tags[i]
-                b = point_tags[(i + 1)]
-                line_tags.append(gmsh.model.geo.addLine(a, b))
+
+        # for bc in boundary_conditions:
+        #     bc_path = QPainterPath()
+        #
+        #     for edge in bc.edges:
+        #         bc_path.connectPath(edge.path())
+        #
+        #     points = [p for p in bc_path.toFillPolygon()][:-1]
+        #
+        #     point_tags = [gmsh.model.geo.addPoint(p.x(), p.y(), 0, max_element_size) for p in points]
+        #     line_tags = []
+        #     for i in range(len(point_tags) - 1):
+        #         a = point_tags[i]
+        #         b = point_tags[(i + 1)]
+        #         line_tags.append(gmsh.model.geo.addLine(a, b))
 
         gmsh.model.geo.synchronize()
         gmsh.model.mesh.generate(2)

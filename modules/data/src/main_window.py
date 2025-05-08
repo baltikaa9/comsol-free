@@ -97,6 +97,7 @@ class MainWindow(QMainWindow):
         # Инициализация параметров
         self.turbulence_params = TurbulenceParams()
         self.boundary_conditions: list[BoundaryConditions] = []
+        self.boundary_edges: list[EdgeItem] = []
         self.initial_conditions = InitialConditions()
 
         # Инициализация UI
@@ -139,7 +140,7 @@ class MainWindow(QMainWindow):
 
         builder = GmshMeshBuilder(self.grid_spacing)
         # builder.build_mesh(item.mapToScene(path), self.boundary_conditions, dx)
-        builder.build_mesh_2(self.boundary_conditions, dx)
+        builder.build_mesh_2(self.boundary_edges, dx)
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
@@ -238,14 +239,17 @@ class MainWindow(QMainWindow):
             bc = dialog.get_data()
             self.boundary_conditions.append(bc)
 
+            for edge in selected_edges:
+                edge.boundary_conditions = bc
+                self.boundary_edges.append(edge)
+
         self.update_project_tree()
         self.highlight_edges()
 
     def highlight_edges(self):
-        for bc in self.boundary_conditions:
-            for edge in bc.edges:
-                color = Qt.red if bc.type == BoundaryConditionType.INLET else Qt.blue
-                edge.setPen(QPen(color, 3))
+        for edge in self.boundary_edges:
+            color = Qt.red if edge.boundary_conditions.type == BoundaryConditionType.INLET else Qt.blue
+            edge.setPen(QPen(color, 3))
 
     def edit_turbulence_model(self):
         dialog = TurbulenceDialog(self.turbulence_params, self)
