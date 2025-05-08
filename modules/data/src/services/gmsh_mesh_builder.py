@@ -43,15 +43,33 @@ class GmshMeshBuilder:
         self.__boundary_lines[loop_name] = line_tags
         return gmsh.model.geo.addCurveLoop(line_tags)
 
-    def add_loop(self, loop_points: list[tuple[float]], max_element_size: float):
-        point_tags = [gmsh.model.geo.addPoint(p[0], p[1], 0, max_element_size) for p in loop_points]
-        line_tags = []
-        for i in range(len(point_tags)):
-            a = point_tags[i]
-            b = point_tags[(i + 1) % len(point_tags)]
-            line_tags.append(gmsh.model.geo.addLine(a, b))
+    # def add_loop(self, loop_points: list[tuple[float]], max_element_size: float):
+    #     point_tags = [gmsh.model.geo.addPoint(p[0], p[1], 0, max_element_size) for p in loop_points]
+    #     line_tags = []
+    #     for i in range(len(point_tags)):
+    #         a = point_tags[i]
+    #         b = point_tags[(i + 1) % len(point_tags)]
+    #         line_tags.append(gmsh.model.geo.addLine(a, b))
+    #
+    #     return gmsh.model.geo.addCurveLoop(line_tags)
 
-        return gmsh.model.geo.addCurveLoop(line_tags)
+    def add_loop(self, loop: list[EdgeItem], max_element_size: float):
+        lines = []
+
+        p1 = loop[0].p1
+        curr = 0
+
+        points = [gmsh.model.geo.addPoint(p1.x() / self.grid_spacing, p1.y() / self.grid_spacing, 0, max_element_size)]
+
+        while (p2 := loop[curr].p2) != p1:
+            points.append(gmsh.model.geo.addPoint(p2.x() / self.grid_spacing, p2.y() / self.grid_spacing, 0, max_element_size))
+            curr += 1
+
+        for i in range(len(points)):
+            a = points[i]
+            b = points[(i + 1) % len(points)]
+            lines.append(gmsh.model.geo.addLine(a, b))
+        return gmsh.model.geo.addCurveLoop(lines)
 
     def build_closed_loops(self, edges: list[EdgeItem]) -> list[list[EdgeItem]]:
         """
@@ -103,66 +121,12 @@ class GmshMeshBuilder:
         gmsh.model.add("geometry")
 
         loops: list[list[EdgeItem]] = self.build_closed_loops(edges)
-        loop: list[EdgeItem] = []
 
-        # curr = 0
-        # next = 1
-        #
-        # curr_path = edges[curr].path()
-        # next_path = edges[next].path()
-        # curr_points = (
-        #     QPointF(curr_path.elementAt(0).x, curr_path.elementAt(0).y),
-        #     QPointF(curr_path.elementAt(curr_path.elementCount() - 1).x,
-        #             curr_path.elementAt(curr_path.elementCount() - 1).y),
-        # )
-        # next_points = (
-        #     QPointF(next_path.elementAt(0).x, next_path.elementAt(0).y),
-        #     QPointF(next_path.elementAt(next_path.elementCount() - 1).x,
-        #             next_path.elementAt(next_path.elementCount() - 1).y),
-        # )
-        #
-        # while curr_points[0] != next_points[1]:
-        #     curr_path = edges[curr].path()
-        #     next_path = edges[next % len(edges)].path()
-        #     curr_points = (
-        #         QPointF(curr_path.elementAt(0).x, curr_path.elementAt(0).y),
-        #         QPointF(curr_path.elementAt(curr_path.elementCount() - 1).x, curr_path.elementAt(curr_path.elementCount() - 1).y),
-        #     )
-        #     next_points = (
-        #         QPointF(next_path.elementAt(0).x, next_path.elementAt(0).y),
-        #         QPointF(next_path.elementAt(next_path.elementCount() - 1).x, next_path.elementAt(next_path.elementCount() - 1).y),
-        #     )
-        #
-        #     while curr_points[1] != next_points[0]:
-        #         next += 1
-        #         next_path = edges[next].path()
-        #         next_points = (
-        #             QPointF(next_path.elementAt(0).x, next_path.elementAt(0).y),
-        #             QPointF(next_path.elementAt(next_path.elementCount() - 1).x,
-        #                     next_path.elementAt(next_path.elementCount() - 1).y),
-        #         )
-        #     loop.append(edges[curr])
-        #     curr = next
-        #     next = curr + 1
-        #
-        # loops.append(loop)
+        loops_tags = []
+        for loop in loops:
+            loops_tags.append(self.add_loop(loop, max_element_size))
 
-
-
-        # for bc in boundary_conditions:
-        #     bc_path = QPainterPath()
-        #
-        #     for edge in bc.edges:
-        #         bc_path.connectPath(edge.path())
-        #
-        #     points = [p for p in bc_path.toFillPolygon()][:-1]
-        #
-        #     point_tags = [gmsh.model.geo.addPoint(p.x(), p.y(), 0, max_element_size) for p in points]
-        #     line_tags = []
-        #     for i in range(len(point_tags) - 1):
-        #         a = point_tags[i]
-        #         b = point_tags[(i + 1)]
-        #         line_tags.append(gmsh.model.geo.addLine(a, b))
+        surface_tag = gmsh.model.geo.addPlaneSurface(loops_tags)
 
         gmsh.model.geo.synchronize()
         gmsh.model.mesh.generate(2)

@@ -51,9 +51,9 @@ if __name__ == '__main__':
     e = EdgeItem(p)
 
     p1 = QPointF(0.0, 0.0)
-    p2 = QPointF(0.0, 1.0)
+    p2 = QPointF(0.0, 0.0)
 
-
+    print({(p1.x(), p1.y()), (p2.x(), p2.y())})
 
     # print(p1 - p2).man
     # print(e.p2)
