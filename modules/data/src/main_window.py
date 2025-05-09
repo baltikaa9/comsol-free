@@ -2,23 +2,14 @@ from PySide6.QtCore import QEvent
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QKeyEvent
 from PySide6.QtGui import QPainter
-from PySide6.QtGui import QPainterPath
 from PySide6.QtGui import QPen
 from PySide6.QtWidgets import QApplication
 from PySide6.QtWidgets import QDialog
-from PySide6.QtWidgets import QGraphicsEllipseItem
-from PySide6.QtWidgets import QGraphicsLineItem
-from PySide6.QtWidgets import QGraphicsRectItem
 from PySide6.QtWidgets import QGraphicsView
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QMenu
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtWidgets import QTreeWidgetItem
-from PySide6.QtCore import QPointF
-from PySide6.QtCore import QRectF
-from PySide6.QtGui import QPainterPath
-from PySide6.QtWidgets import QGraphicsItem
-from PySide6.QtWidgets import QGraphicsRectItem
 
 from modules.data.src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
 from modules.data.src.dialogs.initial_conditions_dialog import InitialConditionsDialog

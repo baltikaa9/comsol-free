@@ -1,6 +1,13 @@
-from PySide6.QtWidgets import QGraphicsPathItem, QGraphicsEllipseItem, QGraphicsScene, QGraphicsItem
-from PySide6.QtGui import QPen, QPainterPath, QColor, QBrush
-from PySide6.QtCore import QRectF, QPointF, Qt
+from PySide6.QtCore import QPointF
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QBrush
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QPainterPath
+from PySide6.QtGui import QPen
+from PySide6.QtWidgets import QGraphicsEllipseItem
+from PySide6.QtWidgets import QGraphicsItem
+from PySide6.QtWidgets import QGraphicsPathItem
+
 
 class DraggablePoint(QGraphicsEllipseItem):
     def __init__(self, curve_ref, index, center: QPointF, radius=5.0):

@@ -1,4 +1,7 @@
-from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QWidget
+from PySide6.QtWidgets import QDialogButtonBox
+from PySide6.QtWidgets import QFormLayout
+from PySide6.QtWidgets import QLineEdit
+from PySide6.QtWidgets import QWidget
 
 from modules.data.src.dialogs.dialog import Dialog
 

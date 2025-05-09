@@ -1,8 +1,7 @@
-from PySide6.QtCore import Qt, QPointF
-from PySide6.QtGui import QWheelEvent, QMouseEvent
-from PySide6.QtWidgets import (
-    QGraphicsView,
-)
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QMouseEvent
+from PySide6.QtGui import QWheelEvent
+from PySide6.QtWidgets import QGraphicsView
 
 
 class GraphicsView(QGraphicsView):
