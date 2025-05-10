@@ -14,6 +14,7 @@ class GmshMeshBuilder:
 
         gmsh.initialize()
         gmsh.model.add("geometry")
+        gmsh.option.setNumber("Mesh.MshFileVersion", 2)
 
     def add_loop(self, loop: list[EdgeItem], max_element_size: float):
         p1 = loop[0].p1
