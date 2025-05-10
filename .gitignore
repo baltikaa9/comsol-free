@@ -168,3 +168,5 @@ snippets
 !modules/data
 
 *.msh
+*.mesh
+*.h5
