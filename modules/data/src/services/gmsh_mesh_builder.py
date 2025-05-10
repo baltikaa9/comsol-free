@@ -6,10 +6,14 @@ from modules.data.src.widgets.edge_item import EdgeItem
 
 
 class GmshMeshBuilder:
-    def __init__(self, grid_spacing: int = 1):
+    def __init__(self, grid_spacing: int = 1, filename: str = 'mesh.msh'):
         self.grid_spacing = grid_spacing
+        self.filename = filename
         self.__boundary_lines: dict[str, list[int]] = {}
         self.boundary_conditions: dict[int, BoundaryConditions] = {}
+
+        gmsh.initialize()
+        gmsh.model.add("geometry")
 
     def add_loop(self, loop: list[EdgeItem], max_element_size: float):
         p1 = loop[0].p1
@@ -86,20 +90,21 @@ class GmshMeshBuilder:
     def equal_points(self, a: QPointF, b: QPointF, tol=1e-3) -> bool:
         return (a - b).manhattanLength() < tol
 
-    def build_mesh(self, edges: list[EdgeItem], max_element_size: float, filename: str = 'mesh.msh'):
-        gmsh.initialize()
-        gmsh.model.add("geometry")
-
+    def build_mesh(self, edges: list[EdgeItem], max_element_size: float):
         loops: list[list[EdgeItem]] = self.build_closed_loops(edges)
 
         loops_tags = []
         for loop in loops:
             loops_tags.append(self.add_loop(loop, max_element_size))
 
-        gmsh.model.geo.addPlaneSurface(loops_tags)
+        surface = gmsh.model.geo.addPlaneSurface(loops_tags)
+
+        gmsh.model.addPhysicalGroup(dim=2, tags=[surface], tag=1, name='Domain')
 
         gmsh.model.geo.synchronize()
         gmsh.model.mesh.generate(2)
-        gmsh.write(filename)
+
+    def __del__(self):
+        gmsh.write(self.filename)
         gmsh.fltk.run()
         gmsh.finalize()
