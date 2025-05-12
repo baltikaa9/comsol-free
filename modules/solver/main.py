@@ -1,3 +1,4 @@
+import h5py
 import meshio
 
 import numpy as np
@@ -17,41 +18,42 @@ from sfepy.solvers.nls import Newton
 from sfepy.terms import Term
 
 def convert_mesh():
-    # 1) читаем gmsh (.msh)
-    msh = meshio.read('mesh.msh', file_format='gmsh')
+    m = meshio.read("mesh.msh", file_format="gmsh")
+    meshio.write("mesh.h5", m)
 
-    # 2) собираем в один массив все линии и их тэги
-    all_lines = msh.cells_dict['line']  # shape (8,2)
-    line_tags = np.concatenate(msh.cell_data['gmsh:physical'][:4])  # [1,1,2,2,3,3,2,2]
+    # --- объём: только треугольники ---
+    # tri_cells = [(c.type, c.data) for c in m.cells if c.type == "triangle"]
+    # tri_phys = [pd for ctype, pd in zip([c.type for c in m.cells],
+    #                                     m.cell_data["gmsh:physical"])
+    #             if ctype == "triangle"]
+    #
+    # meshio.write("mesh_vol.xdmf",
+    #              meshio.Mesh(points=m.points,
+    #                          cells=tri_cells,
+    #                          cell_data={"gmsh:physical": tri_phys}),
+    #              file_format="xdmf")
+    #
+    # # --- границы: только линии ---
+    # line_cells = [(c.type, c.data) for c in m.cells if c.type == "line"]
+    # line_phys = [pd for ctype, pd in zip([c.type for c in m.cells],
+    #                                      m.cell_data["gmsh:physical"])
+    #              if ctype == "line"]
+    #
+    # meshio.write("mesh_bnd.xdmf",
+    #              meshio.Mesh(points=m.points,
+    #                          cells=line_cells,
+    #                          cell_data={"gmsh:physical": line_phys}),
+    #              file_format="xdmf")
 
-    # 3) берём треугольники и их тэги (должен быть именно один блок)
-    tris = msh.cells_dict['triangle']  # shape (14,3)
-    tri_tags = msh.cell_data['gmsh:physical'][-1]  # [1,1,1,…,1] длиной 14
-
-    volume_mesh = meshio.Mesh(
-        points=msh.points,
-        cells=[('triangle', tris)],
-        cell_data={'gmsh:physical': [tri_tags]}
-    )
-
-    boundary_mesh = meshio.Mesh(
-        points=msh.points,
-        cells=[('line', all_lines)],
-        cell_data={'gmsh:physical': [line_tags]}
-    )
-
-    # Сохраняем в .xdmf
-    meshio.write('volume.xdmf', volume_mesh)
-    meshio.write('boundary.xdmf', boundary_mesh)
 
 def solve(mesh: Mesh):
     domain = FEDomain('domain', mesh)
 
     # Определение регионов
     omega = domain.create_region('Omega', 'all')
-    inlet = domain.create_region('Inlet', 'vertices of surface', 'facet')
-    outlet = domain.create_region('Outlet', 'vertices of surface', 'facet')
-    walls = domain.create_region('Walls', 'vertices of surface', 'facet')
+    inlet = domain.create_region('Inlet', 'vertices in (x > 1.9)', 'facet')
+    outlet = domain.create_region('Outlet', 'cells of group 1', 'facet')
+    walls = domain.create_region('Walls', 'cells of group 2', 'facet')
 
     # Проверка регионов
     print("Available regions:", domain.regions)
@@ -91,6 +93,20 @@ def solve(mesh: Mesh):
 
 if __name__ == '__main__':
     # convert_mesh()
-    mesh = Mesh.from_file('mesh.h5')
+    mesh = Mesh.from_file('mesh_matid_1.h5')
+
+    # mesh = Mesh.from_file("test/circle_in_square.h5")
+
+    print(mesh.cmesh.cell_groups)
+    # facet_groups = mesh.get_facet_groups()
+    # print(facet_groups)
+    # m = meshio.read('mesh.mesh', file_format='gmsh')
+
+    c=1
+
+    # with h5py.File('mesh.h5', 'r') as f:
+    #     print(list(f.keys()))  # Показывает разделы, например: ['cells', 'cell_sets', 'facets', 'facet_sets']
+    #     print(f['cell_sets'].keys())  # Показывает группы для объемных элементов
+    #     print(f['facet_sets'].keys())  # Показывает группы для граней
 
     solve(mesh)
