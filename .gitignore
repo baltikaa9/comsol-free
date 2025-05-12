@@ -160,12 +160,12 @@ cython_debug/
 .idea/
 
 *test*.py
-data*
+#data*
 *.ipynb
 
 snippets
 
-!modules/data
+#!modules/data
 
 *.msh
 *.mesh
