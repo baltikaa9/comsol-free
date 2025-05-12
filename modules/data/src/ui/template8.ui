@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1008</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTreeWidget" name="projectTree">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>0</height>
+       </size>
+      </property>
+      <column>
+       <property name="text">
+        <string>Проект</string>
+       </property>
+      </column>
+      <item>
+       <property name="text">
+        <string>Physics</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Turbulence Model: Laminar</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>Initial Conditions</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Velocity: (0, 0)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pressure: 0</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>Boundary Conditions</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Inlet: Velocity (1, 0)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Outlet: Pressure 0</string>
+        </property>
+       </item>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="GraphicsView" name="graphicsView"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="propertiesLayout"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1008</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>Tools</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDrawLineByParams"/>
+   <addaction name="actionDrawRectByParams"/>
+   <addaction name="actionDrawCircleByParams"/>
+   <addaction name="actionDrawCurveByParams"/>
+   <addaction name="actionDrawParametric"/>
+   <addaction name="actionUnion"/>
+   <addaction name="actionDifference"/>
+   <addaction name="actionIntersection"/>
+   <addaction name="actionMirror"/>
+   <addaction name="actionRotate"/>
+   <addaction name="actionBuildMesh"/>
+  </widget>
+  <action name="actionDrawLineByParams">
+   <property name="text">
+    <string>Прямая</string>
+   </property>
+  </action>
+  <action name="actionDrawRectByParams">
+   <property name="text">
+    <string>Прямоугольник</string>
+   </property>
+  </action>
+  <action name="actionDrawCircleByParams">
+   <property name="text">
+    <string>Эллипс</string>
+   </property>
+  </action>
+  <action name="actionDrawCurveByParams">
+   <property name="text">
+    <string>Кривая Безье</string>
+   </property>
+  </action>
+  <action name="actionDrawParametric">
+   <property name="text">
+    <string>Параметрическая кривая</string>
+   </property>
+  </action>
+  <action name="actionUnion">
+   <property name="text">
+    <string>Объединение</string>
+   </property>
+  </action>
+  <action name="actionDifference">
+   <property name="text">
+    <string>Разница</string>
+   </property>
+  </action>
+  <action name="actionIntersection">
+   <property name="text">
+    <string>Пересечение</string>
+   </property>
+  </action>
+  <action name="actionMirror">
+   <property name="text">
+    <string>Отражение</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="text">
+    <string>Поворот</string>
+   </property>
+  </action>
+  <action name="actionBuildMesh">
+   <property name="text">
+    <string>Построить сетку</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>src.widgets.graphics_view</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -123,13 +123,13 @@ class MainWindow(QMainWindow):
         self.ui.projectTree.clear()
 
         # Модель турбулентности
-        turbulence_item = QTreeWidgetItem(['Turbulence Model'])
+        turbulence_item = QTreeWidgetItem(['Модель турбулентности'])
         turbulence_item.addChild(QTreeWidgetItem([
             f'{self.turbulence_params.model.value}'
         ]))
 
         # Начальные условия
-        init_item = QTreeWidgetItem(['Initial Conditions'])
+        init_item = QTreeWidgetItem(['Начальные условия'])
         init_item.addChild(QTreeWidgetItem([
             f'u: {self.initial_conditions.u} м/с'
         ]))
@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
             ]))
 
         # Граничные условия
-        bc_item = QTreeWidgetItem(['Boundary Conditions'])
+        bc_item = QTreeWidgetItem(['Граничные условия'])
         for bc in self.boundary_conditions:
             bc_child = QTreeWidgetItem([bc.type.value])
             bc_child.setData(0, Qt.UserRole, bc)
@@ -182,21 +182,21 @@ class MainWindow(QMainWindow):
 
         # Для верхнеуровневых элементов
         if not parent:
-            if item.text(0) == 'Turbulence Model':
+            if item.text(0) == 'Модель турбулентности':
                 self.edit_turbulence_model()
-            elif item.text(0) == 'Initial Conditions':
+            elif item.text(0) == 'Начальные условия':
                 self.edit_initial_conditions()
-            elif item.text(0) == 'Boundary Conditions':
+            elif item.text(0) == 'Граничные условия':
                 self.add_boundary_condition()
             return
 
         # Для дочерних элементов
         parent_text = parent.text(0)
 
-        if parent_text == 'Initial Conditions':
+        if parent_text == 'Начальные условия':
             self.edit_initial_conditions()
 
-        elif parent_text == 'Boundary Conditions':
+        elif parent_text == 'Граничные условия':
             self.edit_boundary_condition(item)
 
     def add_boundary_condition(self):
@@ -248,9 +248,9 @@ class MainWindow(QMainWindow):
         item = self.ui.projectTree.itemAt(position)
         menu = QMenu()
 
-        if item and item.text(0) == 'Boundary Conditions':
+        if item and item.text(0) == 'Граничные условия':
             menu.addAction('Добавить условие', self.add_boundary_condition)
-        elif item and item.parent() and item.parent().text(0) == 'Boundary Conditions':
+        elif item and item.parent() and item.parent().text(0) == 'Граничные условия':
             menu.addAction('Удалить условие', lambda: self.delete_boundary_condition(item))
 
         menu.exec(self.ui.projectTree.viewport().mapToGlobal(position))

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'template7.ui'
+## Form generated from reading UI file 'template8.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -27,8 +27,6 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1008, 600)
-        self.actionSelect = QAction(MainWindow)
-        self.actionSelect.setObjectName(u"actionSelect")
         self.actionDrawLineByParams = QAction(MainWindow)
         self.actionDrawLineByParams.setObjectName(u"actionDrawLineByParams")
         self.actionDrawRectByParams = QAction(MainWindow)
@@ -96,7 +94,6 @@ class Ui_MainWindow(object):
         self.mainToolBar.setObjectName(u"mainToolBar")
         MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.mainToolBar)
 
-        self.mainToolBar.addAction(self.actionSelect)
         self.mainToolBar.addAction(self.actionDrawLineByParams)
         self.mainToolBar.addAction(self.actionDrawRectByParams)
         self.mainToolBar.addAction(self.actionDrawCircleByParams)
@@ -116,7 +113,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.actionSelect.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u043e\u0440", None))
         self.actionDrawLineByParams.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u044f\u043c\u0430\u044f", None))
         self.actionDrawRectByParams.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u044f\u043c\u043e\u0443\u0433\u043e\u043b\u044c\u043d\u0438\u043a", None))
         self.actionDrawCircleByParams.setText(QCoreApplication.translate("MainWindow", u"\u042d\u043b\u043b\u0438\u043f\u0441", None))
@@ -129,7 +125,7 @@ class Ui_MainWindow(object):
         self.actionRotate.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0432\u043e\u0440\u043e\u0442", None))
         self.actionBuildMesh.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0441\u0435\u0442\u043a\u0443", None))
         ___qtreewidgetitem = self.projectTree.headerItem()
-        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Project", None));
+        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0435\u043a\u0442", None));
 
         __sortingEnabled = self.projectTree.isSortingEnabled()
         self.projectTree.setSortingEnabled(False)
