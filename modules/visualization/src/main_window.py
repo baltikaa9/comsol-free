@@ -52,12 +52,12 @@ class MainWindow(QMainWindow):
         self.layout_visualization.addWidget(self.canvas_visualization)
         self.layout_visualization.addWidget(self.toolbar)
 
-        data_path, expression, stream_lines, levels, color = self.__get_plot_settings()
+        data_path, expression, stream_lines, levels = self.__get_plot_settings()
 
         if not data_path or not levels:
             return
 
-        Plotter.plot_geometry(self.canvas_visualization.ax, color)
+        # Plotter.plot_geometry(self.canvas_visualization.ax, color)
 
         data = DataParser(data_path).parse()
 
@@ -83,13 +83,13 @@ class MainWindow(QMainWindow):
                 data['v'],
             )
 
-    def __get_plot_settings(self) -> tuple[str, int, bool, int, str]:
+    def __get_plot_settings(self) -> tuple[str, int, bool, int]:
         data_path = self.ui.lineEdit_data_path.text()
         expression = self.ui.comboBox_expression.currentIndex()
         stream_lines = self.ui.checkBox_stream_lines.isChecked()
         levels = self.ui.lineEdit_levels.text()
-        color = self.ui.lineEdit_geometry_color.text()
-        return data_path, expression, stream_lines, int(levels), color
+        # color = self.ui.lineEdit_geometry_color.text()
+        return data_path, expression, stream_lines, int(levels)
 
     def __toggle_streamlines_check_box(self, current_index: int):
         self.ui.checkBox_stream_lines.setDisabled(current_index != 0)

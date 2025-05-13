@@ -41,5 +41,5 @@ class Plotter:
             density=(0.5, 10),
             color='black',
             broken_streamlines=False,
-            start_points=np.array(([0 for _ in np.arange(-2, 2, 0.05)], np.arange(-2, 2, 0.05))).T
+            start_points=np.array(([0 for _ in np.arange(-2, 2, 0.2)], np.arange(-2, 2, 0.2))).T
         )
