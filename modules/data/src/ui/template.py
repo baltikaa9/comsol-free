@@ -17,8 +17,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QMainWindow,
-    QMenuBar, QSizePolicy, QStatusBar, QToolBar,
-    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
+    QSizePolicy, QStatusBar, QToolBar, QTreeWidget,
+    QTreeWidgetItem, QVBoxLayout, QWidget)
 
 from src.widgets.graphics_view import GraphicsView
 
@@ -56,14 +56,20 @@ class Ui_MainWindow(object):
         self.projectTree = QTreeWidget(self.centralwidget)
         __qtreewidgetitem = QTreeWidgetItem(self.projectTree)
         QTreeWidgetItem(__qtreewidgetitem)
+        QTreeWidgetItem(__qtreewidgetitem)
         __qtreewidgetitem1 = QTreeWidgetItem(self.projectTree)
-        QTreeWidgetItem(__qtreewidgetitem1)
         QTreeWidgetItem(__qtreewidgetitem1)
         __qtreewidgetitem2 = QTreeWidgetItem(self.projectTree)
         QTreeWidgetItem(__qtreewidgetitem2)
         QTreeWidgetItem(__qtreewidgetitem2)
+        __qtreewidgetitem3 = QTreeWidgetItem(self.projectTree)
+        QTreeWidgetItem(__qtreewidgetitem3)
+        QTreeWidgetItem(__qtreewidgetitem3)
         self.projectTree.setObjectName(u"projectTree")
-        self.projectTree.setMinimumSize(QSize(200, 0))
+        self.projectTree.setMinimumSize(QSize(250, 0))
+        font = QFont()
+        font.setPointSize(14)
+        self.projectTree.setFont(font)
 
         self.horizontalLayout.addWidget(self.projectTree)
 
@@ -83,10 +89,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addLayout(self.verticalLayout)
 
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1008, 22))
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -130,21 +132,27 @@ class Ui_MainWindow(object):
         __sortingEnabled = self.projectTree.isSortingEnabled()
         self.projectTree.setSortingEnabled(False)
         ___qtreewidgetitem1 = self.projectTree.topLevelItem(0)
-        ___qtreewidgetitem1.setText(0, QCoreApplication.translate("MainWindow", u"Physics", None));
+        ___qtreewidgetitem1.setText(0, QCoreApplication.translate("MainWindow", u"Material", None));
         ___qtreewidgetitem2 = ___qtreewidgetitem1.child(0)
-        ___qtreewidgetitem2.setText(0, QCoreApplication.translate("MainWindow", u"Turbulence Model: Laminar", None));
-        ___qtreewidgetitem3 = self.projectTree.topLevelItem(1)
-        ___qtreewidgetitem3.setText(0, QCoreApplication.translate("MainWindow", u"Initial Conditions", None));
-        ___qtreewidgetitem4 = ___qtreewidgetitem3.child(0)
-        ___qtreewidgetitem4.setText(0, QCoreApplication.translate("MainWindow", u"Velocity: (0, 0)", None));
-        ___qtreewidgetitem5 = ___qtreewidgetitem3.child(1)
-        ___qtreewidgetitem5.setText(0, QCoreApplication.translate("MainWindow", u"Pressure: 0", None));
+        ___qtreewidgetitem2.setText(0, QCoreApplication.translate("MainWindow", u"\u041f\u043b\u043e\u0442\u043d\u043e\u0441\u0442\u044c: \u03c1", None));
+        ___qtreewidgetitem3 = ___qtreewidgetitem1.child(1)
+        ___qtreewidgetitem3.setText(0, QCoreApplication.translate("MainWindow", u"\u0414\u0438\u043d\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u0432\u044f\u0437\u043a\u043e\u0441\u0442\u044c: \u03bc", None));
+        ___qtreewidgetitem4 = self.projectTree.topLevelItem(1)
+        ___qtreewidgetitem4.setText(0, QCoreApplication.translate("MainWindow", u"Physics", None));
+        ___qtreewidgetitem5 = ___qtreewidgetitem4.child(0)
+        ___qtreewidgetitem5.setText(0, QCoreApplication.translate("MainWindow", u"Turbulence Model: Laminar", None));
         ___qtreewidgetitem6 = self.projectTree.topLevelItem(2)
-        ___qtreewidgetitem6.setText(0, QCoreApplication.translate("MainWindow", u"Boundary Conditions", None));
+        ___qtreewidgetitem6.setText(0, QCoreApplication.translate("MainWindow", u"Initial Conditions", None));
         ___qtreewidgetitem7 = ___qtreewidgetitem6.child(0)
-        ___qtreewidgetitem7.setText(0, QCoreApplication.translate("MainWindow", u"Inlet: Velocity (1, 0)", None));
+        ___qtreewidgetitem7.setText(0, QCoreApplication.translate("MainWindow", u"Velocity: (0, 0)", None));
         ___qtreewidgetitem8 = ___qtreewidgetitem6.child(1)
-        ___qtreewidgetitem8.setText(0, QCoreApplication.translate("MainWindow", u"Outlet: Pressure 0", None));
+        ___qtreewidgetitem8.setText(0, QCoreApplication.translate("MainWindow", u"Pressure: 0", None));
+        ___qtreewidgetitem9 = self.projectTree.topLevelItem(3)
+        ___qtreewidgetitem9.setText(0, QCoreApplication.translate("MainWindow", u"Boundary Conditions", None));
+        ___qtreewidgetitem10 = ___qtreewidgetitem9.child(0)
+        ___qtreewidgetitem10.setText(0, QCoreApplication.translate("MainWindow", u"Inlet: Velocity (1, 0)", None));
+        ___qtreewidgetitem11 = ___qtreewidgetitem9.child(1)
+        ___qtreewidgetitem11.setText(0, QCoreApplication.translate("MainWindow", u"Outlet: Pressure 0", None));
         self.projectTree.setSortingEnabled(__sortingEnabled)
 
         self.mainToolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"Tools", None))

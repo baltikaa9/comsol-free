@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         if not data_path or not levels:
             return
 
-        # Plotter.plot_geometry(self.canvas_visualization.ax, color)
+        Plotter.plot_geometry(self.canvas_visualization.ax)
 
         data = DataParser(data_path).parse()
 
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
             cmap='rainbow',
         )
 
-        self.canvas_visualization.ax.set_title('Поле скоростей' if not expression else 'Поле давления')
+        self.canvas_visualization.ax.set_title('Поле скоростей (м/с)' if not expression else 'Поле давления (Па)')
 
         if stream_lines:
             Plotter.plot_streamline(

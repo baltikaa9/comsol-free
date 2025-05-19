@@ -19,9 +19,14 @@
      <widget class="QTreeWidget" name="projectTree">
       <property name="minimumSize">
        <size>
-        <width>200</width>
+        <width>250</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
       </property>
       <column>
        <property name="text">
@@ -29,22 +34,20 @@
        </property>
       </column>
       <item>
-      <property name="text">
+       <property name="text">
         <string>Material</string>
-      </property>
-      <!-- Дочерний элемент «Плотность» -->
-      <item>
+       </property>
+       <item>
         <property name="text">
-          <string>Плотность: ρ</string>
+         <string>Плотность: ρ</string>
         </property>
-      </item>
-      <!-- Дочерний элемент «Динамическая вязкость» -->
-      <item>
+       </item>
+       <item>
         <property name="text">
-          <string>Динамическая вязкость: μ</string>
+         <string>Динамическая вязкость: μ</string>
         </property>
+       </item>
       </item>
-    </item>
       <item>
        <property name="text">
         <string>Physics</string>

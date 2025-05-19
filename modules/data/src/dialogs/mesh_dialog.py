@@ -15,7 +15,7 @@ class MeshDialog(Dialog):
 
         self.dx_spin.setDecimals(2)
         self.dx_spin.setRange(0.01, 100.0)
-        self.dx_spin.setValue(1)
+        self.dx_spin.setValue(10)
         self.dx_spin.setSingleStep(0.01)
 
         layout = QFormLayout(self)
