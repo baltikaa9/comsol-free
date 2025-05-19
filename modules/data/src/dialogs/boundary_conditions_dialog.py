@@ -1,8 +1,11 @@
+import math
+
 from PySide6.QtWidgets import QComboBox
 from PySide6.QtWidgets import QDialogButtonBox
 from PySide6.QtWidgets import QDoubleSpinBox
 from PySide6.QtWidgets import QFormLayout
 from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QWidget
 
@@ -36,15 +39,15 @@ class BoundaryConditionsDialog(Dialog):
         layout.addWidget(self.type_combo)
 
         # --- Общие поля для inlet и open ---
-        self.u_input = QDoubleSpinBox()
-        self.v_input = QDoubleSpinBox()
+        self.u_input = QLineEdit()
+        self.v_input = QLineEdit()
         self.k_input = QDoubleSpinBox()
         self.om_input = QDoubleSpinBox()
-        for w in (self.u_input, self.v_input, self.k_input, self.om_input):
+        for w in (self.k_input, self.om_input):
             w.setRange(-1e6, 1e6)
 
-        self.u_input.setValue(50)
-        self.v_input.setValue(0)
+        self.u_input.setText('50*cos(18*pi/180)')
+        self.v_input.setText('50*sin(18*pi/180)')
         self.k_input.setDecimals(8)
         self.k_input.setValue(4.184e-7)
         self.om_input.setValue(2.78)
@@ -105,8 +108,8 @@ class BoundaryConditionsDialog(Dialog):
         t = self.type_combo.currentData()
         if t == BoundaryConditionType.INLET:
             return InletBoundaryConditions(
-                u=self.u_input.value(),
-                v=self.v_input.value(),
+                u=self.__value(self.u_input.text()),
+                v=self.__value(self.v_input.text()),
                 k=self.k_input.value() if self.turb_type != TurbulenceModel.LAMINAR else None,
                 omega=self.om_input.value() if self.turb_type != TurbulenceModel.LAMINAR else None,
             )
@@ -119,3 +122,17 @@ class BoundaryConditionsDialog(Dialog):
             return WallBoundaryConditions(
                 wall=self.wall_type_combo.currentData()
             )
+
+    @staticmethod
+    def __value(expr: str) -> float:
+        text = expr.strip()
+        if not text:
+            return 0.0
+
+        safe_locals = {"__builtins__": {}}
+        safe_locals.update({k: getattr(math, k) for k in
+                            ("sin", "cos", "tan", "pi", "sqrt", "log", "exp")})
+        try:
+            return float(eval(text, {"__builtins__": None}, safe_locals))
+        except Exception:
+            return 0.0
