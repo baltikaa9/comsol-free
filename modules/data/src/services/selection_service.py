@@ -64,4 +64,4 @@ class SelectionService:
 
     def highlight_edge(self, edge):
         color = Qt.blue
-        edge.setPen(QPen(color, 2))
+        edge.setPen(QPen(color, 0))

@@ -244,7 +244,7 @@ class MainWindow(QMainWindow):
     def highlight_edges(self):
         for edge in self.boundary_edges:
             color = Qt.red if edge.boundary_conditions.type == BoundaryConditionType.INLET else Qt.blue
-            edge.setPen(QPen(color, 3))
+            edge.setPen(QPen(color, 0))
 
     def edit_material(self):
         dialog = MaterialDialog(self)

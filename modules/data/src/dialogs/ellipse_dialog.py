@@ -15,8 +15,8 @@ class EllipseDialog(Dialog):
 
         self.center_x = QLineEdit('0')
         self.center_y = QLineEdit('0')
-        self.radius_x = QLineEdit('18')
-        self.radius_y = QLineEdit('18')
+        self.radius_x = QLineEdit('180')
+        self.radius_y = QLineEdit('180')
 
         layout.addRow('Center X:', self.center_x)
         layout.addRow('Center Y:', self.center_y)
