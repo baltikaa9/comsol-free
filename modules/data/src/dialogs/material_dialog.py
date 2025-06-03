@@ -1,11 +1,9 @@
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QDialogButtonBox
-from PySide6.QtWidgets import QFormLayout
-from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QDoubleSpinBox
-
-from modules.data.src.dialogs.dialog import Dialog
-from modules.data.src.physics.turbulence_models import Material
+from PySide6.QtWidgets import QFormLayout
+from src.dialogs.dialog import Dialog
+from src.physics.turbulence_models import Material
 
 
 class MaterialDialog(Dialog):

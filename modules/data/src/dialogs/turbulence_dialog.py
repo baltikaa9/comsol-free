@@ -1,11 +1,10 @@
 from PySide6.QtWidgets import QComboBox
 from PySide6.QtWidgets import QDialogButtonBox
 from PySide6.QtWidgets import QFormLayout
-from PySide6.QtWidgets import QLineEdit
 
-from modules.data.src.dialogs.dialog import Dialog
-from modules.data.src.physics.turbulence_models import TurbulenceModel
-from modules.data.src.physics.turbulence_models import TurbulenceParams
+from src.dialogs.dialog import Dialog
+from src.physics.turbulence_models import TurbulenceModel
+from src.physics.turbulence_models import TurbulenceParams
 
 
 class TurbulenceDialog(Dialog):

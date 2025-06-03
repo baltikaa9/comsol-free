@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QGraphicsItem
 
-from modules.data.src.commands.command import Command
+from src.commands.command import Command
 
 
 class RotateCommand(Command):

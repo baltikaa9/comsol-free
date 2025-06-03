@@ -104,6 +104,11 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
    <property name="windowTitle">
     <string>Tools</string>
    </property>

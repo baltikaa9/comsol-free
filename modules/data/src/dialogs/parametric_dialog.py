@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QFormLayout
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QWidget
 
-from modules.data.src.dialogs.dialog import Dialog
+from src.dialogs.dialog import Dialog
 
 
 class ParametricDialog(Dialog):

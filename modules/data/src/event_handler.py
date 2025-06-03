@@ -14,13 +14,13 @@ from PySide6.QtWidgets import QGraphicsRectItem
 from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QLineEdit
 
-from modules.data.src.commands.delete_command import DeleteCommand
-from modules.data.src.commands.move_command import MoveCommand
-from modules.data.src.services.command_service import CommandService
-from modules.data.src.services.selection_service import SelectionService
-from modules.data.src.widgets.edge_item import EdgeItem
-from modules.data.src.widgets.graphics_view import GraphicsView
-from modules.data.src.widgets.grid_scene import GridScene
+from src.commands.delete_command import DeleteCommand
+from src.commands.move_command import MoveCommand
+from src.services.command_service import CommandService
+from src.services.selection_service import SelectionService
+from src.widgets.edge_item import EdgeItem
+from src.widgets.graphics_view import GraphicsView
+from src.widgets.grid_scene import GridScene
 
 
 class EventHandler:

@@ -1,8 +1,8 @@
 import gmsh
 from PySide6.QtCore import QPointF
 
-from modules.data.src.physics.turbulence_models import BoundaryConditions
-from modules.data.src.widgets.edge_item import EdgeItem
+from src.physics.turbulence_models import BoundaryConditions
+from src.widgets.edge_item import EdgeItem
 
 
 class GmshMeshBuilder:

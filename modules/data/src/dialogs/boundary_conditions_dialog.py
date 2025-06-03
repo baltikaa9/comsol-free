@@ -9,15 +9,15 @@ from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QWidget
 
-from modules.data.src.dialogs.dialog import Dialog
-from modules.data.src.physics.turbulence_models import BoundaryConditionType
-from modules.data.src.physics.turbulence_models import BoundaryConditions
-from modules.data.src.physics.turbulence_models import InletBoundaryConditions
-from modules.data.src.physics.turbulence_models import OpenBoundaryConditions
-from modules.data.src.physics.turbulence_models import TurbulenceModel
-from modules.data.src.physics.turbulence_models import WallBoundaryConditions
-from modules.data.src.physics.turbulence_models import WallType
-from modules.data.src.widgets.edge_item import EdgeItem
+from src.dialogs.dialog import Dialog
+from src.physics.turbulence_models import BoundaryConditionType
+from src.physics.turbulence_models import BoundaryConditions
+from src.physics.turbulence_models import InletBoundaryConditions
+from src.physics.turbulence_models import OpenBoundaryConditions
+from src.physics.turbulence_models import TurbulenceModel
+from src.physics.turbulence_models import WallBoundaryConditions
+from src.physics.turbulence_models import WallType
+from src.widgets.edge_item import EdgeItem
 
 
 class BoundaryConditionsDialog(Dialog):

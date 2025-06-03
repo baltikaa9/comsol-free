@@ -2,8 +2,8 @@ from PySide6.QtCore import Qt, QRectF
 from PySide6.QtGui import QPen, QColor, QBrush
 from PySide6.QtWidgets import QGraphicsItem
 
-from modules.data.src.widgets.edge_item import EdgeItem
-from modules.data.src.widgets.grid_scene import GridScene
+from src.widgets.edge_item import EdgeItem
+from src.widgets.grid_scene import GridScene
 
 
 class SelectionService:

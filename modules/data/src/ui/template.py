@@ -94,6 +94,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.mainToolBar = QToolBar(MainWindow)
         self.mainToolBar.setObjectName(u"mainToolBar")
+        self.mainToolBar.setFont(font)
         MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.mainToolBar)
 
         self.mainToolBar.addAction(self.actionDrawLineByParams)

@@ -19,7 +19,7 @@ class GridScene(QGraphicsScene):
         self.spacing = spacing
         self.grid_pen = QPen(Qt.lightGray, 0)
         self.axis_pen = QPen(Qt.black, 0)
-        self.font = QFont("Arial",  8)  # размер шрифта для меток
+        self.font = QFont("Arial",  20)  # размер шрифта для меток
         self._labels = []
         # Как только изменяется область сцены, перерисуем все метки:
         self.sceneRectChanged.connect(self.update_labels)
@@ -91,17 +91,25 @@ class GridScene(QGraphicsScene):
         step_x = self._nice_step(span_x)
         step_y = self._nice_step(span_y)
 
+        zero_lab = QGraphicsTextItem('0')
+        zero_lab.setFont(self.font)
+        zero_lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
+        zero_lab.setPos(QPointF(0, 0))
+        self.addItem(zero_lab)
+        self._labels.append(zero_lab)
+
         # X-метки
         first_i = math.ceil((left / self.spacing) / step_x) * step_x
         i = first_i
         while i * self.spacing <= right:
             pos = i * self.spacing
-            lab = QGraphicsTextItem(str(i))
-            lab.setFont(self.font)
-            lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
-            lab.setPos(QPointF(pos, 0))
-            self.addItem(lab)
-            self._labels.append(lab)
+            if abs(pos) > 1e-3:
+                lab = QGraphicsTextItem(f'{i:.2}' if isinstance(i, float) else str(i))
+                lab.setFont(self.font)
+                lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
+                lab.setPos(QPointF(pos, 0))
+                self.addItem(lab)
+                self._labels.append(lab)
             i += step_x
 
         # Y-метки
@@ -109,8 +117,8 @@ class GridScene(QGraphicsScene):
         j = first_j
         while j * self.spacing <= bottom:
             pos = j * self.spacing
-            if pos != 0:
-                lab = QGraphicsTextItem(str(j))
+            if abs(pos) > 1e-3:
+                lab = QGraphicsTextItem(f'{j:.2}' if isinstance(j, float) else str(j))
                 lab.setFont(self.font)
                 lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
                 lab.setPos(QPointF(0, pos))

@@ -11,30 +11,30 @@ from PySide6.QtWidgets import QMenu
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtWidgets import QTreeWidgetItem
 
-from modules.data.src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
-from modules.data.src.dialogs.initial_conditions_dialog import InitialConditionsDialog
-from modules.data.src.dialogs.material_dialog import MaterialDialog
-from modules.data.src.dialogs.mesh_dialog import MeshDialog
-from modules.data.src.dialogs.turbulence_dialog import TurbulenceDialog
-from modules.data.src.event_handler import EventHandler
-from modules.data.src.operations.boolean_operations import BooleanOperations
-from modules.data.src.operations.transformation_operations import TransformationOperations
-from modules.data.src.physics.turbulence_models import BoundaryConditionType
-from modules.data.src.physics.turbulence_models import BoundaryConditions
-from modules.data.src.physics.turbulence_models import InitialConditions
-from modules.data.src.physics.turbulence_models import InletBoundaryConditions
-from modules.data.src.physics.turbulence_models import Material
-from modules.data.src.physics.turbulence_models import OpenBoundaryConditions
-from modules.data.src.physics.turbulence_models import TurbulenceModel
-from modules.data.src.physics.turbulence_models import TurbulenceParams
-from modules.data.src.physics.turbulence_models import WallBoundaryConditions
-from modules.data.src.services.command_service import CommandService
-from modules.data.src.services.drawing_service import DrawingService
-from modules.data.src.services.gmsh_mesh_builder import GmshMeshBuilder
-from modules.data.src.services.selection_service import SelectionService
-from modules.data.src.ui.template import Ui_MainWindow
-from modules.data.src.widgets.edge_item import EdgeItem
-from modules.data.src.widgets.grid_scene import GridScene
+from src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
+from src.dialogs.initial_conditions_dialog import InitialConditionsDialog
+from src.dialogs.material_dialog import MaterialDialog
+from src.dialogs.mesh_dialog import MeshDialog
+from src.dialogs.turbulence_dialog import TurbulenceDialog
+from src.event_handler import EventHandler
+from src.operations.boolean_operations import BooleanOperations
+from src.operations.transformation_operations import TransformationOperations
+from src.physics.turbulence_models import BoundaryConditionType
+from src.physics.turbulence_models import BoundaryConditions
+from src.physics.turbulence_models import InitialConditions
+from src.physics.turbulence_models import InletBoundaryConditions
+from src.physics.turbulence_models import Material
+from src.physics.turbulence_models import OpenBoundaryConditions
+from src.physics.turbulence_models import TurbulenceModel
+from src.physics.turbulence_models import TurbulenceParams
+from src.physics.turbulence_models import WallBoundaryConditions
+from src.services.command_service import CommandService
+from src.services.drawing_service import DrawingService
+from src.services.gmsh_mesh_builder import GmshMeshBuilder
+from src.services.selection_service import SelectionService
+from src.ui.template import Ui_MainWindow
+from src.widgets.edge_item import EdgeItem
+from src.widgets.grid_scene import GridScene
 
 
 class MainWindow(QMainWindow):

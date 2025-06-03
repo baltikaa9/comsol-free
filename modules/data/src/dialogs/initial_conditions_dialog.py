@@ -2,9 +2,9 @@ from PySide6.QtWidgets import QDialogButtonBox
 from PySide6.QtWidgets import QDoubleSpinBox
 from PySide6.QtWidgets import QFormLayout
 
-from modules.data.src.dialogs.dialog import Dialog
-from modules.data.src.physics.turbulence_models import InitialConditions
-from modules.data.src.physics.turbulence_models import TurbulenceModel
+from src.dialogs.dialog import Dialog
+from src.physics.turbulence_models import InitialConditions
+from src.physics.turbulence_models import TurbulenceModel
 
 
 class InitialConditionsDialog(Dialog):

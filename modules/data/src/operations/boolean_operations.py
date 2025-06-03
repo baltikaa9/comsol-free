@@ -8,13 +8,13 @@ from PySide6.QtWidgets import QGraphicsRectItem
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtWidgets import QWidget
 
-from modules.data.src.commands.add_command import AddCommand
-from modules.data.src.commands.delete_command import DeleteCommand
-from modules.data.src.shapes.boolean_item import BooleanShapeItem
-from modules.data.src.widgets.grid_scene import GridScene
-from modules.data.src.services.command_service import CommandService
-from modules.data.src.services.drawing_service import DrawingService
-from modules.data.src.services.selection_service import SelectionService
+from src.commands.add_command import AddCommand
+from src.commands.delete_command import DeleteCommand
+from src.shapes.boolean_item import BooleanShapeItem
+from src.widgets.grid_scene import GridScene
+from src.services.command_service import CommandService
+from src.services.drawing_service import DrawingService
+from src.services.selection_service import SelectionService
 
 
 class BooleanOperations:

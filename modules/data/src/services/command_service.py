@@ -1,4 +1,4 @@
-from modules.data.src.commands.command import Command
+from src.commands.command import Command
 
 
 class CommandService:

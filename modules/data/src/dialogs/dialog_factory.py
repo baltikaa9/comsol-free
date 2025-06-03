@@ -1,11 +1,11 @@
 from PySide6.QtWidgets import QWidget
 
-from modules.data.src.dialogs.bezier_dialog import BezierDialog
-from modules.data.src.dialogs.dialog import Dialog
-from modules.data.src.dialogs.ellipse_dialog import EllipseDialog
-from modules.data.src.dialogs.line_dialog import LineDialog
-from modules.data.src.dialogs.parametric_dialog import ParametricDialog
-from modules.data.src.dialogs.rect_dialog import RectDialog
+from src.dialogs.bezier_dialog import BezierDialog
+from src.dialogs.dialog import Dialog
+from src.dialogs.ellipse_dialog import EllipseDialog
+from src.dialogs.line_dialog import LineDialog
+from src.dialogs.parametric_dialog import ParametricDialog
+from src.dialogs.rect_dialog import RectDialog
 
 
 class DialogFactory:

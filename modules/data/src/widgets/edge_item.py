@@ -4,7 +4,7 @@ from PySide6.QtCore import QPointF
 from PySide6.QtGui import QPainterPath
 from PySide6.QtWidgets import QGraphicsPathItem
 
-from modules.data.src.physics.turbulence_models import BoundaryConditions
+from src.physics.turbulence_models import BoundaryConditions
 
 _edge_id_counter = itertools.count(1)
 

@@ -4,7 +4,7 @@ from PySide6.QtGui import QPainterPath
 from PySide6.QtWidgets import QGraphicsEllipseItem
 from PySide6.QtWidgets import QGraphicsItem
 
-from modules.data.src.widgets.edge_item import EdgeItem
+from src.widgets.edge_item import EdgeItem
 
 
 class EllipseItem(QGraphicsEllipseItem):

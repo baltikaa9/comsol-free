@@ -13,17 +13,17 @@ from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QGraphicsPathItem
 from PySide6.QtWidgets import QWidget
 
-from modules.data.src.commands.add_command import AddCommand
-from modules.data.src.dialogs.dialog import Dialog
-from modules.data.src.dialogs.dialog_factory import DialogFactory
-from modules.data.src.services.command_service import CommandService
-from modules.data.src.services.selection_service import SelectionService
-from modules.data.src.shapes.ellipse_item import EllipseItem
-from modules.data.src.shapes.line_item import LineItem
-from modules.data.src.shapes.parametric_curve_item import ParametricCurveItem
-from modules.data.src.shapes.rectangle_item import RectangleItem
-from modules.data.src.widgets.editable_bezier import EditableBezierCurveItem
-from modules.data.src.widgets.grid_scene import GridScene
+from src.commands.add_command import AddCommand
+from src.dialogs.dialog import Dialog
+from src.dialogs.dialog_factory import DialogFactory
+from src.services.command_service import CommandService
+from src.services.selection_service import SelectionService
+from src.shapes.ellipse_item import EllipseItem
+from src.shapes.line_item import LineItem
+from src.shapes.parametric_curve_item import ParametricCurveItem
+from src.shapes.rectangle_item import RectangleItem
+from src.widgets.editable_bezier import EditableBezierCurveItem
+from src.widgets.grid_scene import GridScene
 
 
 class DrawingService:

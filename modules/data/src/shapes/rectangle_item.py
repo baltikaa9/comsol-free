@@ -4,7 +4,7 @@ from PySide6.QtGui import QPainterPath
 from PySide6.QtWidgets import QGraphicsItem
 from PySide6.QtWidgets import QGraphicsRectItem
 
-from modules.data.src.widgets.edge_item import EdgeItem
+from src.widgets.edge_item import EdgeItem
 
 
 class RectangleItem(QGraphicsRectItem):
