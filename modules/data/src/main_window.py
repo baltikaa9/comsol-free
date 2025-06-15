@@ -1,3 +1,7 @@
+import json
+import os
+from collections import OrderedDict
+
 from PySide6.QtCore import QEvent
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QKeyEvent
@@ -118,6 +122,8 @@ class MainWindow(QMainWindow):
 
         builder = GmshMeshBuilder(self.grid_spacing)
         builder.build_mesh(self.boundary_edges, dx)
+        
+        self.export_json()
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
@@ -292,6 +298,54 @@ class MainWindow(QMainWindow):
             if edge.boundary_conditions == bc:
                 self.boundary_edges.remove(edge)
         self.update_project_tree()
+
+    def export_json(self):
+        data = {
+            'material': {
+                'rho': self.material.rho,
+                'mu': self.material.mu
+            },
+            'physics': self.turbulence_params.model.value,
+            'init': {
+                'u': self.initial_conditions.u,
+                'v': self.initial_conditions.v,
+                'p': self.initial_conditions.p
+            },
+            'boundary': {}
+        }
+
+        if self.turbulence_params.model != TurbulenceModel.LAMINAR:
+            data['init'].update({
+                'k': self.initial_conditions.k,
+                'om': self.initial_conditions.omega
+            })
+
+        for bc in self.boundary_conditions:
+            bounds = [edge.id for edge in self.boundary_edges if edge.boundary_conditions == bc]
+
+            entry: dict = {"bounds": bounds}
+
+            if isinstance(bc, InletBoundaryConditions):
+                entry["u"] = bc.u
+                entry["v"] = bc.v
+
+            if isinstance(bc, (InletBoundaryConditions, OpenBoundaryConditions)) \
+                    and self.turbulence_params.model != TurbulenceModel.LAMINAR:
+                entry["k"] = bc.k
+                entry["om"] = bc.omega
+
+            if isinstance(bc, WallBoundaryConditions):
+                entry["wall"] = bc.wall.value
+
+            key = bc.type.name.lower()
+            data["boundary"][key] = entry
+
+        out_path = os.path.join(os.getcwd(), 'result_test.json')
+        with open(out_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+        QMessageBox.information(self, 'Готово', f'Сетка и настройки сохранены в {out_path}')
+
 
 if __name__ == '__main__':
     app = QApplication([])
