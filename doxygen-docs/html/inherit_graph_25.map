@@ -1,0 +1,9 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="Node000000" href="$classturbulence__models_1_1BoundaryConditions.html" title=" " alt="" coords="5,75,217,119"/>
+<area shape="rect" id="Node000001" href="$classturbulence__models_1_1InletBoundaryConditions.html" title=" " alt="" coords="267,5,508,50"/>
+<area shape="poly" id="edge34_Node000000_Node000001" title=" " alt="" coords="217,68,295,48,296,53,219,73"/>
+<area shape="rect" id="Node000002" href="$classturbulence__models_1_1OpenBoundaryConditions.html" title=" " alt="" coords="265,75,510,119"/>
+<area shape="poly" id="edge35_Node000000_Node000002" title=" " alt="" coords="232,94,264,94,264,100,232,100"/>
+<area shape="rect" id="Node000003" href="$classturbulence__models_1_1WallBoundaryConditions.html" title=" " alt="" coords="268,144,507,189"/>
+<area shape="poly" id="edge36_Node000000_Node000003" title=" " alt="" coords="219,121,296,141,295,146,217,126"/>
+</map>

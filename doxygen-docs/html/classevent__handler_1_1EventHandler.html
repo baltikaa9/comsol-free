@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>comsol-freedd: Класс event_handler.EventHandler</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">comsol-freedd<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classevent__handler_1_1EventHandler.html','','classevent__handler_1_1EventHandler-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Класс event_handler.EventHandler</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Граф связей класса event_handler.EventHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classevent__handler_1_1EventHandler__coll__graph.png" border="0" usemap="#aevent__handler_8EventHandler_coll__map" loading="lazy" alt="Collaboration graph"/></div>
+<map name="aevent__handler_8EventHandler_coll__map" id="aevent__handler_8EventHandler_coll__map">
+<area shape="rect" title=" " alt="" coords="5,5,279,627"/>
+</map>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:ab6ba472b51140207e8d19d4596ee12e2" id="r_ab6ba472b51140207e8d19d4596ee12e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6ba472b51140207e8d19d4596ee12e2">__init__</a> (self, <a class="el" href="#a00ff6f2aafe72ad02fe25277d12856e2">main_window</a>, GridScene <a class="el" href="#a5de78c239f198624ce38993559a50850">scene</a>, GraphicsView <a class="el" href="#ab894398c43b9ef3d00f4f854a2372371">graphics_view</a>, QBoxLayout <a class="el" href="#af0cbddbc4f3799cae3404bfe72cac699">properties_layout</a>, SelectionService <a class="el" href="#aff10d1738db79fd751d80d5fd68ca0a0">selection_service</a>, CommandService <a class="el" href="#ac9ac356de7e9d17bb139b971a912b0ef">command_service</a>)</td></tr>
+<tr class="memitem:aa04e7d27991ba4ec9623f099661de43e" id="r_aa04e7d27991ba4ec9623f099661de43e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa04e7d27991ba4ec9623f099661de43e">mouse_press</a> (self, QMouseEvent event)</td></tr>
+<tr class="memitem:a558af82aa7613c16b40dbd641c2204eb" id="r_a558af82aa7613c16b40dbd641c2204eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a558af82aa7613c16b40dbd641c2204eb">mouse_move</a> (self, QMouseEvent event)</td></tr>
+<tr class="memitem:aeea40ad2b04dac8d55de4b0572b4ab00" id="r_aeea40ad2b04dac8d55de4b0572b4ab00"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeea40ad2b04dac8d55de4b0572b4ab00">mouse_release</a> (self, QMouseEvent event)</td></tr>
+<tr class="memitem:a28eeeba1c2c80de8260bc36806c967aa" id="r_a28eeeba1c2c80de8260bc36806c967aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28eeeba1c2c80de8260bc36806c967aa">event_filter</a> (self, QEvent event)</td></tr>
+<tr class="memitem:a7834436e8aeb166cb36d1dc8a5dd2b38" id="r_a7834436e8aeb166cb36d1dc8a5dd2b38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7834436e8aeb166cb36d1dc8a5dd2b38">key_press_event</a> (self, QKeyEvent event)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:a00ff6f2aafe72ad02fe25277d12856e2" id="r_a00ff6f2aafe72ad02fe25277d12856e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00ff6f2aafe72ad02fe25277d12856e2">main_window</a> = main_window</td></tr>
+<tr class="memitem:a5de78c239f198624ce38993559a50850" id="r_a5de78c239f198624ce38993559a50850"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5de78c239f198624ce38993559a50850">scene</a> = scene</td></tr>
+<tr class="memitem:ab894398c43b9ef3d00f4f854a2372371" id="r_ab894398c43b9ef3d00f4f854a2372371"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab894398c43b9ef3d00f4f854a2372371">graphics_view</a> = graphics_view</td></tr>
+<tr class="memitem:af0cbddbc4f3799cae3404bfe72cac699" id="r_af0cbddbc4f3799cae3404bfe72cac699"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0cbddbc4f3799cae3404bfe72cac699">properties_layout</a> = properties_layout</td></tr>
+<tr class="memitem:aff10d1738db79fd751d80d5fd68ca0a0" id="r_aff10d1738db79fd751d80d5fd68ca0a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff10d1738db79fd751d80d5fd68ca0a0">selection_service</a> = selection_service</td></tr>
+<tr class="memitem:ac9ac356de7e9d17bb139b971a912b0ef" id="r_ac9ac356de7e9d17bb139b971a912b0ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9ac356de7e9d17bb139b971a912b0ef">command_service</a> = command_service</td></tr>
+<tr class="memitem:a4d2e9b757f4a1dcadeb35b6e50f7dc3e" id="r_a4d2e9b757f4a1dcadeb35b6e50f7dc3e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d2e9b757f4a1dcadeb35b6e50f7dc3e">moving_items</a> = False</td></tr>
+<tr class="memitem:a6efe5f437ca3eea11945fcbe8b311e48" id="r_a6efe5f437ca3eea11945fcbe8b311e48"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6efe5f437ca3eea11945fcbe8b311e48">move_start_pos</a> = QPointF()</td></tr>
+<tr class="memitem:a8560768ba3fcdac6f4d17c63cf55dd8d" id="r_a8560768ba3fcdac6f4d17c63cf55dd8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8560768ba3fcdac6f4d17c63cf55dd8d">move_initial_pos</a> = QPointF()</td></tr>
+<tr class="memitem:a6efd448ba76d11a37c713f81983a09ca" id="r_a6efd448ba76d11a37c713f81983a09ca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6efd448ba76d11a37c713f81983a09ca">start_point</a> = None</td></tr>
+<tr class="memitem:aef61e32e01041d956b72ea6515e07ff7" id="r_aef61e32e01041d956b72ea6515e07ff7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef61e32e01041d956b72ea6515e07ff7">temp_item</a> = None</td></tr>
+<tr class="memitem:a45838cbf3d83a46c0e5b06f53acf8127" id="r_a45838cbf3d83a46c0e5b06f53acf8127"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45838cbf3d83a46c0e5b06f53acf8127">curve_points</a> = []</td></tr>
+<tr class="memitem:a72d63efe108d8b2a8c1ae48c92cd31da" id="r_a72d63efe108d8b2a8c1ae48c92cd31da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72d63efe108d8b2a8c1ae48c92cd31da">temp_curve_item</a> = None</td></tr>
+</table>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Конструктор(ы)</h2>
+<a id="ab6ba472b51140207e8d19d4596ee12e2" name="ab6ba472b51140207e8d19d4596ee12e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6ba472b51140207e8d19d4596ee12e2">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.__init__ </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>main_window</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GridScene</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphicsView</td>          <td class="paramname"><span class="paramname"><em>graphics_view</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QBoxLayout</td>          <td class="paramname"><span class="paramname"><em>properties_layout</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SelectionService</td>          <td class="paramname"><span class="paramname"><em>selection_service</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CommandService</td>          <td class="paramname"><span class="paramname"><em>command_service</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Методы</h2>
+<a id="a28eeeba1c2c80de8260bc36806c967aa" name="a28eeeba1c2c80de8260bc36806c967aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28eeeba1c2c80de8260bc36806c967aa">&#9670;&#160;</a></span>event_filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool event_handler.EventHandler.event_filter </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QEvent</td>          <td class="paramname"><span class="paramname"><em>event</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa_cgraph.png" border="0" usemap="#aclassevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa_cgraph" id="aclassevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa_cgraph">
+<area shape="rect" title=" " alt="" coords="5,57,251,102"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#a558af82aa7613c16b40dbd641c2204eb" title=" " alt="" coords="299,5,595,33"/>
+<area shape="poly" title=" " alt="" coords="238,54,298,42,343,34,344,39,299,47,240,59"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#aa04e7d27991ba4ec9623f099661de43e" title=" " alt="" coords="321,57,573,102"/>
+<area shape="poly" title=" " alt="" coords="251,76,305,76,305,82,251,82"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#aeea40ad2b04dac8d55de4b0572b4ab00" title=" " alt="" coords="321,126,573,171"/>
+<area shape="poly" title=" " alt="" coords="235,100,327,120,326,125,234,105"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#a5af0448cc4fd28ebfa3291a5bedcd5cd" title=" " alt="" coords="643,28,851,72"/>
+<area shape="poly" title=" " alt="" coords="589,31,628,35,628,40,588,36"/>
+<area shape="poly" title=" " alt="" coords="573,64,628,59,628,64,574,69"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7834436e8aeb166cb36d1dc8a5dd2b38" name="a7834436e8aeb166cb36d1dc8a5dd2b38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7834436e8aeb166cb36d1dc8a5dd2b38">&#9670;&#160;</a></span>key_press_event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.key_press_event </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QKeyEvent</td>          <td class="paramname"><span class="paramname"><em>event</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a558af82aa7613c16b40dbd641c2204eb" name="a558af82aa7613c16b40dbd641c2204eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a558af82aa7613c16b40dbd641c2204eb">&#9670;&#160;</a></span>mouse_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool event_handler.EventHandler.mouse_move </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QMouseEvent</td>          <td class="paramname"><span class="paramname"><em>event</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_cgraph.png" border="0" usemap="#aclassevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_cgraph" id="aclassevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_cgraph">
+<area shape="rect" title=" " alt="" coords="5,14,302,42"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#a5af0448cc4fd28ebfa3291a5bedcd5cd" title=" " alt="" coords="350,5,558,50"/>
+<area shape="poly" title=" " alt="" coords="302,25,334,25,334,30,302,30"/>
+</map>
+</div>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_icgraph.png" border="0" usemap="#aclassevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_icgraph" id="aclassevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_icgraph">
+<area shape="rect" title=" " alt="" coords="299,14,595,42"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#a28eeeba1c2c80de8260bc36806c967aa" title=" " alt="" coords="5,5,251,50"/>
+<area shape="poly" title=" " alt="" coords="283,30,251,30,251,25,283,25"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa04e7d27991ba4ec9623f099661de43e" name="aa04e7d27991ba4ec9623f099661de43e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04e7d27991ba4ec9623f099661de43e">&#9670;&#160;</a></span>mouse_press()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool event_handler.EventHandler.mouse_press </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QMouseEvent</td>          <td class="paramname"><span class="paramname"><em>event</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_cgraph.png" border="0" usemap="#aclassevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_cgraph" id="aclassevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,258,50"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#a5af0448cc4fd28ebfa3291a5bedcd5cd" title=" " alt="" coords="306,5,514,50"/>
+<area shape="poly" title=" " alt="" coords="258,25,290,25,290,30,258,30"/>
+</map>
+</div>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_icgraph.png" border="0" usemap="#aclassevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_icgraph" id="aclassevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_icgraph">
+<area shape="rect" title=" " alt="" coords="299,5,551,50"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#a28eeeba1c2c80de8260bc36806c967aa" title=" " alt="" coords="5,5,251,50"/>
+<area shape="poly" title=" " alt="" coords="283,30,251,30,251,25,283,25"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aeea40ad2b04dac8d55de4b0572b4ab00" name="aeea40ad2b04dac8d55de4b0572b4ab00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea40ad2b04dac8d55de4b0572b4ab00">&#9670;&#160;</a></span>mouse_release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool event_handler.EventHandler.mouse_release </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QMouseEvent</td>          <td class="paramname"><span class="paramname"><em>event</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00_icgraph.png" border="0" usemap="#aclassevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00_icgraph" id="aclassevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00_icgraph">
+<area shape="rect" title=" " alt="" coords="299,5,551,50"/>
+<area shape="rect" href="classevent__handler_1_1EventHandler.html#a28eeeba1c2c80de8260bc36806c967aa" title=" " alt="" coords="5,5,251,50"/>
+<area shape="poly" title=" " alt="" coords="283,30,251,30,251,25,283,25"/>
+</map>
+</div>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Данные класса</h2>
+<a id="ac9ac356de7e9d17bb139b971a912b0ef" name="ac9ac356de7e9d17bb139b971a912b0ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9ac356de7e9d17bb139b971a912b0ef">&#9670;&#160;</a></span>command_service</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.command_service = command_service</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45838cbf3d83a46c0e5b06f53acf8127" name="a45838cbf3d83a46c0e5b06f53acf8127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45838cbf3d83a46c0e5b06f53acf8127">&#9670;&#160;</a></span>curve_points</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list event_handler.EventHandler.curve_points = []</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab894398c43b9ef3d00f4f854a2372371" name="ab894398c43b9ef3d00f4f854a2372371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab894398c43b9ef3d00f4f854a2372371">&#9670;&#160;</a></span>graphics_view</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.graphics_view = graphics_view</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00ff6f2aafe72ad02fe25277d12856e2" name="a00ff6f2aafe72ad02fe25277d12856e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00ff6f2aafe72ad02fe25277d12856e2">&#9670;&#160;</a></span>main_window</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.main_window = main_window</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8560768ba3fcdac6f4d17c63cf55dd8d" name="a8560768ba3fcdac6f4d17c63cf55dd8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8560768ba3fcdac6f4d17c63cf55dd8d">&#9670;&#160;</a></span>move_initial_pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.move_initial_pos = QPointF()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6efe5f437ca3eea11945fcbe8b311e48" name="a6efe5f437ca3eea11945fcbe8b311e48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6efe5f437ca3eea11945fcbe8b311e48">&#9670;&#160;</a></span>move_start_pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.move_start_pos = QPointF()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d2e9b757f4a1dcadeb35b6e50f7dc3e" name="a4d2e9b757f4a1dcadeb35b6e50f7dc3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d2e9b757f4a1dcadeb35b6e50f7dc3e">&#9670;&#160;</a></span>moving_items</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool event_handler.EventHandler.moving_items = False</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0cbddbc4f3799cae3404bfe72cac699" name="af0cbddbc4f3799cae3404bfe72cac699"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0cbddbc4f3799cae3404bfe72cac699">&#9670;&#160;</a></span>properties_layout</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.properties_layout = properties_layout</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5de78c239f198624ce38993559a50850" name="a5de78c239f198624ce38993559a50850"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5de78c239f198624ce38993559a50850">&#9670;&#160;</a></span>scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.scene = scene</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aff10d1738db79fd751d80d5fd68ca0a0" name="aff10d1738db79fd751d80d5fd68ca0a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff10d1738db79fd751d80d5fd68ca0a0">&#9670;&#160;</a></span>selection_service</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.selection_service = selection_service</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6efd448ba76d11a37c713f81983a09ca" name="a6efd448ba76d11a37c713f81983a09ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6efd448ba76d11a37c713f81983a09ca">&#9670;&#160;</a></span>start_point</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.start_point = None</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a72d63efe108d8b2a8c1ae48c92cd31da" name="a72d63efe108d8b2a8c1ae48c92cd31da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d63efe108d8b2a8c1ae48c92cd31da">&#9670;&#160;</a></span>temp_curve_item</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.temp_curve_item = None</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef61e32e01041d956b72ea6515e07ff7" name="aef61e32e01041d956b72ea6515e07ff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef61e32e01041d956b72ea6515e07ff7">&#9670;&#160;</a></span>temp_item</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">event_handler.EventHandler.temp_item = None</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>modules/data/src/<a class="el" href="event__handler_8py.html">event_handler.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespaceevent__handler.html">event_handler</a></li><li class="navelem"><a href="classevent__handler_1_1EventHandler.html">EventHandler</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
+  </ul>
+</div>
+</body>
+</html>

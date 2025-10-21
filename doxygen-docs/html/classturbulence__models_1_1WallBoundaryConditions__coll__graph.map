@@ -1,0 +1,12 @@
+<map id="turbulence_models.WallBoundaryConditions" name="turbulence_models.WallBoundaryConditions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="217,334,445,423"/>
+<area shape="rect" id="Node000002" href="$classturbulence__models_1_1BoundaryConditions.html" title=" " alt="" coords="5,149,206,239"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,246,279,332,276,336,169,250"/>
+<area shape="rect" id="Node000003" href="$classturbulence__models_1_1BoundaryConditionType.html" title=" " alt="" coords="231,127,431,261"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="334,261,334,317,328,317,328,261"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="418,5,466,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="411,89,381,129,377,126,407,85"/>
+<area shape="rect" id="Node000005" href="$classturbulence__models_1_1WallType.html" title=" " alt="" coords="455,147,652,241"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="476,85,521,145,517,148,472,88"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="499,243,399,325,395,321,496,239"/>
+</map>

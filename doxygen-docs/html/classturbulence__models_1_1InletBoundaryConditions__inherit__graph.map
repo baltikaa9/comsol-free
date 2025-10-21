@@ -1,0 +1,5 @@
+<map id="turbulence_models.InletBoundaryConditions" name="turbulence_models.InletBoundaryConditions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,143,235,321"/>
+<area shape="rect" id="Node000002" href="$classturbulence__models_1_1BoundaryConditions.html" title=" " alt="" coords="20,5,220,95"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,109,123,143,118,143,118,109"/>
+</map>

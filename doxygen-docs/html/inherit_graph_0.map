@@ -1,0 +1,11 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,57,54,85"/>
+<area shape="rect" id="Node000001" href="$classcommand_1_1Command.html" title=" " alt="" coords="102,57,259,85"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="69,68,101,68,101,74,69,74"/>
+<area shape="rect" id="Node000002" href="$classadd__command_1_1AddCommand.html" title=" " alt="" coords="324,5,538,33"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="265,51,360,31,361,36,266,56"/>
+<area shape="rect" id="Node000003" href="$classdelete__command_1_1DeleteCommand.html" title=" " alt="" coords="307,57,555,85"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="274,68,306,68,306,74,274,74"/>
+<area shape="rect" id="Node000004" href="$classmove__command_1_1MoveCommand.html" title=" " alt="" coords="312,109,550,137"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="266,86,361,106,360,111,265,91"/>
+</map>

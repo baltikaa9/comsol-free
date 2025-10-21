@@ -1,0 +1,5 @@
+<map id="turbulence_models.WallType" name="turbulence_models.WallType">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,126,202,220"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="80,5,128,78"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,92,106,126,101,126,101,92"/>
+</map>

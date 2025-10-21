@@ -1,0 +1,23 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,295,69,322"/>
+<area shape="rect" id="Node000001" href="$classbezier__dialog_1_1BezierDialog.html" title=" " alt="" coords="129,5,324,33"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="36,279,39,228,51,165,74,100,92,70,115,44,133,31,136,36,118,48,97,73,79,102,56,166,44,229,41,279"/>
+<area shape="rect" id="Node000002" href="$classboundary__conditions__dialog_1_1BoundaryConditionsDialog.html" title=" " alt="" coords="125,58,328,119"/>
+<area shape="poly" id="edge7_Node000000_Node000002" title=" " alt="" coords="42,279,51,245,66,206,87,166,115,131,131,118,134,122,119,134,91,169,70,208,56,247,47,280"/>
+<area shape="rect" id="Node000003" href="$classellipse__dialog_1_1EllipseDialog.html" title=" " alt="" coords="127,144,327,172"/>
+<area shape="poly" id="edge8_Node000000_Node000003" title=" " alt="" coords="46,279,72,228,91,203,115,181,135,170,138,174,118,185,95,206,77,231,51,281"/>
+<area shape="rect" id="Node000004" href="$classinitial__conditions__dialog_1_1InitialConditionsDialog.html" title=" " alt="" coords="117,196,337,240"/>
+<area shape="poly" id="edge9_Node000000_Node000004" title=" " alt="" coords="65,283,115,250,143,238,145,243,118,255,68,287"/>
+<area shape="rect" id="Node000005" href="$classline__dialog_1_1LineDialog.html" title=" " alt="" coords="144,264,310,292"/>
+<area shape="poly" id="edge10_Node000000_Node000005" title=" " alt="" coords="84,298,143,289,144,294,85,304"/>
+<area shape="rect" id="Node000006" href="$classmaterial__dialog_1_1MaterialDialog.html" title=" " alt="" coords="136,316,318,360"/>
+<area shape="poly" id="edge11_Node000000_Node000006" title=" " alt="" coords="84,313,136,321,135,326,84,318"/>
+<area shape="rect" id="Node000007" href="$classmesh__dialog_1_1MeshDialog.html" title=" " alt="" coords="134,384,320,412"/>
+<area shape="poly" id="edge12_Node000000_Node000007" title=" " alt="" coords="65,331,89,352,118,370,145,381,143,386,115,375,86,357,61,336"/>
+<area shape="rect" id="Node000008" href="$classparametric__dialog_1_1ParametricDialog.html" title=" " alt="" coords="120,436,334,480"/>
+<area shape="poly" id="edge13_Node000000_Node000008" title=" " alt="" coords="53,335,79,380,97,402,118,421,138,433,135,437,115,425,93,406,75,383,48,338"/>
+<area shape="rect" id="Node000009" href="$classrect__dialog_1_1RectDialog.html" title=" " alt="" coords="143,504,311,532"/>
+<area shape="poly" id="edge14_Node000000_Node000009" title=" " alt="" coords="45,337,53,373,67,414,88,456,118,490,144,505,141,510,115,495,84,459,62,416,48,374,40,338"/>
+<area shape="rect" id="Node000010" href="$classturbulence__dialog_1_1TurbulenceDialog.html" title=" " alt="" coords="121,556,332,600"/>
+<area shape="poly" id="edge15_Node000000_Node000010" title=" " alt="" coords="43,338,48,383,61,437,84,493,99,519,119,541,133,553,130,557,115,545,95,522,79,496,56,439,43,384,37,339"/>
+</map>

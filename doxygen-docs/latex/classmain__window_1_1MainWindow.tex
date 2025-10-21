@@ -1,0 +1,547 @@
+\doxysection{Класс main\+\_\+window.\+Main\+Window}
+\hypertarget{classmain__window_1_1MainWindow}{}\label{classmain__window_1_1MainWindow}\index{main\_window.MainWindow@{main\_window.MainWindow}}
+
+
+Граф наследования\+:main\+\_\+window.\+Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classmain__window_1_1MainWindow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Граф связей класса main\+\_\+window.\+Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classmain__window_1_1MainWindow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a827ce5ab8ed9ebf3a2cebf72f402bbbc}{event\+Filter}} (self, obj, QEvent event)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a45e1a7991df64f8edde7ad1353e5d99b}{key\+Press\+Event}} (self, QKey\+Event event)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_ad5d598acac00c54faeaa3972b9b50e35}{build\+\_\+gmsh\+\_\+mesh}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a5b2e2b594d7510cf0d3c5a60f531dd89}{init\+\_\+turbulence\+\_\+ui}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a9b29d55719b28acf32a96245a4ab7f70}{update\+\_\+project\+\_\+tree}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a69dcbf7c0b609c48080a2893b003c0bc}{on\+\_\+tree\+\_\+item\+\_\+clicked}} (self, item, column)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a5e5bb750043075d6b8adf3abd89124ff}{add\+\_\+boundary\+\_\+condition}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_af87569a9c15ae6ecd08564fbda53b6b7}{highlight\+\_\+edges}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_ad7cab7e634fbbeaf82e44b358192639c}{edit\+\_\+material}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a57bdbc003159e286d07311af6171b7d7}{edit\+\_\+turbulence\+\_\+model}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_aa878ceaabed4add9f73e5169819d0f58}{edit\+\_\+initial\+\_\+conditions}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a950627d66809759962a2c61e5282e3b4}{edit\+\_\+boundary\+\_\+condition}} (self, item)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_ab6c105a40a7da938529caaf8a36ebe43}{show\+\_\+tree\+\_\+context\+\_\+menu}} (self, position)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a847bbb9ca923beeb1ede989f2b560a31}{delete\+\_\+boundary\+\_\+condition}} (self, item)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a192412152345fa0090c3a22e690032a9}{export\+\_\+json}} (self)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a296c8c935e381000e1013fb1f669234d}{ui}} = Ui\+\_\+\+Main\+Window()
+\item 
+int \mbox{\hyperlink{classmain__window_1_1MainWindow_a0f0b4302ed2301db71b31d2ab3ddb5ae}{grid\+\_\+spacing}} = 50
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_ab85ef0a6560feacee5022f398e8dd7dd}{scene}} = Grid\+Scene(spacing=self.\+grid\+\_\+spacing)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a124b9ff4532f14270b0d77293d9fee07}{selection\+\_\+service}} = Selection\+Service(self.\+scene)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a5468283dbc556a0dbd4a2fb53b6d634f}{event\+\_\+handler}}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a202e96101ffc83c7cd353225147458ee}{drawing\+\_\+service}} = Drawing\+Service(self, self.\+scene, command\+\_\+service, self.\+selection\+\_\+service)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a69c830084c86bc64228ab6f85db3724d}{boolean\+\_\+operations}}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a873fa5946c1fc75b315ecaf15e399856}{transformation\+\_\+operations}}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a570d3a5a81c95fd3b3490e1c1c9d9e8e}{build\+\_\+gmsh\+\_\+mesh}}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_abcf60beb6fb0e03e138c7a0d2ea1a8ef}{turbulence\+\_\+params}} = Turbulence\+Params()
+\item 
+list \mbox{\hyperlink{classmain__window_1_1MainWindow_ae39a60dbf28e63150c4828388e3f3744}{boundary\+\_\+conditions}} = \mbox{[}$\,$\mbox{]}
+\item 
+list \mbox{\hyperlink{classmain__window_1_1MainWindow_aa387a4578e9e66cffd83af78dd2d55bd}{boundary\+\_\+edges}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a2447290c0ec8603e1b59691eda576eee}{initial\+\_\+conditions}} = Initial\+Conditions()
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a2feccec581adab48592348cee7f6a897}{material}} = Material()
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a146608e19422305eb83c2c68c08c510e}{on\+\_\+tree\+\_\+item\+\_\+clicked}}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a1c10a289368f064fbf4f23bcbd42439d}{show\+\_\+tree\+\_\+context\+\_\+menu}}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_ab97a077e028de9bee612ebab649f9e26}{add\+\_\+boundary\+\_\+condition}}
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a5e9f2280413b308f60ef218e87221452}{logger}} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_ac2ebed67b25a15dea765140758fc32b3}{canvas\+\_\+visualization}} = None
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a7682e014ba24fdaeeed45bf4032f965e}{toolbar}} = None
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_ac643c4caf2e999cfd4023a6cc2c94086}{layout\+\_\+visualization}} = QVBox\+Layout()
+\item 
+\mbox{\hyperlink{classmain__window_1_1MainWindow_a9a7a16a4f0da3fcfd9f2ed07083cb222}{color\+\_\+bar}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classmain__window_1_1MainWindow_doc-constructors}
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4}\index{main\_window.MainWindow@{main\_window.MainWindow}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4} 
+main\+\_\+window.\+Main\+Window.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4}\index{main\_window.MainWindow@{main\_window.MainWindow}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4} 
+main\+\_\+window.\+Main\+Window.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classmain__window_1_1MainWindow_a2bd010b3b5ccf6f8c56e1b39166b25c4_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-func-members}
+\Hypertarget{classmain__window_1_1MainWindow_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{classmain__window_1_1MainWindow_a5e5bb750043075d6b8adf3abd89124ff}\index{main\_window.MainWindow@{main\_window.MainWindow}!add\_boundary\_condition@{add\_boundary\_condition}}
+\index{add\_boundary\_condition@{add\_boundary\_condition}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{add\_boundary\_condition()}{add\_boundary\_condition()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a5e5bb750043075d6b8adf3abd89124ff} 
+main\+\_\+window.\+Main\+Window.\+add\+\_\+boundary\+\_\+condition (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a5e5bb750043075d6b8adf3abd89124ff_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_ad5d598acac00c54faeaa3972b9b50e35}\index{main\_window.MainWindow@{main\_window.MainWindow}!build\_gmsh\_mesh@{build\_gmsh\_mesh}}
+\index{build\_gmsh\_mesh@{build\_gmsh\_mesh}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{build\_gmsh\_mesh()}{build\_gmsh\_mesh()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ad5d598acac00c54faeaa3972b9b50e35} 
+main\+\_\+window.\+Main\+Window.\+build\+\_\+gmsh\+\_\+mesh (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_ad5d598acac00c54faeaa3972b9b50e35_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_a847bbb9ca923beeb1ede989f2b560a31}\index{main\_window.MainWindow@{main\_window.MainWindow}!delete\_boundary\_condition@{delete\_boundary\_condition}}
+\index{delete\_boundary\_condition@{delete\_boundary\_condition}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{delete\_boundary\_condition()}{delete\_boundary\_condition()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a847bbb9ca923beeb1ede989f2b560a31} 
+main\+\_\+window.\+Main\+Window.\+delete\+\_\+boundary\+\_\+condition (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{item}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a847bbb9ca923beeb1ede989f2b560a31_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_a950627d66809759962a2c61e5282e3b4}\index{main\_window.MainWindow@{main\_window.MainWindow}!edit\_boundary\_condition@{edit\_boundary\_condition}}
+\index{edit\_boundary\_condition@{edit\_boundary\_condition}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{edit\_boundary\_condition()}{edit\_boundary\_condition()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a950627d66809759962a2c61e5282e3b4} 
+main\+\_\+window.\+Main\+Window.\+edit\+\_\+boundary\+\_\+condition (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{item}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a950627d66809759962a2c61e5282e3b4_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a950627d66809759962a2c61e5282e3b4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_aa878ceaabed4add9f73e5169819d0f58}\index{main\_window.MainWindow@{main\_window.MainWindow}!edit\_initial\_conditions@{edit\_initial\_conditions}}
+\index{edit\_initial\_conditions@{edit\_initial\_conditions}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{edit\_initial\_conditions()}{edit\_initial\_conditions()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_aa878ceaabed4add9f73e5169819d0f58} 
+main\+\_\+window.\+Main\+Window.\+edit\+\_\+initial\+\_\+conditions (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_aa878ceaabed4add9f73e5169819d0f58_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_aa878ceaabed4add9f73e5169819d0f58_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_ad7cab7e634fbbeaf82e44b358192639c}\index{main\_window.MainWindow@{main\_window.MainWindow}!edit\_material@{edit\_material}}
+\index{edit\_material@{edit\_material}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{edit\_material()}{edit\_material()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ad7cab7e634fbbeaf82e44b358192639c} 
+main\+\_\+window.\+Main\+Window.\+edit\+\_\+material (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_ad7cab7e634fbbeaf82e44b358192639c_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_ad7cab7e634fbbeaf82e44b358192639c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_a57bdbc003159e286d07311af6171b7d7}\index{main\_window.MainWindow@{main\_window.MainWindow}!edit\_turbulence\_model@{edit\_turbulence\_model}}
+\index{edit\_turbulence\_model@{edit\_turbulence\_model}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{edit\_turbulence\_model()}{edit\_turbulence\_model()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a57bdbc003159e286d07311af6171b7d7} 
+main\+\_\+window.\+Main\+Window.\+edit\+\_\+turbulence\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a57bdbc003159e286d07311af6171b7d7_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a57bdbc003159e286d07311af6171b7d7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_a827ce5ab8ed9ebf3a2cebf72f402bbbc}\index{main\_window.MainWindow@{main\_window.MainWindow}!eventFilter@{eventFilter}}
+\index{eventFilter@{eventFilter}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{eventFilter()}{eventFilter()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a827ce5ab8ed9ebf3a2cebf72f402bbbc} 
+main\+\_\+window.\+Main\+Window.\+event\+Filter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{obj}{, }\item[{QEvent}]{event}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classmain__window_1_1MainWindow_a827ce5ab8ed9ebf3a2cebf72f402bbbc_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classmain__window_1_1MainWindow_a827ce5ab8ed9ebf3a2cebf72f402bbbc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_a192412152345fa0090c3a22e690032a9}\index{main\_window.MainWindow@{main\_window.MainWindow}!export\_json@{export\_json}}
+\index{export\_json@{export\_json}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{export\_json()}{export\_json()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a192412152345fa0090c3a22e690032a9} 
+main\+\_\+window.\+Main\+Window.\+export\+\_\+json (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a192412152345fa0090c3a22e690032a9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_af87569a9c15ae6ecd08564fbda53b6b7}\index{main\_window.MainWindow@{main\_window.MainWindow}!highlight\_edges@{highlight\_edges}}
+\index{highlight\_edges@{highlight\_edges}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{highlight\_edges()}{highlight\_edges()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_af87569a9c15ae6ecd08564fbda53b6b7} 
+main\+\_\+window.\+Main\+Window.\+highlight\+\_\+edges (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_af87569a9c15ae6ecd08564fbda53b6b7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_a5b2e2b594d7510cf0d3c5a60f531dd89}\index{main\_window.MainWindow@{main\_window.MainWindow}!init\_turbulence\_ui@{init\_turbulence\_ui}}
+\index{init\_turbulence\_ui@{init\_turbulence\_ui}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{init\_turbulence\_ui()}{init\_turbulence\_ui()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a5b2e2b594d7510cf0d3c5a60f531dd89} 
+main\+\_\+window.\+Main\+Window.\+init\+\_\+turbulence\+\_\+ui (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classmain__window_1_1MainWindow_a45e1a7991df64f8edde7ad1353e5d99b}\index{main\_window.MainWindow@{main\_window.MainWindow}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a45e1a7991df64f8edde7ad1353e5d99b} 
+main\+\_\+window.\+Main\+Window.\+key\+Press\+Event (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{QKey\+Event}]{event}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classmain__window_1_1MainWindow_a69dcbf7c0b609c48080a2893b003c0bc}\index{main\_window.MainWindow@{main\_window.MainWindow}!on\_tree\_item\_clicked@{on\_tree\_item\_clicked}}
+\index{on\_tree\_item\_clicked@{on\_tree\_item\_clicked}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{on\_tree\_item\_clicked()}{on\_tree\_item\_clicked()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a69dcbf7c0b609c48080a2893b003c0bc} 
+main\+\_\+window.\+Main\+Window.\+on\+\_\+tree\+\_\+item\+\_\+clicked (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{item}{, }\item[{}]{column}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a69dcbf7c0b609c48080a2893b003c0bc_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classmain__window_1_1MainWindow_ab6c105a40a7da938529caaf8a36ebe43}\index{main\_window.MainWindow@{main\_window.MainWindow}!show\_tree\_context\_menu@{show\_tree\_context\_menu}}
+\index{show\_tree\_context\_menu@{show\_tree\_context\_menu}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{show\_tree\_context\_menu()}{show\_tree\_context\_menu()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ab6c105a40a7da938529caaf8a36ebe43} 
+main\+\_\+window.\+Main\+Window.\+show\+\_\+tree\+\_\+context\+\_\+menu (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{position}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classmain__window_1_1MainWindow_a9b29d55719b28acf32a96245a4ab7f70}\index{main\_window.MainWindow@{main\_window.MainWindow}!update\_project\_tree@{update\_project\_tree}}
+\index{update\_project\_tree@{update\_project\_tree}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{update\_project\_tree()}{update\_project\_tree()}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a9b29d55719b28acf32a96245a4ab7f70} 
+main\+\_\+window.\+Main\+Window.\+update\+\_\+project\+\_\+tree (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmain__window_1_1MainWindow_a9b29d55719b28acf32a96245a4ab7f70_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classmain__window_1_1MainWindow_doc-variable-members}
+\doxysubsection{Данные класса}
+\Hypertarget{classmain__window_1_1MainWindow_ab97a077e028de9bee612ebab649f9e26}\index{main\_window.MainWindow@{main\_window.MainWindow}!add\_boundary\_condition@{add\_boundary\_condition}}
+\index{add\_boundary\_condition@{add\_boundary\_condition}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{add\_boundary\_condition}{add\_boundary\_condition}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ab97a077e028de9bee612ebab649f9e26} 
+main\+\_\+window.\+Main\+Window.\+add\+\_\+boundary\+\_\+condition}
+
+\Hypertarget{classmain__window_1_1MainWindow_a69c830084c86bc64228ab6f85db3724d}\index{main\_window.MainWindow@{main\_window.MainWindow}!boolean\_operations@{boolean\_operations}}
+\index{boolean\_operations@{boolean\_operations}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{boolean\_operations}{boolean\_operations}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a69c830084c86bc64228ab6f85db3724d} 
+main\+\_\+window.\+Main\+Window.\+boolean\+\_\+operations}
+
+{\bfseries Инициализатор}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ BooleanOperations(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.scene,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ command\_service,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.drawing\_service,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.selection\_service}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{classmain__window_1_1MainWindow_ae39a60dbf28e63150c4828388e3f3744}\index{main\_window.MainWindow@{main\_window.MainWindow}!boundary\_conditions@{boundary\_conditions}}
+\index{boundary\_conditions@{boundary\_conditions}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{boundary\_conditions}{boundary\_conditions}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ae39a60dbf28e63150c4828388e3f3744} 
+list main\+\_\+window.\+Main\+Window.\+boundary\+\_\+conditions = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{classmain__window_1_1MainWindow_aa387a4578e9e66cffd83af78dd2d55bd}\index{main\_window.MainWindow@{main\_window.MainWindow}!boundary\_edges@{boundary\_edges}}
+\index{boundary\_edges@{boundary\_edges}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{boundary\_edges}{boundary\_edges}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_aa387a4578e9e66cffd83af78dd2d55bd} 
+main\+\_\+window.\+Main\+Window.\+boundary\+\_\+edges = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{classmain__window_1_1MainWindow_a570d3a5a81c95fd3b3490e1c1c9d9e8e}\index{main\_window.MainWindow@{main\_window.MainWindow}!build\_gmsh\_mesh@{build\_gmsh\_mesh}}
+\index{build\_gmsh\_mesh@{build\_gmsh\_mesh}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{build\_gmsh\_mesh}{build\_gmsh\_mesh}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a570d3a5a81c95fd3b3490e1c1c9d9e8e} 
+main\+\_\+window.\+Main\+Window.\+build\+\_\+gmsh\+\_\+mesh}
+
+\Hypertarget{classmain__window_1_1MainWindow_ac2ebed67b25a15dea765140758fc32b3}\index{main\_window.MainWindow@{main\_window.MainWindow}!canvas\_visualization@{canvas\_visualization}}
+\index{canvas\_visualization@{canvas\_visualization}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{canvas\_visualization}{canvas\_visualization}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ac2ebed67b25a15dea765140758fc32b3} 
+main\+\_\+window.\+Main\+Window.\+canvas\+\_\+visualization = None}
+
+\Hypertarget{classmain__window_1_1MainWindow_a9a7a16a4f0da3fcfd9f2ed07083cb222}\index{main\_window.MainWindow@{main\_window.MainWindow}!color\_bar@{color\_bar}}
+\index{color\_bar@{color\_bar}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{color\_bar}{color\_bar}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a9a7a16a4f0da3fcfd9f2ed07083cb222} 
+main\+\_\+window.\+Main\+Window.\+color\+\_\+bar}
+
+{\bfseries Инициализатор}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ Plotter.plot\_surface(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.canvas\_visualization.fig,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.canvas\_visualization.ax,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ data[\textcolor{stringliteral}{'x'}],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ data[\textcolor{stringliteral}{'y'}],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ data[\textcolor{stringliteral}{'p'}\ \textcolor{keywordflow}{if}\ expression\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{'U'}],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ levels=levels,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ cmap=\textcolor{stringliteral}{'rainbow'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{classmain__window_1_1MainWindow_a202e96101ffc83c7cd353225147458ee}\index{main\_window.MainWindow@{main\_window.MainWindow}!drawing\_service@{drawing\_service}}
+\index{drawing\_service@{drawing\_service}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{drawing\_service}{drawing\_service}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a202e96101ffc83c7cd353225147458ee} 
+main\+\_\+window.\+Main\+Window.\+drawing\+\_\+service = Drawing\+Service(self, self.\+scene, command\+\_\+service, self.\+selection\+\_\+service)}
+
+\Hypertarget{classmain__window_1_1MainWindow_a5468283dbc556a0dbd4a2fb53b6d634f}\index{main\_window.MainWindow@{main\_window.MainWindow}!event\_handler@{event\_handler}}
+\index{event\_handler@{event\_handler}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{event\_handler}{event\_handler}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a5468283dbc556a0dbd4a2fb53b6d634f} 
+main\+\_\+window.\+Main\+Window.\+event\+\_\+handler}
+
+{\bfseries Инициализатор}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ EventHandler(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.scene,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.ui.graphicsView,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.ui.propertiesLayout,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.selection\_service,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ command\_service}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{classmain__window_1_1MainWindow_a0f0b4302ed2301db71b31d2ab3ddb5ae}\index{main\_window.MainWindow@{main\_window.MainWindow}!grid\_spacing@{grid\_spacing}}
+\index{grid\_spacing@{grid\_spacing}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{grid\_spacing}{grid\_spacing}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a0f0b4302ed2301db71b31d2ab3ddb5ae} 
+int main\+\_\+window.\+Main\+Window.\+grid\+\_\+spacing = 50}
+
+\Hypertarget{classmain__window_1_1MainWindow_a2447290c0ec8603e1b59691eda576eee}\index{main\_window.MainWindow@{main\_window.MainWindow}!initial\_conditions@{initial\_conditions}}
+\index{initial\_conditions@{initial\_conditions}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{initial\_conditions}{initial\_conditions}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a2447290c0ec8603e1b59691eda576eee} 
+main\+\_\+window.\+Main\+Window.\+initial\+\_\+conditions = Initial\+Conditions()}
+
+\Hypertarget{classmain__window_1_1MainWindow_ac643c4caf2e999cfd4023a6cc2c94086}\index{main\_window.MainWindow@{main\_window.MainWindow}!layout\_visualization@{layout\_visualization}}
+\index{layout\_visualization@{layout\_visualization}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{layout\_visualization}{layout\_visualization}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ac643c4caf2e999cfd4023a6cc2c94086} 
+main\+\_\+window.\+Main\+Window.\+layout\+\_\+visualization = QVBox\+Layout()}
+
+\Hypertarget{classmain__window_1_1MainWindow_a5e9f2280413b308f60ef218e87221452}\index{main\_window.MainWindow@{main\_window.MainWindow}!logger@{logger}}
+\index{logger@{logger}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a5e9f2280413b308f60ef218e87221452} 
+main\+\_\+window.\+Main\+Window.\+logger = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)}
+
+\Hypertarget{classmain__window_1_1MainWindow_a2feccec581adab48592348cee7f6a897}\index{main\_window.MainWindow@{main\_window.MainWindow}!material@{material}}
+\index{material@{material}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{material}{material}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a2feccec581adab48592348cee7f6a897} 
+main\+\_\+window.\+Main\+Window.\+material = Material()}
+
+\Hypertarget{classmain__window_1_1MainWindow_a146608e19422305eb83c2c68c08c510e}\index{main\_window.MainWindow@{main\_window.MainWindow}!on\_tree\_item\_clicked@{on\_tree\_item\_clicked}}
+\index{on\_tree\_item\_clicked@{on\_tree\_item\_clicked}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{on\_tree\_item\_clicked}{on\_tree\_item\_clicked}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a146608e19422305eb83c2c68c08c510e} 
+main\+\_\+window.\+Main\+Window.\+on\+\_\+tree\+\_\+item\+\_\+clicked}
+
+\Hypertarget{classmain__window_1_1MainWindow_ab85ef0a6560feacee5022f398e8dd7dd}\index{main\_window.MainWindow@{main\_window.MainWindow}!scene@{scene}}
+\index{scene@{scene}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{scene}{scene}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_ab85ef0a6560feacee5022f398e8dd7dd} 
+main\+\_\+window.\+Main\+Window.\+scene = Grid\+Scene(spacing=self.\+grid\+\_\+spacing)}
+
+\Hypertarget{classmain__window_1_1MainWindow_a124b9ff4532f14270b0d77293d9fee07}\index{main\_window.MainWindow@{main\_window.MainWindow}!selection\_service@{selection\_service}}
+\index{selection\_service@{selection\_service}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{selection\_service}{selection\_service}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a124b9ff4532f14270b0d77293d9fee07} 
+main\+\_\+window.\+Main\+Window.\+selection\+\_\+service = Selection\+Service(self.\+scene)}
+
+\Hypertarget{classmain__window_1_1MainWindow_a1c10a289368f064fbf4f23bcbd42439d}\index{main\_window.MainWindow@{main\_window.MainWindow}!show\_tree\_context\_menu@{show\_tree\_context\_menu}}
+\index{show\_tree\_context\_menu@{show\_tree\_context\_menu}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{show\_tree\_context\_menu}{show\_tree\_context\_menu}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a1c10a289368f064fbf4f23bcbd42439d} 
+main\+\_\+window.\+Main\+Window.\+show\+\_\+tree\+\_\+context\+\_\+menu}
+
+\Hypertarget{classmain__window_1_1MainWindow_a7682e014ba24fdaeeed45bf4032f965e}\index{main\_window.MainWindow@{main\_window.MainWindow}!toolbar@{toolbar}}
+\index{toolbar@{toolbar}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{toolbar}{toolbar}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a7682e014ba24fdaeeed45bf4032f965e} 
+main\+\_\+window.\+Main\+Window.\+toolbar = None}
+
+\Hypertarget{classmain__window_1_1MainWindow_a873fa5946c1fc75b315ecaf15e399856}\index{main\_window.MainWindow@{main\_window.MainWindow}!transformation\_operations@{transformation\_operations}}
+\index{transformation\_operations@{transformation\_operations}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{transformation\_operations}{transformation\_operations}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a873fa5946c1fc75b315ecaf15e399856} 
+main\+\_\+window.\+Main\+Window.\+transformation\+\_\+operations}
+
+{\bfseries Инициализатор}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ TransformationOperations(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.scene,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ command\_service,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.selection\_service}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{classmain__window_1_1MainWindow_abcf60beb6fb0e03e138c7a0d2ea1a8ef}\index{main\_window.MainWindow@{main\_window.MainWindow}!turbulence\_params@{turbulence\_params}}
+\index{turbulence\_params@{turbulence\_params}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{turbulence\_params}{turbulence\_params}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_abcf60beb6fb0e03e138c7a0d2ea1a8ef} 
+main\+\_\+window.\+Main\+Window.\+turbulence\+\_\+params = Turbulence\+Params()}
+
+\Hypertarget{classmain__window_1_1MainWindow_a296c8c935e381000e1013fb1f669234d}\index{main\_window.MainWindow@{main\_window.MainWindow}!ui@{ui}}
+\index{ui@{ui}!main\_window.MainWindow@{main\_window.MainWindow}}
+\doxysubsubsection{\texorpdfstring{ui}{ui}}
+{\footnotesize\ttfamily \label{classmain__window_1_1MainWindow_a296c8c935e381000e1013fb1f669234d} 
+main\+\_\+window.\+Main\+Window.\+ui = Ui\+\_\+\+Main\+Window()}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+modules/data/src/\mbox{\hyperlink{data_2src_2main__window_8py}{main\+\_\+window.\+py}}\item 
+modules/visualization/src/\mbox{\hyperlink{visualization_2src_2main__window_8py}{main\+\_\+window.\+py}}\end{DoxyCompactItemize}

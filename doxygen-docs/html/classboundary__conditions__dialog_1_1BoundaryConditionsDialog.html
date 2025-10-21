@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>comsol-freedd: Класс boundary_conditions_dialog.BoundaryConditionsDialog</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">comsol-freedd<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classboundary__conditions__dialog_1_1BoundaryConditionsDialog.html','','classboundary__conditions__dialog_1_1BoundaryConditionsDialog-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Класс boundary_conditions_dialog.BoundaryConditionsDialog</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Граф наследования:boundary_conditions_dialog.BoundaryConditionsDialog:</div>
+<div class="dyncontent">
+<div class="center"><img src="classboundary__conditions__dialog_1_1BoundaryConditionsDialog__inherit__graph.png" border="0" usemap="#aboundary__conditions__dialog_8BoundaryConditionsDialog_inherit__map" loading="lazy" alt="Inheritance graph"/></div>
+<map name="aboundary__conditions__dialog_8BoundaryConditionsDialog_inherit__map" id="aboundary__conditions__dialog_8BoundaryConditionsDialog_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,126,225,590"/>
+<area shape="rect" title=" " alt="" coords="89,5,142,78"/>
+<area shape="poly" title=" " alt="" coords="118,93,118,126,113,126,113,93"/>
+</map>
+</div>
+<div class="dynheader">
+Граф связей класса boundary_conditions_dialog.BoundaryConditionsDialog:</div>
+<div class="dyncontent">
+<div class="center"><img src="classboundary__conditions__dialog_1_1BoundaryConditionsDialog__coll__graph.png" border="0" usemap="#aboundary__conditions__dialog_8BoundaryConditionsDialog_coll__map" loading="lazy" alt="Collaboration graph"/></div>
+<map name="aboundary__conditions__dialog_8BoundaryConditionsDialog_coll__map" id="aboundary__conditions__dialog_8BoundaryConditionsDialog_coll__map">
+<area shape="rect" title=" " alt="" coords="5,126,225,590"/>
+<area shape="rect" title=" " alt="" coords="89,5,142,78"/>
+<area shape="poly" title=" " alt="" coords="118,93,118,126,113,126,113,93"/>
+</map>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a53a9282cddfc42d350773d617dd4968a" id="r_a53a9282cddfc42d350773d617dd4968a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53a9282cddfc42d350773d617dd4968a">__init__</a> (self, list[EdgeItem] edges, TurbulenceModel <a class="el" href="#abdccc90357208899ab1c5842d7426294">turb_type</a>)</td></tr>
+<tr class="memitem:a35e2f1e073c6cdf61e9653c984f082bc" id="r_a35e2f1e073c6cdf61e9653c984f082bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35e2f1e073c6cdf61e9653c984f082bc">on_type_change</a> (self, int index)</td></tr>
+<tr class="memitem:ae995fee989f28132aa9645df1972f1e9" id="r_ae995fee989f28132aa9645df1972f1e9"><td class="memItemLeft" align="right" valign="top">BoundaryConditions&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae995fee989f28132aa9645df1972f1e9">get_data</a> (self)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:abdccc90357208899ab1c5842d7426294" id="r_abdccc90357208899ab1c5842d7426294"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdccc90357208899ab1c5842d7426294">turb_type</a> = turb_type</td></tr>
+<tr class="memitem:adc5250fcb494be0ae5b22946dac0057a" id="r_adc5250fcb494be0ae5b22946dac0057a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc5250fcb494be0ae5b22946dac0057a">type_combo</a> = QComboBox()</td></tr>
+<tr class="memitem:ac14ce25027e44628e50771db624ccf9f" id="r_ac14ce25027e44628e50771db624ccf9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac14ce25027e44628e50771db624ccf9f">on_type_change</a></td></tr>
+<tr class="memitem:a982808cb8d6b139811fc99e1fafd6826" id="r_a982808cb8d6b139811fc99e1fafd6826"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a982808cb8d6b139811fc99e1fafd6826">u_input</a> = QLineEdit()</td></tr>
+<tr class="memitem:a6aa5b5c37733c88f0230950f1b447de6" id="r_a6aa5b5c37733c88f0230950f1b447de6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6aa5b5c37733c88f0230950f1b447de6">v_input</a> = QLineEdit()</td></tr>
+<tr class="memitem:ad6e63af105f17ad66cadf3c7215681c9" id="r_ad6e63af105f17ad66cadf3c7215681c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6e63af105f17ad66cadf3c7215681c9">k_input</a> = QDoubleSpinBox()</td></tr>
+<tr class="memitem:a9495125ebf40266c02c518ca021e209d" id="r_a9495125ebf40266c02c518ca021e209d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9495125ebf40266c02c518ca021e209d">om_input</a> = QDoubleSpinBox()</td></tr>
+<tr class="memitem:aa14f893e9de12534e8830b41af29ac83" id="r_aa14f893e9de12534e8830b41af29ac83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa14f893e9de12534e8830b41af29ac83">inputs_form</a> = QFormLayout()</td></tr>
+<tr class="memitem:af4b41673c2303d8585306cac87f8fd25" id="r_af4b41673c2303d8585306cac87f8fd25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4b41673c2303d8585306cac87f8fd25">wall_type_combo</a> = QComboBox()</td></tr>
+<tr class="memitem:a214220284e671d835a158feff59ef220" id="r_a214220284e671d835a158feff59ef220"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a214220284e671d835a158feff59ef220">wall_widget</a> = QWidget()</td></tr>
+<tr class="memitem:a6d58c990cb40be2c87826ce62cd6d38c" id="r_a6d58c990cb40be2c87826ce62cd6d38c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d58c990cb40be2c87826ce62cd6d38c">accept</a></td></tr>
+<tr class="memitem:aeece56f16ad08229cc3499c04db376af" id="r_aeece56f16ad08229cc3499c04db376af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeece56f16ad08229cc3499c04db376af">reject</a></td></tr>
+</table>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Конструктор(ы)</h2>
+<a id="a53a9282cddfc42d350773d617dd4968a" name="a53a9282cddfc42d350773d617dd4968a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53a9282cddfc42d350773d617dd4968a">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.__init__ </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list[EdgeItem]</td>          <td class="paramname"><span class="paramname"><em>edges</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TurbulenceModel</td>          <td class="paramname"><span class="paramname"><em>turb_type</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_cgraph.png" border="0" usemap="#aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_cgraph" id="aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_cgraph">
+<area shape="rect" title=" " alt="" coords="5,29,209,91"/>
+<area shape="poly" title=" " alt="" coords="67,29,68,19,75,10,88,5,107,3,129,5,142,13,139,17,127,11,107,8,90,10,78,15,73,21,72,29"/>
+</map>
+</div>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_icgraph.png" border="0" usemap="#aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_icgraph" id="aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_a53a9282cddfc42d350773d617dd4968a_icgraph">
+<area shape="rect" title=" " alt="" coords="5,29,209,91"/>
+<area shape="poly" title=" " alt="" coords="139,17,127,11,107,8,90,10,78,15,73,21,72,29,67,29,68,19,75,10,88,5,107,3,129,5,142,13"/>
+</map>
+</div>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Методы</h2>
+<a id="ae995fee989f28132aa9645df1972f1e9" name="ae995fee989f28132aa9645df1972f1e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae995fee989f28132aa9645df1972f1e9">&#9670;&#160;</a></span>get_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> BoundaryConditions boundary_conditions_dialog.BoundaryConditionsDialog.get_data </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Возвращает конкретный объект условий.</pre> <div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classboundary__conditions__dialog_1_1BoundaryConditionsDialog_ae995fee989f28132aa9645df1972f1e9_cgraph.png" border="0" usemap="#aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_ae995fee989f28132aa9645df1972f1e9_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_ae995fee989f28132aa9645df1972f1e9_cgraph" id="aclassboundary__conditions__dialog_1_1BoundaryConditionsDialog_ae995fee989f28132aa9645df1972f1e9_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,209,67"/>
+<area shape="rect" href="classboundary__conditions__dialog_1_1BoundaryConditionsDialog.html#abda8fc27fcb46bf935df3b0e730fe80e" title=" " alt="" coords="257,5,460,67"/>
+<area shape="poly" title=" " alt="" coords="209,34,241,34,241,39,209,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a35e2f1e073c6cdf61e9653c984f082bc" name="a35e2f1e073c6cdf61e9653c984f082bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35e2f1e073c6cdf61e9653c984f082bc">&#9670;&#160;</a></span>on_type_change()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.on_type_change </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">В зависимости от выбранного типа показываем нужные поля.</pre> 
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Данные класса</h2>
+<a id="a6d58c990cb40be2c87826ce62cd6d38c" name="a6d58c990cb40be2c87826ce62cd6d38c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d58c990cb40be2c87826ce62cd6d38c">&#9670;&#160;</a></span>accept</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.accept</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa14f893e9de12534e8830b41af29ac83" name="aa14f893e9de12534e8830b41af29ac83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa14f893e9de12534e8830b41af29ac83">&#9670;&#160;</a></span>inputs_form</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.inputs_form = QFormLayout()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6e63af105f17ad66cadf3c7215681c9" name="ad6e63af105f17ad66cadf3c7215681c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6e63af105f17ad66cadf3c7215681c9">&#9670;&#160;</a></span>k_input</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.k_input = QDoubleSpinBox()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9495125ebf40266c02c518ca021e209d" name="a9495125ebf40266c02c518ca021e209d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9495125ebf40266c02c518ca021e209d">&#9670;&#160;</a></span>om_input</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.om_input = QDoubleSpinBox()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac14ce25027e44628e50771db624ccf9f" name="ac14ce25027e44628e50771db624ccf9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac14ce25027e44628e50771db624ccf9f">&#9670;&#160;</a></span>on_type_change</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.on_type_change</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeece56f16ad08229cc3499c04db376af" name="aeece56f16ad08229cc3499c04db376af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeece56f16ad08229cc3499c04db376af">&#9670;&#160;</a></span>reject</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.reject</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abdccc90357208899ab1c5842d7426294" name="abdccc90357208899ab1c5842d7426294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdccc90357208899ab1c5842d7426294">&#9670;&#160;</a></span>turb_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.turb_type = turb_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc5250fcb494be0ae5b22946dac0057a" name="adc5250fcb494be0ae5b22946dac0057a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc5250fcb494be0ae5b22946dac0057a">&#9670;&#160;</a></span>type_combo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.type_combo = QComboBox()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a982808cb8d6b139811fc99e1fafd6826" name="a982808cb8d6b139811fc99e1fafd6826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a982808cb8d6b139811fc99e1fafd6826">&#9670;&#160;</a></span>u_input</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.u_input = QLineEdit()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6aa5b5c37733c88f0230950f1b447de6" name="a6aa5b5c37733c88f0230950f1b447de6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aa5b5c37733c88f0230950f1b447de6">&#9670;&#160;</a></span>v_input</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.v_input = QLineEdit()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4b41673c2303d8585306cac87f8fd25" name="af4b41673c2303d8585306cac87f8fd25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b41673c2303d8585306cac87f8fd25">&#9670;&#160;</a></span>wall_type_combo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.wall_type_combo = QComboBox()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a214220284e671d835a158feff59ef220" name="a214220284e671d835a158feff59ef220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a214220284e671d835a158feff59ef220">&#9670;&#160;</a></span>wall_widget</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boundary_conditions_dialog.BoundaryConditionsDialog.wall_widget = QWidget()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>modules/data/src/dialogs/<a class="el" href="boundary__conditions__dialog_8py.html">boundary_conditions_dialog.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespaceboundary__conditions__dialog.html">boundary_conditions_dialog</a></li><li class="navelem"><a href="classboundary__conditions__dialog_1_1BoundaryConditionsDialog.html">BoundaryConditionsDialog</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
+  </ul>
+</div>
+</body>
+</html>

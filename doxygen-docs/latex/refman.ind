@@ -1,0 +1,1281 @@
+\begin{theindex}
+
+  \item {\_\_del\_\_}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{79}
+  \item {\_\_init\_\_}
+    \subitem {add\_command.AddCommand}, \hyperpage{20}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{24}
+    \subitem {boolean\_item.BooleanShapeItem}, \hyperpage{30}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{27}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{35}
+    \subitem {command\_service.CommandService}, \hyperpage{41}
+    \subitem {data\_parser.DataParser}, \hyperpage{44}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+    \subitem {doxytest.DoxyTest}, \hyperpage{51}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{57}
+    \subitem {edge\_item.EdgeItem}, \hyperpage{60}
+    \subitem {editable\_bezier.DraggablePoint}, \hyperpage{53}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{64}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{67}
+    \subitem {ellipse\_item.EllipseItem}, \hyperpage{70}
+    \subitem {event\_handler.EventHandler}, \hyperpage{74}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{79}
+    \subitem {graphics\_view.GraphicsView}, \hyperpage{82}
+    \subitem {grid\_scene.GridScene}, \hyperpage{89}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{95}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{100}
+    \subitem {line\_item.LineItem}, \hyperpage{103}
+    \subitem {main\_window.MainWindow}, \hyperpage{108, 109}
+    \subitem {material\_dialog.MaterialDialog}, \hyperpage{120}
+    \subitem {mesh\_dialog.MeshDialog}, \hyperpage{123}
+    \subitem {move\_command.MoveCommand}, \hyperpage{126}
+    \subitem {mpl\_canvas.MplCanvas}, \hyperpage{128}
+    \subitem {parametric\_curve\_item.ParametricCurveItem}, 
+		\hyperpage{132}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{136}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{144}
+    \subitem {rectangle\_item.RectangleItem}, \hyperpage{140}
+    \subitem {rotate\_command.RotateCommand}, \hyperpage{147}
+    \subitem {selection\_service.SelectionService}, \hyperpage{150}
+    \subitem {transformation\_operations.TransformationOperations}, 
+		\hyperpage{155}
+    \subitem {turbulence\_dialog.TurbulenceDialog}, \hyperpage{157}
+  \item {\_\_repr\_\_}
+    \subitem {boolean\_item.BooleanShapeItem}, \hyperpage{31}
+    \subitem {ellipse\_item.EllipseItem}, \hyperpage{71}
+    \subitem {line\_item.LineItem}, \hyperpage{104}
+    \subitem {parametric\_curve\_item.ParametricCurveItem}, 
+		\hyperpage{133}
+    \subitem {rectangle\_item.RectangleItem}, \hyperpage{141}
+  \item {\_edge\_id\_counter}
+    \subitem {edge\_item}, \hyperpage{12}
+  \item {\_init\_points}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{64}
+  \item {\_labels}
+    \subitem {grid\_scene.GridScene}, \hyperpage{91}
+  \item {\_next\_edge\_id}
+    \subitem {edge\_item}, \hyperpage{12}
+  \item {\_nice\_step}
+    \subitem {grid\_scene.GridScene}, \hyperpage{90}
+  \item {\_pan\_start}
+    \subitem {graphics\_view.GraphicsView}, \hyperpage{86}
+  \item {\_panning}
+    \subitem {graphics\_view.GraphicsView}, \hyperpage{86}
+
+  \indexspace
+
+  \item {accept}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{24}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{36}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{68}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{95}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{101}
+    \subitem {material\_dialog.MaterialDialog}, \hyperpage{121}
+    \subitem {mesh\_dialog.MeshDialog}, \hyperpage{124}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{136}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{145}
+    \subitem {turbulence\_dialog.TurbulenceDialog}, \hyperpage{158}
+  \item {actionBuildMesh}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{168}
+  \item {actionDifference}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{168}
+  \item {actionDrawCircleByParams}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{168}
+  \item {actionDrawCurveByParams}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{168}
+  \item {actionDrawLineByParams}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{168}
+  \item {actionDrawParametric}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {actionDrawRectByParams}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {actionIntersection}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {actionMirror}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {actionRotate}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {actionUnion}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {add\_boundary\_condition}
+    \subitem {main\_window.MainWindow}, \hyperpage{110}, 
+		\hyperpage{115}
+  \item {add\_command}, \hyperpage{9}
+  \item {add\_command.AddCommand}, \hyperpage{19}
+    \subitem {\_\_init\_\_}, \hyperpage{20}
+    \subitem {execute}, \hyperpage{21}
+    \subitem {item}, \hyperpage{21}
+    \subitem {scene}, \hyperpage{21}
+    \subitem {undo}, \hyperpage{21}
+  \item {add\_edge}
+    \subitem {selection\_service.SelectionService}, \hyperpage{150}
+  \item {add\_loop}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{79}
+  \item {add\_to\_scene}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{64}
+  \item {angle\_delta}
+    \subitem {rotate\_command.RotateCommand}, \hyperpage{148}
+  \item {app}
+    \subitem {main}, \hyperpage{14}
+    \subitem {main\_window}, \hyperpage{15}
+  \item {append}
+    \subitem {command\_service.CommandService}, \hyperpage{42}
+  \item {ax}
+    \subitem {mpl\_canvas.MplCanvas}, \hyperpage{129}
+  \item {axis\_pen}
+    \subitem {grid\_scene.GridScene}, \hyperpage{91}
+
+  \indexspace
+
+  \item {bezier\_dialog}, \hyperpage{9}
+  \item {bezier\_dialog.BezierDialog}, \hyperpage{22}
+    \subitem {\_\_init\_\_}, \hyperpage{24}
+    \subitem {accept}, \hyperpage{24}
+    \subitem {get\_data}, \hyperpage{24}
+    \subitem {p0\_x}, \hyperpage{24}
+    \subitem {p0\_y}, \hyperpage{25}
+    \subitem {p1\_x}, \hyperpage{25}
+    \subitem {p1\_y}, \hyperpage{25}
+    \subitem {p2\_x}, \hyperpage{25}
+    \subitem {p2\_y}, \hyperpage{25}
+    \subitem {p3\_x}, \hyperpage{25}
+    \subitem {p3\_y}, \hyperpage{25}
+    \subitem {reject}, \hyperpage{25}
+  \item {bool\_selection}
+    \subitem {selection\_service.SelectionService}, \hyperpage{153}
+  \item {boolean\_item}, \hyperpage{9}
+  \item {boolean\_item.BooleanShapeItem}, \hyperpage{29}
+    \subitem {\_\_init\_\_}, \hyperpage{30}
+    \subitem {\_\_repr\_\_}, \hyperpage{31}
+    \subitem {edges}, \hyperpage{31}
+    \subitem {generate\_edges}, \hyperpage{31}
+  \item {boolean\_operations}, \hyperpage{9}
+    \subitem {main\_window.MainWindow}, \hyperpage{115}
+  \item {boolean\_operations.BooleanOperations}, \hyperpage{26}
+    \subitem {\_\_init\_\_}, \hyperpage{27}
+    \subitem {command\_service}, \hyperpage{28}
+    \subitem {drawing\_service}, \hyperpage{28}
+    \subitem {parent}, \hyperpage{28}
+    \subitem {perform\_difference}, \hyperpage{27}
+    \subitem {perform\_intersection}, \hyperpage{27}
+    \subitem {perform\_union}, \hyperpage{27}
+    \subitem {scene}, \hyperpage{28}
+    \subitem {selection\_service}, \hyperpage{28}
+  \item {boundary\_conditions}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{81}
+    \subitem {main\_window.MainWindow}, \hyperpage{115}
+  \item {boundary\_conditions\_dialog}, \hyperpage{9}
+  \item {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{33}
+    \subitem {\_\_init\_\_}, \hyperpage{35}
+    \subitem {accept}, \hyperpage{36}
+    \subitem {get\_data}, \hyperpage{36}
+    \subitem {inputs\_form}, \hyperpage{36}
+    \subitem {k\_input}, \hyperpage{36}
+    \subitem {om\_input}, \hyperpage{36}
+    \subitem {on\_type\_change}, \hyperpage{36, 37}
+    \subitem {reject}, \hyperpage{37}
+    \subitem {turb\_type}, \hyperpage{37}
+    \subitem {type\_combo}, \hyperpage{37}
+    \subitem {u\_input}, \hyperpage{37}
+    \subitem {v\_input}, \hyperpage{37}
+    \subitem {wall\_type\_combo}, \hyperpage{37}
+    \subitem {wall\_widget}, \hyperpage{37}
+  \item {boundary\_edges}
+    \subitem {main\_window.MainWindow}, \hyperpage{115}
+  \item {build\_closed\_loops}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{79}
+  \item {build\_gmsh\_mesh}
+    \subitem {main\_window.MainWindow}, \hyperpage{110}, 
+		\hyperpage{116}
+  \item {build\_mesh}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{80}
+
+  \indexspace
+
+  \item {c}
+    \subitem {data\_parser}, \hyperpage{10}
+  \item {canvas\_visualization}
+    \subitem {main\_window.MainWindow}, \hyperpage{116}
+  \item {center\_x}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{68}
+  \item {center\_y}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{68}
+  \item {centralwidget}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {checkBox\_stream\_lines}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+  \item {clear\_and\_select\_item}
+    \subitem {selection\_service.SelectionService}, \hyperpage{150}
+  \item {clear\_edges}
+    \subitem {selection\_service.SelectionService}, \hyperpage{151}
+  \item {clear\_selection}
+    \subitem {selection\_service.SelectionService}, \hyperpage{151}
+  \item {color\_bar}
+    \subitem {main\_window.MainWindow}, \hyperpage{116}
+  \item {comboBox\_expression}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+  \item {command}, \hyperpage{10}
+  \item {command.Command}, \hyperpage{39}
+    \subitem {execute}, \hyperpage{40}
+    \subitem {undo}, \hyperpage{40}
+  \item {command\_service}, \hyperpage{10}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{28}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{58}
+    \subitem {event\_handler.EventHandler}, \hyperpage{76}
+    \subitem {transformation\_operations.TransformationOperations}, 
+		\hyperpage{155}
+  \item {command\_service.CommandService}, \hyperpage{41}
+    \subitem {\_\_init\_\_}, \hyperpage{41}
+    \subitem {append}, \hyperpage{42}
+    \subitem {execute}, \hyperpage{42}
+    \subitem {redo}, \hyperpage{42}
+    \subitem {redo\_stack}, \hyperpage{43}
+    \subitem {undo}, \hyperpage{43}
+    \subitem {undo\_stack}, \hyperpage{43}
+  \item {comsol}, \hyperpage{10}
+  \item {comsol.Ui\_MainWindow}, \hyperpage{162}
+    \subitem {centralwidget}, \hyperpage{164}
+    \subitem {checkBox\_stream\_lines}, \hyperpage{164}
+    \subitem {comboBox\_expression}, \hyperpage{164}
+    \subitem {formLayout}, \hyperpage{164}
+    \subitem {groupBox\_plot\_settings}, \hyperpage{164}
+    \subitem {horizontalLayout}, \hyperpage{164}
+    \subitem {horizontalLayout\_2}, \hyperpage{165}
+    \subitem {label}, \hyperpage{165}
+    \subitem {label\_2}, \hyperpage{165}
+    \subitem {label\_3}, \hyperpage{165}
+    \subitem {label\_4}, \hyperpage{165}
+    \subitem {lineEdit\_data\_path}, \hyperpage{165}
+    \subitem {lineEdit\_levels}, \hyperpage{165}
+    \subitem {pushButton\_plot}, \hyperpage{165}
+    \subitem {pushButton\_select\_file}, \hyperpage{165}
+    \subitem {retranslateUi}, \hyperpage{164}
+    \subitem {setupUi}, \hyperpage{164}
+    \subitem {verticalLayout\_3}, \hyperpage{165}
+    \subitem {widget\_visualisation}, \hyperpage{166}
+  \item {create\_dialog}
+    \subitem {dialog\_factory.DialogFactory}, \hyperpage{50}
+  \item {curve\_points}
+    \subitem {event\_handler.EventHandler}, \hyperpage{76}
+  \item {curve\_ref}
+    \subitem {editable\_bezier.DraggablePoint}, \hyperpage{55}
+
+  \indexspace
+
+  \item {data}
+    \subitem {data\_parser}, \hyperpage{10}
+  \item {data\_parser}, \hyperpage{10}
+    \subitem {c}, \hyperpage{10}
+    \subitem {data}, \hyperpage{10}
+    \subitem {parser}, \hyperpage{10}
+  \item {data\_parser.DataParser}, \hyperpage{44}
+    \subitem {\_\_init\_\_}, \hyperpage{44}
+    \subitem {file\_path}, \hyperpage{45}
+    \subitem {parse}, \hyperpage{44}
+    \subitem {separator}, \hyperpage{45}
+  \item {DEBUG}
+    \subitem {main}, \hyperpage{14}
+  \item {default\_pen}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{58}
+  \item {delete\_boundary\_condition}
+    \subitem {main\_window.MainWindow}, \hyperpage{110}
+  \item {delete\_command}, \hyperpage{11}
+  \item {delete\_command.DeleteCommand}, \hyperpage{46}
+    \subitem {\_\_init\_\_}, \hyperpage{48}
+    \subitem {execute}, \hyperpage{48}
+    \subitem {items}, \hyperpage{48}
+    \subitem {mesh\_map}, \hyperpage{48}
+    \subitem {removed\_mesh}, \hyperpage{48}
+    \subitem {scene}, \hyperpage{48}
+    \subitem {selected\_items}, \hyperpage{48}
+    \subitem {undo}, \hyperpage{48}
+  \item {delta}
+    \subitem {move\_command.MoveCommand}, \hyperpage{127}
+  \item {densityEdit}
+    \subitem {material\_dialog.MaterialDialog}, \hyperpage{121}
+  \item {dialog}, \hyperpage{11}
+  \item {dialog.Dialog}, \hyperpage{49}
+    \subitem {get\_data}, \hyperpage{50}
+  \item {dialog\_factory}, \hyperpage{11}
+  \item {dialog\_factory.DialogFactory}, \hyperpage{50}
+    \subitem {create\_dialog}, \hyperpage{50}
+  \item {doxytest}, \hyperpage{11}
+  \item {doxytest.DoxyTest}, \hyperpage{51}
+    \subitem {\_\_init\_\_}, \hyperpage{51}
+    \subitem {test}, \hyperpage{51}
+  \item {draw\_curve\_by\_params}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{57}
+  \item {draw\_ellipse\_by\_params}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{57}
+  \item {draw\_line\_by\_params}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{57}
+  \item {draw\_parametric}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{58}
+  \item {draw\_rect\_by\_params}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{58}
+  \item {drawBackground}
+    \subitem {grid\_scene.GridScene}, \hyperpage{90}
+  \item {drawing\_service}, \hyperpage{11}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{28}
+    \subitem {main\_window.MainWindow}, \hyperpage{116}
+  \item {drawing\_service.DrawingService}, \hyperpage{56}
+    \subitem {\_\_init\_\_}, \hyperpage{57}
+    \subitem {command\_service}, \hyperpage{58}
+    \subitem {default\_pen}, \hyperpage{58}
+    \subitem {draw\_curve\_by\_params}, \hyperpage{57}
+    \subitem {draw\_ellipse\_by\_params}, \hyperpage{57}
+    \subitem {draw\_line\_by\_params}, \hyperpage{57}
+    \subitem {draw\_parametric}, \hyperpage{58}
+    \subitem {draw\_rect\_by\_params}, \hyperpage{58}
+    \subitem {parent}, \hyperpage{59}
+    \subitem {scene}, \hyperpage{59}
+    \subitem {selection\_service}, \hyperpage{59}
+  \item {dx\_spin}
+    \subitem {mesh\_dialog.MeshDialog}, \hyperpage{124}
+
+  \indexspace
+
+  \item {e}
+    \subitem {edge\_item}, \hyperpage{12}
+  \item {edge\_item}, \hyperpage{11}
+    \subitem {\_edge\_id\_counter}, \hyperpage{12}
+    \subitem {\_next\_edge\_id}, \hyperpage{12}
+    \subitem {e}, \hyperpage{12}
+    \subitem {p}, \hyperpage{12}
+    \subitem {p1}, \hyperpage{12}
+    \subitem {p2}, \hyperpage{12}
+  \item {edge\_item.EdgeItem}, \hyperpage{59}
+    \subitem {\_\_init\_\_}, \hyperpage{60}
+    \subitem {id}, \hyperpage{62}
+    \subitem {p1}, \hyperpage{61}
+    \subitem {p2}, \hyperpage{61}
+    \subitem {reverse}, \hyperpage{61}
+  \item {edges}
+    \subitem {boolean\_item.BooleanShapeItem}, \hyperpage{31}
+    \subitem {ellipse\_item.EllipseItem}, \hyperpage{72}
+    \subitem {line\_item.LineItem}, \hyperpage{105}
+    \subitem {parametric\_curve\_item.ParametricCurveItem}, 
+		\hyperpage{133}
+    \subitem {rectangle\_item.RectangleItem}, \hyperpage{142}
+  \item {edit\_boundary\_condition}
+    \subitem {main\_window.MainWindow}, \hyperpage{110}
+  \item {edit\_initial\_conditions}
+    \subitem {main\_window.MainWindow}, \hyperpage{111}
+  \item {edit\_material}
+    \subitem {main\_window.MainWindow}, \hyperpage{111}
+  \item {edit\_turbulence\_model}
+    \subitem {main\_window.MainWindow}, \hyperpage{112}
+  \item {editable\_bezier}, \hyperpage{12}
+  \item {editable\_bezier.DraggablePoint}, \hyperpage{52}
+    \subitem {\_\_init\_\_}, \hyperpage{53}
+    \subitem {curve\_ref}, \hyperpage{55}
+    \subitem {index}, \hyperpage{55}
+    \subitem {itemChange}, \hyperpage{54}
+  \item {editable\_bezier.EditableBezierCurveItem}, \hyperpage{62}
+    \subitem {\_\_init\_\_}, \hyperpage{64}
+    \subitem {\_init\_points}, \hyperpage{64}
+    \subitem {add\_to\_scene}, \hyperpage{64}
+    \subitem {point\_items}, \hyperpage{65}
+    \subitem {points}, \hyperpage{65}
+    \subitem {remove\_from\_scene}, \hyperpage{64}
+    \subitem {scene\_ref}, \hyperpage{65}
+    \subitem {update\_path}, \hyperpage{65}
+  \item {el}
+    \subitem {ellipse\_item}, \hyperpage{13}
+  \item {ellipse\_dialog}, \hyperpage{13}
+  \item {ellipse\_dialog.EllipseDialog}, \hyperpage{66}
+    \subitem {\_\_init\_\_}, \hyperpage{67}
+    \subitem {accept}, \hyperpage{68}
+    \subitem {center\_x}, \hyperpage{68}
+    \subitem {center\_y}, \hyperpage{68}
+    \subitem {get\_data}, \hyperpage{68}
+    \subitem {radius\_x}, \hyperpage{68}
+    \subitem {radius\_y}, \hyperpage{69}
+    \subitem {reject}, \hyperpage{69}
+  \item {ellipse\_item}, \hyperpage{13}
+    \subitem {el}, \hyperpage{13}
+  \item {ellipse\_item.EllipseItem}, \hyperpage{69}
+    \subitem {\_\_init\_\_}, \hyperpage{70}
+    \subitem {\_\_repr\_\_}, \hyperpage{71}
+    \subitem {edges}, \hyperpage{72}
+    \subitem {generate\_edges}, \hyperpage{71}
+    \subitem {get\_path}, \hyperpage{71}
+  \item {end\_x}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{101}
+  \item {end\_y}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{101}
+  \item {equal\_points}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{80}
+  \item {event\_filter}
+    \subitem {event\_handler.EventHandler}, \hyperpage{74}
+  \item {event\_handler}, \hyperpage{13}
+    \subitem {main\_window.MainWindow}, \hyperpage{116}
+  \item {event\_handler.EventHandler}, \hyperpage{73}
+    \subitem {\_\_init\_\_}, \hyperpage{74}
+    \subitem {command\_service}, \hyperpage{76}
+    \subitem {curve\_points}, \hyperpage{76}
+    \subitem {event\_filter}, \hyperpage{74}
+    \subitem {graphics\_view}, \hyperpage{76}
+    \subitem {key\_press\_event}, \hyperpage{74}
+    \subitem {main\_window}, \hyperpage{76}
+    \subitem {mouse\_move}, \hyperpage{75}
+    \subitem {mouse\_press}, \hyperpage{75}
+    \subitem {mouse\_release}, \hyperpage{76}
+    \subitem {move\_initial\_pos}, \hyperpage{76}
+    \subitem {move\_start\_pos}, \hyperpage{77}
+    \subitem {moving\_items}, \hyperpage{77}
+    \subitem {properties\_layout}, \hyperpage{77}
+    \subitem {scene}, \hyperpage{77}
+    \subitem {selection\_service}, \hyperpage{77}
+    \subitem {start\_point}, \hyperpage{77}
+    \subitem {temp\_curve\_item}, \hyperpage{77}
+    \subitem {temp\_item}, \hyperpage{77}
+  \item {eventFilter}
+    \subitem {main\_window.MainWindow}, \hyperpage{112}
+  \item {execute}
+    \subitem {add\_command.AddCommand}, \hyperpage{21}
+    \subitem {command.Command}, \hyperpage{40}
+    \subitem {command\_service.CommandService}, \hyperpage{42}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+    \subitem {move\_command.MoveCommand}, \hyperpage{127}
+    \subitem {rotate\_command.RotateCommand}, \hyperpage{148}
+  \item {export\_json}
+    \subitem {main\_window.MainWindow}, \hyperpage{113}
+
+  \indexspace
+
+  \item {fig}
+    \subitem {mpl\_canvas.MplCanvas}, \hyperpage{129}
+  \item {file\_path}
+    \subitem {data\_parser.DataParser}, \hyperpage{45}
+  \item {filename}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{81}
+  \item {find\_edge\_by\_id}
+    \subitem {grid\_scene.GridScene}, \hyperpage{90}
+  \item {font}
+    \subitem {grid\_scene.GridScene}, \hyperpage{91}
+    \subitem {main}, \hyperpage{15}
+  \item {format}
+    \subitem {main}, \hyperpage{15}
+  \item {formLayout}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+
+  \indexspace
+
+  \item {generate\_edges}
+    \subitem {boolean\_item.BooleanShapeItem}, \hyperpage{31}
+    \subitem {ellipse\_item.EllipseItem}, \hyperpage{71}
+    \subitem {line\_item.LineItem}, \hyperpage{104}
+    \subitem {parametric\_curve\_item.ParametricCurveItem}, 
+		\hyperpage{133}
+    \subitem {rectangle\_item.RectangleItem}, \hyperpage{141}
+  \item {get\_data}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{24}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{36}
+    \subitem {dialog.Dialog}, \hyperpage{50}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{68}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{95}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{101}
+    \subitem {material\_dialog.MaterialDialog}, \hyperpage{121}
+    \subitem {mesh\_dialog.MeshDialog}, \hyperpage{124}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{136}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{145}
+    \subitem {turbulence\_dialog.TurbulenceDialog}, \hyperpage{158}
+  \item {get\_path}
+    \subitem {ellipse\_item.EllipseItem}, \hyperpage{71}
+    \subitem {line\_item.LineItem}, \hyperpage{104}
+    \subitem {rectangle\_item.RectangleItem}, \hyperpage{142}
+  \item {gmsh\_mesh\_builder}, \hyperpage{13}
+  \item {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{78}
+    \subitem {\_\_del\_\_}, \hyperpage{79}
+    \subitem {\_\_init\_\_}, \hyperpage{79}
+    \subitem {add\_loop}, \hyperpage{79}
+    \subitem {boundary\_conditions}, \hyperpage{81}
+    \subitem {build\_closed\_loops}, \hyperpage{79}
+    \subitem {build\_mesh}, \hyperpage{80}
+    \subitem {equal\_points}, \hyperpage{80}
+    \subitem {filename}, \hyperpage{81}
+    \subitem {grid\_spacing}, \hyperpage{81}
+  \item {graphics\_view}, \hyperpage{13}
+    \subitem {event\_handler.EventHandler}, \hyperpage{76}
+  \item {graphics\_view.GraphicsView}, \hyperpage{81}
+    \subitem {\_\_init\_\_}, \hyperpage{82}
+    \subitem {\_pan\_start}, \hyperpage{86}
+    \subitem {\_panning}, \hyperpage{86}
+    \subitem {mouseMoveEvent}, \hyperpage{83}
+    \subitem {mousePressEvent}, \hyperpage{84}
+    \subitem {mouseReleaseEvent}, \hyperpage{84}
+    \subitem {wheelEvent}, \hyperpage{85}
+  \item {graphicsView}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {grid\_pen}
+    \subitem {grid\_scene.GridScene}, \hyperpage{91}
+  \item {grid\_scene}, \hyperpage{14}
+  \item {grid\_scene.GridScene}, \hyperpage{87}
+    \subitem {\_\_init\_\_}, \hyperpage{89}
+    \subitem {\_labels}, \hyperpage{91}
+    \subitem {\_nice\_step}, \hyperpage{90}
+    \subitem {axis\_pen}, \hyperpage{91}
+    \subitem {drawBackground}, \hyperpage{90}
+    \subitem {find\_edge\_by\_id}, \hyperpage{90}
+    \subitem {font}, \hyperpage{91}
+    \subitem {grid\_pen}, \hyperpage{91}
+    \subitem {spacing}, \hyperpage{91}
+    \subitem {update\_labels}, \hyperpage{90, 91}
+  \item {grid\_spacing}
+    \subitem {gmsh\_mesh\_builder.GmshMeshBuilder}, \hyperpage{81}
+    \subitem {main\_window.MainWindow}, \hyperpage{116}
+  \item {groupBox\_plot\_settings}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+
+  \indexspace
+
+  \item {height}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{145}
+  \item {highlight\_edge}
+    \subitem {selection\_service.SelectionService}, \hyperpage{151}
+  \item {highlight\_edges}
+    \subitem {main\_window.MainWindow}, \hyperpage{113}
+  \item {horizontalLayout}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {horizontalLayout\_2}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+
+  \indexspace
+
+  \item {id}
+    \subitem {edge\_item.EdgeItem}, \hyperpage{62}
+  \item {index}
+    \subitem {editable\_bezier.DraggablePoint}, \hyperpage{55}
+  \item {init\_turbulence\_ui}
+    \subitem {main\_window.MainWindow}, \hyperpage{114}
+  \item {initial\_conditions}
+    \subitem {main\_window.MainWindow}, \hyperpage{116}
+  \item {initial\_conditions\_dialog}, \hyperpage{14}
+  \item {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{93}
+    \subitem {\_\_init\_\_}, \hyperpage{95}
+    \subitem {accept}, \hyperpage{95}
+    \subitem {get\_data}, \hyperpage{95}
+    \subitem {k\_input}, \hyperpage{95}
+    \subitem {om\_input}, \hyperpage{96}
+    \subitem {p\_input}, \hyperpage{96}
+    \subitem {reject}, \hyperpage{96}
+    \subitem {u\_input}, \hyperpage{96}
+    \subitem {v\_input}, \hyperpage{96}
+  \item {INLET}
+    \subitem {turbulence\_models.BoundaryConditionType}, \hyperpage{39}
+  \item {inputs\_form}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{36}
+  \item {item}
+    \subitem {add\_command.AddCommand}, \hyperpage{21}
+    \subitem {rotate\_command.RotateCommand}, \hyperpage{148}
+  \item {itemChange}
+    \subitem {editable\_bezier.DraggablePoint}, \hyperpage{54}
+  \item {items}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+    \subitem {move\_command.MoveCommand}, \hyperpage{127}
+
+  \indexspace
+
+  \item {k}
+    \subitem {turbulence\_models.InitialConditions}, \hyperpage{92}
+    \subitem {turbulence\_models.InletBoundaryConditions}, 
+		\hyperpage{98}
+    \subitem {turbulence\_models.OpenBoundaryConditions}, 
+		\hyperpage{130}
+  \item {K\_EPSILON}
+    \subitem {turbulence\_models.TurbulenceModel}, \hyperpage{160}
+  \item {k\_input}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{36}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{95}
+  \item {key\_press\_event}
+    \subitem {event\_handler.EventHandler}, \hyperpage{74}
+  \item {keyPressEvent}
+    \subitem {main\_window.MainWindow}, \hyperpage{114}
+
+  \indexspace
+
+  \item {label}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {label\_2}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {label\_3}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {label\_4}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {LAMINAR}
+    \subitem {turbulence\_models.TurbulenceModel}, \hyperpage{160}
+  \item {last\_selection\_rect}
+    \subitem {selection\_service.SelectionService}, \hyperpage{153}
+  \item {layout\_visualization}
+    \subitem {main\_window.MainWindow}, \hyperpage{116}
+  \item {level}
+    \subitem {main}, \hyperpage{15}
+  \item {line\_dialog}, \hyperpage{14}
+  \item {line\_dialog.LineDialog}, \hyperpage{99}
+    \subitem {\_\_init\_\_}, \hyperpage{100}
+    \subitem {accept}, \hyperpage{101}
+    \subitem {end\_x}, \hyperpage{101}
+    \subitem {end\_y}, \hyperpage{101}
+    \subitem {get\_data}, \hyperpage{101}
+    \subitem {reject}, \hyperpage{101}
+    \subitem {start\_x}, \hyperpage{102}
+    \subitem {start\_y}, \hyperpage{102}
+  \item {line\_item}, \hyperpage{14}
+  \item {line\_item.LineItem}, \hyperpage{102}
+    \subitem {\_\_init\_\_}, \hyperpage{103}
+    \subitem {\_\_repr\_\_}, \hyperpage{104}
+    \subitem {edges}, \hyperpage{105}
+    \subitem {generate\_edges}, \hyperpage{104}
+    \subitem {get\_path}, \hyperpage{104}
+  \item {lineEdit\_data\_path}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {lineEdit\_levels}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {logger}
+    \subitem {main\_window.MainWindow}, \hyperpage{117}
+
+  \indexspace
+
+  \item {main}, \hyperpage{14}
+    \subitem {app}, \hyperpage{14}
+    \subitem {DEBUG}, \hyperpage{14}
+    \subitem {font}, \hyperpage{15}
+    \subitem {format}, \hyperpage{15}
+    \subitem {level}, \hyperpage{15}
+    \subitem {stream}, \hyperpage{15}
+    \subitem {window}, \hyperpage{15}
+  \item {main\_window}, \hyperpage{15}
+    \subitem {app}, \hyperpage{15}
+    \subitem {event\_handler.EventHandler}, \hyperpage{76}
+    \subitem {window}, \hyperpage{15}
+  \item {main\_window.MainWindow}, \hyperpage{106}
+    \subitem {\_\_init\_\_}, \hyperpage{108, 109}
+    \subitem {add\_boundary\_condition}, \hyperpage{110}, 
+		\hyperpage{115}
+    \subitem {boolean\_operations}, \hyperpage{115}
+    \subitem {boundary\_conditions}, \hyperpage{115}
+    \subitem {boundary\_edges}, \hyperpage{115}
+    \subitem {build\_gmsh\_mesh}, \hyperpage{110}, \hyperpage{116}
+    \subitem {canvas\_visualization}, \hyperpage{116}
+    \subitem {color\_bar}, \hyperpage{116}
+    \subitem {delete\_boundary\_condition}, \hyperpage{110}
+    \subitem {drawing\_service}, \hyperpage{116}
+    \subitem {edit\_boundary\_condition}, \hyperpage{110}
+    \subitem {edit\_initial\_conditions}, \hyperpage{111}
+    \subitem {edit\_material}, \hyperpage{111}
+    \subitem {edit\_turbulence\_model}, \hyperpage{112}
+    \subitem {event\_handler}, \hyperpage{116}
+    \subitem {eventFilter}, \hyperpage{112}
+    \subitem {export\_json}, \hyperpage{113}
+    \subitem {grid\_spacing}, \hyperpage{116}
+    \subitem {highlight\_edges}, \hyperpage{113}
+    \subitem {init\_turbulence\_ui}, \hyperpage{114}
+    \subitem {initial\_conditions}, \hyperpage{116}
+    \subitem {keyPressEvent}, \hyperpage{114}
+    \subitem {layout\_visualization}, \hyperpage{116}
+    \subitem {logger}, \hyperpage{117}
+    \subitem {material}, \hyperpage{117}
+    \subitem {on\_tree\_item\_clicked}, \hyperpage{114}, 
+		\hyperpage{117}
+    \subitem {scene}, \hyperpage{117}
+    \subitem {selection\_service}, \hyperpage{117}
+    \subitem {show\_tree\_context\_menu}, \hyperpage{114}, 
+		\hyperpage{117}
+    \subitem {toolbar}, \hyperpage{117}
+    \subitem {transformation\_operations}, \hyperpage{117}
+    \subitem {turbulence\_params}, \hyperpage{117}
+    \subitem {ui}, \hyperpage{118}
+    \subitem {update\_project\_tree}, \hyperpage{115}
+  \item {mainToolBar}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{169}
+  \item {material}
+    \subitem {main\_window.MainWindow}, \hyperpage{117}
+  \item {material\_dialog}, \hyperpage{16}
+  \item {material\_dialog.MaterialDialog}, \hyperpage{119}
+    \subitem {\_\_init\_\_}, \hyperpage{120}
+    \subitem {accept}, \hyperpage{121}
+    \subitem {densityEdit}, \hyperpage{121}
+    \subitem {get\_data}, \hyperpage{121}
+    \subitem {reject}, \hyperpage{121}
+    \subitem {viscosityEdit}, \hyperpage{121}
+  \item {mesh\_dialog}, \hyperpage{16}
+  \item {mesh\_dialog.MeshDialog}, \hyperpage{122}
+    \subitem {\_\_init\_\_}, \hyperpage{123}
+    \subitem {accept}, \hyperpage{124}
+    \subitem {dx\_spin}, \hyperpage{124}
+    \subitem {get\_data}, \hyperpage{124}
+    \subitem {reject}, \hyperpage{124}
+  \item {mesh\_map}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+  \item {model}
+    \subitem {turbulence\_models.TurbulenceParams}, \hyperpage{161}
+  \item {model\_combo}
+    \subitem {turbulence\_dialog.TurbulenceDialog}, \hyperpage{158}
+  \item {modules/data/main.py}, \hyperpage{175}
+  \item {modules/data/src/commands/add\_command.py}, \hyperpage{175}
+  \item {modules/data/src/commands/command.py}, \hyperpage{176}
+  \item {modules/data/src/commands/delete\_command.py}, \hyperpage{176}
+  \item {modules/data/src/commands/move\_command.py}, \hyperpage{176}
+  \item {modules/data/src/commands/rotate\_command.py}, \hyperpage{176}
+  \item {modules/data/src/dialogs/bezier\_dialog.py}, \hyperpage{177}
+  \item {modules/data/src/dialogs/boundary\_conditions\_dialog.py}, 
+		\hyperpage{177}
+  \item {modules/data/src/dialogs/dialog.py}, \hyperpage{177}
+  \item {modules/data/src/dialogs/dialog\_factory.py}, \hyperpage{177}
+  \item {modules/data/src/dialogs/ellipse\_dialog.py}, \hyperpage{177}
+  \item {modules/data/src/dialogs/initial\_conditions\_dialog.py}, 
+		\hyperpage{178}
+  \item {modules/data/src/dialogs/line\_dialog.py}, \hyperpage{178}
+  \item {modules/data/src/dialogs/material\_dialog.py}, \hyperpage{178}
+  \item {modules/data/src/dialogs/mesh\_dialog.py}, \hyperpage{178}
+  \item {modules/data/src/dialogs/parametric\_dialog.py}, 
+		\hyperpage{179}
+  \item {modules/data/src/dialogs/rect\_dialog.py}, \hyperpage{179}
+  \item {modules/data/src/dialogs/turbulence\_dialog.py}, 
+		\hyperpage{179}
+  \item {modules/data/src/event\_handler.py}, \hyperpage{179}
+  \item {modules/data/src/main\_window.py}, \hyperpage{179}
+  \item {modules/data/src/operations/boolean\_operations.py}, 
+		\hyperpage{180}
+  \item {modules/data/src/operations/transformation\_operations.py}, 
+		\hyperpage{180}
+  \item {modules/data/src/physics/turbulence\_models.py}, 
+		\hyperpage{181}
+  \item {modules/data/src/services/command\_service.py}, 
+		\hyperpage{181}
+  \item {modules/data/src/services/drawing\_service.py}, 
+		\hyperpage{181}
+  \item {modules/data/src/services/gmsh\_mesh\_builder.py}, 
+		\hyperpage{181}
+  \item {modules/data/src/services/selection\_service.py}, 
+		\hyperpage{182}
+  \item {modules/data/src/shapes/boolean\_item.py}, \hyperpage{182}
+  \item {modules/data/src/shapes/ellipse\_item.py}, \hyperpage{182}
+  \item {modules/data/src/shapes/line\_item.py}, \hyperpage{182}
+  \item {modules/data/src/shapes/parametric\_curve\_item.py}, 
+		\hyperpage{183}
+  \item {modules/data/src/shapes/rectangle\_item.py}, \hyperpage{183}
+  \item {modules/data/src/ui/template.py}, \hyperpage{183}
+  \item {modules/data/src/widgets/edge\_item.py}, \hyperpage{183}
+  \item {modules/data/src/widgets/editable\_bezier.py}, \hyperpage{184}
+  \item {modules/data/src/widgets/graphics\_view.py}, \hyperpage{184}
+  \item {modules/data/src/widgets/grid\_scene.py}, \hyperpage{184}
+  \item {modules/doxytest/doxytest.py}, \hyperpage{185}
+  \item {modules/visualization/main.py}, \hyperpage{175}
+  \item {modules/visualization/src/main\_window.py}, \hyperpage{180}
+  \item {modules/visualization/src/mpl\_canvas.py}, \hyperpage{185}
+  \item {modules/visualization/src/services/data\_parser.py}, 
+		\hyperpage{185}
+  \item {modules/visualization/src/services/plotter.py}, 
+		\hyperpage{185}
+  \item {modules/visualization/src/ui/comsol.py}, \hyperpage{185}
+  \item {mouse\_move}
+    \subitem {event\_handler.EventHandler}, \hyperpage{75}
+  \item {mouse\_press}
+    \subitem {event\_handler.EventHandler}, \hyperpage{75}
+  \item {mouse\_release}
+    \subitem {event\_handler.EventHandler}, \hyperpage{76}
+  \item {mouseMoveEvent}
+    \subitem {graphics\_view.GraphicsView}, \hyperpage{83}
+  \item {mousePressEvent}
+    \subitem {graphics\_view.GraphicsView}, \hyperpage{84}
+  \item {mouseReleaseEvent}
+    \subitem {graphics\_view.GraphicsView}, \hyperpage{84}
+  \item {move\_command}, \hyperpage{16}
+  \item {move\_command.MoveCommand}, \hyperpage{125}
+    \subitem {\_\_init\_\_}, \hyperpage{126}
+    \subitem {delta}, \hyperpage{127}
+    \subitem {execute}, \hyperpage{127}
+    \subitem {items}, \hyperpage{127}
+    \subitem {undo}, \hyperpage{127}
+  \item {move\_initial\_pos}
+    \subitem {event\_handler.EventHandler}, \hyperpage{76}
+  \item {move\_start\_pos}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+  \item {moving\_items}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+  \item {mpl\_canvas}, \hyperpage{16}
+  \item {mpl\_canvas.MplCanvas}, \hyperpage{127}
+    \subitem {\_\_init\_\_}, \hyperpage{128}
+    \subitem {ax}, \hyperpage{129}
+    \subitem {fig}, \hyperpage{129}
+  \item {mu}
+    \subitem {turbulence\_models.Material}, \hyperpage{118}
+
+  \indexspace
+
+  \item {NO\_SLIP}
+    \subitem {turbulence\_models.WallType}, \hyperpage{173}
+
+  \indexspace
+
+  \item {om\_input}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{36}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{96}
+  \item {omega}
+    \subitem {turbulence\_models.InitialConditions}, \hyperpage{92}
+    \subitem {turbulence\_models.InletBoundaryConditions}, 
+		\hyperpage{98}
+    \subitem {turbulence\_models.OpenBoundaryConditions}, 
+		\hyperpage{130}
+  \item {on\_tree\_item\_clicked}
+    \subitem {main\_window.MainWindow}, \hyperpage{114}, 
+		\hyperpage{117}
+  \item {on\_type\_change}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{36, 37}
+  \item {OPEN}
+    \subitem {turbulence\_models.BoundaryConditionType}, \hyperpage{39}
+
+  \indexspace
+
+  \item {p}
+    \subitem {edge\_item}, \hyperpage{12}
+    \subitem {turbulence\_models.InitialConditions}, \hyperpage{92}
+  \item {p0\_x}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{24}
+  \item {p0\_y}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+  \item {p1}
+    \subitem {edge\_item}, \hyperpage{12}
+    \subitem {edge\_item.EdgeItem}, \hyperpage{61}
+  \item {p1\_x}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+  \item {p1\_y}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+  \item {p2}
+    \subitem {edge\_item}, \hyperpage{12}
+    \subitem {edge\_item.EdgeItem}, \hyperpage{61}
+  \item {p2\_x}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+  \item {p2\_y}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+  \item {p3\_x}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+  \item {p3\_y}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+  \item {p\_input}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{96}
+  \item {parametric\_curve\_item}, \hyperpage{16}
+  \item {parametric\_curve\_item.ParametricCurveItem}, \hyperpage{131}
+    \subitem {\_\_init\_\_}, \hyperpage{132}
+    \subitem {\_\_repr\_\_}, \hyperpage{133}
+    \subitem {edges}, \hyperpage{133}
+    \subitem {generate\_edges}, \hyperpage{133}
+  \item {parametric\_dialog}, \hyperpage{16}
+  \item {parametric\_dialog.ParametricDialog}, \hyperpage{134}
+    \subitem {\_\_init\_\_}, \hyperpage{136}
+    \subitem {accept}, \hyperpage{136}
+    \subitem {get\_data}, \hyperpage{136}
+    \subitem {reject}, \hyperpage{136}
+    \subitem {samples}, \hyperpage{137}
+    \subitem {t\_max}, \hyperpage{137}
+    \subitem {t\_min}, \hyperpage{137}
+    \subitem {x\_expr}, \hyperpage{137}
+    \subitem {y\_expr}, \hyperpage{137}
+  \item {parent}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{28}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{59}
+    \subitem {transformation\_operations.TransformationOperations}, 
+		\hyperpage{155}
+  \item {parse}
+    \subitem {data\_parser.DataParser}, \hyperpage{44}
+  \item {parser}
+    \subitem {data\_parser}, \hyperpage{10}
+  \item {perform\_difference}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{27}
+  \item {perform\_intersection}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{27}
+  \item {perform\_mirror}
+    \subitem {transformation\_operations.TransformationOperations}, 
+		\hyperpage{155}
+  \item {perform\_rotate}
+    \subitem {transformation\_operations.TransformationOperations}, 
+		\hyperpage{155}
+  \item {perform\_union}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{27}
+  \item {plot\_geometry}
+    \subitem {plotter.Plotter}, \hyperpage{138}
+  \item {plot\_streamline}
+    \subitem {plotter.Plotter}, \hyperpage{138}
+  \item {plot\_surface}
+    \subitem {plotter.Plotter}, \hyperpage{138}
+  \item {plotter}, \hyperpage{17}
+  \item {plotter.Plotter}, \hyperpage{137}
+    \subitem {plot\_geometry}, \hyperpage{138}
+    \subitem {plot\_streamline}, \hyperpage{138}
+    \subitem {plot\_surface}, \hyperpage{138}
+  \item {point\_items}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{65}
+  \item {points}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{65}
+  \item {projectTree}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{170}
+  \item {properties\_layout}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+  \item {propertiesLayout}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{170}
+  \item {pushButton\_plot}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {pushButton\_select\_file}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+
+  \indexspace
+
+  \item {radius\_x}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{68}
+  \item {radius\_y}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{69}
+  \item {rect\_dialog}, \hyperpage{17}
+  \item {rect\_dialog.RectDialog}, \hyperpage{143}
+    \subitem {\_\_init\_\_}, \hyperpage{144}
+    \subitem {accept}, \hyperpage{145}
+    \subitem {get\_data}, \hyperpage{145}
+    \subitem {height}, \hyperpage{145}
+    \subitem {reject}, \hyperpage{145}
+    \subitem {top\_left\_x}, \hyperpage{145}
+    \subitem {top\_left\_y}, \hyperpage{146}
+    \subitem {width}, \hyperpage{146}
+  \item {rectangle\_item}, \hyperpage{17}
+  \item {rectangle\_item.RectangleItem}, \hyperpage{139}
+    \subitem {\_\_init\_\_}, \hyperpage{140}
+    \subitem {\_\_repr\_\_}, \hyperpage{141}
+    \subitem {edges}, \hyperpage{142}
+    \subitem {generate\_edges}, \hyperpage{141}
+    \subitem {get\_path}, \hyperpage{142}
+  \item {redo}
+    \subitem {command\_service.CommandService}, \hyperpage{42}
+  \item {redo\_stack}
+    \subitem {command\_service.CommandService}, \hyperpage{43}
+  \item {reject}
+    \subitem {bezier\_dialog.BezierDialog}, \hyperpage{25}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{37}
+    \subitem {ellipse\_dialog.EllipseDialog}, \hyperpage{69}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{96}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{101}
+    \subitem {material\_dialog.MaterialDialog}, \hyperpage{121}
+    \subitem {mesh\_dialog.MeshDialog}, \hyperpage{124}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{136}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{145}
+    \subitem {turbulence\_dialog.TurbulenceDialog}, \hyperpage{158}
+  \item {remove\_edge}
+    \subitem {selection\_service.SelectionService}, \hyperpage{152}
+  \item {remove\_from\_scene}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{64}
+  \item {removed\_mesh}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+  \item {retranslateUi}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{168}
+  \item {reverse}
+    \subitem {edge\_item.EdgeItem}, \hyperpage{61}
+  \item {rho}
+    \subitem {turbulence\_models.Material}, \hyperpage{118}
+  \item {rotate\_command}, \hyperpage{17}
+  \item {rotate\_command.RotateCommand}, \hyperpage{146}
+    \subitem {\_\_init\_\_}, \hyperpage{147}
+    \subitem {angle\_delta}, \hyperpage{148}
+    \subitem {execute}, \hyperpage{148}
+    \subitem {item}, \hyperpage{148}
+    \subitem {start\_rotation}, \hyperpage{148}
+    \subitem {undo}, \hyperpage{148}
+
+  \indexspace
+
+  \item {samples}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{137}
+  \item {scene}
+    \subitem {add\_command.AddCommand}, \hyperpage{21}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{28}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{59}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+    \subitem {main\_window.MainWindow}, \hyperpage{117}
+    \subitem {selection\_service.SelectionService}, \hyperpage{153}
+    \subitem {transformation\_operations.TransformationOperations}, 
+		\hyperpage{155}
+  \item {scene\_ref}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{65}
+  \item {select\_all}
+    \subitem {selection\_service.SelectionService}, \hyperpage{152}
+  \item {select\_item}
+    \subitem {selection\_service.SelectionService}, \hyperpage{152}
+  \item {selected\_edges}
+    \subitem {selection\_service.SelectionService}, \hyperpage{154}
+  \item {selected\_items}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+  \item {selected\_pen}
+    \subitem {selection\_service.SelectionService}, \hyperpage{154}
+  \item {selection\_brush}
+    \subitem {selection\_service.SelectionService}, \hyperpage{154}
+  \item {selection\_pen}
+    \subitem {selection\_service.SelectionService}, \hyperpage{154}
+  \item {selection\_rect}
+    \subitem {selection\_service.SelectionService}, \hyperpage{154}
+  \item {selection\_service}, \hyperpage{17}
+    \subitem {boolean\_operations.BooleanOperations}, \hyperpage{28}
+    \subitem {drawing\_service.DrawingService}, \hyperpage{59}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+    \subitem {main\_window.MainWindow}, \hyperpage{117}
+    \subitem {transformation\_operations.TransformationOperations}, 
+		\hyperpage{156}
+  \item {selection\_service.SelectionService}, \hyperpage{149}
+    \subitem {\_\_init\_\_}, \hyperpage{150}
+    \subitem {add\_edge}, \hyperpage{150}
+    \subitem {bool\_selection}, \hyperpage{153}
+    \subitem {clear\_and\_select\_item}, \hyperpage{150}
+    \subitem {clear\_edges}, \hyperpage{151}
+    \subitem {clear\_selection}, \hyperpage{151}
+    \subitem {highlight\_edge}, \hyperpage{151}
+    \subitem {last\_selection\_rect}, \hyperpage{153}
+    \subitem {remove\_edge}, \hyperpage{152}
+    \subitem {scene}, \hyperpage{153}
+    \subitem {select\_all}, \hyperpage{152}
+    \subitem {select\_item}, \hyperpage{152}
+    \subitem {selected\_edges}, \hyperpage{154}
+    \subitem {selected\_pen}, \hyperpage{154}
+    \subitem {selection\_brush}, \hyperpage{154}
+    \subitem {selection\_pen}, \hyperpage{154}
+    \subitem {selection\_rect}, \hyperpage{154}
+    \subitem {update\_selection}, \hyperpage{153}
+  \item {separator}
+    \subitem {data\_parser.DataParser}, \hyperpage{45}
+  \item {setupUi}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{164}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{168}
+  \item {show\_tree\_context\_menu}
+    \subitem {main\_window.MainWindow}, \hyperpage{114}, 
+		\hyperpage{117}
+  \item {SLIP}
+    \subitem {turbulence\_models.WallType}, \hyperpage{173}
+  \item {spacing}
+    \subitem {grid\_scene.GridScene}, \hyperpage{91}
+  \item {SST}
+    \subitem {turbulence\_models.TurbulenceModel}, \hyperpage{160}
+  \item {start\_point}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+  \item {start\_rotation}
+    \subitem {rotate\_command.RotateCommand}, \hyperpage{148}
+  \item {start\_x}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{102}
+  \item {start\_y}
+    \subitem {line\_dialog.LineDialog}, \hyperpage{102}
+  \item {statusbar}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{170}
+  \item {stream}
+    \subitem {main}, \hyperpage{15}
+
+  \indexspace
+
+  \item {t\_max}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{137}
+  \item {t\_min}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{137}
+  \item {temp\_curve\_item}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+  \item {temp\_item}
+    \subitem {event\_handler.EventHandler}, \hyperpage{77}
+  \item {template}, \hyperpage{17}
+  \item {template.Ui\_MainWindow}, \hyperpage{166}
+    \subitem {actionBuildMesh}, \hyperpage{168}
+    \subitem {actionDifference}, \hyperpage{168}
+    \subitem {actionDrawCircleByParams}, \hyperpage{168}
+    \subitem {actionDrawCurveByParams}, \hyperpage{168}
+    \subitem {actionDrawLineByParams}, \hyperpage{168}
+    \subitem {actionDrawParametric}, \hyperpage{169}
+    \subitem {actionDrawRectByParams}, \hyperpage{169}
+    \subitem {actionIntersection}, \hyperpage{169}
+    \subitem {actionMirror}, \hyperpage{169}
+    \subitem {actionRotate}, \hyperpage{169}
+    \subitem {actionUnion}, \hyperpage{169}
+    \subitem {centralwidget}, \hyperpage{169}
+    \subitem {graphicsView}, \hyperpage{169}
+    \subitem {horizontalLayout}, \hyperpage{169}
+    \subitem {mainToolBar}, \hyperpage{169}
+    \subitem {projectTree}, \hyperpage{170}
+    \subitem {propertiesLayout}, \hyperpage{170}
+    \subitem {retranslateUi}, \hyperpage{168}
+    \subitem {setupUi}, \hyperpage{168}
+    \subitem {statusbar}, \hyperpage{170}
+    \subitem {verticalLayout}, \hyperpage{170}
+  \item {test}
+    \subitem {doxytest.DoxyTest}, \hyperpage{51}
+  \item {toolbar}
+    \subitem {main\_window.MainWindow}, \hyperpage{117}
+  \item {top\_left\_x}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{145}
+  \item {top\_left\_y}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{146}
+  \item {transformation\_operations}, \hyperpage{17}
+    \subitem {main\_window.MainWindow}, \hyperpage{117}
+  \item {transformation\_operations.TransformationOperations}, 
+		\hyperpage{154}
+    \subitem {\_\_init\_\_}, \hyperpage{155}
+    \subitem {command\_service}, \hyperpage{155}
+    \subitem {parent}, \hyperpage{155}
+    \subitem {perform\_mirror}, \hyperpage{155}
+    \subitem {perform\_rotate}, \hyperpage{155}
+    \subitem {scene}, \hyperpage{155}
+    \subitem {selection\_service}, \hyperpage{156}
+  \item {turb\_type}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{37}
+  \item {turbulence\_dialog}, \hyperpage{18}
+  \item {turbulence\_dialog.TurbulenceDialog}, \hyperpage{156}
+    \subitem {\_\_init\_\_}, \hyperpage{157}
+    \subitem {accept}, \hyperpage{158}
+    \subitem {get\_data}, \hyperpage{158}
+    \subitem {model\_combo}, \hyperpage{158}
+    \subitem {reject}, \hyperpage{158}
+  \item {turbulence\_models}, \hyperpage{18}
+  \item {turbulence\_models.BoundaryConditions}, \hyperpage{31}
+  \item {turbulence\_models.BoundaryConditionType}, \hyperpage{38}
+    \subitem {INLET}, \hyperpage{39}
+    \subitem {OPEN}, \hyperpage{39}
+    \subitem {WALL}, \hyperpage{39}
+  \item {turbulence\_models.InitialConditions}, \hyperpage{92}
+    \subitem {k}, \hyperpage{92}
+    \subitem {omega}, \hyperpage{92}
+    \subitem {p}, \hyperpage{92}
+    \subitem {u}, \hyperpage{92}
+    \subitem {v}, \hyperpage{92}
+  \item {turbulence\_models.InletBoundaryConditions}, \hyperpage{97}
+    \subitem {k}, \hyperpage{98}
+    \subitem {omega}, \hyperpage{98}
+    \subitem {type}, \hyperpage{98}
+    \subitem {u}, \hyperpage{99}
+    \subitem {v}, \hyperpage{99}
+  \item {turbulence\_models.Material}, \hyperpage{118}
+    \subitem {mu}, \hyperpage{118}
+    \subitem {rho}, \hyperpage{118}
+  \item {turbulence\_models.OpenBoundaryConditions}, \hyperpage{129}
+    \subitem {k}, \hyperpage{130}
+    \subitem {omega}, \hyperpage{130}
+    \subitem {type}, \hyperpage{130}
+  \item {turbulence\_models.TurbulenceModel}, \hyperpage{159}
+    \subitem {K\_EPSILON}, \hyperpage{160}
+    \subitem {LAMINAR}, \hyperpage{160}
+    \subitem {SST}, \hyperpage{160}
+  \item {turbulence\_models.TurbulenceParams}, \hyperpage{161}
+    \subitem {model}, \hyperpage{161}
+  \item {turbulence\_models.WallBoundaryConditions}, \hyperpage{170}
+    \subitem {type}, \hyperpage{171}
+    \subitem {wall}, \hyperpage{171}
+  \item {turbulence\_models.WallType}, \hyperpage{172}
+    \subitem {NO\_SLIP}, \hyperpage{173}
+    \subitem {SLIP}, \hyperpage{173}
+  \item {turbulence\_params}
+    \subitem {main\_window.MainWindow}, \hyperpage{117}
+  \item {type}
+    \subitem {turbulence\_models.InletBoundaryConditions}, 
+		\hyperpage{98}
+    \subitem {turbulence\_models.OpenBoundaryConditions}, 
+		\hyperpage{130}
+    \subitem {turbulence\_models.WallBoundaryConditions}, 
+		\hyperpage{171}
+  \item {type\_combo}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{37}
+
+  \indexspace
+
+  \item {u}
+    \subitem {turbulence\_models.InitialConditions}, \hyperpage{92}
+    \subitem {turbulence\_models.InletBoundaryConditions}, 
+		\hyperpage{99}
+  \item {u\_input}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{37}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{96}
+  \item {ui}
+    \subitem {main\_window.MainWindow}, \hyperpage{118}
+  \item {undo}
+    \subitem {add\_command.AddCommand}, \hyperpage{21}
+    \subitem {command.Command}, \hyperpage{40}
+    \subitem {command\_service.CommandService}, \hyperpage{43}
+    \subitem {delete\_command.DeleteCommand}, \hyperpage{48}
+    \subitem {move\_command.MoveCommand}, \hyperpage{127}
+    \subitem {rotate\_command.RotateCommand}, \hyperpage{148}
+  \item {undo\_stack}
+    \subitem {command\_service.CommandService}, \hyperpage{43}
+  \item {update\_labels}
+    \subitem {grid\_scene.GridScene}, \hyperpage{90, 91}
+  \item {update\_path}
+    \subitem {editable\_bezier.EditableBezierCurveItem}, \hyperpage{65}
+  \item {update\_project\_tree}
+    \subitem {main\_window.MainWindow}, \hyperpage{115}
+  \item {update\_selection}
+    \subitem {selection\_service.SelectionService}, \hyperpage{153}
+
+  \indexspace
+
+  \item {v}
+    \subitem {turbulence\_models.InitialConditions}, \hyperpage{92}
+    \subitem {turbulence\_models.InletBoundaryConditions}, 
+		\hyperpage{99}
+  \item {v\_input}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{37}
+    \subitem {initial\_conditions\_dialog.InitialConditionsDialog}, 
+		\hyperpage{96}
+  \item {verticalLayout}
+    \subitem {template.Ui\_MainWindow}, \hyperpage{170}
+  \item {verticalLayout\_3}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{165}
+  \item {viscosityEdit}
+    \subitem {material\_dialog.MaterialDialog}, \hyperpage{121}
+
+  \indexspace
+
+  \item {WALL}
+    \subitem {turbulence\_models.BoundaryConditionType}, \hyperpage{39}
+  \item {wall}
+    \subitem {turbulence\_models.WallBoundaryConditions}, 
+		\hyperpage{171}
+  \item {wall\_type\_combo}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{37}
+  \item {wall\_widget}
+    \subitem {boundary\_conditions\_dialog.BoundaryConditionsDialog}, 
+		\hyperpage{37}
+  \item {wheelEvent}
+    \subitem {graphics\_view.GraphicsView}, \hyperpage{85}
+  \item {widget\_visualisation}
+    \subitem {comsol.Ui\_MainWindow}, \hyperpage{166}
+  \item {width}
+    \subitem {rect\_dialog.RectDialog}, \hyperpage{146}
+  \item {window}
+    \subitem {main}, \hyperpage{15}
+    \subitem {main\_window}, \hyperpage{15}
+
+  \indexspace
+
+  \item {x\_expr}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{137}
+
+  \indexspace
+
+  \item {y\_expr}
+    \subitem {parametric\_dialog.ParametricDialog}, \hyperpage{137}
+
+\end{theindex}

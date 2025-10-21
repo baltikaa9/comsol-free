@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['samples_0',['samples',['../classparametric__dialog_1_1ParametricDialog.html#ae05b8eeea14894ce2c38bc877a92ae32',1,'parametric_dialog::ParametricDialog']]],
+  ['scene_1',['scene',['../classadd__command_1_1AddCommand.html#a11a36a2fbe0fef7c741e43b8080f386d',1,'add_command.AddCommand.scene'],['../classdelete__command_1_1DeleteCommand.html#adebc676b159a3332d9ca196804682b4d',1,'delete_command.DeleteCommand.scene'],['../classevent__handler_1_1EventHandler.html#a5de78c239f198624ce38993559a50850',1,'event_handler.EventHandler.scene'],['../classmain__window_1_1MainWindow.html#ab85ef0a6560feacee5022f398e8dd7dd',1,'main_window.MainWindow.scene'],['../classboolean__operations_1_1BooleanOperations.html#ac23bd2f512305420505b3ea81740a34b',1,'boolean_operations.BooleanOperations.scene'],['../classtransformation__operations_1_1TransformationOperations.html#ab83e2993c73d33b5874e46a9350ecb8f',1,'transformation_operations.TransformationOperations.scene'],['../classdrawing__service_1_1DrawingService.html#aa1b18a48c550432e23e86beb79d3c9fc',1,'drawing_service.DrawingService.scene'],['../classselection__service_1_1SelectionService.html#a9f189a774d3011b01f8f72404aeec399',1,'selection_service.SelectionService.scene']]],
+  ['scene_5fref_2',['scene_ref',['../classeditable__bezier_1_1EditableBezierCurveItem.html#abde16ad2d134c69bebddd117e803d040',1,'editable_bezier::EditableBezierCurveItem']]],
+  ['selected_5fedges_3',['selected_edges',['../classselection__service_1_1SelectionService.html#aae0e0af85bbcc64fc7b0e65767cfe5f4',1,'selection_service::SelectionService']]],
+  ['selected_5fitems_4',['selected_items',['../classdelete__command_1_1DeleteCommand.html#a612651cc4484cac713b7df75b8315694',1,'delete_command::DeleteCommand']]],
+  ['selected_5fpen_5',['selected_pen',['../classselection__service_1_1SelectionService.html#a214517cedaa549afb00c8769cb471b2d',1,'selection_service::SelectionService']]],
+  ['selection_5fbrush_6',['selection_brush',['../classselection__service_1_1SelectionService.html#a5baf5085c330223d1bcff9e7bab286a6',1,'selection_service::SelectionService']]],
+  ['selection_5fpen_7',['selection_pen',['../classselection__service_1_1SelectionService.html#a25a4e05d2b2282359490df048970f300',1,'selection_service::SelectionService']]],
+  ['selection_5frect_8',['selection_rect',['../classselection__service_1_1SelectionService.html#a08f1307b617488d8ca5e84142282c6c2',1,'selection_service::SelectionService']]],
+  ['selection_5fservice_9',['selection_service',['../classevent__handler_1_1EventHandler.html#aff10d1738db79fd751d80d5fd68ca0a0',1,'event_handler.EventHandler.selection_service'],['../classmain__window_1_1MainWindow.html#a124b9ff4532f14270b0d77293d9fee07',1,'main_window.MainWindow.selection_service'],['../classboolean__operations_1_1BooleanOperations.html#a70b4c470a12def3767a9a4d833294778',1,'boolean_operations.BooleanOperations.selection_service'],['../classtransformation__operations_1_1TransformationOperations.html#af6c5d0be4748e17aa6731a23be668aed',1,'transformation_operations.TransformationOperations.selection_service'],['../classdrawing__service_1_1DrawingService.html#a4eaa13ad8154be4cac8a345410759db7',1,'drawing_service.DrawingService.selection_service']]],
+  ['separator_10',['separator',['../classdata__parser_1_1DataParser.html#aea530b7057a72f89972824f455dff418',1,'data_parser::DataParser']]],
+  ['show_5ftree_5fcontext_5fmenu_11',['show_tree_context_menu',['../classmain__window_1_1MainWindow.html#a1c10a289368f064fbf4f23bcbd42439d',1,'main_window::MainWindow']]],
+  ['slip_12',['SLIP',['../classturbulence__models_1_1WallType.html#a4002e7fc12765b9a9b1adc5b68e59668',1,'turbulence_models::WallType']]],
+  ['spacing_13',['spacing',['../classgrid__scene_1_1GridScene.html#a0aa5ab95658e6cdc5327f78270c085ec',1,'grid_scene::GridScene']]],
+  ['sst_14',['SST',['../classturbulence__models_1_1TurbulenceModel.html#ad968d7dca0ea85a6ad427c0eb6235861',1,'turbulence_models::TurbulenceModel']]],
+  ['start_5fpoint_15',['start_point',['../classevent__handler_1_1EventHandler.html#a6efd448ba76d11a37c713f81983a09ca',1,'event_handler::EventHandler']]],
+  ['start_5frotation_16',['start_rotation',['../classrotate__command_1_1RotateCommand.html#a9facb857f1ac4803e33f4daa9daf6d96',1,'rotate_command::RotateCommand']]],
+  ['start_5fx_17',['start_x',['../classline__dialog_1_1LineDialog.html#a409b9b37c4864a9005ae0accb83a57be',1,'line_dialog::LineDialog']]],
+  ['start_5fy_18',['start_y',['../classline__dialog_1_1LineDialog.html#a9b177c0d55f4ffbdbc9e4015e76f77c5',1,'line_dialog::LineDialog']]],
+  ['statusbar_19',['statusbar',['../classtemplate_1_1Ui__MainWindow.html#af5123e9532350eed122dff9e2827cc5d',1,'template::Ui_MainWindow']]],
+  ['stream_20',['stream',['../namespacemain.html#a149044769e4240e5e123bc578375588d',1,'main']]]
+];

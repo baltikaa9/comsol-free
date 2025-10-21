@@ -1,0 +1,5 @@
+<map id="main_window.MainWindow.build_gmsh_mesh" name="main_window.MainWindow.build_gmsh_mesh">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,239,50"/>
+<area shape="rect" id="Node000002" href="$classmain__window_1_1MainWindow.html#a192412152345fa0090c3a22e690032a9" title=" " alt="" coords="287,14,564,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="239,25,271,25,271,30,239,30"/>
+</map>

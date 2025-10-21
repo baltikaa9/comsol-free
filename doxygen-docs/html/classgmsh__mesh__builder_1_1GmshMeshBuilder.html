@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>comsol-freedd: Класс gmsh_mesh_builder.GmshMeshBuilder</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">comsol-freedd<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classgmsh__mesh__builder_1_1GmshMeshBuilder.html','','classgmsh__mesh__builder_1_1GmshMeshBuilder-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Класс gmsh_mesh_builder.GmshMeshBuilder</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Граф связей класса gmsh_mesh_builder.GmshMeshBuilder:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgmsh__mesh__builder_1_1GmshMeshBuilder__coll__graph.png" border="0" usemap="#agmsh__mesh__builder_8GmshMeshBuilder_coll__map" loading="lazy" alt="Collaboration graph"/></div>
+<map name="agmsh__mesh__builder_8GmshMeshBuilder_coll__map" id="agmsh__mesh__builder_8GmshMeshBuilder_coll__map">
+<area shape="rect" title=" " alt="" coords="5,5,223,438"/>
+</map>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a32563c6f48256a2d366838db23a509b0" id="r_a32563c6f48256a2d366838db23a509b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32563c6f48256a2d366838db23a509b0">__init__</a> (self, int <a class="el" href="#adcd2a143ec34ffeaaa4a9bdb1ce2ca28">grid_spacing</a>=1, str <a class="el" href="#a5dc149daffe4b63571422a5063e98ea1">filename</a>='mesh.msh')</td></tr>
+<tr class="memitem:aa41dbadf5ad8618586bb7a21828aa6ac" id="r_aa41dbadf5ad8618586bb7a21828aa6ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa41dbadf5ad8618586bb7a21828aa6ac">add_loop</a> (self, list[EdgeItem] loop, float max_element_size)</td></tr>
+<tr class="memitem:aa6c56d63241764160c0502320ca85861" id="r_aa6c56d63241764160c0502320ca85861"><td class="memItemLeft" align="right" valign="top">list[list[EdgeItem]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6c56d63241764160c0502320ca85861">build_closed_loops</a> (self, list[EdgeItem] edges)</td></tr>
+<tr class="memitem:a7c2d893ddeba8ea1f06b30d525cb8f25" id="r_a7c2d893ddeba8ea1f06b30d525cb8f25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c2d893ddeba8ea1f06b30d525cb8f25">equal_points</a> (self, QPointF a, QPointF b, tol=1e-3)</td></tr>
+<tr class="memitem:a52a3c267831ae494953ebef6a4a90d1a" id="r_a52a3c267831ae494953ebef6a4a90d1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52a3c267831ae494953ebef6a4a90d1a">build_mesh</a> (self, list[EdgeItem] edges, float max_element_size)</td></tr>
+<tr class="memitem:a6ec9dc70c915b9b4ddc2eeecc44227e5" id="r_a6ec9dc70c915b9b4ddc2eeecc44227e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ec9dc70c915b9b4ddc2eeecc44227e5">__del__</a> (self)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:adcd2a143ec34ffeaaa4a9bdb1ce2ca28" id="r_adcd2a143ec34ffeaaa4a9bdb1ce2ca28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adcd2a143ec34ffeaaa4a9bdb1ce2ca28">grid_spacing</a> = grid_spacing</td></tr>
+<tr class="memitem:a5dc149daffe4b63571422a5063e98ea1" id="r_a5dc149daffe4b63571422a5063e98ea1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dc149daffe4b63571422a5063e98ea1">filename</a> = filename</td></tr>
+<tr class="memitem:a70ecd3ee5e4d89bfb5359b753feb733b" id="r_a70ecd3ee5e4d89bfb5359b753feb733b"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70ecd3ee5e4d89bfb5359b753feb733b">boundary_conditions</a> = {}</td></tr>
+</table>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Конструктор(ы)</h2>
+<a id="a32563c6f48256a2d366838db23a509b0" name="a32563c6f48256a2d366838db23a509b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32563c6f48256a2d366838db23a509b0">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gmsh_mesh_builder.GmshMeshBuilder.__init__ </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int </td>          <td class="paramname"><span class="paramname"><em>grid_spacing</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str </td>          <td class="paramname"><span class="paramname"><em>filename</em></span><span class="paramdefsep"> = </span><span class="paramdefval">'mesh.msh'</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ec9dc70c915b9b4ddc2eeecc44227e5" name="a6ec9dc70c915b9b4ddc2eeecc44227e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ec9dc70c915b9b4ddc2eeecc44227e5">&#9670;&#160;</a></span>__del__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gmsh_mesh_builder.GmshMeshBuilder.__del__ </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Методы</h2>
+<a id="aa41dbadf5ad8618586bb7a21828aa6ac" name="aa41dbadf5ad8618586bb7a21828aa6ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa41dbadf5ad8618586bb7a21828aa6ac">&#9670;&#160;</a></span>add_loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gmsh_mesh_builder.GmshMeshBuilder.add_loop </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list[EdgeItem]</td>          <td class="paramname"><span class="paramname"><em>loop</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>max_element_size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgmsh__mesh__builder_1_1GmshMeshBuilder_aa41dbadf5ad8618586bb7a21828aa6ac_icgraph.png" border="0" usemap="#aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa41dbadf5ad8618586bb7a21828aa6ac_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa41dbadf5ad8618586bb7a21828aa6ac_icgraph" id="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa41dbadf5ad8618586bb7a21828aa6ac_icgraph">
+<area shape="rect" title=" " alt="" coords="282,5,510,50"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#a52a3c267831ae494953ebef6a4a90d1a" title=" " alt="" coords="5,5,234,50"/>
+<area shape="poly" title=" " alt="" coords="266,30,234,30,234,25,266,25"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa6c56d63241764160c0502320ca85861" name="aa6c56d63241764160c0502320ca85861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6c56d63241764160c0502320ca85861">&#9670;&#160;</a></span>build_closed_loops()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> list[list[EdgeItem]] gmsh_mesh_builder.GmshMeshBuilder.build_closed_loops </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list[EdgeItem]</td>          <td class="paramname"><span class="paramname"><em>edges</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Вернёт список замкнутых циклов (каждый — список EdgeItem в порядке обхода).
+Если какая-то цепочка не закрылась (открытая), она в результат не попадёт.
+</pre> <div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_cgraph.png" border="0" usemap="#aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_cgraph" id="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,234,50"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#a7c2d893ddeba8ea1f06b30d525cb8f25" title=" " alt="" coords="282,5,510,50"/>
+<area shape="poly" title=" " alt="" coords="234,25,266,25,266,30,234,30"/>
+</map>
+</div>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_icgraph.png" border="0" usemap="#aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_icgraph" id="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_aa6c56d63241764160c0502320ca85861_icgraph">
+<area shape="rect" title=" " alt="" coords="282,5,510,50"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#a52a3c267831ae494953ebef6a4a90d1a" title=" " alt="" coords="5,5,234,50"/>
+<area shape="poly" title=" " alt="" coords="266,30,234,30,234,25,266,25"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a52a3c267831ae494953ebef6a4a90d1a" name="a52a3c267831ae494953ebef6a4a90d1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52a3c267831ae494953ebef6a4a90d1a">&#9670;&#160;</a></span>build_mesh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gmsh_mesh_builder.GmshMeshBuilder.build_mesh </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list[EdgeItem]</td>          <td class="paramname"><span class="paramname"><em>edges</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>max_element_size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgmsh__mesh__builder_1_1GmshMeshBuilder_a52a3c267831ae494953ebef6a4a90d1a_cgraph.png" border="0" usemap="#aclassgmsh__mesh__builder_1_1GmshMeshBuilder_a52a3c267831ae494953ebef6a4a90d1a_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_a52a3c267831ae494953ebef6a4a90d1a_cgraph" id="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_a52a3c267831ae494953ebef6a4a90d1a_cgraph">
+<area shape="rect" title=" " alt="" coords="5,40,234,85"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#aa41dbadf5ad8618586bb7a21828aa6ac" title=" " alt="" coords="282,5,510,50"/>
+<area shape="poly" title=" " alt="" coords="234,45,266,41,267,47,234,51"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#aa6c56d63241764160c0502320ca85861" title=" " alt="" coords="282,75,510,119"/>
+<area shape="poly" title=" " alt="" coords="234,74,267,78,266,83,234,79"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#a7c2d893ddeba8ea1f06b30d525cb8f25" title=" " alt="" coords="558,75,786,119"/>
+<area shape="poly" title=" " alt="" coords="510,94,543,94,543,100,510,100"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7c2d893ddeba8ea1f06b30d525cb8f25" name="a7c2d893ddeba8ea1f06b30d525cb8f25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c2d893ddeba8ea1f06b30d525cb8f25">&#9670;&#160;</a></span>equal_points()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool gmsh_mesh_builder.GmshMeshBuilder.equal_points </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPointF</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPointF</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>tol</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-3</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgmsh__mesh__builder_1_1GmshMeshBuilder_a7c2d893ddeba8ea1f06b30d525cb8f25_icgraph.png" border="0" usemap="#aclassgmsh__mesh__builder_1_1GmshMeshBuilder_a7c2d893ddeba8ea1f06b30d525cb8f25_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_a7c2d893ddeba8ea1f06b30d525cb8f25_icgraph" id="aclassgmsh__mesh__builder_1_1GmshMeshBuilder_a7c2d893ddeba8ea1f06b30d525cb8f25_icgraph">
+<area shape="rect" title=" " alt="" coords="558,5,786,50"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#aa6c56d63241764160c0502320ca85861" title=" " alt="" coords="282,5,510,50"/>
+<area shape="poly" title=" " alt="" coords="542,30,510,30,510,25,542,25"/>
+<area shape="rect" href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html#a52a3c267831ae494953ebef6a4a90d1a" title=" " alt="" coords="5,5,234,50"/>
+<area shape="poly" title=" " alt="" coords="266,30,234,30,234,25,266,25"/>
+</map>
+</div>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Данные класса</h2>
+<a id="a70ecd3ee5e4d89bfb5359b753feb733b" name="a70ecd3ee5e4d89bfb5359b753feb733b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ecd3ee5e4d89bfb5359b753feb733b">&#9670;&#160;</a></span>boundary_conditions</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict gmsh_mesh_builder.GmshMeshBuilder.boundary_conditions = {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5dc149daffe4b63571422a5063e98ea1" name="a5dc149daffe4b63571422a5063e98ea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dc149daffe4b63571422a5063e98ea1">&#9670;&#160;</a></span>filename</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gmsh_mesh_builder.GmshMeshBuilder.filename = filename</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adcd2a143ec34ffeaaa4a9bdb1ce2ca28" name="adcd2a143ec34ffeaaa4a9bdb1ce2ca28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcd2a143ec34ffeaaa4a9bdb1ce2ca28">&#9670;&#160;</a></span>grid_spacing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gmsh_mesh_builder.GmshMeshBuilder.grid_spacing = grid_spacing</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>modules/data/src/services/<a class="el" href="gmsh__mesh__builder_8py.html">gmsh_mesh_builder.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacegmsh__mesh__builder.html">gmsh_mesh_builder</a></li><li class="navelem"><a href="classgmsh__mesh__builder_1_1GmshMeshBuilder.html">GmshMeshBuilder</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
+  </ul>
+</div>
+</body>
+</html>

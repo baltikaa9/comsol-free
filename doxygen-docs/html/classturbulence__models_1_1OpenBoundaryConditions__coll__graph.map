@@ -1,0 +1,9 @@
+<map id="turbulence_models.OpenBoundaryConditions" name="turbulence_models.OpenBoundaryConditions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="10,334,244,446"/>
+<area shape="rect" id="Node000002" href="$classturbulence__models_1_1BoundaryConditions.html" title=" " alt="" coords="5,149,206,239"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,253,124,334,118,335,109,253"/>
+<area shape="rect" id="Node000003" href="$classturbulence__models_1_1BoundaryConditionType.html" title=" " alt="" coords="231,127,431,261"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,263,198,325,195,321,260,259"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="307,5,355,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="334,93,334,127,328,127,328,93"/>
+</map>

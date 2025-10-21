@@ -1,0 +1,665 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\babel@toc {russian}{}\relax 
+\contentsline {chapter}{\numberline {1}Алфавитный указатель пространств имен}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Пространства имен}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Иерархический список классов}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Иерархия классов}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Алфавитный указатель классов}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Классы}{5}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Список файлов}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Файлы}{7}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Пространства имен}{9}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Пространство имен add\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command}{9}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Пространство имен bezier\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{9}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Пространство имен boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item}{9}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Пространство имен boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}operations}{9}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Пространство имен boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{9}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Пространство имен command}{10}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Пространство имен command\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service}{10}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Пространство имен comsol}{10}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Пространство имен data\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser}{10}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}Переменные}{10}{subsection.5.9.1}%
+\contentsline {subsubsection}{\numberline {5.9.1.1}c}{10}{subsubsection.5.9.1.1}%
+\contentsline {subsubsection}{\numberline {5.9.1.2}data}{10}{subsubsection.5.9.1.2}%
+\contentsline {subsubsection}{\numberline {5.9.1.3}parser}{10}{subsubsection.5.9.1.3}%
+\contentsline {section}{\numberline {5.10}Пространство имен delete\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command}{11}{section.5.10}%
+\contentsline {section}{\numberline {5.11}Пространство имен dialog}{11}{section.5.11}%
+\contentsline {section}{\numberline {5.12}Пространство имен dialog\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory}{11}{section.5.12}%
+\contentsline {section}{\numberline {5.13}Пространство имен doxytest}{11}{section.5.13}%
+\contentsline {section}{\numberline {5.14}Пространство имен drawing\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service}{11}{section.5.14}%
+\contentsline {section}{\numberline {5.15}Пространство имен edge\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item}{11}{section.5.15}%
+\contentsline {subsection}{\numberline {5.15.1}Функции}{12}{subsection.5.15.1}%
+\contentsline {subsubsection}{\numberline {5.15.1.1}\_next\_edge\_id()}{12}{subsubsection.5.15.1.1}%
+\contentsline {subsection}{\numberline {5.15.2}Переменные}{12}{subsection.5.15.2}%
+\contentsline {subsubsection}{\numberline {5.15.2.1}\_edge\_id\_counter}{12}{subsubsection.5.15.2.1}%
+\contentsline {subsubsection}{\numberline {5.15.2.2}e}{12}{subsubsection.5.15.2.2}%
+\contentsline {subsubsection}{\numberline {5.15.2.3}p}{12}{subsubsection.5.15.2.3}%
+\contentsline {subsubsection}{\numberline {5.15.2.4}p1}{12}{subsubsection.5.15.2.4}%
+\contentsline {subsubsection}{\numberline {5.15.2.5}p2}{12}{subsubsection.5.15.2.5}%
+\contentsline {section}{\numberline {5.16}Пространство имен editable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bezier}{12}{section.5.16}%
+\contentsline {section}{\numberline {5.17}Пространство имен ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{13}{section.5.17}%
+\contentsline {section}{\numberline {5.18}Пространство имен ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item}{13}{section.5.18}%
+\contentsline {subsection}{\numberline {5.18.1}Переменные}{13}{subsection.5.18.1}%
+\contentsline {subsubsection}{\numberline {5.18.1.1}el}{13}{subsubsection.5.18.1.1}%
+\contentsline {section}{\numberline {5.19}Пространство имен event\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}handler}{13}{section.5.19}%
+\contentsline {section}{\numberline {5.20}Пространство имен gmsh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}builder}{13}{section.5.20}%
+\contentsline {section}{\numberline {5.21}Пространство имен graphics\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}view}{13}{section.5.21}%
+\contentsline {section}{\numberline {5.22}Пространство имен grid\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}scene}{14}{section.5.22}%
+\contentsline {section}{\numberline {5.23}Пространство имен initial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{14}{section.5.23}%
+\contentsline {section}{\numberline {5.24}Пространство имен line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{14}{section.5.24}%
+\contentsline {section}{\numberline {5.25}Пространство имен line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item}{14}{section.5.25}%
+\contentsline {section}{\numberline {5.26}Пространство имен main}{14}{section.5.26}%
+\contentsline {subsection}{\numberline {5.26.1}Переменные}{14}{subsection.5.26.1}%
+\contentsline {subsubsection}{\numberline {5.26.1.1}app}{14}{subsubsection.5.26.1.1}%
+\contentsline {subsubsection}{\numberline {5.26.1.2}DEBUG}{15}{subsubsection.5.26.1.2}%
+\contentsline {subsubsection}{\numberline {5.26.1.3}font}{15}{subsubsection.5.26.1.3}%
+\contentsline {subsubsection}{\numberline {5.26.1.4}format}{15}{subsubsection.5.26.1.4}%
+\contentsline {subsubsection}{\numberline {5.26.1.5}level}{15}{subsubsection.5.26.1.5}%
+\contentsline {subsubsection}{\numberline {5.26.1.6}stream}{15}{subsubsection.5.26.1.6}%
+\contentsline {subsubsection}{\numberline {5.26.1.7}window}{15}{subsubsection.5.26.1.7}%
+\contentsline {section}{\numberline {5.27}Пространство имен main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}window}{15}{section.5.27}%
+\contentsline {subsection}{\numberline {5.27.1}Переменные}{15}{subsection.5.27.1}%
+\contentsline {subsubsection}{\numberline {5.27.1.1}app}{15}{subsubsection.5.27.1.1}%
+\contentsline {subsubsection}{\numberline {5.27.1.2}window}{16}{subsubsection.5.27.1.2}%
+\contentsline {section}{\numberline {5.28}Пространство имен material\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{16}{section.5.28}%
+\contentsline {section}{\numberline {5.29}Пространство имен mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{16}{section.5.29}%
+\contentsline {section}{\numberline {5.30}Пространство имен move\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command}{16}{section.5.30}%
+\contentsline {section}{\numberline {5.31}Пространство имен mpl\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}canvas}{16}{section.5.31}%
+\contentsline {section}{\numberline {5.32}Пространство имен parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}curve\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item}{16}{section.5.32}%
+\contentsline {section}{\numberline {5.33}Пространство имен parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{16}{section.5.33}%
+\contentsline {section}{\numberline {5.34}Пространство имен plotter}{17}{section.5.34}%
+\contentsline {section}{\numberline {5.35}Пространство имен rect\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{17}{section.5.35}%
+\contentsline {section}{\numberline {5.36}Пространство имен rectangle\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item}{17}{section.5.36}%
+\contentsline {section}{\numberline {5.37}Пространство имен rotate\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command}{17}{section.5.37}%
+\contentsline {section}{\numberline {5.38}Пространство имен selection\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service}{17}{section.5.38}%
+\contentsline {section}{\numberline {5.39}Пространство имен template}{17}{section.5.39}%
+\contentsline {section}{\numberline {5.40}Пространство имен transformation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}operations}{17}{section.5.40}%
+\contentsline {section}{\numberline {5.41}Пространство имен turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog}{18}{section.5.41}%
+\contentsline {section}{\numberline {5.42}Пространство имен turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models}{18}{section.5.42}%
+\contentsline {chapter}{\numberline {6}Классы}{19}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Класс add\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Add\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Command}{19}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Конструктор(ы)}{20}{subsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.1}\_\_init\_\_()}{20}{subsubsection.6.1.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Методы}{21}{subsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.1}execute()}{21}{subsubsection.6.1.2.1}%
+\contentsline {subsubsection}{\numberline {6.1.2.2}undo()}{21}{subsubsection.6.1.2.2}%
+\contentsline {subsection}{\numberline {6.1.3}Данные класса}{21}{subsection.6.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.3.1}item}{21}{subsubsection.6.1.3.1}%
+\contentsline {subsubsection}{\numberline {6.1.3.2}scene}{21}{subsubsection.6.1.3.2}%
+\contentsline {section}{\numberline {6.2}Класс bezier\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Bezier\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{22}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Конструктор(ы)}{24}{subsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.1.1}\_\_init\_\_()}{24}{subsubsection.6.2.1.1}%
+\contentsline {subsection}{\numberline {6.2.2}Методы}{24}{subsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.2.1}get\_data()}{24}{subsubsection.6.2.2.1}%
+\contentsline {subsection}{\numberline {6.2.3}Данные класса}{24}{subsection.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.2.3.1}accept}{24}{subsubsection.6.2.3.1}%
+\contentsline {subsubsection}{\numberline {6.2.3.2}p0\_x}{25}{subsubsection.6.2.3.2}%
+\contentsline {subsubsection}{\numberline {6.2.3.3}p0\_y}{25}{subsubsection.6.2.3.3}%
+\contentsline {subsubsection}{\numberline {6.2.3.4}p1\_x}{25}{subsubsection.6.2.3.4}%
+\contentsline {subsubsection}{\numberline {6.2.3.5}p1\_y}{25}{subsubsection.6.2.3.5}%
+\contentsline {subsubsection}{\numberline {6.2.3.6}p2\_x}{25}{subsubsection.6.2.3.6}%
+\contentsline {subsubsection}{\numberline {6.2.3.7}p2\_y}{25}{subsubsection.6.2.3.7}%
+\contentsline {subsubsection}{\numberline {6.2.3.8}p3\_x}{25}{subsubsection.6.2.3.8}%
+\contentsline {subsubsection}{\numberline {6.2.3.9}p3\_y}{25}{subsubsection.6.2.3.9}%
+\contentsline {subsubsection}{\numberline {6.2.3.10}reject}{25}{subsubsection.6.2.3.10}%
+\contentsline {section}{\numberline {6.3}Класс boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}operations.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Operations}{26}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Конструктор(ы)}{27}{subsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.1.1}\_\_init\_\_()}{27}{subsubsection.6.3.1.1}%
+\contentsline {subsection}{\numberline {6.3.2}Методы}{27}{subsection.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.2.1}perform\_difference()}{27}{subsubsection.6.3.2.1}%
+\contentsline {subsubsection}{\numberline {6.3.2.2}perform\_intersection()}{27}{subsubsection.6.3.2.2}%
+\contentsline {subsubsection}{\numberline {6.3.2.3}perform\_union()}{28}{subsubsection.6.3.2.3}%
+\contentsline {subsection}{\numberline {6.3.3}Данные класса}{28}{subsection.6.3.3}%
+\contentsline {subsubsection}{\numberline {6.3.3.1}command\_service}{28}{subsubsection.6.3.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.3.2}drawing\_service}{28}{subsubsection.6.3.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.3.3}parent}{28}{subsubsection.6.3.3.3}%
+\contentsline {subsubsection}{\numberline {6.3.3.4}scene}{28}{subsubsection.6.3.3.4}%
+\contentsline {subsubsection}{\numberline {6.3.3.5}selection\_service}{28}{subsubsection.6.3.3.5}%
+\contentsline {section}{\numberline {6.4}Класс boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Shape\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item}{29}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Конструктор(ы)}{30}{subsection.6.4.1}%
+\contentsline {subsubsection}{\numberline {6.4.1.1}\_\_init\_\_()}{30}{subsubsection.6.4.1.1}%
+\contentsline {subsection}{\numberline {6.4.2}Методы}{31}{subsection.6.4.2}%
+\contentsline {subsubsection}{\numberline {6.4.2.1}\_\_repr\_\_()}{31}{subsubsection.6.4.2.1}%
+\contentsline {subsubsection}{\numberline {6.4.2.2}generate\_edges()}{31}{subsubsection.6.4.2.2}%
+\contentsline {subsection}{\numberline {6.4.3}Данные класса}{31}{subsection.6.4.3}%
+\contentsline {subsubsection}{\numberline {6.4.3.1}edges}{31}{subsubsection.6.4.3.1}%
+\contentsline {section}{\numberline {6.5}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Conditions}{31}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Класс boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{33}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Конструктор(ы)}{35}{subsection.6.6.1}%
+\contentsline {subsubsection}{\numberline {6.6.1.1}\_\_init\_\_()}{35}{subsubsection.6.6.1.1}%
+\contentsline {subsection}{\numberline {6.6.2}Методы}{36}{subsection.6.6.2}%
+\contentsline {subsubsection}{\numberline {6.6.2.1}get\_data()}{36}{subsubsection.6.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.6.2.2}on\_type\_change()}{36}{subsubsection.6.6.2.2}%
+\contentsline {subsection}{\numberline {6.6.3}Данные класса}{36}{subsection.6.6.3}%
+\contentsline {subsubsection}{\numberline {6.6.3.1}accept}{36}{subsubsection.6.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.6.3.2}inputs\_form}{36}{subsubsection.6.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.6.3.3}k\_input}{36}{subsubsection.6.6.3.3}%
+\contentsline {subsubsection}{\numberline {6.6.3.4}om\_input}{37}{subsubsection.6.6.3.4}%
+\contentsline {subsubsection}{\numberline {6.6.3.5}on\_type\_change}{37}{subsubsection.6.6.3.5}%
+\contentsline {subsubsection}{\numberline {6.6.3.6}reject}{37}{subsubsection.6.6.3.6}%
+\contentsline {subsubsection}{\numberline {6.6.3.7}turb\_type}{37}{subsubsection.6.6.3.7}%
+\contentsline {subsubsection}{\numberline {6.6.3.8}type\_combo}{37}{subsubsection.6.6.3.8}%
+\contentsline {subsubsection}{\numberline {6.6.3.9}u\_input}{37}{subsubsection.6.6.3.9}%
+\contentsline {subsubsection}{\numberline {6.6.3.10}v\_input}{37}{subsubsection.6.6.3.10}%
+\contentsline {subsubsection}{\numberline {6.6.3.11}wall\_type\_combo}{37}{subsubsection.6.6.3.11}%
+\contentsline {subsubsection}{\numberline {6.6.3.12}wall\_widget}{37}{subsubsection.6.6.3.12}%
+\contentsline {section}{\numberline {6.7}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Condition\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Type}{38}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Данные класса}{39}{subsection.6.7.1}%
+\contentsline {subsubsection}{\numberline {6.7.1.1}INLET}{39}{subsubsection.6.7.1.1}%
+\contentsline {subsubsection}{\numberline {6.7.1.2}OPEN}{39}{subsubsection.6.7.1.2}%
+\contentsline {subsubsection}{\numberline {6.7.1.3}WALL}{39}{subsubsection.6.7.1.3}%
+\contentsline {section}{\numberline {6.8}Класс command.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Command}{39}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Методы}{40}{subsection.6.8.1}%
+\contentsline {subsubsection}{\numberline {6.8.1.1}execute()}{40}{subsubsection.6.8.1.1}%
+\contentsline {subsubsection}{\numberline {6.8.1.2}undo()}{40}{subsubsection.6.8.1.2}%
+\contentsline {section}{\numberline {6.9}Класс command\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Command\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Service}{41}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Конструктор(ы)}{41}{subsection.6.9.1}%
+\contentsline {subsubsection}{\numberline {6.9.1.1}\_\_init\_\_()}{41}{subsubsection.6.9.1.1}%
+\contentsline {subsection}{\numberline {6.9.2}Методы}{42}{subsection.6.9.2}%
+\contentsline {subsubsection}{\numberline {6.9.2.1}append()}{42}{subsubsection.6.9.2.1}%
+\contentsline {subsubsection}{\numberline {6.9.2.2}execute()}{42}{subsubsection.6.9.2.2}%
+\contentsline {subsubsection}{\numberline {6.9.2.3}redo()}{43}{subsubsection.6.9.2.3}%
+\contentsline {subsubsection}{\numberline {6.9.2.4}undo()}{43}{subsubsection.6.9.2.4}%
+\contentsline {subsection}{\numberline {6.9.3}Данные класса}{43}{subsection.6.9.3}%
+\contentsline {subsubsection}{\numberline {6.9.3.1}redo\_stack}{43}{subsubsection.6.9.3.1}%
+\contentsline {subsubsection}{\numberline {6.9.3.2}undo\_stack}{43}{subsubsection.6.9.3.2}%
+\contentsline {section}{\numberline {6.10}Класс data\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Data\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser}{44}{section.6.10}%
+\contentsline {subsection}{\numberline {6.10.1}Конструктор(ы)}{44}{subsection.6.10.1}%
+\contentsline {subsubsection}{\numberline {6.10.1.1}\_\_init\_\_()}{44}{subsubsection.6.10.1.1}%
+\contentsline {subsection}{\numberline {6.10.2}Методы}{44}{subsection.6.10.2}%
+\contentsline {subsubsection}{\numberline {6.10.2.1}parse()}{44}{subsubsection.6.10.2.1}%
+\contentsline {subsection}{\numberline {6.10.3}Данные класса}{45}{subsection.6.10.3}%
+\contentsline {subsubsection}{\numberline {6.10.3.1}file\_path}{45}{subsubsection.6.10.3.1}%
+\contentsline {subsubsection}{\numberline {6.10.3.2}separator}{45}{subsubsection.6.10.3.2}%
+\contentsline {section}{\numberline {6.11}Класс delete\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Delete\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Command}{46}{section.6.11}%
+\contentsline {subsection}{\numberline {6.11.1}Конструктор(ы)}{48}{subsection.6.11.1}%
+\contentsline {subsubsection}{\numberline {6.11.1.1}\_\_init\_\_()}{48}{subsubsection.6.11.1.1}%
+\contentsline {subsection}{\numberline {6.11.2}Методы}{48}{subsection.6.11.2}%
+\contentsline {subsubsection}{\numberline {6.11.2.1}execute()}{48}{subsubsection.6.11.2.1}%
+\contentsline {subsubsection}{\numberline {6.11.2.2}undo()}{48}{subsubsection.6.11.2.2}%
+\contentsline {subsection}{\numberline {6.11.3}Данные класса}{48}{subsection.6.11.3}%
+\contentsline {subsubsection}{\numberline {6.11.3.1}items}{48}{subsubsection.6.11.3.1}%
+\contentsline {subsubsection}{\numberline {6.11.3.2}mesh\_map}{48}{subsubsection.6.11.3.2}%
+\contentsline {subsubsection}{\numberline {6.11.3.3}removed\_mesh}{48}{subsubsection.6.11.3.3}%
+\contentsline {subsubsection}{\numberline {6.11.3.4}scene}{48}{subsubsection.6.11.3.4}%
+\contentsline {subsubsection}{\numberline {6.11.3.5}selected\_items}{49}{subsubsection.6.11.3.5}%
+\contentsline {section}{\numberline {6.12}Класс dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{49}{section.6.12}%
+\contentsline {subsection}{\numberline {6.12.1}Методы}{50}{subsection.6.12.1}%
+\contentsline {subsubsection}{\numberline {6.12.1.1}get\_data()}{50}{subsubsection.6.12.1.1}%
+\contentsline {section}{\numberline {6.13}Класс dialog\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Factory}{50}{section.6.13}%
+\contentsline {subsection}{\numberline {6.13.1}Методы}{50}{subsection.6.13.1}%
+\contentsline {subsubsection}{\numberline {6.13.1.1}create\_dialog()}{50}{subsubsection.6.13.1.1}%
+\contentsline {section}{\numberline {6.14}Класс doxytest.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Doxy\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Test}{51}{section.6.14}%
+\contentsline {subsection}{\numberline {6.14.1}Подробное описание}{51}{subsection.6.14.1}%
+\contentsline {subsection}{\numberline {6.14.2}Конструктор(ы)}{51}{subsection.6.14.2}%
+\contentsline {subsubsection}{\numberline {6.14.2.1}\_\_init\_\_()}{51}{subsubsection.6.14.2.1}%
+\contentsline {subsection}{\numberline {6.14.3}Методы}{51}{subsection.6.14.3}%
+\contentsline {subsubsection}{\numberline {6.14.3.1}test()}{51}{subsubsection.6.14.3.1}%
+\contentsline {section}{\numberline {6.15}Класс editable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bezier.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Draggable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Point}{52}{section.6.15}%
+\contentsline {subsection}{\numberline {6.15.1}Конструктор(ы)}{53}{subsection.6.15.1}%
+\contentsline {subsubsection}{\numberline {6.15.1.1}\_\_init\_\_()}{53}{subsubsection.6.15.1.1}%
+\contentsline {subsection}{\numberline {6.15.2}Методы}{54}{subsection.6.15.2}%
+\contentsline {subsubsection}{\numberline {6.15.2.1}itemChange()}{54}{subsubsection.6.15.2.1}%
+\contentsline {subsection}{\numberline {6.15.3}Данные класса}{55}{subsection.6.15.3}%
+\contentsline {subsubsection}{\numberline {6.15.3.1}curve\_ref}{55}{subsubsection.6.15.3.1}%
+\contentsline {subsubsection}{\numberline {6.15.3.2}index}{55}{subsubsection.6.15.3.2}%
+\contentsline {section}{\numberline {6.16}Класс drawing\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Drawing\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Service}{56}{section.6.16}%
+\contentsline {subsection}{\numberline {6.16.1}Конструктор(ы)}{57}{subsection.6.16.1}%
+\contentsline {subsubsection}{\numberline {6.16.1.1}\_\_init\_\_()}{57}{subsubsection.6.16.1.1}%
+\contentsline {subsection}{\numberline {6.16.2}Методы}{57}{subsection.6.16.2}%
+\contentsline {subsubsection}{\numberline {6.16.2.1}draw\_curve\_by\_params()}{57}{subsubsection.6.16.2.1}%
+\contentsline {subsubsection}{\numberline {6.16.2.2}draw\_ellipse\_by\_params()}{57}{subsubsection.6.16.2.2}%
+\contentsline {subsubsection}{\numberline {6.16.2.3}draw\_line\_by\_params()}{58}{subsubsection.6.16.2.3}%
+\contentsline {subsubsection}{\numberline {6.16.2.4}draw\_parametric()}{58}{subsubsection.6.16.2.4}%
+\contentsline {subsubsection}{\numberline {6.16.2.5}draw\_rect\_by\_params()}{58}{subsubsection.6.16.2.5}%
+\contentsline {subsection}{\numberline {6.16.3}Данные класса}{58}{subsection.6.16.3}%
+\contentsline {subsubsection}{\numberline {6.16.3.1}command\_service}{58}{subsubsection.6.16.3.1}%
+\contentsline {subsubsection}{\numberline {6.16.3.2}default\_pen}{59}{subsubsection.6.16.3.2}%
+\contentsline {subsubsection}{\numberline {6.16.3.3}parent}{59}{subsubsection.6.16.3.3}%
+\contentsline {subsubsection}{\numberline {6.16.3.4}scene}{59}{subsubsection.6.16.3.4}%
+\contentsline {subsubsection}{\numberline {6.16.3.5}selection\_service}{59}{subsubsection.6.16.3.5}%
+\contentsline {section}{\numberline {6.17}Класс edge\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Edge\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item}{59}{section.6.17}%
+\contentsline {subsection}{\numberline {6.17.1}Конструктор(ы)}{60}{subsection.6.17.1}%
+\contentsline {subsubsection}{\numberline {6.17.1.1}\_\_init\_\_()}{60}{subsubsection.6.17.1.1}%
+\contentsline {subsection}{\numberline {6.17.2}Методы}{61}{subsection.6.17.2}%
+\contentsline {subsubsection}{\numberline {6.17.2.1}p1()}{61}{subsubsection.6.17.2.1}%
+\contentsline {subsubsection}{\numberline {6.17.2.2}p2()}{61}{subsubsection.6.17.2.2}%
+\contentsline {subsubsection}{\numberline {6.17.2.3}reverse()}{61}{subsubsection.6.17.2.3}%
+\contentsline {subsection}{\numberline {6.17.3}Данные класса}{62}{subsection.6.17.3}%
+\contentsline {subsubsection}{\numberline {6.17.3.1}id}{62}{subsubsection.6.17.3.1}%
+\contentsline {section}{\numberline {6.18}Класс editable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bezier.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Editable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Bezier\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Curve\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item}{62}{section.6.18}%
+\contentsline {subsection}{\numberline {6.18.1}Конструктор(ы)}{64}{subsection.6.18.1}%
+\contentsline {subsubsection}{\numberline {6.18.1.1}\_\_init\_\_()}{64}{subsubsection.6.18.1.1}%
+\contentsline {subsection}{\numberline {6.18.2}Методы}{64}{subsection.6.18.2}%
+\contentsline {subsubsection}{\numberline {6.18.2.1}\_init\_points()}{64}{subsubsection.6.18.2.1}%
+\contentsline {subsubsection}{\numberline {6.18.2.2}add\_to\_scene()}{64}{subsubsection.6.18.2.2}%
+\contentsline {subsubsection}{\numberline {6.18.2.3}remove\_from\_scene()}{65}{subsubsection.6.18.2.3}%
+\contentsline {subsubsection}{\numberline {6.18.2.4}update\_path()}{65}{subsubsection.6.18.2.4}%
+\contentsline {subsection}{\numberline {6.18.3}Данные класса}{65}{subsection.6.18.3}%
+\contentsline {subsubsection}{\numberline {6.18.3.1}point\_items}{65}{subsubsection.6.18.3.1}%
+\contentsline {subsubsection}{\numberline {6.18.3.2}points}{65}{subsubsection.6.18.3.2}%
+\contentsline {subsubsection}{\numberline {6.18.3.3}scene\_ref}{65}{subsubsection.6.18.3.3}%
+\contentsline {section}{\numberline {6.19}Класс ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{66}{section.6.19}%
+\contentsline {subsection}{\numberline {6.19.1}Конструктор(ы)}{67}{subsection.6.19.1}%
+\contentsline {subsubsection}{\numberline {6.19.1.1}\_\_init\_\_()}{67}{subsubsection.6.19.1.1}%
+\contentsline {subsection}{\numberline {6.19.2}Методы}{68}{subsection.6.19.2}%
+\contentsline {subsubsection}{\numberline {6.19.2.1}get\_data()}{68}{subsubsection.6.19.2.1}%
+\contentsline {subsection}{\numberline {6.19.3}Данные класса}{68}{subsection.6.19.3}%
+\contentsline {subsubsection}{\numberline {6.19.3.1}accept}{68}{subsubsection.6.19.3.1}%
+\contentsline {subsubsection}{\numberline {6.19.3.2}center\_x}{68}{subsubsection.6.19.3.2}%
+\contentsline {subsubsection}{\numberline {6.19.3.3}center\_y}{68}{subsubsection.6.19.3.3}%
+\contentsline {subsubsection}{\numberline {6.19.3.4}radius\_x}{69}{subsubsection.6.19.3.4}%
+\contentsline {subsubsection}{\numberline {6.19.3.5}radius\_y}{69}{subsubsection.6.19.3.5}%
+\contentsline {subsubsection}{\numberline {6.19.3.6}reject}{69}{subsubsection.6.19.3.6}%
+\contentsline {section}{\numberline {6.20}Класс ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item}{69}{section.6.20}%
+\contentsline {subsection}{\numberline {6.20.1}Конструктор(ы)}{70}{subsection.6.20.1}%
+\contentsline {subsubsection}{\numberline {6.20.1.1}\_\_init\_\_()}{70}{subsubsection.6.20.1.1}%
+\contentsline {subsection}{\numberline {6.20.2}Методы}{71}{subsection.6.20.2}%
+\contentsline {subsubsection}{\numberline {6.20.2.1}\_\_repr\_\_()}{71}{subsubsection.6.20.2.1}%
+\contentsline {subsubsection}{\numberline {6.20.2.2}generate\_edges()}{71}{subsubsection.6.20.2.2}%
+\contentsline {subsubsection}{\numberline {6.20.2.3}get\_path()}{72}{subsubsection.6.20.2.3}%
+\contentsline {subsection}{\numberline {6.20.3}Данные класса}{72}{subsection.6.20.3}%
+\contentsline {subsubsection}{\numberline {6.20.3.1}edges}{72}{subsubsection.6.20.3.1}%
+\contentsline {section}{\numberline {6.21}Класс event\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}handler.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Event\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Handler}{73}{section.6.21}%
+\contentsline {subsection}{\numberline {6.21.1}Конструктор(ы)}{74}{subsection.6.21.1}%
+\contentsline {subsubsection}{\numberline {6.21.1.1}\_\_init\_\_()}{74}{subsubsection.6.21.1.1}%
+\contentsline {subsection}{\numberline {6.21.2}Методы}{74}{subsection.6.21.2}%
+\contentsline {subsubsection}{\numberline {6.21.2.1}event\_filter()}{74}{subsubsection.6.21.2.1}%
+\contentsline {subsubsection}{\numberline {6.21.2.2}key\_press\_event()}{75}{subsubsection.6.21.2.2}%
+\contentsline {subsubsection}{\numberline {6.21.2.3}mouse\_move()}{75}{subsubsection.6.21.2.3}%
+\contentsline {subsubsection}{\numberline {6.21.2.4}mouse\_press()}{75}{subsubsection.6.21.2.4}%
+\contentsline {subsubsection}{\numberline {6.21.2.5}mouse\_release()}{76}{subsubsection.6.21.2.5}%
+\contentsline {subsection}{\numberline {6.21.3}Данные класса}{76}{subsection.6.21.3}%
+\contentsline {subsubsection}{\numberline {6.21.3.1}command\_service}{76}{subsubsection.6.21.3.1}%
+\contentsline {subsubsection}{\numberline {6.21.3.2}curve\_points}{76}{subsubsection.6.21.3.2}%
+\contentsline {subsubsection}{\numberline {6.21.3.3}graphics\_view}{76}{subsubsection.6.21.3.3}%
+\contentsline {subsubsection}{\numberline {6.21.3.4}main\_window}{76}{subsubsection.6.21.3.4}%
+\contentsline {subsubsection}{\numberline {6.21.3.5}move\_initial\_pos}{77}{subsubsection.6.21.3.5}%
+\contentsline {subsubsection}{\numberline {6.21.3.6}move\_start\_pos}{77}{subsubsection.6.21.3.6}%
+\contentsline {subsubsection}{\numberline {6.21.3.7}moving\_items}{77}{subsubsection.6.21.3.7}%
+\contentsline {subsubsection}{\numberline {6.21.3.8}properties\_layout}{77}{subsubsection.6.21.3.8}%
+\contentsline {subsubsection}{\numberline {6.21.3.9}scene}{77}{subsubsection.6.21.3.9}%
+\contentsline {subsubsection}{\numberline {6.21.3.10}selection\_service}{77}{subsubsection.6.21.3.10}%
+\contentsline {subsubsection}{\numberline {6.21.3.11}start\_point}{77}{subsubsection.6.21.3.11}%
+\contentsline {subsubsection}{\numberline {6.21.3.12}temp\_curve\_item}{77}{subsubsection.6.21.3.12}%
+\contentsline {subsubsection}{\numberline {6.21.3.13}temp\_item}{77}{subsubsection.6.21.3.13}%
+\contentsline {section}{\numberline {6.22}Класс gmsh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}builder.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Gmsh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Builder}{78}{section.6.22}%
+\contentsline {subsection}{\numberline {6.22.1}Конструктор(ы)}{79}{subsection.6.22.1}%
+\contentsline {subsubsection}{\numberline {6.22.1.1}\_\_init\_\_()}{79}{subsubsection.6.22.1.1}%
+\contentsline {subsubsection}{\numberline {6.22.1.2}\_\_del\_\_()}{79}{subsubsection.6.22.1.2}%
+\contentsline {subsection}{\numberline {6.22.2}Методы}{79}{subsection.6.22.2}%
+\contentsline {subsubsection}{\numberline {6.22.2.1}add\_loop()}{79}{subsubsection.6.22.2.1}%
+\contentsline {subsubsection}{\numberline {6.22.2.2}build\_closed\_loops()}{79}{subsubsection.6.22.2.2}%
+\contentsline {subsubsection}{\numberline {6.22.2.3}build\_mesh()}{80}{subsubsection.6.22.2.3}%
+\contentsline {subsubsection}{\numberline {6.22.2.4}equal\_points()}{80}{subsubsection.6.22.2.4}%
+\contentsline {subsection}{\numberline {6.22.3}Данные класса}{81}{subsection.6.22.3}%
+\contentsline {subsubsection}{\numberline {6.22.3.1}boundary\_conditions}{81}{subsubsection.6.22.3.1}%
+\contentsline {subsubsection}{\numberline {6.22.3.2}filename}{81}{subsubsection.6.22.3.2}%
+\contentsline {subsubsection}{\numberline {6.22.3.3}grid\_spacing}{81}{subsubsection.6.22.3.3}%
+\contentsline {section}{\numberline {6.23}Класс graphics\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}view.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Graphics\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}View}{81}{section.6.23}%
+\contentsline {subsection}{\numberline {6.23.1}Конструктор(ы)}{82}{subsection.6.23.1}%
+\contentsline {subsubsection}{\numberline {6.23.1.1}\_\_init\_\_()}{82}{subsubsection.6.23.1.1}%
+\contentsline {subsection}{\numberline {6.23.2}Методы}{83}{subsection.6.23.2}%
+\contentsline {subsubsection}{\numberline {6.23.2.1}mouseMoveEvent()}{83}{subsubsection.6.23.2.1}%
+\contentsline {subsubsection}{\numberline {6.23.2.2}mousePressEvent()}{84}{subsubsection.6.23.2.2}%
+\contentsline {subsubsection}{\numberline {6.23.2.3}mouseReleaseEvent()}{85}{subsubsection.6.23.2.3}%
+\contentsline {subsubsection}{\numberline {6.23.2.4}wheelEvent()}{85}{subsubsection.6.23.2.4}%
+\contentsline {subsection}{\numberline {6.23.3}Данные класса}{86}{subsection.6.23.3}%
+\contentsline {subsubsection}{\numberline {6.23.3.1}\_pan\_start}{86}{subsubsection.6.23.3.1}%
+\contentsline {subsubsection}{\numberline {6.23.3.2}\_panning}{86}{subsubsection.6.23.3.2}%
+\contentsline {section}{\numberline {6.24}Класс grid\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}scene.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Grid\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Scene}{87}{section.6.24}%
+\contentsline {subsection}{\numberline {6.24.1}Конструктор(ы)}{89}{subsection.6.24.1}%
+\contentsline {subsubsection}{\numberline {6.24.1.1}\_\_init\_\_()}{89}{subsubsection.6.24.1.1}%
+\contentsline {subsection}{\numberline {6.24.2}Методы}{90}{subsection.6.24.2}%
+\contentsline {subsubsection}{\numberline {6.24.2.1}\_nice\_step()}{90}{subsubsection.6.24.2.1}%
+\contentsline {subsubsection}{\numberline {6.24.2.2}drawBackground()}{90}{subsubsection.6.24.2.2}%
+\contentsline {subsubsection}{\numberline {6.24.2.3}find\_edge\_by\_id()}{90}{subsubsection.6.24.2.3}%
+\contentsline {subsubsection}{\numberline {6.24.2.4}update\_labels()}{91}{subsubsection.6.24.2.4}%
+\contentsline {subsection}{\numberline {6.24.3}Данные класса}{91}{subsection.6.24.3}%
+\contentsline {subsubsection}{\numberline {6.24.3.1}\_labels}{91}{subsubsection.6.24.3.1}%
+\contentsline {subsubsection}{\numberline {6.24.3.2}axis\_pen}{91}{subsubsection.6.24.3.2}%
+\contentsline {subsubsection}{\numberline {6.24.3.3}font}{91}{subsubsection.6.24.3.3}%
+\contentsline {subsubsection}{\numberline {6.24.3.4}grid\_pen}{91}{subsubsection.6.24.3.4}%
+\contentsline {subsubsection}{\numberline {6.24.3.5}spacing}{91}{subsubsection.6.24.3.5}%
+\contentsline {subsubsection}{\numberline {6.24.3.6}update\_labels}{91}{subsubsection.6.24.3.6}%
+\contentsline {section}{\numberline {6.25}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Initial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Conditions}{92}{section.6.25}%
+\contentsline {subsection}{\numberline {6.25.1}Данные класса}{92}{subsection.6.25.1}%
+\contentsline {subsubsection}{\numberline {6.25.1.1}k}{92}{subsubsection.6.25.1.1}%
+\contentsline {subsubsection}{\numberline {6.25.1.2}omega}{92}{subsubsection.6.25.1.2}%
+\contentsline {subsubsection}{\numberline {6.25.1.3}p}{92}{subsubsection.6.25.1.3}%
+\contentsline {subsubsection}{\numberline {6.25.1.4}u}{92}{subsubsection.6.25.1.4}%
+\contentsline {subsubsection}{\numberline {6.25.1.5}v}{93}{subsubsection.6.25.1.5}%
+\contentsline {section}{\numberline {6.26}Класс initial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Initial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{93}{section.6.26}%
+\contentsline {subsection}{\numberline {6.26.1}Конструктор(ы)}{95}{subsection.6.26.1}%
+\contentsline {subsubsection}{\numberline {6.26.1.1}\_\_init\_\_()}{95}{subsubsection.6.26.1.1}%
+\contentsline {subsection}{\numberline {6.26.2}Методы}{95}{subsection.6.26.2}%
+\contentsline {subsubsection}{\numberline {6.26.2.1}get\_data()}{95}{subsubsection.6.26.2.1}%
+\contentsline {subsection}{\numberline {6.26.3}Данные класса}{95}{subsection.6.26.3}%
+\contentsline {subsubsection}{\numberline {6.26.3.1}accept}{95}{subsubsection.6.26.3.1}%
+\contentsline {subsubsection}{\numberline {6.26.3.2}k\_input}{96}{subsubsection.6.26.3.2}%
+\contentsline {subsubsection}{\numberline {6.26.3.3}om\_input}{96}{subsubsection.6.26.3.3}%
+\contentsline {subsubsection}{\numberline {6.26.3.4}p\_input}{96}{subsubsection.6.26.3.4}%
+\contentsline {subsubsection}{\numberline {6.26.3.5}reject}{96}{subsubsection.6.26.3.5}%
+\contentsline {subsubsection}{\numberline {6.26.3.6}u\_input}{96}{subsubsection.6.26.3.6}%
+\contentsline {subsubsection}{\numberline {6.26.3.7}v\_input}{96}{subsubsection.6.26.3.7}%
+\contentsline {section}{\numberline {6.27}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Inlet\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Conditions}{97}{section.6.27}%
+\contentsline {subsection}{\numberline {6.27.1}Данные класса}{98}{subsection.6.27.1}%
+\contentsline {subsubsection}{\numberline {6.27.1.1}k}{98}{subsubsection.6.27.1.1}%
+\contentsline {subsubsection}{\numberline {6.27.1.2}omega}{98}{subsubsection.6.27.1.2}%
+\contentsline {subsubsection}{\numberline {6.27.1.3}type}{99}{subsubsection.6.27.1.3}%
+\contentsline {subsubsection}{\numberline {6.27.1.4}u}{99}{subsubsection.6.27.1.4}%
+\contentsline {subsubsection}{\numberline {6.27.1.5}v}{99}{subsubsection.6.27.1.5}%
+\contentsline {section}{\numberline {6.28}Класс line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{99}{section.6.28}%
+\contentsline {subsection}{\numberline {6.28.1}Конструктор(ы)}{100}{subsection.6.28.1}%
+\contentsline {subsubsection}{\numberline {6.28.1.1}\_\_init\_\_()}{100}{subsubsection.6.28.1.1}%
+\contentsline {subsection}{\numberline {6.28.2}Методы}{101}{subsection.6.28.2}%
+\contentsline {subsubsection}{\numberline {6.28.2.1}get\_data()}{101}{subsubsection.6.28.2.1}%
+\contentsline {subsection}{\numberline {6.28.3}Данные класса}{101}{subsection.6.28.3}%
+\contentsline {subsubsection}{\numberline {6.28.3.1}accept}{101}{subsubsection.6.28.3.1}%
+\contentsline {subsubsection}{\numberline {6.28.3.2}end\_x}{101}{subsubsection.6.28.3.2}%
+\contentsline {subsubsection}{\numberline {6.28.3.3}end\_y}{101}{subsubsection.6.28.3.3}%
+\contentsline {subsubsection}{\numberline {6.28.3.4}reject}{102}{subsubsection.6.28.3.4}%
+\contentsline {subsubsection}{\numberline {6.28.3.5}start\_x}{102}{subsubsection.6.28.3.5}%
+\contentsline {subsubsection}{\numberline {6.28.3.6}start\_y}{102}{subsubsection.6.28.3.6}%
+\contentsline {section}{\numberline {6.29}Класс line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item}{102}{section.6.29}%
+\contentsline {subsection}{\numberline {6.29.1}Конструктор(ы)}{103}{subsection.6.29.1}%
+\contentsline {subsubsection}{\numberline {6.29.1.1}\_\_init\_\_()}{103}{subsubsection.6.29.1.1}%
+\contentsline {subsection}{\numberline {6.29.2}Методы}{104}{subsection.6.29.2}%
+\contentsline {subsubsection}{\numberline {6.29.2.1}\_\_repr\_\_()}{104}{subsubsection.6.29.2.1}%
+\contentsline {subsubsection}{\numberline {6.29.2.2}generate\_edges()}{104}{subsubsection.6.29.2.2}%
+\contentsline {subsubsection}{\numberline {6.29.2.3}get\_path()}{105}{subsubsection.6.29.2.3}%
+\contentsline {subsection}{\numberline {6.29.3}Данные класса}{105}{subsection.6.29.3}%
+\contentsline {subsubsection}{\numberline {6.29.3.1}edges}{105}{subsubsection.6.29.3.1}%
+\contentsline {section}{\numberline {6.30}Класс main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}window.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window}{106}{section.6.30}%
+\contentsline {subsection}{\numberline {6.30.1}Конструктор(ы)}{108}{subsection.6.30.1}%
+\contentsline {subsubsection}{\numberline {6.30.1.1}\_\_init\_\_()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{108}{subsubsection.6.30.1.1}%
+\contentsline {subsubsection}{\numberline {6.30.1.2}\_\_init\_\_()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{109}{subsubsection.6.30.1.2}%
+\contentsline {subsection}{\numberline {6.30.2}Методы}{110}{subsection.6.30.2}%
+\contentsline {subsubsection}{\numberline {6.30.2.1}add\_boundary\_condition()}{110}{subsubsection.6.30.2.1}%
+\contentsline {subsubsection}{\numberline {6.30.2.2}build\_gmsh\_mesh()}{110}{subsubsection.6.30.2.2}%
+\contentsline {subsubsection}{\numberline {6.30.2.3}delete\_boundary\_condition()}{110}{subsubsection.6.30.2.3}%
+\contentsline {subsubsection}{\numberline {6.30.2.4}edit\_boundary\_condition()}{111}{subsubsection.6.30.2.4}%
+\contentsline {subsubsection}{\numberline {6.30.2.5}edit\_initial\_conditions()}{111}{subsubsection.6.30.2.5}%
+\contentsline {subsubsection}{\numberline {6.30.2.6}edit\_material()}{112}{subsubsection.6.30.2.6}%
+\contentsline {subsubsection}{\numberline {6.30.2.7}edit\_turbulence\_model()}{112}{subsubsection.6.30.2.7}%
+\contentsline {subsubsection}{\numberline {6.30.2.8}eventFilter()}{113}{subsubsection.6.30.2.8}%
+\contentsline {subsubsection}{\numberline {6.30.2.9}export\_json()}{113}{subsubsection.6.30.2.9}%
+\contentsline {subsubsection}{\numberline {6.30.2.10}highlight\_edges()}{114}{subsubsection.6.30.2.10}%
+\contentsline {subsubsection}{\numberline {6.30.2.11}init\_turbulence\_ui()}{114}{subsubsection.6.30.2.11}%
+\contentsline {subsubsection}{\numberline {6.30.2.12}keyPressEvent()}{114}{subsubsection.6.30.2.12}%
+\contentsline {subsubsection}{\numberline {6.30.2.13}on\_tree\_item\_clicked()}{114}{subsubsection.6.30.2.13}%
+\contentsline {subsubsection}{\numberline {6.30.2.14}show\_tree\_context\_menu()}{115}{subsubsection.6.30.2.14}%
+\contentsline {subsubsection}{\numberline {6.30.2.15}update\_project\_tree()}{115}{subsubsection.6.30.2.15}%
+\contentsline {subsection}{\numberline {6.30.3}Данные класса}{115}{subsection.6.30.3}%
+\contentsline {subsubsection}{\numberline {6.30.3.1}add\_boundary\_condition}{115}{subsubsection.6.30.3.1}%
+\contentsline {subsubsection}{\numberline {6.30.3.2}boolean\_operations}{115}{subsubsection.6.30.3.2}%
+\contentsline {subsubsection}{\numberline {6.30.3.3}boundary\_conditions}{115}{subsubsection.6.30.3.3}%
+\contentsline {subsubsection}{\numberline {6.30.3.4}boundary\_edges}{116}{subsubsection.6.30.3.4}%
+\contentsline {subsubsection}{\numberline {6.30.3.5}build\_gmsh\_mesh}{116}{subsubsection.6.30.3.5}%
+\contentsline {subsubsection}{\numberline {6.30.3.6}canvas\_visualization}{116}{subsubsection.6.30.3.6}%
+\contentsline {subsubsection}{\numberline {6.30.3.7}color\_bar}{116}{subsubsection.6.30.3.7}%
+\contentsline {subsubsection}{\numberline {6.30.3.8}drawing\_service}{116}{subsubsection.6.30.3.8}%
+\contentsline {subsubsection}{\numberline {6.30.3.9}event\_handler}{116}{subsubsection.6.30.3.9}%
+\contentsline {subsubsection}{\numberline {6.30.3.10}grid\_spacing}{116}{subsubsection.6.30.3.10}%
+\contentsline {subsubsection}{\numberline {6.30.3.11}initial\_conditions}{116}{subsubsection.6.30.3.11}%
+\contentsline {subsubsection}{\numberline {6.30.3.12}layout\_visualization}{117}{subsubsection.6.30.3.12}%
+\contentsline {subsubsection}{\numberline {6.30.3.13}logger}{117}{subsubsection.6.30.3.13}%
+\contentsline {subsubsection}{\numberline {6.30.3.14}material}{117}{subsubsection.6.30.3.14}%
+\contentsline {subsubsection}{\numberline {6.30.3.15}on\_tree\_item\_clicked}{117}{subsubsection.6.30.3.15}%
+\contentsline {subsubsection}{\numberline {6.30.3.16}scene}{117}{subsubsection.6.30.3.16}%
+\contentsline {subsubsection}{\numberline {6.30.3.17}selection\_service}{117}{subsubsection.6.30.3.17}%
+\contentsline {subsubsection}{\numberline {6.30.3.18}show\_tree\_context\_menu}{117}{subsubsection.6.30.3.18}%
+\contentsline {subsubsection}{\numberline {6.30.3.19}toolbar}{117}{subsubsection.6.30.3.19}%
+\contentsline {subsubsection}{\numberline {6.30.3.20}transformation\_operations}{117}{subsubsection.6.30.3.20}%
+\contentsline {subsubsection}{\numberline {6.30.3.21}turbulence\_params}{118}{subsubsection.6.30.3.21}%
+\contentsline {subsubsection}{\numberline {6.30.3.22}ui}{118}{subsubsection.6.30.3.22}%
+\contentsline {section}{\numberline {6.31}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Material}{118}{section.6.31}%
+\contentsline {subsection}{\numberline {6.31.1}Данные класса}{118}{subsection.6.31.1}%
+\contentsline {subsubsection}{\numberline {6.31.1.1}mu}{118}{subsubsection.6.31.1.1}%
+\contentsline {subsubsection}{\numberline {6.31.1.2}rho}{118}{subsubsection.6.31.1.2}%
+\contentsline {section}{\numberline {6.32}Класс material\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Material\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{119}{section.6.32}%
+\contentsline {subsection}{\numberline {6.32.1}Конструктор(ы)}{120}{subsection.6.32.1}%
+\contentsline {subsubsection}{\numberline {6.32.1.1}\_\_init\_\_()}{120}{subsubsection.6.32.1.1}%
+\contentsline {subsection}{\numberline {6.32.2}Методы}{121}{subsection.6.32.2}%
+\contentsline {subsubsection}{\numberline {6.32.2.1}get\_data()}{121}{subsubsection.6.32.2.1}%
+\contentsline {subsection}{\numberline {6.32.3}Данные класса}{121}{subsection.6.32.3}%
+\contentsline {subsubsection}{\numberline {6.32.3.1}accept}{121}{subsubsection.6.32.3.1}%
+\contentsline {subsubsection}{\numberline {6.32.3.2}densityEdit}{121}{subsubsection.6.32.3.2}%
+\contentsline {subsubsection}{\numberline {6.32.3.3}reject}{121}{subsubsection.6.32.3.3}%
+\contentsline {subsubsection}{\numberline {6.32.3.4}viscosityEdit}{122}{subsubsection.6.32.3.4}%
+\contentsline {section}{\numberline {6.33}Класс mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{122}{section.6.33}%
+\contentsline {subsection}{\numberline {6.33.1}Конструктор(ы)}{123}{subsection.6.33.1}%
+\contentsline {subsubsection}{\numberline {6.33.1.1}\_\_init\_\_()}{123}{subsubsection.6.33.1.1}%
+\contentsline {subsection}{\numberline {6.33.2}Методы}{124}{subsection.6.33.2}%
+\contentsline {subsubsection}{\numberline {6.33.2.1}get\_data()}{124}{subsubsection.6.33.2.1}%
+\contentsline {subsection}{\numberline {6.33.3}Данные класса}{124}{subsection.6.33.3}%
+\contentsline {subsubsection}{\numberline {6.33.3.1}accept}{124}{subsubsection.6.33.3.1}%
+\contentsline {subsubsection}{\numberline {6.33.3.2}dx\_spin}{124}{subsubsection.6.33.3.2}%
+\contentsline {subsubsection}{\numberline {6.33.3.3}reject}{125}{subsubsection.6.33.3.3}%
+\contentsline {section}{\numberline {6.34}Класс move\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Move\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Command}{125}{section.6.34}%
+\contentsline {subsection}{\numberline {6.34.1}Конструктор(ы)}{126}{subsection.6.34.1}%
+\contentsline {subsubsection}{\numberline {6.34.1.1}\_\_init\_\_()}{126}{subsubsection.6.34.1.1}%
+\contentsline {subsection}{\numberline {6.34.2}Методы}{127}{subsection.6.34.2}%
+\contentsline {subsubsection}{\numberline {6.34.2.1}execute()}{127}{subsubsection.6.34.2.1}%
+\contentsline {subsubsection}{\numberline {6.34.2.2}undo()}{127}{subsubsection.6.34.2.2}%
+\contentsline {subsection}{\numberline {6.34.3}Данные класса}{127}{subsection.6.34.3}%
+\contentsline {subsubsection}{\numberline {6.34.3.1}delta}{127}{subsubsection.6.34.3.1}%
+\contentsline {subsubsection}{\numberline {6.34.3.2}items}{127}{subsubsection.6.34.3.2}%
+\contentsline {section}{\numberline {6.35}Класс mpl\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}canvas.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Mpl\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Canvas}{127}{section.6.35}%
+\contentsline {subsection}{\numberline {6.35.1}Конструктор(ы)}{128}{subsection.6.35.1}%
+\contentsline {subsubsection}{\numberline {6.35.1.1}\_\_init\_\_()}{128}{subsubsection.6.35.1.1}%
+\contentsline {subsection}{\numberline {6.35.2}Данные класса}{129}{subsection.6.35.2}%
+\contentsline {subsubsection}{\numberline {6.35.2.1}ax}{129}{subsubsection.6.35.2.1}%
+\contentsline {subsubsection}{\numberline {6.35.2.2}fig}{129}{subsubsection.6.35.2.2}%
+\contentsline {section}{\numberline {6.36}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Open\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Conditions}{129}{section.6.36}%
+\contentsline {subsection}{\numberline {6.36.1}Данные класса}{130}{subsection.6.36.1}%
+\contentsline {subsubsection}{\numberline {6.36.1.1}k}{130}{subsubsection.6.36.1.1}%
+\contentsline {subsubsection}{\numberline {6.36.1.2}omega}{130}{subsubsection.6.36.1.2}%
+\contentsline {subsubsection}{\numberline {6.36.1.3}type}{131}{subsubsection.6.36.1.3}%
+\contentsline {section}{\numberline {6.37}Класс parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}curve\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Curve\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item}{131}{section.6.37}%
+\contentsline {subsection}{\numberline {6.37.1}Конструктор(ы)}{132}{subsection.6.37.1}%
+\contentsline {subsubsection}{\numberline {6.37.1.1}\_\_init\_\_()}{132}{subsubsection.6.37.1.1}%
+\contentsline {subsection}{\numberline {6.37.2}Методы}{133}{subsection.6.37.2}%
+\contentsline {subsubsection}{\numberline {6.37.2.1}\_\_repr\_\_()}{133}{subsubsection.6.37.2.1}%
+\contentsline {subsubsection}{\numberline {6.37.2.2}generate\_edges()}{133}{subsubsection.6.37.2.2}%
+\contentsline {subsection}{\numberline {6.37.3}Данные класса}{133}{subsection.6.37.3}%
+\contentsline {subsubsection}{\numberline {6.37.3.1}edges}{133}{subsubsection.6.37.3.1}%
+\contentsline {section}{\numberline {6.38}Класс parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{134}{section.6.38}%
+\contentsline {subsection}{\numberline {6.38.1}Конструктор(ы)}{136}{subsection.6.38.1}%
+\contentsline {subsubsection}{\numberline {6.38.1.1}\_\_init\_\_()}{136}{subsubsection.6.38.1.1}%
+\contentsline {subsection}{\numberline {6.38.2}Методы}{136}{subsection.6.38.2}%
+\contentsline {subsubsection}{\numberline {6.38.2.1}get\_data()}{136}{subsubsection.6.38.2.1}%
+\contentsline {subsection}{\numberline {6.38.3}Данные класса}{136}{subsection.6.38.3}%
+\contentsline {subsubsection}{\numberline {6.38.3.1}accept}{136}{subsubsection.6.38.3.1}%
+\contentsline {subsubsection}{\numberline {6.38.3.2}reject}{137}{subsubsection.6.38.3.2}%
+\contentsline {subsubsection}{\numberline {6.38.3.3}samples}{137}{subsubsection.6.38.3.3}%
+\contentsline {subsubsection}{\numberline {6.38.3.4}t\_max}{137}{subsubsection.6.38.3.4}%
+\contentsline {subsubsection}{\numberline {6.38.3.5}t\_min}{137}{subsubsection.6.38.3.5}%
+\contentsline {subsubsection}{\numberline {6.38.3.6}x\_expr}{137}{subsubsection.6.38.3.6}%
+\contentsline {subsubsection}{\numberline {6.38.3.7}y\_expr}{137}{subsubsection.6.38.3.7}%
+\contentsline {section}{\numberline {6.39}Класс plotter.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Plotter}{137}{section.6.39}%
+\contentsline {subsection}{\numberline {6.39.1}Методы}{138}{subsection.6.39.1}%
+\contentsline {subsubsection}{\numberline {6.39.1.1}plot\_geometry()}{138}{subsubsection.6.39.1.1}%
+\contentsline {subsubsection}{\numberline {6.39.1.2}plot\_streamline()}{138}{subsubsection.6.39.1.2}%
+\contentsline {subsubsection}{\numberline {6.39.1.3}plot\_surface()}{138}{subsubsection.6.39.1.3}%
+\contentsline {section}{\numberline {6.40}Класс rectangle\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Rectangle\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item}{139}{section.6.40}%
+\contentsline {subsection}{\numberline {6.40.1}Конструктор(ы)}{140}{subsection.6.40.1}%
+\contentsline {subsubsection}{\numberline {6.40.1.1}\_\_init\_\_()}{140}{subsubsection.6.40.1.1}%
+\contentsline {subsection}{\numberline {6.40.2}Методы}{141}{subsection.6.40.2}%
+\contentsline {subsubsection}{\numberline {6.40.2.1}\_\_repr\_\_()}{141}{subsubsection.6.40.2.1}%
+\contentsline {subsubsection}{\numberline {6.40.2.2}generate\_edges()}{141}{subsubsection.6.40.2.2}%
+\contentsline {subsubsection}{\numberline {6.40.2.3}get\_path()}{142}{subsubsection.6.40.2.3}%
+\contentsline {subsection}{\numberline {6.40.3}Данные класса}{142}{subsection.6.40.3}%
+\contentsline {subsubsection}{\numberline {6.40.3.1}edges}{142}{subsubsection.6.40.3.1}%
+\contentsline {section}{\numberline {6.41}Класс rect\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Rect\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{143}{section.6.41}%
+\contentsline {subsection}{\numberline {6.41.1}Конструктор(ы)}{144}{subsection.6.41.1}%
+\contentsline {subsubsection}{\numberline {6.41.1.1}\_\_init\_\_()}{144}{subsubsection.6.41.1.1}%
+\contentsline {subsection}{\numberline {6.41.2}Методы}{145}{subsection.6.41.2}%
+\contentsline {subsubsection}{\numberline {6.41.2.1}get\_data()}{145}{subsubsection.6.41.2.1}%
+\contentsline {subsection}{\numberline {6.41.3}Данные класса}{145}{subsection.6.41.3}%
+\contentsline {subsubsection}{\numberline {6.41.3.1}accept}{145}{subsubsection.6.41.3.1}%
+\contentsline {subsubsection}{\numberline {6.41.3.2}height}{145}{subsubsection.6.41.3.2}%
+\contentsline {subsubsection}{\numberline {6.41.3.3}reject}{145}{subsubsection.6.41.3.3}%
+\contentsline {subsubsection}{\numberline {6.41.3.4}top\_left\_x}{146}{subsubsection.6.41.3.4}%
+\contentsline {subsubsection}{\numberline {6.41.3.5}top\_left\_y}{146}{subsubsection.6.41.3.5}%
+\contentsline {subsubsection}{\numberline {6.41.3.6}width}{146}{subsubsection.6.41.3.6}%
+\contentsline {section}{\numberline {6.42}Класс rotate\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Rotate\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Command}{146}{section.6.42}%
+\contentsline {subsection}{\numberline {6.42.1}Конструктор(ы)}{147}{subsection.6.42.1}%
+\contentsline {subsubsection}{\numberline {6.42.1.1}\_\_init\_\_()}{147}{subsubsection.6.42.1.1}%
+\contentsline {subsection}{\numberline {6.42.2}Методы}{148}{subsection.6.42.2}%
+\contentsline {subsubsection}{\numberline {6.42.2.1}execute()}{148}{subsubsection.6.42.2.1}%
+\contentsline {subsubsection}{\numberline {6.42.2.2}undo()}{148}{subsubsection.6.42.2.2}%
+\contentsline {subsection}{\numberline {6.42.3}Данные класса}{148}{subsection.6.42.3}%
+\contentsline {subsubsection}{\numberline {6.42.3.1}angle\_delta}{148}{subsubsection.6.42.3.1}%
+\contentsline {subsubsection}{\numberline {6.42.3.2}item}{148}{subsubsection.6.42.3.2}%
+\contentsline {subsubsection}{\numberline {6.42.3.3}start\_rotation}{148}{subsubsection.6.42.3.3}%
+\contentsline {section}{\numberline {6.43}Класс selection\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Selection\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Service}{149}{section.6.43}%
+\contentsline {subsection}{\numberline {6.43.1}Конструктор(ы)}{150}{subsection.6.43.1}%
+\contentsline {subsubsection}{\numberline {6.43.1.1}\_\_init\_\_()}{150}{subsubsection.6.43.1.1}%
+\contentsline {subsection}{\numberline {6.43.2}Методы}{150}{subsection.6.43.2}%
+\contentsline {subsubsection}{\numberline {6.43.2.1}add\_edge()}{150}{subsubsection.6.43.2.1}%
+\contentsline {subsubsection}{\numberline {6.43.2.2}clear\_and\_select\_item()}{151}{subsubsection.6.43.2.2}%
+\contentsline {subsubsection}{\numberline {6.43.2.3}clear\_edges()}{151}{subsubsection.6.43.2.3}%
+\contentsline {subsubsection}{\numberline {6.43.2.4}clear\_selection()}{151}{subsubsection.6.43.2.4}%
+\contentsline {subsubsection}{\numberline {6.43.2.5}highlight\_edge()}{152}{subsubsection.6.43.2.5}%
+\contentsline {subsubsection}{\numberline {6.43.2.6}remove\_edge()}{152}{subsubsection.6.43.2.6}%
+\contentsline {subsubsection}{\numberline {6.43.2.7}select\_all()}{152}{subsubsection.6.43.2.7}%
+\contentsline {subsubsection}{\numberline {6.43.2.8}select\_item()}{153}{subsubsection.6.43.2.8}%
+\contentsline {subsubsection}{\numberline {6.43.2.9}update\_selection()}{153}{subsubsection.6.43.2.9}%
+\contentsline {subsection}{\numberline {6.43.3}Данные класса}{153}{subsection.6.43.3}%
+\contentsline {subsubsection}{\numberline {6.43.3.1}bool\_selection}{153}{subsubsection.6.43.3.1}%
+\contentsline {subsubsection}{\numberline {6.43.3.2}last\_selection\_rect}{153}{subsubsection.6.43.3.2}%
+\contentsline {subsubsection}{\numberline {6.43.3.3}scene}{154}{subsubsection.6.43.3.3}%
+\contentsline {subsubsection}{\numberline {6.43.3.4}selected\_edges}{154}{subsubsection.6.43.3.4}%
+\contentsline {subsubsection}{\numberline {6.43.3.5}selected\_pen}{154}{subsubsection.6.43.3.5}%
+\contentsline {subsubsection}{\numberline {6.43.3.6}selection\_brush}{154}{subsubsection.6.43.3.6}%
+\contentsline {subsubsection}{\numberline {6.43.3.7}selection\_pen}{154}{subsubsection.6.43.3.7}%
+\contentsline {subsubsection}{\numberline {6.43.3.8}selection\_rect}{154}{subsubsection.6.43.3.8}%
+\contentsline {section}{\numberline {6.44}Класс transformation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}operations.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Transformation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Operations}{154}{section.6.44}%
+\contentsline {subsection}{\numberline {6.44.1}Конструктор(ы)}{155}{subsection.6.44.1}%
+\contentsline {subsubsection}{\numberline {6.44.1.1}\_\_init\_\_()}{155}{subsubsection.6.44.1.1}%
+\contentsline {subsection}{\numberline {6.44.2}Методы}{155}{subsection.6.44.2}%
+\contentsline {subsubsection}{\numberline {6.44.2.1}perform\_mirror()}{155}{subsubsection.6.44.2.1}%
+\contentsline {subsubsection}{\numberline {6.44.2.2}perform\_rotate()}{155}{subsubsection.6.44.2.2}%
+\contentsline {subsection}{\numberline {6.44.3}Данные класса}{155}{subsection.6.44.3}%
+\contentsline {subsubsection}{\numberline {6.44.3.1}command\_service}{155}{subsubsection.6.44.3.1}%
+\contentsline {subsubsection}{\numberline {6.44.3.2}parent}{155}{subsubsection.6.44.3.2}%
+\contentsline {subsubsection}{\numberline {6.44.3.3}scene}{156}{subsubsection.6.44.3.3}%
+\contentsline {subsubsection}{\numberline {6.44.3.4}selection\_service}{156}{subsubsection.6.44.3.4}%
+\contentsline {section}{\numberline {6.45}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog}{156}{section.6.45}%
+\contentsline {subsection}{\numberline {6.45.1}Конструктор(ы)}{157}{subsection.6.45.1}%
+\contentsline {subsubsection}{\numberline {6.45.1.1}\_\_init\_\_()}{157}{subsubsection.6.45.1.1}%
+\contentsline {subsection}{\numberline {6.45.2}Методы}{158}{subsection.6.45.2}%
+\contentsline {subsubsection}{\numberline {6.45.2.1}get\_data()}{158}{subsubsection.6.45.2.1}%
+\contentsline {subsection}{\numberline {6.45.3}Данные класса}{158}{subsection.6.45.3}%
+\contentsline {subsubsection}{\numberline {6.45.3.1}accept}{158}{subsubsection.6.45.3.1}%
+\contentsline {subsubsection}{\numberline {6.45.3.2}model\_combo}{158}{subsubsection.6.45.3.2}%
+\contentsline {subsubsection}{\numberline {6.45.3.3}reject}{159}{subsubsection.6.45.3.3}%
+\contentsline {section}{\numberline {6.46}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Model}{159}{section.6.46}%
+\contentsline {subsection}{\numberline {6.46.1}Данные класса}{160}{subsection.6.46.1}%
+\contentsline {subsubsection}{\numberline {6.46.1.1}K\_EPSILON}{160}{subsubsection.6.46.1.1}%
+\contentsline {subsubsection}{\numberline {6.46.1.2}LAMINAR}{160}{subsubsection.6.46.1.2}%
+\contentsline {subsubsection}{\numberline {6.46.1.3}SST}{160}{subsubsection.6.46.1.3}%
+\contentsline {section}{\numberline {6.47}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Params}{161}{section.6.47}%
+\contentsline {subsection}{\numberline {6.47.1}Данные класса}{161}{subsection.6.47.1}%
+\contentsline {subsubsection}{\numberline {6.47.1.1}model}{161}{subsubsection.6.47.1.1}%
+\contentsline {section}{\numberline {6.48}Класс comsol.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window}{162}{section.6.48}%
+\contentsline {subsection}{\numberline {6.48.1}Методы}{164}{subsection.6.48.1}%
+\contentsline {subsubsection}{\numberline {6.48.1.1}retranslateUi()}{164}{subsubsection.6.48.1.1}%
+\contentsline {subsubsection}{\numberline {6.48.1.2}setupUi()}{164}{subsubsection.6.48.1.2}%
+\contentsline {subsection}{\numberline {6.48.2}Данные класса}{164}{subsection.6.48.2}%
+\contentsline {subsubsection}{\numberline {6.48.2.1}centralwidget}{164}{subsubsection.6.48.2.1}%
+\contentsline {subsubsection}{\numberline {6.48.2.2}checkBox\_stream\_lines}{164}{subsubsection.6.48.2.2}%
+\contentsline {subsubsection}{\numberline {6.48.2.3}comboBox\_expression}{164}{subsubsection.6.48.2.3}%
+\contentsline {subsubsection}{\numberline {6.48.2.4}formLayout}{164}{subsubsection.6.48.2.4}%
+\contentsline {subsubsection}{\numberline {6.48.2.5}groupBox\_plot\_settings}{164}{subsubsection.6.48.2.5}%
+\contentsline {subsubsection}{\numberline {6.48.2.6}horizontalLayout}{165}{subsubsection.6.48.2.6}%
+\contentsline {subsubsection}{\numberline {6.48.2.7}horizontalLayout\_2}{165}{subsubsection.6.48.2.7}%
+\contentsline {subsubsection}{\numberline {6.48.2.8}label}{165}{subsubsection.6.48.2.8}%
+\contentsline {subsubsection}{\numberline {6.48.2.9}label\_2}{165}{subsubsection.6.48.2.9}%
+\contentsline {subsubsection}{\numberline {6.48.2.10}label\_3}{165}{subsubsection.6.48.2.10}%
+\contentsline {subsubsection}{\numberline {6.48.2.11}label\_4}{165}{subsubsection.6.48.2.11}%
+\contentsline {subsubsection}{\numberline {6.48.2.12}lineEdit\_data\_path}{165}{subsubsection.6.48.2.12}%
+\contentsline {subsubsection}{\numberline {6.48.2.13}lineEdit\_levels}{165}{subsubsection.6.48.2.13}%
+\contentsline {subsubsection}{\numberline {6.48.2.14}pushButton\_plot}{165}{subsubsection.6.48.2.14}%
+\contentsline {subsubsection}{\numberline {6.48.2.15}pushButton\_select\_file}{165}{subsubsection.6.48.2.15}%
+\contentsline {subsubsection}{\numberline {6.48.2.16}verticalLayout\_3}{166}{subsubsection.6.48.2.16}%
+\contentsline {subsubsection}{\numberline {6.48.2.17}widget\_visualisation}{166}{subsubsection.6.48.2.17}%
+\contentsline {section}{\numberline {6.49}Класс template.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window}{166}{section.6.49}%
+\contentsline {subsection}{\numberline {6.49.1}Методы}{168}{subsection.6.49.1}%
+\contentsline {subsubsection}{\numberline {6.49.1.1}retranslateUi()}{168}{subsubsection.6.49.1.1}%
+\contentsline {subsubsection}{\numberline {6.49.1.2}setupUi()}{168}{subsubsection.6.49.1.2}%
+\contentsline {subsection}{\numberline {6.49.2}Данные класса}{168}{subsection.6.49.2}%
+\contentsline {subsubsection}{\numberline {6.49.2.1}actionBuildMesh}{168}{subsubsection.6.49.2.1}%
+\contentsline {subsubsection}{\numberline {6.49.2.2}actionDifference}{168}{subsubsection.6.49.2.2}%
+\contentsline {subsubsection}{\numberline {6.49.2.3}actionDrawCircleByParams}{168}{subsubsection.6.49.2.3}%
+\contentsline {subsubsection}{\numberline {6.49.2.4}actionDrawCurveByParams}{168}{subsubsection.6.49.2.4}%
+\contentsline {subsubsection}{\numberline {6.49.2.5}actionDrawLineByParams}{169}{subsubsection.6.49.2.5}%
+\contentsline {subsubsection}{\numberline {6.49.2.6}actionDrawParametric}{169}{subsubsection.6.49.2.6}%
+\contentsline {subsubsection}{\numberline {6.49.2.7}actionDrawRectByParams}{169}{subsubsection.6.49.2.7}%
+\contentsline {subsubsection}{\numberline {6.49.2.8}actionIntersection}{169}{subsubsection.6.49.2.8}%
+\contentsline {subsubsection}{\numberline {6.49.2.9}actionMirror}{169}{subsubsection.6.49.2.9}%
+\contentsline {subsubsection}{\numberline {6.49.2.10}actionRotate}{169}{subsubsection.6.49.2.10}%
+\contentsline {subsubsection}{\numberline {6.49.2.11}actionUnion}{169}{subsubsection.6.49.2.11}%
+\contentsline {subsubsection}{\numberline {6.49.2.12}centralwidget}{169}{subsubsection.6.49.2.12}%
+\contentsline {subsubsection}{\numberline {6.49.2.13}graphicsView}{169}{subsubsection.6.49.2.13}%
+\contentsline {subsubsection}{\numberline {6.49.2.14}horizontalLayout}{169}{subsubsection.6.49.2.14}%
+\contentsline {subsubsection}{\numberline {6.49.2.15}mainToolBar}{170}{subsubsection.6.49.2.15}%
+\contentsline {subsubsection}{\numberline {6.49.2.16}projectTree}{170}{subsubsection.6.49.2.16}%
+\contentsline {subsubsection}{\numberline {6.49.2.17}propertiesLayout}{170}{subsubsection.6.49.2.17}%
+\contentsline {subsubsection}{\numberline {6.49.2.18}statusbar}{170}{subsubsection.6.49.2.18}%
+\contentsline {subsubsection}{\numberline {6.49.2.19}verticalLayout}{170}{subsubsection.6.49.2.19}%
+\contentsline {section}{\numberline {6.50}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Wall\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Conditions}{170}{section.6.50}%
+\contentsline {subsection}{\numberline {6.50.1}Данные класса}{171}{subsection.6.50.1}%
+\contentsline {subsubsection}{\numberline {6.50.1.1}type}{171}{subsubsection.6.50.1.1}%
+\contentsline {subsubsection}{\numberline {6.50.1.2}wall}{171}{subsubsection.6.50.1.2}%
+\contentsline {section}{\numberline {6.51}Класс turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Wall\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Type}{172}{section.6.51}%
+\contentsline {subsection}{\numberline {6.51.1}Данные класса}{173}{subsection.6.51.1}%
+\contentsline {subsubsection}{\numberline {6.51.1.1}NO\_SLIP}{173}{subsubsection.6.51.1.1}%
+\contentsline {subsubsection}{\numberline {6.51.1.2}SLIP}{173}{subsubsection.6.51.1.2}%
+\contentsline {chapter}{\numberline {7}Файлы}{175}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Файл modules/data/main.py}{175}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Файл modules/visualization/main.py}{175}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Файл modules/data/src/commands/add\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.py}{175}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Файл modules/data/src/commands/command.py}{176}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Файл modules/data/src/commands/delete\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.py}{176}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Файл modules/data/src/commands/move\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.py}{176}{section.7.6}%
+\contentsline {section}{\numberline {7.7}Файл modules/data/src/commands/rotate\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}command.py}{176}{section.7.7}%
+\contentsline {section}{\numberline {7.8}Файл modules/data/src/dialogs/bezier\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{177}{section.7.8}%
+\contentsline {section}{\numberline {7.9}Файл modules/data/src/dialogs/boundary\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{177}{section.7.9}%
+\contentsline {section}{\numberline {7.10}Файл modules/data/src/dialogs/dialog.py}{177}{section.7.10}%
+\contentsline {section}{\numberline {7.11}Файл modules/data/src/dialogs/dialog\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.py}{177}{section.7.11}%
+\contentsline {section}{\numberline {7.12}Файл modules/data/src/dialogs/ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{177}{section.7.12}%
+\contentsline {section}{\numberline {7.13}Файл modules/data/src/dialogs/initial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}conditions\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{178}{section.7.13}%
+\contentsline {section}{\numberline {7.14}Файл modules/data/src/dialogs/line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{178}{section.7.14}%
+\contentsline {section}{\numberline {7.15}Файл modules/data/src/dialogs/material\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{178}{section.7.15}%
+\contentsline {section}{\numberline {7.16}Файл modules/data/src/dialogs/mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{178}{section.7.16}%
+\contentsline {section}{\numberline {7.17}Файл modules/data/src/dialogs/parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{179}{section.7.17}%
+\contentsline {section}{\numberline {7.18}Файл modules/data/src/dialogs/rect\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{179}{section.7.18}%
+\contentsline {section}{\numberline {7.19}Файл modules/data/src/dialogs/turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dialog.py}{179}{section.7.19}%
+\contentsline {section}{\numberline {7.20}Файл modules/data/src/event\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}handler.py}{179}{section.7.20}%
+\contentsline {section}{\numberline {7.21}Файл modules/data/src/main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}window.py}{179}{section.7.21}%
+\contentsline {section}{\numberline {7.22}Файл modules/visualization/src/main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}window.py}{180}{section.7.22}%
+\contentsline {section}{\numberline {7.23}Файл modules/data/src/operations/boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}operations.py}{180}{section.7.23}%
+\contentsline {section}{\numberline {7.24}Файл modules/data/src/operations/transformation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}operations.py}{180}{section.7.24}%
+\contentsline {section}{\numberline {7.25}Файл modules/data/src/physics/turbulence\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}models.py}{181}{section.7.25}%
+\contentsline {section}{\numberline {7.26}Файл modules/data/src/services/command\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service.py}{181}{section.7.26}%
+\contentsline {section}{\numberline {7.27}Файл modules/data/src/services/drawing\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service.py}{181}{section.7.27}%
+\contentsline {section}{\numberline {7.28}Файл modules/data/src/services/gmsh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}mesh\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}builder.py}{181}{section.7.28}%
+\contentsline {section}{\numberline {7.29}Файл modules/data/src/services/selection\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}service.py}{182}{section.7.29}%
+\contentsline {section}{\numberline {7.30}Файл modules/data/src/shapes/boolean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.py}{182}{section.7.30}%
+\contentsline {section}{\numberline {7.31}Файл modules/data/src/shapes/ellipse\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.py}{182}{section.7.31}%
+\contentsline {section}{\numberline {7.32}Файл modules/data/src/shapes/line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.py}{182}{section.7.32}%
+\contentsline {section}{\numberline {7.33}Файл modules/data/src/shapes/parametric\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}curve\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.py}{183}{section.7.33}%
+\contentsline {section}{\numberline {7.34}Файл modules/data/src/shapes/rectangle\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.py}{183}{section.7.34}%
+\contentsline {section}{\numberline {7.35}Файл modules/data/src/ui/template.py}{183}{section.7.35}%
+\contentsline {section}{\numberline {7.36}Файл modules/data/src/widgets/edge\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.py}{183}{section.7.36}%
+\contentsline {section}{\numberline {7.37}Файл modules/data/src/widgets/editable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bezier.py}{184}{section.7.37}%
+\contentsline {section}{\numberline {7.38}Файл modules/data/src/widgets/graphics\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}view.py}{184}{section.7.38}%
+\contentsline {section}{\numberline {7.39}Файл modules/data/src/widgets/grid\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}scene.py}{184}{section.7.39}%
+\contentsline {section}{\numberline {7.40}Файл modules/doxytest/doxytest.py}{185}{section.7.40}%
+\contentsline {section}{\numberline {7.41}Файл modules/visualization/src/mpl\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}canvas.py}{185}{section.7.41}%
+\contentsline {section}{\numberline {7.42}Файл modules/visualization/src/services/data\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.py}{185}{section.7.42}%
+\contentsline {section}{\numberline {7.43}Файл modules/visualization/src/services/plotter.py}{185}{section.7.43}%
+\contentsline {section}{\numberline {7.44}Файл modules/visualization/src/ui/comsol.py}{185}{section.7.44}%
+\contentsline {chapter}{{\cyrillictext \CYRP \cyrr \cyre \cyrd \cyrm \cyre \cyrt \cyrn \cyrery \cyrishrt \ \cyru \cyrk \cyra \cyrz \cyra \cyrt \cyre \cyrl \cyrsftsn }}{187}{section*.433}%

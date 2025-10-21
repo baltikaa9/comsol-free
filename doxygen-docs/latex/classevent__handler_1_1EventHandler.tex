@@ -1,0 +1,232 @@
+\doxysection{Класс event\+\_\+handler.\+Event\+Handler}
+\hypertarget{classevent__handler_1_1EventHandler}{}\label{classevent__handler_1_1EventHandler}\index{event\_handler.EventHandler@{event\_handler.EventHandler}}
+
+
+Граф связей класса event\+\_\+handler.\+Event\+Handler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{classevent__handler_1_1EventHandler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_ab6ba472b51140207e8d19d4596ee12e2}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classevent__handler_1_1EventHandler_a00ff6f2aafe72ad02fe25277d12856e2}{main\+\_\+window}}, Grid\+Scene \mbox{\hyperlink{classevent__handler_1_1EventHandler_a5de78c239f198624ce38993559a50850}{scene}}, Graphics\+View \mbox{\hyperlink{classevent__handler_1_1EventHandler_ab894398c43b9ef3d00f4f854a2372371}{graphics\+\_\+view}}, QBox\+Layout \mbox{\hyperlink{classevent__handler_1_1EventHandler_af0cbddbc4f3799cae3404bfe72cac699}{properties\+\_\+layout}}, Selection\+Service \mbox{\hyperlink{classevent__handler_1_1EventHandler_aff10d1738db79fd751d80d5fd68ca0a0}{selection\+\_\+service}}, Command\+Service \mbox{\hyperlink{classevent__handler_1_1EventHandler_ac9ac356de7e9d17bb139b971a912b0ef}{command\+\_\+service}})
+\item 
+bool \mbox{\hyperlink{classevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e}{mouse\+\_\+press}} (self, QMouse\+Event event)
+\item 
+bool \mbox{\hyperlink{classevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb}{mouse\+\_\+move}} (self, QMouse\+Event event)
+\item 
+bool \mbox{\hyperlink{classevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00}{mouse\+\_\+release}} (self, QMouse\+Event event)
+\item 
+bool \mbox{\hyperlink{classevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa}{event\+\_\+filter}} (self, QEvent event)
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_a7834436e8aeb166cb36d1dc8a5dd2b38}{key\+\_\+press\+\_\+event}} (self, QKey\+Event event)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_a00ff6f2aafe72ad02fe25277d12856e2}{main\+\_\+window}} = main\+\_\+window
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_a5de78c239f198624ce38993559a50850}{scene}} = scene
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_ab894398c43b9ef3d00f4f854a2372371}{graphics\+\_\+view}} = graphics\+\_\+view
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_af0cbddbc4f3799cae3404bfe72cac699}{properties\+\_\+layout}} = properties\+\_\+layout
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_aff10d1738db79fd751d80d5fd68ca0a0}{selection\+\_\+service}} = selection\+\_\+service
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_ac9ac356de7e9d17bb139b971a912b0ef}{command\+\_\+service}} = command\+\_\+service
+\item 
+bool \mbox{\hyperlink{classevent__handler_1_1EventHandler_a4d2e9b757f4a1dcadeb35b6e50f7dc3e}{moving\+\_\+items}} = False
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_a6efe5f437ca3eea11945fcbe8b311e48}{move\+\_\+start\+\_\+pos}} = QPointF()
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_a8560768ba3fcdac6f4d17c63cf55dd8d}{move\+\_\+initial\+\_\+pos}} = QPointF()
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_a6efd448ba76d11a37c713f81983a09ca}{start\+\_\+point}} = None
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_aef61e32e01041d956b72ea6515e07ff7}{temp\+\_\+item}} = None
+\item 
+list \mbox{\hyperlink{classevent__handler_1_1EventHandler_a45838cbf3d83a46c0e5b06f53acf8127}{curve\+\_\+points}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classevent__handler_1_1EventHandler_a72d63efe108d8b2a8c1ae48c92cd31da}{temp\+\_\+curve\+\_\+item}} = None
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classevent__handler_1_1EventHandler_doc-constructors}
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{classevent__handler_1_1EventHandler_ab6ba472b51140207e8d19d4596ee12e2}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_ab6ba472b51140207e8d19d4596ee12e2} 
+event\+\_\+handler.\+Event\+Handler.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{main\+\_\+window}{, }\item[{Grid\+Scene}]{scene}{, }\item[{Graphics\+View}]{graphics\+\_\+view}{, }\item[{QBox\+Layout}]{properties\+\_\+layout}{, }\item[{Selection\+Service}]{selection\+\_\+service}{, }\item[{Command\+Service}]{command\+\_\+service}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classevent__handler_1_1EventHandler_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{classevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!event\_filter@{event\_filter}}
+\index{event\_filter@{event\_filter}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{event\_filter()}{event\_filter()}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa} 
+ bool event\+\_\+handler.\+Event\+Handler.\+event\+\_\+filter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{QEvent}]{event}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classevent__handler_1_1EventHandler_a28eeeba1c2c80de8260bc36806c967aa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classevent__handler_1_1EventHandler_a7834436e8aeb166cb36d1dc8a5dd2b38}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!key\_press\_event@{key\_press\_event}}
+\index{key\_press\_event@{key\_press\_event}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{key\_press\_event()}{key\_press\_event()}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a7834436e8aeb166cb36d1dc8a5dd2b38} 
+event\+\_\+handler.\+Event\+Handler.\+key\+\_\+press\+\_\+event (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{QKey\+Event}]{event}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!mouse\_move@{mouse\_move}}
+\index{mouse\_move@{mouse\_move}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{mouse\_move()}{mouse\_move()}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb} 
+ bool event\+\_\+handler.\+Event\+Handler.\+mouse\+\_\+move (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{QMouse\+Event}]{event}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classevent__handler_1_1EventHandler_a558af82aa7613c16b40dbd641c2204eb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!mouse\_press@{mouse\_press}}
+\index{mouse\_press@{mouse\_press}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{mouse\_press()}{mouse\_press()}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e} 
+ bool event\+\_\+handler.\+Event\+Handler.\+mouse\+\_\+press (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{QMouse\+Event}]{event}{}\end{DoxyParamCaption})}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classevent__handler_1_1EventHandler_aa04e7d27991ba4ec9623f099661de43e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!mouse\_release@{mouse\_release}}
+\index{mouse\_release@{mouse\_release}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{mouse\_release()}{mouse\_release()}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00} 
+ bool event\+\_\+handler.\+Event\+Handler.\+mouse\+\_\+release (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{QMouse\+Event}]{event}{}\end{DoxyParamCaption})}
+
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classevent__handler_1_1EventHandler_aeea40ad2b04dac8d55de4b0572b4ab00_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classevent__handler_1_1EventHandler_doc-variable-members}
+\doxysubsection{Данные класса}
+\Hypertarget{classevent__handler_1_1EventHandler_ac9ac356de7e9d17bb139b971a912b0ef}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!command\_service@{command\_service}}
+\index{command\_service@{command\_service}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{command\_service}{command\_service}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_ac9ac356de7e9d17bb139b971a912b0ef} 
+event\+\_\+handler.\+Event\+Handler.\+command\+\_\+service = command\+\_\+service}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a45838cbf3d83a46c0e5b06f53acf8127}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!curve\_points@{curve\_points}}
+\index{curve\_points@{curve\_points}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{curve\_points}{curve\_points}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a45838cbf3d83a46c0e5b06f53acf8127} 
+list event\+\_\+handler.\+Event\+Handler.\+curve\+\_\+points = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{classevent__handler_1_1EventHandler_ab894398c43b9ef3d00f4f854a2372371}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!graphics\_view@{graphics\_view}}
+\index{graphics\_view@{graphics\_view}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{graphics\_view}{graphics\_view}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_ab894398c43b9ef3d00f4f854a2372371} 
+event\+\_\+handler.\+Event\+Handler.\+graphics\+\_\+view = graphics\+\_\+view}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a00ff6f2aafe72ad02fe25277d12856e2}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!main\_window@{main\_window}}
+\index{main\_window@{main\_window}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{main\_window}{main\_window}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a00ff6f2aafe72ad02fe25277d12856e2} 
+event\+\_\+handler.\+Event\+Handler.\+main\+\_\+window = main\+\_\+window}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a8560768ba3fcdac6f4d17c63cf55dd8d}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!move\_initial\_pos@{move\_initial\_pos}}
+\index{move\_initial\_pos@{move\_initial\_pos}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{move\_initial\_pos}{move\_initial\_pos}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a8560768ba3fcdac6f4d17c63cf55dd8d} 
+event\+\_\+handler.\+Event\+Handler.\+move\+\_\+initial\+\_\+pos = QPointF()}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a6efe5f437ca3eea11945fcbe8b311e48}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!move\_start\_pos@{move\_start\_pos}}
+\index{move\_start\_pos@{move\_start\_pos}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{move\_start\_pos}{move\_start\_pos}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a6efe5f437ca3eea11945fcbe8b311e48} 
+event\+\_\+handler.\+Event\+Handler.\+move\+\_\+start\+\_\+pos = QPointF()}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a4d2e9b757f4a1dcadeb35b6e50f7dc3e}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!moving\_items@{moving\_items}}
+\index{moving\_items@{moving\_items}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{moving\_items}{moving\_items}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a4d2e9b757f4a1dcadeb35b6e50f7dc3e} 
+bool event\+\_\+handler.\+Event\+Handler.\+moving\+\_\+items = False}
+
+\Hypertarget{classevent__handler_1_1EventHandler_af0cbddbc4f3799cae3404bfe72cac699}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!properties\_layout@{properties\_layout}}
+\index{properties\_layout@{properties\_layout}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{properties\_layout}{properties\_layout}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_af0cbddbc4f3799cae3404bfe72cac699} 
+event\+\_\+handler.\+Event\+Handler.\+properties\+\_\+layout = properties\+\_\+layout}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a5de78c239f198624ce38993559a50850}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!scene@{scene}}
+\index{scene@{scene}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{scene}{scene}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a5de78c239f198624ce38993559a50850} 
+event\+\_\+handler.\+Event\+Handler.\+scene = scene}
+
+\Hypertarget{classevent__handler_1_1EventHandler_aff10d1738db79fd751d80d5fd68ca0a0}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!selection\_service@{selection\_service}}
+\index{selection\_service@{selection\_service}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{selection\_service}{selection\_service}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_aff10d1738db79fd751d80d5fd68ca0a0} 
+event\+\_\+handler.\+Event\+Handler.\+selection\+\_\+service = selection\+\_\+service}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a6efd448ba76d11a37c713f81983a09ca}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!start\_point@{start\_point}}
+\index{start\_point@{start\_point}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{start\_point}{start\_point}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a6efd448ba76d11a37c713f81983a09ca} 
+event\+\_\+handler.\+Event\+Handler.\+start\+\_\+point = None}
+
+\Hypertarget{classevent__handler_1_1EventHandler_a72d63efe108d8b2a8c1ae48c92cd31da}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!temp\_curve\_item@{temp\_curve\_item}}
+\index{temp\_curve\_item@{temp\_curve\_item}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{temp\_curve\_item}{temp\_curve\_item}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_a72d63efe108d8b2a8c1ae48c92cd31da} 
+event\+\_\+handler.\+Event\+Handler.\+temp\+\_\+curve\+\_\+item = None}
+
+\Hypertarget{classevent__handler_1_1EventHandler_aef61e32e01041d956b72ea6515e07ff7}\index{event\_handler.EventHandler@{event\_handler.EventHandler}!temp\_item@{temp\_item}}
+\index{temp\_item@{temp\_item}!event\_handler.EventHandler@{event\_handler.EventHandler}}
+\doxysubsubsection{\texorpdfstring{temp\_item}{temp\_item}}
+{\footnotesize\ttfamily \label{classevent__handler_1_1EventHandler_aef61e32e01041d956b72ea6515e07ff7} 
+event\+\_\+handler.\+Event\+Handler.\+temp\+\_\+item = None}
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+modules/data/src/\mbox{\hyperlink{event__handler_8py}{event\+\_\+handler.\+py}}\end{DoxyCompactItemize}

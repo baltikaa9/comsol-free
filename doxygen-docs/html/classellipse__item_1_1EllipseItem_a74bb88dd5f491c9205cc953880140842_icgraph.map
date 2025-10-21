@@ -1,0 +1,9 @@
+<map id="ellipse_item.EllipseItem.get_path" name="ellipse_item.EllipseItem.get_path">
+<area shape="rect" id="Node000001" title=" " alt="" coords="294,83,533,111"/>
+<area shape="rect" id="Node000002" href="$classellipse__item_1_1EllipseItem.html#a2eb6d3b2bd320540e026e00f302182e7" title=" " alt="" coords="5,5,246,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="337,82,220,53,222,48,338,76"/>
+<area shape="rect" id="Node000003" href="$classline__item_1_1LineItem.html#a8539f692e54be96892210b1d51ce754d" title=" " alt="" coords="23,75,228,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="278,100,229,100,229,94,278,94"/>
+<area shape="rect" id="Node000004" href="$classrectangle__item_1_1RectangleItem.html#a078ff006b685a0c263a130bbe2b12876" title=" " alt="" coords="31,144,220,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="339,118,221,146,219,141,337,112"/>
+</map>

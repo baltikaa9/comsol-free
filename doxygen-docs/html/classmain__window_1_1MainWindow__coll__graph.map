@@ -1,0 +1,6 @@
+<map id="main_window.MainWindow" name="main_window.MainWindow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,126,205,747"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="53,5,158,78"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,93,100,126,95,126,96,93"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="114,93,116,126,110,126,109,93"/>
+</map>

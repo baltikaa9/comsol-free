@@ -1,0 +1,9 @@
+<map id="turbulence_models.InletBoundaryConditions" name="turbulence_models.InletBoundaryConditions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="12,334,242,490"/>
+<area shape="rect" id="Node000002" href="$classturbulence__models_1_1BoundaryConditions.html" title=" " alt="" coords="5,149,206,239"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,253,122,334,117,334,109,254"/>
+<area shape="rect" id="Node000003" href="$classturbulence__models_1_1BoundaryConditionType.html" title=" " alt="" coords="231,127,431,261"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="271,262,214,323,210,320,267,259"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="307,5,355,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="334,93,334,127,328,127,328,93"/>
+</map>

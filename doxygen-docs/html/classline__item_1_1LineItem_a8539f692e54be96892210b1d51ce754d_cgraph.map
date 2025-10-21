@@ -1,0 +1,7 @@
+<map id="line_item.LineItem.generate_edges" name="line_item.LineItem.generate_edges">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,211,68"/>
+<area shape="rect" id="Node000002" href="$classellipse__item_1_1EllipseItem.html#a74bb88dd5f491c9205cc953880140842" title=" " alt="" coords="259,5,498,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,33,243,30,243,35,212,38"/>
+<area shape="rect" id="Node000003" href="$classline__item_1_1LineItem.html#ac16dcbed54fca738b8989ef8ca5ae319" title=" " alt="" coords="276,57,480,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,53,261,58,261,63,211,58"/>
+</map>

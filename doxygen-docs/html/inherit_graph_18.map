@@ -1,0 +1,11 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,88,152,116"/>
+<area shape="rect" id="Node000001" href="$classboolean__item_1_1BooleanShapeItem.html" title=" " alt="" coords="204,5,442,33"/>
+<area shape="poly" id="edge26_Node000000_Node000001" title=" " alt="" coords="119,78,199,43,243,31,244,36,201,48,121,83"/>
+<area shape="rect" id="Node000002" href="$classedge__item_1_1EdgeItem.html" title=" " alt="" coords="245,57,401,85"/>
+<area shape="poly" id="edge27_Node000000_Node000002" title=" " alt="" coords="166,88,244,78,244,84,167,93"/>
+<area shape="rect" id="Node000003" href="$classeditable__bezier_1_1EditableBezierCurveItem.html" title=" " alt="" coords="234,109,412,154"/>
+<area shape="poly" id="edge28_Node000000_Node000003" title=" " alt="" coords="167,110,234,118,233,123,166,115"/>
+<area shape="rect" id="Node000004" href="$classparametric__curve__item_1_1ParametricCurveItem.html" title=" " alt="" coords="200,178,446,223"/>
+<area shape="poly" id="edge29_Node000000_Node000004" title=" " alt="" coords="117,121,201,163,234,175,232,180,199,168,115,126"/>
+</map>
