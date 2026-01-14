@@ -122,16 +122,23 @@ class MainWindow(QMainWindow):
         dx = dialog.get_data()
         mesh_type = dialog.get_mesh_type()
 
+        # Фильтруем только рёбра которые ещё существуют на сцене
+        valid_edges = [edge for edge in self.boundary_edges if edge.scene() is not None]
+
+        if not valid_edges:
+            QMessageBox.warning(self, "Ошибка", "Нет рёбер с граничными условиями на сцене!")
+            return
+
         if mesh_type == 'structured':
             # Прямоугольная структурированная сетка
             builder = StructuredMeshBuilder(self.grid_spacing, filename='structured_mesh.json')
             try:
-                mesh_data = builder.build_mesh(self.boundary_edges, dx, dx)
+                mesh_data = builder.build_mesh(valid_edges, dx, dx)
 
                 # Группируем граничные условия
                 unique_bc = []
                 seen_bc_ids = set()
-                for edge in self.boundary_edges:
+                for edge in valid_edges:
                     bc = edge.boundary_conditions
                     bc_id = id(bc)
                     if bc_id not in seen_bc_ids:
@@ -145,6 +152,9 @@ class MainWindow(QMainWindow):
                     self.material
                 )
 
+                # Визуализация сетки
+                builder.visualize_mesh(mesh_data, valid_edges)
+
                 QMessageBox.information(
                     self,
                     'Готово',
@@ -157,7 +167,7 @@ class MainWindow(QMainWindow):
         else:
             # Треугольная сетка через GMSH
             builder = GmshMeshBuilder(self.grid_spacing)
-            builder.build_mesh(self.boundary_edges, dx)
+            builder.build_mesh(valid_edges, dx)
             self.export_json()
 
     def init_turbulence_ui(self):

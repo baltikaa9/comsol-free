@@ -1,5 +1,6 @@
 import json
 
+import matplotlib.pyplot as plt
 import numpy as np
 from PySide6.QtCore import QPointF
 from PySide6.QtGui import QPainterPath
@@ -206,15 +207,27 @@ class StructuredMeshBuilder:
         inner_paths = [self.create_path_from_loop(loop) for loop in inner_loops]
 
         # Проверяем каждый узел сетки
+        # Используем небольшую окрестность для включения граничных точек
+        offset = 0.1  # Маленькое смещение для проверки окрестности узла
+
         for i in range(rows):
             for j in range(cols):
-                point = QPointF(X[i, j], Y[i, j])
+                x, y = X[i, j], Y[i, j]
 
-                # Проверяем: внутри внешнего контура?
-                inside_outer = outer_path.contains(point)
+                # Проверяем точку и её небольшую окрестность (5 точек)
+                points_to_check = [
+                    QPointF(x, y),           # Центр
+                    QPointF(x - offset, y),  # Слева
+                    QPointF(x + offset, y),  # Справа
+                    QPointF(x, y - offset),  # Снизу
+                    QPointF(x, y + offset),  # Сверху
+                ]
 
-                # Проверяем: снаружи всех внутренних контуров?
-                inside_any_inner = any(inner_path.contains(point) for inner_path in inner_paths)
+                # Если хотя бы одна точка внутри внешнего контура - включаем узел
+                inside_outer = any(outer_path.contains(p) for p in points_to_check)
+
+                # Проверяем: снаружи всех внутренних контуров? (проверяем центр)
+                inside_any_inner = any(inner_path.contains(QPointF(x, y)) for inner_path in inner_paths)
 
                 # Узел принадлежит домену, если внутри outer и снаружи inner
                 if inside_outer and not inside_any_inner:
@@ -232,29 +245,40 @@ class StructuredMeshBuilder:
         """
         Назначает граничные условия узлам сетки.
         Возвращает массив bc_id, где 0 = внутренний узел, 1,2,3... = номер граничного условия.
+
+        Алгоритм:
+        1. Дискретизирует каждый EdgeItem на точки
+        2. Для каждой точки находит ближайший узел сетки
+        3. Назначает bc_id только если узел внутри домена (mask=1)
+        4. Фильтрует углы (перпендикулярные соседи mask=0)
         """
         rows, cols = X.shape
         bc_id = np.zeros((rows, cols), dtype=int)
 
         # Группируем рёбра по граничным условиям
-        # Используем id(bc) как ключ, т.к. объекты BoundaryConditions не hashable
         bc_groups = {}
-        bc_objects = {}  # Сохраняем соответствие id -> объект bc
+        bc_id_to_index = {}
+        bc_index = 1
         for edge in edges:
             bc = edge.boundary_conditions
             bc_id_key = id(bc)
             if bc_id_key not in bc_groups:
                 bc_groups[bc_id_key] = []
-                bc_objects[bc_id_key] = bc
+                bc_id_to_index[bc_id_key] = bc_index
+                bc_index += 1
             bc_groups[bc_id_key].append(edge)
 
-        # Для каждой группы граничных условий
-        bc_index = 1
+        dx = X[0, 1] - X[0, 0] if cols > 1 else 1
+        dy = Y[1, 0] - Y[0, 0] if rows > 1 else 1
+        grid_step = min(dx, dy)
+
+        # Дискретизируем рёбра и находим ближайшие узлы
         for bc_id_key, group_edges in bc_groups.items():
             for edge in group_edges:
-                # Дискретизируем путь ребра на точки
                 path = edge.path()
-                num_samples = max(100, int(path.length() / min(X[0, 1] - X[0, 0], Y[1, 0] - Y[0, 0]) * 2))
+                path_length = path.length()
+                # Плотная дискретизация
+                num_samples = max(100, int(path_length / grid_step * 3))
 
                 for t_idx in range(num_samples + 1):
                     t = t_idx / num_samples
@@ -262,23 +286,92 @@ class StructuredMeshBuilder:
                     x_pt = point.x()
                     y_pt = point.y()
 
-                    # Находим ближайший узел сетки
-                    i_nearest = np.argmin(np.abs(Y[:, 0] - y_pt))
-                    j_nearest = np.argmin(np.abs(X[0, :] - x_pt))
+                    # Находим несколько ближайших узлов (в радиусе ~2 ячеек)
+                    search_radius_cells = 2
+                    candidates = []
 
-                    # Проверяем, что узел на границе домена
-                    if 0 <= i_nearest < rows and 0 <= j_nearest < cols:
-                        if self._is_boundary_node(mask, i_nearest, j_nearest):
-                            bc_id[i_nearest, j_nearest] = bc_index
+                    # Определяем диапазон поиска
+                    i_center = np.argmin(np.abs(Y[:, 0] - y_pt))
+                    j_center = np.argmin(np.abs(X[0, :] - x_pt))
 
-            bc_index += 1
+                    i_min = max(0, i_center - search_radius_cells)
+                    i_max = min(rows, i_center + search_radius_cells + 1)
+                    j_min = max(0, j_center - search_radius_cells)
+                    j_max = min(cols, j_center + search_radius_cells + 1)
+
+                    # Ищем среди соседних узлов
+                    for i in range(i_min, i_max):
+                        for j in range(j_min, j_max):
+                            if mask[i, j] == 1:
+                                dist = (X[i, j] - x_pt)**2 + (Y[i, j] - y_pt)**2
+                                candidates.append((dist, i, j))
+
+                    # Выбираем ближайший узел с mask=1
+                    if candidates:
+                        candidates.sort()
+                        _, i_best, j_best = candidates[0]
+                        bc_id[i_best, j_best] = bc_id_to_index[bc_id_key]
+
+        # Фильтруем углы - ВРЕМЕННО ОТКЛЮЧЕНО ДЛЯ ОТЛАДКИ
+        # for i in range(rows):
+        #     for j in range(cols):
+        #         if bc_id[i, j] == 0:
+        #             continue
+        #
+        #         # Проверяем соседей в 4 направлениях
+        #         def is_outside(pi, pj):
+        #             if not (0 <= pi < rows and 0 <= pj < cols):
+        #                 return True
+        #             return mask[pi, pj] == 0
+        #
+        #         top_out = is_outside(i - 1, j)
+        #         bottom_out = is_outside(i + 1, j)
+        #         left_out = is_outside(i, j - 1)
+        #         right_out = is_outside(i, j + 1)
+        #
+        #         # Это угол если mask=0 в двух перпендикулярных направлениях
+        #         is_corner = (top_out and right_out) or \
+        #                    (top_out and left_out) or \
+        #                    (bottom_out and right_out) or \
+        #                    (bottom_out and left_out)
+        #
+        #         if is_corner:
+        #             bc_id[i, j] = 0
 
         return bc_id
+
+    def _distance_to_path(self, point: QPointF, edges: list[EdgeItem], max_distance: float) -> float:
+        """
+        Вычисляет минимальное расстояние от точки до набора рёбер.
+        Возвращает max_distance если не найдено ближе.
+        """
+        min_dist = max_distance
+
+        for edge in edges:
+            path = edge.path()
+            # Дискретизируем путь на точки (плотность зависит от длины пути)
+            path_length = path.length()
+            # Используем max_distance как оценку шага сетки
+            grid_step = max_distance / 1.5
+            num_samples = max(100, int(path_length / grid_step * 3))
+            for i in range(num_samples + 1):
+                t = i / num_samples
+                path_point = path.pointAtPercent(t)
+                dx = path_point.x() - point.x()
+                dy = path_point.y() - point.y()
+                dist = (dx * dx + dy * dy) ** 0.5
+                if dist < min_dist:
+                    min_dist = dist
+
+        return min_dist
 
     def _is_boundary_node(self, mask: np.ndarray, i: int, j: int) -> bool:
         """
         Проверяет, является ли узел (i,j) граничным.
         Граничный узел: mask[i,j] == 1 и хотя бы один сосед == 0.
+
+        ПРИМЕЧАНИЕ: Этот метод больше не используется для назначения BC.
+        Оставлен для возможного использования в будущем.
         """
         if mask[i, j] != 1:
             return False
@@ -351,3 +444,101 @@ class StructuredMeshBuilder:
             json.dump(output, f, ensure_ascii=False, indent=2)
 
         return self.filename
+
+    def visualize_mesh(self, mesh_data: dict, edges: list[EdgeItem]):
+        """
+        Визуализирует структурированную сетку через matplotlib.
+        Показывает узлы домена, граничные узлы и контур геометрии.
+
+        :param mesh_data: Данные сетки из build_mesh()
+        :param edges: Список рёбер для отрисовки контура
+        """
+        # Извлекаем данные
+        x = np.array(mesh_data['grid']['x'])
+        y = np.array(mesh_data['grid']['y'])
+        mask = np.array(mesh_data['mask'])
+        bc_id = np.array(mesh_data['bc_id'])
+
+        X, Y = np.meshgrid(x, y)
+
+        # Создаём новую фигуру
+        fig, ax = plt.subplots(figsize=(12, 12))
+        ax.set_aspect('equal')
+        ax.set_title('Структурированная сетка', fontsize=14)
+        ax.set_xlabel('X', fontsize=12)
+        ax.set_ylabel('Y', fontsize=12)
+
+        # Отрисовываем линии сетки (только там где mask=1)
+        # Горизонтальные линии
+        for i in range(len(y)):
+            row_mask = mask[i, :] == 1
+            if np.any(row_mask):
+                x_vals = X[i, row_mask]
+                y_vals = Y[i, row_mask]
+                # Группируем непрерывные сегменты
+                segments = []
+                current_seg = []
+                for j in range(len(x_vals)):
+                    if not current_seg or (current_seg and abs(x_vals[j] - current_seg[-1][0]) < 2 * mesh_data['grid']['dx']):
+                        current_seg.append((x_vals[j], y_vals[j]))
+                    else:
+                        if len(current_seg) > 1:
+                            segments.append(current_seg)
+                        current_seg = [(x_vals[j], y_vals[j])]
+                if len(current_seg) > 1:
+                    segments.append(current_seg)
+
+                for seg in segments:
+                    seg_arr = np.array(seg)
+                    ax.plot(seg_arr[:, 0], seg_arr[:, 1], 'gray', linewidth=0.5, alpha=0.5)
+
+        # Вертикальные линии
+        for j in range(len(x)):
+            col_mask = mask[:, j] == 1
+            if np.any(col_mask):
+                x_vals = X[col_mask, j]
+                y_vals = Y[col_mask, j]
+                # Группируем непрерывные сегменты
+                segments = []
+                current_seg = []
+                for i in range(len(y_vals)):
+                    if not current_seg or (current_seg and abs(y_vals[i] - current_seg[-1][1]) < 2 * mesh_data['grid']['dy']):
+                        current_seg.append((x_vals[i], y_vals[i]))
+                    else:
+                        if len(current_seg) > 1:
+                            segments.append(current_seg)
+                        current_seg = [(x_vals[i], y_vals[i])]
+                if len(current_seg) > 1:
+                    segments.append(current_seg)
+
+                for seg in segments:
+                    seg_arr = np.array(seg)
+                    ax.plot(seg_arr[:, 0], seg_arr[:, 1], 'gray', linewidth=0.5, alpha=0.5)
+
+        # Отрисовываем граничные узлы (bc_id > 0)
+        boundary_mask = bc_id > 0
+        if np.any(boundary_mask):
+            ax.scatter(X[boundary_mask], Y[boundary_mask], c='red', s=15, marker='s',
+                      label='Граничные узлы (BC)', zorder=5, edgecolors='darkred', linewidth=0.5)
+
+        # Отрисовываем контур геометрии
+        loops = self.build_closed_loops(edges)
+        for loop_idx, loop in enumerate(loops):
+            points = []
+            for edge in loop:
+                path = edge.path()
+                # Дискретизируем ребро на точки
+                num_samples = 100
+                for i in range(num_samples + 1):
+                    t = i / num_samples
+                    point = path.pointAtPercent(t)
+                    points.append([point.x(), point.y()])
+
+            if points:
+                points = np.array(points)
+                label = 'Внешний контур' if loop_idx == 0 else f'Внутренний контур {loop_idx}'
+                ax.plot(points[:, 0], points[:, 1], 'k-', linewidth=2, label=label)
+
+        ax.legend()
+        plt.tight_layout()
+        plt.show()

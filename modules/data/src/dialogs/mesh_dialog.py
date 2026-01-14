@@ -16,7 +16,7 @@ class MeshDialog(Dialog):
         # Выбор типа сетки
         self.mesh_type_combo = QComboBox()
         self.mesh_type_combo.addItems(['Треугольная (GMSH)', 'Прямоугольная (структурированная)'])
-        self.mesh_type_combo.setCurrentIndex(0)
+        self.mesh_type_combo.setCurrentIndex(1)
 
         self.dx_spin = QDoubleSpinBox()
         self.dx_spin.setDecimals(2)
