@@ -2,19 +2,17 @@ import json
 import os
 from collections import OrderedDict
 
-from PySide6.QtCore import QEvent
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QKeyEvent
-from PySide6.QtGui import QPainter
-from PySide6.QtGui import QPen
-from PySide6.QtWidgets import QApplication
-from PySide6.QtWidgets import QDialog
-from PySide6.QtWidgets import QGraphicsView
-from PySide6.QtWidgets import QMainWindow
-from PySide6.QtWidgets import QMenu
-from PySide6.QtWidgets import QMessageBox
-from PySide6.QtWidgets import QTreeWidgetItem
-
+from PySide6.QtCore import QEvent, Qt
+from PySide6.QtGui import QKeyEvent, QPainter, QPen
+from PySide6.QtWidgets import (
+    QApplication,
+    QDialog,
+    QGraphicsView,
+    QMainWindow,
+    QMenu,
+    QMessageBox,
+    QTreeWidgetItem,
+)
 from src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
 from src.dialogs.initial_conditions_dialog import InitialConditionsDialog
 from src.dialogs.material_dialog import MaterialDialog
@@ -23,19 +21,22 @@ from src.dialogs.turbulence_dialog import TurbulenceDialog
 from src.event_handler import EventHandler
 from src.operations.boolean_operations import BooleanOperations
 from src.operations.transformation_operations import TransformationOperations
-from src.physics.turbulence_models import BoundaryConditionType
-from src.physics.turbulence_models import BoundaryConditions
-from src.physics.turbulence_models import InitialConditions
-from src.physics.turbulence_models import InletBoundaryConditions
-from src.physics.turbulence_models import Material
-from src.physics.turbulence_models import OpenBoundaryConditions
-from src.physics.turbulence_models import TurbulenceModel
-from src.physics.turbulence_models import TurbulenceParams
-from src.physics.turbulence_models import WallBoundaryConditions
+from src.physics.turbulence_models import (
+    BoundaryConditions,
+    BoundaryConditionType,
+    InitialConditions,
+    InletBoundaryConditions,
+    Material,
+    OpenBoundaryConditions,
+    TurbulenceModel,
+    TurbulenceParams,
+    WallBoundaryConditions,
+)
 from src.services.command_service import CommandService
 from src.services.drawing_service import DrawingService
 from src.services.gmsh_mesh_builder import GmshMeshBuilder
 from src.services.selection_service import SelectionService
+from src.services.structured_mesh_builder import StructuredMeshBuilder
 from src.ui.template import Ui_MainWindow
 from src.widgets.edge_item import EdgeItem
 from src.widgets.grid_scene import GridScene
@@ -119,11 +120,44 @@ class MainWindow(QMainWindow):
             return
 
         dx = dialog.get_data()
+        mesh_type = dialog.get_mesh_type()
 
-        builder = GmshMeshBuilder(self.grid_spacing)
-        builder.build_mesh(self.boundary_edges, dx)
-        
-        self.export_json()
+        if mesh_type == 'structured':
+            # Прямоугольная структурированная сетка
+            builder = StructuredMeshBuilder(self.grid_spacing, filename='structured_mesh.json')
+            try:
+                mesh_data = builder.build_mesh(self.boundary_edges, dx, dx)
+
+                # Группируем граничные условия
+                unique_bc = []
+                seen_bc = set()
+                for edge in self.boundary_edges:
+                    bc = edge.boundary_conditions
+                    if bc not in seen_bc:
+                        unique_bc.append(bc)
+                        seen_bc.add(bc)
+
+                output_file = builder.save_to_json(
+                    mesh_data,
+                    self.initial_conditions,
+                    unique_bc,
+                    self.material
+                )
+
+                QMessageBox.information(
+                    self,
+                    'Готово',
+                    f'Структурированная сетка сохранена в {output_file}\n'
+                    f'Размер сетки: {mesh_data["grid"]["shape"]}\n'
+                    f'Узлов домена: {mesh_data["mask"].count(1) if isinstance(mesh_data["mask"], list) else sum(sum(row) for row in mesh_data["mask"])}'
+                )
+            except Exception as e:
+                QMessageBox.critical(self, 'Ошибка', f'Не удалось построить сетку:\n{str(e)}')
+        else:
+            # Треугольная сетка через GMSH
+            builder = GmshMeshBuilder(self.grid_spacing)
+            builder.build_mesh(self.boundary_edges, dx)
+            self.export_json()
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
