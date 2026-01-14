@@ -81,10 +81,32 @@ class StructuredMeshBuilder:
     def create_path_from_loop(self, loop: list[EdgeItem]) -> QPainterPath:
         """
         Создаёт QPainterPath из петли рёбер для проверки принадлежности точки.
+        Дискретизирует каждое ребро на точки и соединяет их линиями.
         """
+        if not loop:
+            return QPainterPath()
+
         combined_path = QPainterPath()
+
+        # Количество точек для дискретизации каждого ребра
+        num_samples = 50
+
+        is_first = True
+
         for edge in loop:
-            combined_path.addPath(edge.path())
+            path = edge.path()
+
+            # Дискретизируем путь на точки
+            for i in range(num_samples + 1):
+                t = i / num_samples
+                point = path.pointAtPercent(t)
+
+                if is_first and i == 0:
+                    combined_path.moveTo(point)
+                    is_first = False
+                else:
+                    combined_path.lineTo(point)
+
         combined_path.closeSubpath()
         return combined_path
 
@@ -113,18 +135,14 @@ class StructuredMeshBuilder:
 
         # Добавляем небольшой отступ
         margin = max(dx, dy)
-        min_x = (bbox['min_x'] - margin) / self.grid_spacing
-        max_x = (bbox['max_x'] + margin) / self.grid_spacing
-        min_y = (bbox['min_y'] - margin) / self.grid_spacing
-        max_y = (bbox['max_y'] + margin) / self.grid_spacing
+        min_x = bbox['min_x'] - margin
+        max_x = bbox['max_x'] + margin
+        min_y = bbox['min_y'] - margin
+        max_y = bbox['max_y'] + margin
 
-        # Масштабируем шаги
-        dx_scaled = dx / self.grid_spacing
-        dy_scaled = dy / self.grid_spacing
-
-        # Создаём одномерные массивы координат
-        x_range = np.arange(min_x, max_x + dx_scaled / 2, dx_scaled)
-        y_range = np.arange(min_y, max_y + dy_scaled / 2, dy_scaled)
+        # Создаём одномерные массивы координат (в исходной системе координат)
+        x_range = np.arange(min_x, max_x + dx / 2, dx)
+        y_range = np.arange(min_y, max_y + dy / 2, dy)
         X, Y = np.meshgrid(x_range, y_range)
 
         # 4. Создаём маску домена
@@ -138,9 +156,10 @@ class StructuredMeshBuilder:
             'grid': {
                 'x': x_range.tolist(),
                 'y': y_range.tolist(),
-                'dx': dx_scaled,
-                'dy': dy_scaled,
-                'shape': list(X.shape)
+                'dx': dx,
+                'dy': dy,
+                'shape': list(X.shape),
+                'grid_spacing': self.grid_spacing
             },
             'mask': mask.tolist(),
             'bc_id': bc_id.tolist(),
@@ -186,12 +205,10 @@ class StructuredMeshBuilder:
         # Создаём QPainterPath для каждого внутреннего контура (дырки)
         inner_paths = [self.create_path_from_loop(loop) for loop in inner_loops]
 
-        # Масштабируем координаты обратно для проверки
+        # Проверяем каждый узел сетки
         for i in range(rows):
             for j in range(cols):
-                x_scaled = X[i, j] * self.grid_spacing
-                y_scaled = Y[i, j] * self.grid_spacing
-                point = QPointF(x_scaled, y_scaled)
+                point = QPointF(X[i, j], Y[i, j])
 
                 # Проверяем: внутри внешнего контура?
                 inside_outer = outer_path.contains(point)
@@ -242,8 +259,8 @@ class StructuredMeshBuilder:
                 for t_idx in range(num_samples + 1):
                     t = t_idx / num_samples
                     point = path.pointAtPercent(t)
-                    x_pt = point.x() / self.grid_spacing
-                    y_pt = point.y() / self.grid_spacing
+                    x_pt = point.x()
+                    y_pt = point.y()
 
                     # Находим ближайший узел сетки
                     i_nearest = np.argmin(np.abs(Y[:, 0] - y_pt))

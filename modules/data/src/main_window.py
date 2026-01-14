@@ -130,12 +130,13 @@ class MainWindow(QMainWindow):
 
                 # Группируем граничные условия
                 unique_bc = []
-                seen_bc = set()
+                seen_bc_ids = set()
                 for edge in self.boundary_edges:
                     bc = edge.boundary_conditions
-                    if bc not in seen_bc:
+                    bc_id = id(bc)
+                    if bc_id not in seen_bc_ids:
                         unique_bc.append(bc)
-                        seen_bc.add(bc)
+                        seen_bc_ids.add(bc_id)
 
                 output_file = builder.save_to_json(
                     mesh_data,
@@ -149,7 +150,7 @@ class MainWindow(QMainWindow):
                     'Готово',
                     f'Структурированная сетка сохранена в {output_file}\n'
                     f'Размер сетки: {mesh_data["grid"]["shape"]}\n'
-                    f'Узлов домена: {mesh_data["mask"].count(1) if isinstance(mesh_data["mask"], list) else sum(sum(row) for row in mesh_data["mask"])}'
+                    f'Узлов домена: {sum(sum(row) for row in mesh_data["mask"])}'
                 )
             except Exception as e:
                 QMessageBox.critical(self, 'Ошибка', f'Не удалось построить сетку:\n{str(e)}')
