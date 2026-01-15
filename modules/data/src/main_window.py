@@ -2,8 +2,8 @@ import json
 import os
 from collections import OrderedDict
 
-from PySide6.QtCore import QEvent, Qt
-from PySide6.QtGui import QKeyEvent, QPainter, QPen
+from PySide6.QtCore import QEvent, QRectF, Qt
+from PySide6.QtGui import QKeyEvent, QPainter, QPainterPath, QPen
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -37,6 +37,9 @@ from src.services.drawing_service import DrawingService
 from src.services.gmsh_mesh_builder import GmshMeshBuilder
 from src.services.selection_service import SelectionService
 from src.services.structured_mesh_builder import StructuredMeshBuilder
+from src.shapes.ellipse_item import EllipseItem
+from src.shapes.parametric_curve_item import ParametricCurveItem
+from src.shapes.rectangle_item import RectangleItem
 from src.ui.template import Ui_MainWindow
 from src.widgets.edge_item import EdgeItem
 from src.widgets.grid_scene import GridScene
@@ -51,6 +54,8 @@ class MainWindow(QMainWindow):
         self.grid_spacing = 50
         self.scene = GridScene(spacing=self.grid_spacing)
         self.scene.setSceneRect(-5000, -5000, 10000, 10000)
+
+
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.RenderHint.Antialiasing)
         self.ui.graphicsView.scale(1, -1)
@@ -121,6 +126,7 @@ class MainWindow(QMainWindow):
 
         dx = dialog.get_data()
         mesh_type = dialog.get_mesh_type()
+        visualize = dialog.get_visualize()
 
         # Фильтруем только рёбра которые ещё существуют на сцене
         valid_edges = [edge for edge in self.boundary_edges if edge.scene() is not None]
@@ -153,7 +159,8 @@ class MainWindow(QMainWindow):
                 )
 
                 # Визуализация сетки
-                builder.visualize_mesh(mesh_data, valid_edges)
+                if visualize:
+                    builder.visualize_mesh(mesh_data, valid_edges)
 
                 QMessageBox.information(
                     self,

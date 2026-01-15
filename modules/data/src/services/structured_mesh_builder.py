@@ -1,5 +1,6 @@
 import json
 
+import gmsh
 import matplotlib.pyplot as plt
 import numpy as np
 from PySide6.QtCore import QPointF
@@ -447,8 +448,8 @@ class StructuredMeshBuilder:
 
     def visualize_mesh(self, mesh_data: dict, edges: list[EdgeItem]):
         """
-        Визуализирует структурированную сетку через matplotlib.
-        Показывает узлы домена, граничные узлы и контур геометрии.
+        Визуализирует структурированную сетку через Gmsh.
+        Создаёт квадратные элементы и использует Gmsh GUI для визуализации.
 
         :param mesh_data: Данные сетки из build_mesh()
         :param edges: Список рёбер для отрисовки контура
@@ -459,86 +460,72 @@ class StructuredMeshBuilder:
         mask = np.array(mesh_data['mask'])
         bc_id = np.array(mesh_data['bc_id'])
 
-        X, Y = np.meshgrid(x, y)
+        print(f"[DEBUG] Визуализация структурированной сетки {len(x)}x{len(y)} через Gmsh...")
 
-        # Создаём новую фигуру
-        fig, ax = plt.subplots(figsize=(12, 12))
-        ax.set_aspect('equal')
-        ax.set_title('Структурированная сетка', fontsize=14)
-        ax.set_xlabel('X', fontsize=12)
-        ax.set_ylabel('Y', fontsize=12)
+        # Инициализация Gmsh
+        gmsh.initialize()
+        gmsh.model.add("structured_mesh_viz")
 
-        # Отрисовываем линии сетки (только там где mask=1)
-        # Горизонтальные линии
+        # Создаём узлы и элементы
+        node_tags = []
+        node_coords = []
+        node_map = {}  # (i, j) -> node_tag
+        node_tag = 1
+
+        # Добавляем все узлы где mask == 1
         for i in range(len(y)):
-            row_mask = mask[i, :] == 1
-            if np.any(row_mask):
-                x_vals = X[i, row_mask]
-                y_vals = Y[i, row_mask]
-                # Группируем непрерывные сегменты
-                segments = []
-                current_seg = []
-                for j in range(len(x_vals)):
-                    if not current_seg or (current_seg and abs(x_vals[j] - current_seg[-1][0]) < 2 * mesh_data['grid']['dx']):
-                        current_seg.append((x_vals[j], y_vals[j]))
-                    else:
-                        if len(current_seg) > 1:
-                            segments.append(current_seg)
-                        current_seg = [(x_vals[j], y_vals[j])]
-                if len(current_seg) > 1:
-                    segments.append(current_seg)
+            for j in range(len(x)):
+                if mask[i, j] == 1:
+                    node_tags.append(node_tag)
+                    node_coords.extend([x[j], y[i], 0.0])
+                    node_map[(i, j)] = node_tag
+                    node_tag += 1
 
-                for seg in segments:
-                    seg_arr = np.array(seg)
-                    ax.plot(seg_arr[:, 0], seg_arr[:, 1], 'gray', linewidth=0.5, alpha=0.5)
+        # Создаём дискретную поверхность для узлов и элементов
+        surface_tag = 1
+        gmsh.model.addDiscreteEntity(2, surface_tag)
 
-        # Вертикальные линии
-        for j in range(len(x)):
-            col_mask = mask[:, j] == 1
-            if np.any(col_mask):
-                x_vals = X[col_mask, j]
-                y_vals = Y[col_mask, j]
-                # Группируем непрерывные сегменты
-                segments = []
-                current_seg = []
-                for i in range(len(y_vals)):
-                    if not current_seg or (current_seg and abs(y_vals[i] - current_seg[-1][1]) < 2 * mesh_data['grid']['dy']):
-                        current_seg.append((x_vals[i], y_vals[i]))
-                    else:
-                        if len(current_seg) > 1:
-                            segments.append(current_seg)
-                        current_seg = [(x_vals[i], y_vals[i])]
-                if len(current_seg) > 1:
-                    segments.append(current_seg)
+        # Добавляем узлы в Gmsh
+        if node_tags:
+            gmsh.model.mesh.addNodes(2, surface_tag, node_tags, node_coords)
 
-                for seg in segments:
-                    seg_arr = np.array(seg)
-                    ax.plot(seg_arr[:, 0], seg_arr[:, 1], 'gray', linewidth=0.5, alpha=0.5)
+        # Создаём квадратные элементы (elementType=3 для 4-node quad)
+        elem_tags = []
+        elem_node_tags = []
+        elem_tag = 1
 
-        # Отрисовываем граничные узлы (bc_id > 0)
-        boundary_mask = bc_id > 0
-        if np.any(boundary_mask):
-            ax.scatter(X[boundary_mask], Y[boundary_mask], c='red', s=15, marker='s',
-                      label='Граничные узлы (BC)', zorder=5, edgecolors='darkred', linewidth=0.5)
+        # Проходим по всем ячейкам и создаём квадраты
+        for i in range(len(y) - 1):
+            for j in range(len(x) - 1):
+                # Проверяем что все 4 угла существуют
+                if (mask[i, j] == 1 and mask[i, j+1] == 1 and
+                    mask[i+1, j] == 1 and mask[i+1, j+1] == 1):
 
-        # Отрисовываем контур геометрии
-        loops = self.build_closed_loops(edges)
-        for loop_idx, loop in enumerate(loops):
-            points = []
-            for edge in loop:
-                path = edge.path()
-                # Дискретизируем ребро на точки
-                num_samples = 100
-                for i in range(num_samples + 1):
-                    t = i / num_samples
-                    point = path.pointAtPercent(t)
-                    points.append([point.x(), point.y()])
+                    # Узлы квадрата (против часовой стрелки)
+                    n1 = node_map[(i, j)]
+                    n2 = node_map[(i, j+1)]
+                    n3 = node_map[(i+1, j+1)]
+                    n4 = node_map[(i+1, j)]
 
-            if points:
-                points = np.array(points)
-                label = 'Внешний контур' if loop_idx == 0 else f'Внутренний контур {loop_idx}'
-                ax.plot(points[:, 0], points[:, 1], 'k-', linewidth=2, label=label)
+                    elem_tags.append(elem_tag)
+                    elem_node_tags.extend([n1, n2, n3, n4])
+                    elem_tag += 1
 
-        ax.legend()
-        plt.tight_layout()
-        plt.show()
+        # Добавляем элементы в Gmsh
+        if elem_tags:
+            gmsh.model.mesh.addElementsByType(surface_tag, 3, elem_tags, elem_node_tags)
+
+        # Синхронизация
+        gmsh.model.geo.synchronize()
+
+        # Сохраняем в файл
+        viz_filename = 'structured_mesh_viz.msh'
+        gmsh.write(viz_filename)
+        print(f"[DEBUG] Сетка сохранена в {viz_filename}")
+        print(f"[DEBUG] Узлов: {len(node_tags)}, Квадратных элементов: {len(elem_tags)}")
+
+        # Открываем GUI Gmsh для визуализации
+        gmsh.fltk.run()
+
+        # Очистка
+        gmsh.finalize()
