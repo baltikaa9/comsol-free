@@ -1,5 +1,4 @@
 from PySide6.QtWidgets import (
-    QCheckBox,
     QComboBox,
     QDialogButtonBox,
     QDoubleSpinBox,
@@ -26,13 +25,13 @@ class MeshDialog(Dialog):
         self.dx_spin.setSingleStep(0.01)
 
         # Чекбокс визуализации
-        self.visualize_checkbox = QCheckBox()
-        self.visualize_checkbox.setChecked(False)
+        # self.visualize_checkbox = QCheckBox()
+        # self.visualize_checkbox.setChecked(False)
 
         layout = QFormLayout(self)
         layout.addRow('Тип сетки', self.mesh_type_combo)
         layout.addRow('Максимальный размер элемента', self.dx_spin)
-        layout.addRow('Показать визуализацию (может лагать)', self.visualize_checkbox)
+        # layout.addRow('Показать визуализацию (может лагать)', self.visualize_checkbox)
 
         buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         box = QDialogButtonBox(buttons)
@@ -47,6 +46,6 @@ class MeshDialog(Dialog):
         """Возвращает 'triangular' или 'structured'"""
         return 'triangular' if self.mesh_type_combo.currentIndex() == 0 else 'structured'
 
-    def get_visualize(self) -> bool:
-        """Возвращает True если нужно показать визуализацию"""
-        return self.visualize_checkbox.isChecked()
+    # def get_visualize(self) -> bool:
+    #     """Возвращает True если нужно показать визуализацию"""
+    #     return self.visualize_checkbox.isChecked()

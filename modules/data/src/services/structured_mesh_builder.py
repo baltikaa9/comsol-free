@@ -515,6 +515,64 @@ class StructuredMeshBuilder:
         if elem_tags:
             gmsh.model.mesh.addElementsByType(surface_tag, 3, elem_tags, elem_node_tags)
 
+        # Добавляем контур (границы) фигуры из `edges`
+        # Аппроксимируем кривые множеством прямых отрезков
+        geo_point_tag_counter = 1
+        edge_point_map = {}  # (x, y) -> geo_point_tag
+
+        # Количество точек для аппроксимации кривых
+        num_approximations = 100
+
+        for edge in edges:
+            path = edge.path() # Получаем QPainterPath
+
+            # Добавляем начальную точку
+            start_point = path.pointAtPercent(0.0)
+            start_coord = (start_point.x(), start_point.y())
+            start_tag = edge_point_map.get(start_coord)
+            if start_tag is None:
+                start_tag = gmsh.model.geo.addPoint(start_coord[0], start_coord[1], 0, tag=geo_point_tag_counter)
+                edge_point_map[start_coord] = start_tag
+                geo_point_tag_counter += 1
+
+            # Добавляем точки для аппроксимации кривых
+            for i in range(1, num_approximations):
+                percent = i / num_approximations
+                current_point = path.pointAtPercent(percent)
+                current_coord = (current_point.x(), current_point.y())
+
+                current_tag = edge_point_map.get(current_coord)
+                if current_tag is None:
+                    current_tag = gmsh.model.geo.addPoint(current_coord[0], current_coord[1], 0, tag=geo_point_tag_counter)
+                    edge_point_map[current_coord] = current_tag
+                    geo_point_tag_counter += 1
+
+                # Получаем предыдущую точку для создания линии
+                prev_point = path.pointAtPercent( (i-1) / num_approximations )
+                prev_coord = (prev_point.x(), prev_point.y())
+                prev_tag = edge_point_map.get(prev_coord)
+                # prev_tag должен существовать, так как он был добавлен на предыдущем шаге
+                if prev_tag is not None:
+                    gmsh.model.geo.addLine(prev_tag, current_tag)
+
+            # Добавляем конечную точку (если она отличается от предыдущей)
+            end_point = path.pointAtPercent(1.0)
+            end_coord = (end_point.x(), end_point.y())
+            end_tag = edge_point_map.get(end_coord)
+            if end_tag is None:
+                end_tag = gmsh.model.geo.addPoint(end_coord[0], end_coord[1], 0, tag=geo_point_tag_counter)
+                edge_point_map[end_coord] = end_tag
+                geo_point_tag_counter += 1
+
+            # Получаем последнюю аппроксимированную точку
+            last_approx_point = path.pointAtPercent((num_approximations - 1) / num_approximations)
+            last_approx_coord = (last_approx_point.x(), last_approx_point.y())
+            last_approx_tag = edge_point_map.get(last_approx_coord)
+
+            if last_approx_tag is not None:
+                gmsh.model.geo.addLine(last_approx_tag, end_tag)
+
+
         # Синхронизация
         gmsh.model.geo.synchronize()
 
