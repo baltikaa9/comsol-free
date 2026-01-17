@@ -135,29 +135,33 @@ class StructuredMeshBuilder:
         all_edges = [edge for loop in loops for edge in loop]
         bbox = self._get_bounding_box(all_edges)
 
-        # Добавляем небольшой отступ
-        margin = max(dx, dy)
+        # Масштабируем шаги сетки в пиксельные единицы
+        dx_px = dx * self.grid_spacing
+        dy_px = dy * self.grid_spacing
+
+        # Добавляем небольшой отступ в пикселях
+        margin = max(dx_px, dy_px)
         min_x = bbox['min_x'] - margin
         max_x = bbox['max_x'] + margin
         min_y = bbox['min_y'] - margin
         max_y = bbox['max_y'] + margin
 
-        # Создаём одномерные массивы координат (в исходной системе координат)
-        x_range = np.arange(min_x, max_x + dx / 2, dx)
-        y_range = np.arange(min_y, max_y + dy / 2, dy)
-        X, Y = np.meshgrid(x_range, y_range)
+        # Создаём одномерные массивы координат в пикселях
+        x_range_px = np.arange(min_x, max_x + dx_px / 2, dx_px)
+        y_range_px = np.arange(min_y, max_y + dy_px / 2, dy_px)
+        X, Y = np.meshgrid(x_range_px, y_range_px)
 
-        # 4. Создаём маску домена
+        # 4. Создаём маску домена (работает в пиксельных координатах)
         mask = self._create_domain_mask(X, Y, outer_loop, inner_loops)
 
-        # 5. Определяем граничные узлы и назначаем граничные условия
+        # 5. Определяем граничные узлы и назначаем граничные условия (работает в пиксельных координатах)
         bc_id = self._assign_boundary_conditions(X, Y, mask, edges)
 
-        # 6. Формируем результат
+        # 6. Формируем результат, масштабируя координаты обратно в мировые единицы
         mesh_data = {
             'grid': {
-                'x': x_range.tolist(),
-                'y': y_range.tolist(),
+                'x': (x_range_px / self.grid_spacing).tolist(),
+                'y': (y_range_px / self.grid_spacing).tolist(),
                 'dx': dx,
                 'dy': dy,
                 'shape': list(X.shape),
@@ -489,66 +493,44 @@ class StructuredMeshBuilder:
         if elem_tags:
             gmsh.model.mesh.addElementsByType(surface_tag, 3, elem_tags, elem_node_tags)
 
-        # Добавляем контур (границы) фигуры из `edges`
-        # Аппроксимируем кривые множеством прямых отрезков
-        geo_point_tag_counter = 1
-        edge_point_map = {}  # (x, y) -> geo_point_tag
+        # Визуализация граничных узлов с помощью post-processing view.
+        # Вместо рисования гладкого контура, мы покажем точки сетки,
+        # которые были определены как граничные.
+        bc_views = {}  # {bc_id: {'tag': view_tag, 'data': []}}
 
-        # Количество точек для аппроксимации кривых
-        num_approximations = 100
+        # Собираем координаты и значения для каждого граничного условия
+        for i in range(len(y)):
+            for j in range(len(x)):
+                bc_val = int(bc_id[i, j])
+                if bc_val > 0 and mask[i, j] == 1:
+                    if bc_val not in bc_views:
+                        view_tag = gmsh.view.add(f"Boundary Condition {bc_val}")
+                        bc_views[bc_val] = {'tag': view_tag, 'data': []}
 
-        for edge in edges:
-            path = edge.path() # Получаем QPainterPath
+                    # Координаты узла и значение для раскраски
+                    node_x = x[j]
+                    node_y = y[i]
+                    bc_views[bc_val]['data'].extend([node_x, node_y, 0, float(bc_val)])
 
-            # Добавляем начальную точку
-            start_point = path.pointAtPercent(0.0)
-            start_coord = (start_point.x(), start_point.y())
-            start_tag = edge_point_map.get(start_coord)
-            if start_tag is None:
-                start_tag = gmsh.model.geo.addPoint(start_coord[0], start_coord[1], 0, tag=geo_point_tag_counter)
-                edge_point_map[start_coord] = start_tag
-                geo_point_tag_counter += 1
+        # Добавляем данные в Gmsh view
+        for bc_val, view_data in bc_views.items():
+            if view_data['data']:
+                view_tag = view_data['tag']
+                # 'SP' для скалярных точек.
+                # Данные: [x1, y1, z1, val1, x2, y2, z2, val2, ...]
+                num_points = len(view_data['data']) // 4
+                gmsh.view.addListData(view_tag, "SP", num_points, view_data['data'])
 
-            # Добавляем точки для аппроксимации кривых
-            for i in range(1, num_approximations):
-                percent = i / num_approximations
-                current_point = path.pointAtPercent(percent)
-                current_coord = (current_point.x(), current_point.y())
-
-                current_tag = edge_point_map.get(current_coord)
-                if current_tag is None:
-                    current_tag = gmsh.model.geo.addPoint(current_coord[0], current_coord[1], 0, tag=geo_point_tag_counter)
-                    edge_point_map[current_coord] = current_tag
-                    geo_point_tag_counter += 1
-
-                # Получаем предыдущую точку для создания линии
-                prev_point = path.pointAtPercent( (i-1) / num_approximations )
-                prev_coord = (prev_point.x(), prev_point.y())
-                prev_tag = edge_point_map.get(prev_coord)
-                # prev_tag должен существовать, так как он был добавлен на предыдущем шаге
-                if prev_tag is not None:
-                    gmsh.model.geo.addLine(prev_tag, current_tag)
-
-            # Добавляем конечную точку (если она отличается от предыдущей)
-            end_point = path.pointAtPercent(1.0)
-            end_coord = (end_point.x(), end_point.y())
-            end_tag = edge_point_map.get(end_coord)
-            if end_tag is None:
-                end_tag = gmsh.model.geo.addPoint(end_coord[0], end_coord[1], 0, tag=geo_point_tag_counter)
-                edge_point_map[end_coord] = end_tag
-                geo_point_tag_counter += 1
-
-            # Получаем последнюю аппроксимированную точку
-            last_approx_point = path.pointAtPercent((num_approximations - 1) / num_approximations)
-            last_approx_coord = (last_approx_point.x(), last_approx_point.y())
-            last_approx_tag = edge_point_map.get(last_approx_coord)
-
-            if last_approx_tag is not None:
-                gmsh.model.geo.addLine(last_approx_tag, end_tag)
+                # Настраиваем вид точек для лучшей видимости.
+                # Попытка скрыть легенду ('Legend', 0) вызывает ошибку, поэтому она закомментирована.
+                # Точки должны быть хорошо видны.
+                gmsh.view.option.setNumber(view_tag, "PointType", 0)  # 0 = точка
+                gmsh.view.option.setNumber(view_tag, "PointSize", 10)  # Увеличиваем размер
 
 
-        # Синхронизация
-        gmsh.model.geo.synchronize()
+        # Синхронизация геометрии не нужна, так как мы не меняли её,
+        # а только добавили post-processing view.
+        # gmsh.model.geo.synchronize()
 
         # Сохраняем в файл
         viz_filename = 'structured_mesh_viz.msh'
