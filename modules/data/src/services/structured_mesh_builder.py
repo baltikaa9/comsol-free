@@ -442,6 +442,20 @@ class StructuredMeshBuilder:
 
         # Инициализация Gmsh
         gmsh.initialize()
+
+        # --- ПОСЛЕДНЯЯ ПОПЫТКА ИЗМЕНИТЬ ЦВЕТ ---
+        # Оборачиваем в try-except на случай, если API Gmsh в среде пользователя неполноценный
+        try:
+            # Задаём цвет сетки ДО создания модели. Иногда это имеет значение.
+            # Ручной расчёт цвета (A-B-G-R), т.к. gmsh.color может отсутствовать
+            r, g, b, a = 211, 211, 211, 255  # Light Gray
+            gray_color = (a << 24) | (b << 16) | (g << 8) | r
+            gmsh.option.setNumber("Mesh.Color.Quads", gray_color)
+            print("[INFO] Цвет сетки изменён на серый.")
+        except Exception as e:
+            print(f"[WARNING] Не удалось задать цвет сетки. Ошибка API Gmsh: {e}")
+            print("[WARNING] Точки и линии могут сливаться с цветом сетки по умолчанию.")
+
         gmsh.model.add("structured_mesh_viz")
 
         # Создаём узлы и элементы
@@ -493,44 +507,69 @@ class StructuredMeshBuilder:
         if elem_tags:
             gmsh.model.mesh.addElementsByType(surface_tag, 3, elem_tags, elem_node_tags)
 
-        # Визуализация граничных узлов с помощью post-processing view.
-        # Вместо рисования гладкого контура, мы покажем точки сетки,
-        # которые были определены как граничные.
-        bc_views = {}  # {bc_id: {'tag': view_tag, 'data': []}}
+        # --- Визуализация граничных узлов и линий ---
 
-        # Собираем координаты и значения для каждого граничного условия
+        # 1. Визуализация точек
+        point_views = {}  # {bc_id: {'tag': view_tag, 'data': []}}
+
         for i in range(len(y)):
             for j in range(len(x)):
                 bc_val = int(bc_id[i, j])
                 if bc_val > 0 and mask[i, j] == 1:
-                    if bc_val not in bc_views:
-                        view_tag = gmsh.view.add(f"Boundary Condition {bc_val}")
-                        bc_views[bc_val] = {'tag': view_tag, 'data': []}
+                    if bc_val not in point_views:
+                        view_tag = gmsh.view.add(f"BC Nodes (ID {bc_val})")
+                        point_views[bc_val] = {'tag': view_tag, 'data': []}
 
-                    # Координаты узла и значение для раскраски
                     node_x = x[j]
                     node_y = y[i]
-                    bc_views[bc_val]['data'].extend([node_x, node_y, 0, float(bc_val)])
+                    # Данные для скалярной точки (SP) со смещением по Z
+                    point_views[bc_val]['data'].extend([node_x, node_y, 0.01, float(bc_val)])
 
-        # Добавляем данные в Gmsh view
-        for bc_val, view_data in bc_views.items():
+        for bc_val, view_data in point_views.items():
             if view_data['data']:
                 view_tag = view_data['tag']
-                # 'SP' для скалярных точек.
-                # Данные: [x1, y1, z1, val1, x2, y2, z2, val2, ...]
                 num_points = len(view_data['data']) // 4
                 gmsh.view.addListData(view_tag, "SP", num_points, view_data['data'])
 
-                # Настраиваем вид точек для лучшей видимости.
-                # Попытка скрыть легенду ('Legend', 0) вызывает ошибку, поэтому она закомментирована.
-                # Точки должны быть хорошо видны.
-                gmsh.view.option.setNumber(view_tag, "PointType", 0)  # 0 = точка
-                gmsh.view.option.setNumber(view_tag, "PointSize", 10)  # Увеличиваем размер
+                # Настраиваем опции для точек
+                gmsh.view.option.setNumber(view_tag, "PointType", 4)
+                gmsh.view.option.setNumber(view_tag, "PointSize", 12)
 
 
-        # Синхронизация геометрии не нужна, так как мы не меняли её,
-        # а только добавили post-processing view.
-        # gmsh.model.geo.synchronize()
+        # 2. Визуализация линий, соединяющих точки
+        line_views = {}  # {bc_id: {'tag': view_tag, 'data': []}}
+
+        # Горизонтальные сегменты
+        for i in range(len(y)):
+            for j in range(len(x) - 1):
+                bc1 = int(bc_id[i, j])
+                bc2 = int(bc_id[i, j + 1])
+                if bc1 > 0 and bc1 == bc2:
+                    if bc1 not in line_views:
+                        view_tag = gmsh.view.add(f"BC Lines (ID {bc1})")
+                        line_views[bc1] = {'tag': view_tag, 'data': []}
+                    # Данные для скалярной линии (SL) со смещением по Z
+                    line_views[bc1]['data'].extend([x[j], y[i], 0.01, x[j + 1], y[i], 0.01, float(bc1)])
+
+        # Вертикальные сегменты
+        for i in range(len(y) - 1):
+            for j in range(len(x)):
+                bc1 = int(bc_id[i, j])
+                bc2 = int(bc_id[i + 1, j])
+                if bc1 > 0 and bc1 == bc2:
+                    if bc1 not in line_views:
+                        view_tag = gmsh.view.add(f"BC Lines (ID {bc1})")
+                        line_views[bc1] = {'tag': view_tag, 'data': []}
+                    line_views[bc1]['data'].extend([x[j], y[i], 0.01, x[j], y[i + 1], 0.01, float(bc1)])
+
+        for bc_val, view_data in line_views.items():
+            if view_data['data']:
+                view_tag = view_data['tag']
+                num_lines = len(view_data['data']) // 7
+                gmsh.view.addListData(view_tag, "SL", num_lines, view_data['data'])
+                gmsh.view.option.setNumber(view_tag, "LineWidth", 3)
+
+        print(f"[DEBUG] Created {len(point_views)} BC point views and {len(line_views)} BC line views.")
 
         # Сохраняем в файл
         viz_filename = 'structured_mesh_viz.msh'
