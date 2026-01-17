@@ -443,18 +443,17 @@ class StructuredMeshBuilder:
         # Инициализация Gmsh
         gmsh.initialize()
 
-        # --- ПОСЛЕДНЯЯ ПОПЫТКА ИЗМЕНИТЬ ЦВЕТ ---
-        # Оборачиваем в try-except на случай, если API Gmsh в среде пользователя неполноценный
-        try:
-            # Задаём цвет сетки ДО создания модели. Иногда это имеет значение.
-            # Ручной расчёт цвета (A-B-G-R), т.к. gmsh.color может отсутствовать
-            r, g, b, a = 211, 211, 211, 255  # Light Gray
-            gray_color = (a << 24) | (b << 16) | (g << 8) | r
-            gmsh.option.setNumber("Mesh.Color.Quads", gray_color)
-            print("[INFO] Цвет сетки изменён на серый.")
-        except Exception as e:
-            print(f"[WARNING] Не удалось задать цвет сетки. Ошибка API Gmsh: {e}")
-            print("[WARNING] Точки и линии могут сливаться с цветом сетки по умолчанию.")
+        # Задаём цвет сетки ДО создания модели. Иногда это имеет значение.
+        # Ручной расчёт цвета (A-B-G-R), т.к. gmsh.color может отсутствовать
+        # Это не работает в среде пользователя, поэтому убираем попытку
+        # r, g, b, a = 211, 211, 211, 255  # Light Gray
+        # gray_color = (a << 24) | (b << 16) | (g << 8) | r
+        # try:
+        #     gmsh.option.setNumber("Mesh.Color.Quads", gray_color)
+        #     print("[INFO] Цвет сетки изменён на серый.")
+        # except Exception as e:
+        #     print(f"[WARNING] Не удалось задать цвет сетки. Ошибка API Gmsh: {e}")
+        #     print("[WARNING] Точки и линии могут сливаться с цветом сетки по умолчанию.")
 
         gmsh.model.add("structured_mesh_viz")
 
