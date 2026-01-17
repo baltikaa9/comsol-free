@@ -426,44 +426,47 @@ class StructuredMeshBuilder:
 
     def visualize_mesh(self, mesh_data: dict, edges: list[EdgeItem]):
         """
-        Визуализирует структурированную сетку через Gmsh.
-        Создаёт квадратные элементы и использует Gmsh GUI для визуализации.
-
-        :param mesh_data: Данные сетки из build_mesh()
-        :param edges: Список рёбер для отрисовки контура
+        Визуализирует структурированную сетку и её "ступенчатую" границу.
         """
         # Извлекаем данные
         x = np.array(mesh_data['grid']['x'])
         y = np.array(mesh_data['grid']['y'])
         mask = np.array(mesh_data['mask'])
         bc_id = np.array(mesh_data['bc_id'])
-
-        print(f"[DEBUG] Визуализация структурированной сетки {len(x)}x{len(y)} через Gmsh...")
+        
+        print(f"[DEBUG] Визуализация: сетка {len(x)}x{len(y)}, {len(edges)} ребер.")
 
         # Инициализация Gmsh
         gmsh.initialize()
-
-        # Задаём цвет сетки ДО создания модели. Иногда это имеет значение.
-        # Ручной расчёт цвета (A-B-G-R), т.к. gmsh.color может отсутствовать
-        # Это не работает в среде пользователя, поэтому убираем попытку
-        # r, g, b, a = 211, 211, 211, 255  # Light Gray
-        # gray_color = (a << 24) | (b << 16) | (g << 8) | r
-        # try:
-        #     gmsh.option.setNumber("Mesh.Color.Quads", gray_color)
-        #     print("[INFO] Цвет сетки изменён на серый.")
-        # except Exception as e:
-        #     print(f"[WARNING] Не удалось задать цвет сетки. Ошибка API Gmsh: {e}")
-        #     print("[WARNING] Точки и линии могут сливаться с цветом сетки по умолчанию.")
-
         gmsh.model.add("structured_mesh_viz")
 
-        # Создаём узлы и элементы
+        try:
+            # Задаём цвета для контраста. Обернуто в try-except из-за проблем в среде.
+            # Серый для сетки
+            r, g, b, a = 200, 200, 200, 255
+            gray_color = (a << 24) | (b << 16) | (g << 8) | r
+            gmsh.option.setNumber("Mesh.Color.Quads", gray_color)
+
+            # Красный для граничных точек
+            r, g, b, a = 255, 0, 0, 255
+            red_color = (a << 24) | (b << 16) | (g << 8) | r
+            gmsh.option.setNumber("Geometry.Color.Points", red_color)
+            gmsh.option.setNumber("Geometry.PointSize", 5)
+
+            # Синий для линий границы
+            r, g, b, a = 0, 0, 255, 255
+            blue_color = (a << 24) | (b << 16) | (g << 8) | r
+            gmsh.option.setNumber("Geometry.Color.Lines", blue_color)
+
+        except Exception as e:
+            print(f"[WARNING] Не удалось задать цвета через API Gmsh. Ошибка: {e}")
+
+        # --- 1. Создание 2D сетки из элементов ---
         node_tags = []
         node_coords = []
         node_map = {}  # (i, j) -> node_tag
         node_tag = 1
 
-        # Добавляем все узлы где mask == 1
         for i in range(len(y)):
             for j in range(len(x)):
                 if mask[i, j] == 1:
@@ -472,103 +475,71 @@ class StructuredMeshBuilder:
                     node_map[(i, j)] = node_tag
                     node_tag += 1
 
-        # Создаём дискретную поверхность для узлов и элементов
         surface_tag = 1
         gmsh.model.addDiscreteEntity(2, surface_tag)
-
-        # Добавляем узлы в Gmsh
         if node_tags:
             gmsh.model.mesh.addNodes(2, surface_tag, node_tags, node_coords)
 
-        # Создаём квадратные элементы (elementType=3 для 4-node quad)
         elem_tags = []
         elem_node_tags = []
         elem_tag = 1
 
-        # Проходим по всем ячейкам и создаём квадраты
         for i in range(len(y) - 1):
             for j in range(len(x) - 1):
-                # Проверяем что все 4 угла существуют
                 if (mask[i, j] == 1 and mask[i, j+1] == 1 and
                     mask[i+1, j] == 1 and mask[i+1, j+1] == 1):
-
-                    # Узлы квадрата (против часовой стрелки)
                     n1 = node_map[(i, j)]
                     n2 = node_map[(i, j+1)]
                     n3 = node_map[(i+1, j+1)]
                     n4 = node_map[(i+1, j)]
-
                     elem_tags.append(elem_tag)
                     elem_node_tags.extend([n1, n2, n3, n4])
                     elem_tag += 1
 
-        # Добавляем элементы в Gmsh
         if elem_tags:
             gmsh.model.mesh.addElementsByType(surface_tag, 3, elem_tags, elem_node_tags)
 
-        # --- Визуализация граничных узлов и линий ---
+        # --- 2. Создаём геометрические точки и линии для "ступенчатой" границы ---
+        gmsh.model.geo.synchronize()
 
-        # 1. Визуализация точек
-        point_views = {}  # {bc_id: {'tag': view_tag, 'data': []}}
-
+        # Сначала создаём все необходимые геометрические точки для граничных узлов
+        bc_point_tags_map = {} # (i,j) -> geo_point_tag
         for i in range(len(y)):
             for j in range(len(x)):
-                bc_val = int(bc_id[i, j])
-                if bc_val > 0 and mask[i, j] == 1:
-                    if bc_val not in point_views:
-                        view_tag = gmsh.view.add(f"BC Nodes (ID {bc_val})")
-                        point_views[bc_val] = {'tag': view_tag, 'data': []}
-
-                    node_x = x[j]
-                    node_y = y[i]
-                    # Данные для скалярной точки (SP) со смещением по Z
-                    point_views[bc_val]['data'].extend([node_x, node_y, 0.01, float(bc_val)])
-
-        for bc_val, view_data in point_views.items():
-            if view_data['data']:
-                view_tag = view_data['tag']
-                num_points = len(view_data['data']) // 4
-                gmsh.view.addListData(view_tag, "SP", num_points, view_data['data'])
-
-                # Настраиваем опции для точек
-                gmsh.view.option.setNumber(view_tag, "PointType", 4)
-                gmsh.view.option.setNumber(view_tag, "PointSize", 12)
-
-
-        # 2. Визуализация линий, соединяющих точки
-        line_views = {}  # {bc_id: {'tag': view_tag, 'data': []}}
-
+                if bc_id[i, j] > 0 and mask[i, j] == 1:
+                    tag = gmsh.model.geo.addPoint(x[j], y[i], 0.01) # Смещение по Z
+                    bc_point_tags_map[(i, j)] = tag
+        
+        # Теперь соединяем созданные точки линиями
+        line_tags = []
         # Горизонтальные сегменты
         for i in range(len(y)):
             for j in range(len(x) - 1):
-                bc1 = int(bc_id[i, j])
-                bc2 = int(bc_id[i, j + 1])
-                if bc1 > 0 and bc1 == bc2:
-                    if bc1 not in line_views:
-                        view_tag = gmsh.view.add(f"BC Lines (ID {bc1})")
-                        line_views[bc1] = {'tag': view_tag, 'data': []}
-                    # Данные для скалярной линии (SL) со смещением по Z
-                    line_views[bc1]['data'].extend([x[j], y[i], 0.01, x[j + 1], y[i], 0.01, float(bc1)])
+                if (i, j) in bc_point_tags_map and (i, j + 1) in bc_point_tags_map:
+                    if bc_id[i, j] == bc_id[i, j + 1]: # Соединяем только точки одного BC
+                        p1_tag = bc_point_tags_map[(i, j)]
+                        p2_tag = bc_point_tags_map[(i, j + 1)]
+                        line_tag = gmsh.model.geo.addLine(p1_tag, p2_tag)
+                        line_tags.append(line_tag)
 
         # Вертикальные сегменты
         for i in range(len(y) - 1):
             for j in range(len(x)):
-                bc1 = int(bc_id[i, j])
-                bc2 = int(bc_id[i + 1, j])
-                if bc1 > 0 and bc1 == bc2:
-                    if bc1 not in line_views:
-                        view_tag = gmsh.view.add(f"BC Lines (ID {bc1})")
-                        line_views[bc1] = {'tag': view_tag, 'data': []}
-                    line_views[bc1]['data'].extend([x[j], y[i], 0.01, x[j], y[i + 1], 0.01, float(bc1)])
+                if (i, j) in bc_point_tags_map and (i + 1, j) in bc_point_tags_map:
+                    if bc_id[i, j] == bc_id[i + 1, j]: # Соединяем только точки одного BC
+                        p1_tag = bc_point_tags_map[(i, j)]
+                        p2_tag = bc_point_tags_map[(i + 1, j)]
+                        line_tag = gmsh.model.geo.addLine(p1_tag, p2_tag)
+                        line_tags.append(line_tag)
 
-        for bc_val, view_data in line_views.items():
-            if view_data['data']:
-                view_tag = view_data['tag']
-                num_lines = len(view_data['data']) // 7
-                gmsh.view.addListData(view_tag, "SL", num_lines, view_data['data'])
-                gmsh.view.option.setNumber(view_tag, "LineWidth", 3)
+        gmsh.model.geo.synchronize()
 
-        print(f"[DEBUG] Created {len(point_views)} BC point views and {len(line_views)} BC line views.")
+        # Группируем для наглядности в интерфейсе
+        all_bc_points = list(bc_point_tags_map.values())
+        if all_bc_points:
+            gmsh.model.addPhysicalGroup(0, all_bc_points, name="Boundary Nodes")
+        if line_tags:
+            gmsh.model.addPhysicalGroup(1, line_tags, name="Boundary Segments")
 
         # Сохраняем в файл
         viz_filename = 'structured_mesh_viz.msh'
