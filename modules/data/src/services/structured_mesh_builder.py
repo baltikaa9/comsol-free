@@ -460,7 +460,7 @@ class StructuredMeshBuilder:
 
         except Exception as e:
             print(f"[WARNING] Не удалось задать цвета через API Gmsh. Ошибка: {e}")
-
+            
         # --- 1. Создание 2D сетки из элементов ---
         node_tags = []
         node_coords = []
@@ -531,6 +531,28 @@ class StructuredMeshBuilder:
                         p2_tag = bc_point_tags_map[(i + 1, j)]
                         line_tag = gmsh.model.geo.addLine(p1_tag, p2_tag)
                         line_tags.append(line_tag)
+        
+        # --- Диагональные сегменты (по запросу пользователя) ---
+        # Соединяем (i,j) с (i+1, j+1)
+        for i in range(len(y) - 1):
+            for j in range(len(x) - 1):
+                if (i, j) in bc_point_tags_map and (i + 1, j + 1) in bc_point_tags_map:
+                    if bc_id[i, j] == bc_id[i + 1, j + 1]: # Соединяем только точки одного BC
+                        p1_tag = bc_point_tags_map[(i, j)]
+                        p2_tag = bc_point_tags_map[(i + 1, j + 1)]
+                        line_tag = gmsh.model.geo.addLine(p1_tag, p2_tag)
+                        line_tags.append(line_tag)
+
+        # Соединяем (i,j) с (i+1, j-1)
+        for i in range(len(y) - 1):
+            for j in range(1, len(x)): # j starts from 1 to ensure j-1 is valid
+                if (i, j) in bc_point_tags_map and (i + 1, j - 1) in bc_point_tags_map:
+                    if bc_id[i, j] == bc_id[i + 1, j - 1]: # Соединяем только точки одного BC
+                        p1_tag = bc_point_tags_map[(i, j)]
+                        p2_tag = bc_point_tags_map[(i + 1, j - 1)]
+                        line_tag = gmsh.model.geo.addLine(p1_tag, p2_tag)
+                        line_tags.append(line_tag)
+
 
         gmsh.model.geo.synchronize()
 
