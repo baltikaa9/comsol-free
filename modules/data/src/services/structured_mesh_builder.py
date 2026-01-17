@@ -313,32 +313,6 @@ class StructuredMeshBuilder:
                         _, i_best, j_best = candidates[0]
                         bc_id[i_best, j_best] = bc_id_to_index[bc_id_key]
 
-        # Фильтруем углы - ВРЕМЕННО ОТКЛЮЧЕНО ДЛЯ ОТЛАДКИ
-        # for i in range(rows):
-        #     for j in range(cols):
-        #         if bc_id[i, j] == 0:
-        #             continue
-        #
-        #         # Проверяем соседей в 4 направлениях
-        #         def is_outside(pi, pj):
-        #             if not (0 <= pi < rows and 0 <= pj < cols):
-        #                 return True
-        #             return mask[pi, pj] == 0
-        #
-        #         top_out = is_outside(i - 1, j)
-        #         bottom_out = is_outside(i + 1, j)
-        #         left_out = is_outside(i, j - 1)
-        #         right_out = is_outside(i, j + 1)
-        #
-        #         # Это угол если mask=0 в двух перпендикулярных направлениях
-        #         is_corner = (top_out and right_out) or \
-        #                    (top_out and left_out) or \
-        #                    (bottom_out and right_out) or \
-        #                    (bottom_out and left_out)
-        #
-        #         if is_corner:
-        #             bc_id[i, j] = 0
-
         return bc_id
 
     def _distance_to_path(self, point: QPointF, edges: list[EdgeItem], max_distance: float) -> float:
