@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -93,16 +93,16 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="GraphicsView" name="graphicsView"/>
+       <widget class="GraphicsView" name="graphicsView" />
       </item>
       <item>
-       <layout class="QHBoxLayout" name="propertiesLayout"/>
+       <layout class="QHBoxLayout" name="propertiesLayout" />
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar" />
   <widget class="QToolBar" name="mainToolBar">
    <property name="font">
     <font>
@@ -118,17 +118,19 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionDrawLineByParams"/>
-   <addaction name="actionDrawRectByParams"/>
-   <addaction name="actionDrawCircleByParams"/>
-   <addaction name="actionDrawCurveByParams"/>
-   <addaction name="actionDrawParametric"/>
-   <addaction name="actionUnion"/>
-   <addaction name="actionDifference"/>
-   <addaction name="actionIntersection"/>
-   <addaction name="actionMirror"/>
-   <addaction name="actionRotate"/>
-   <addaction name="actionBuildMesh"/>
+   <addaction name="actionDrawLineByParams" />
+   <addaction name="actionDrawRectByParams" />
+   <addaction name="actionDrawCircleByParams" />
+   <addaction name="actionDrawCurveByParams" />
+   <addaction name="actionDrawParametric" />
+   <addaction name="actionUnion" />
+   <addaction name="actionDifference" />
+   <addaction name="actionIntersection" />
+   <addaction name="actionMirror" />
+   <addaction name="actionRotate" />
+   <addaction name="actionBuildMesh" />
+   <addaction name="actionUploadSSH" />
+   <addaction name="actionSSHSettings" />
   </widget>
   <action name="actionDrawLineByParams">
    <property name="text">
@@ -185,6 +187,22 @@
     <string>Построить сетку</string>
    </property>
   </action>
+  <action name="actionUploadSSH">
+   <property name="text">
+    <string>Загрузить на сервер</string>
+   </property>
+   <property name="icon">
+    <iconset theme="network-server" />
+   </property>
+  </action>
+  <action name="actionSSHSettings">
+   <property name="text">
+    <string>Настройки SSH</string>
+   </property>
+   <property name="icon">
+    <iconset theme="preferences-system-network" />
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -193,6 +211,6 @@
    <header>src.widgets.graphics_view</header>
   </customwidget>
  </customwidgets>
- <resources/>
- <connections/>
+ <resources />
+ <connections />
 </ui>

@@ -49,6 +49,14 @@ class Ui_MainWindow(object):
         self.actionRotate.setObjectName(u"actionRotate")
         self.actionBuildMesh = QAction(MainWindow)
         self.actionBuildMesh.setObjectName(u"actionBuildMesh")
+        self.actionUploadSSH = QAction(MainWindow)
+        self.actionUploadSSH.setObjectName(u"actionUploadSSH")
+        icon = QIcon(QIcon.fromTheme(u"network-server"))
+        self.actionUploadSSH.setIcon(icon)
+        self.actionSSHSettings = QAction(MainWindow)
+        self.actionSSHSettings.setObjectName(u"actionSSHSettings")
+        icon1 = QIcon(QIcon.fromTheme(u"preferences-system-network"))
+        self.actionSSHSettings.setIcon(icon1)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -108,6 +116,8 @@ class Ui_MainWindow(object):
         self.mainToolBar.addAction(self.actionMirror)
         self.mainToolBar.addAction(self.actionRotate)
         self.mainToolBar.addAction(self.actionBuildMesh)
+        self.mainToolBar.addAction(self.actionUploadSSH)
+        self.mainToolBar.addAction(self.actionSSHSettings)
 
         self.retranslateUi(MainWindow)
 
@@ -127,6 +137,8 @@ class Ui_MainWindow(object):
         self.actionMirror.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
         self.actionRotate.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0432\u043e\u0440\u043e\u0442", None))
         self.actionBuildMesh.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0441\u0435\u0442\u043a\u0443", None))
+        self.actionUploadSSH.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u043d\u0430 \u0441\u0435\u0440\u0432\u0435\u0440", None))
+        self.actionSSHSettings.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 SSH", None))
         ___qtreewidgetitem = self.projectTree.headerItem()
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0435\u043a\u0442", None));
 

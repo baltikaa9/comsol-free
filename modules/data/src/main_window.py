@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 from PySide6.QtCore import QEvent, Qt
 from PySide6.QtGui import QKeyEvent, QPainter, QPen
@@ -16,6 +17,8 @@ from src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
 from src.dialogs.initial_conditions_dialog import InitialConditionsDialog
 from src.dialogs.material_dialog import MaterialDialog
 from src.dialogs.mesh_dialog import MeshDialog
+from src.dialogs.ssh_config_dialog import SSHConfigDialog
+from src.dialogs.ssh_result_dialog import SSHResultDialog
 from src.dialogs.turbulence_dialog import TurbulenceDialog
 from src.event_handler import EventHandler
 from src.operations.boolean_operations import BooleanOperations
@@ -35,6 +38,7 @@ from src.services.command_service import CommandService
 from src.services.drawing_service import DrawingService
 from src.services.gmsh_mesh_builder import GmshMeshBuilder
 from src.services.selection_service import SelectionService
+from src.services.ssh_client import SSHClientService, SSHConfig
 from src.services.structured_mesh_builder import StructuredMeshBuilder
 from src.ui.template import Ui_MainWindow
 from src.widgets.edge_item import EdgeItem
@@ -51,11 +55,12 @@ class MainWindow(QMainWindow):
         self.scene = GridScene(spacing=self.grid_spacing)
         self.scene.setSceneRect(-5000, -5000, 10000, 10000)
 
-
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.RenderHint.Antialiasing)
         self.ui.graphicsView.scale(1, -1)
-        self.ui.graphicsView.setViewportUpdateMode(QGraphicsView.ViewportUpdateMode.FullViewportUpdate)
+        self.ui.graphicsView.setViewportUpdateMode(
+            QGraphicsView.ViewportUpdateMode.FullViewportUpdate
+        )
 
         self.selection_service = SelectionService(self.scene)
         command_service = CommandService()
@@ -65,34 +70,58 @@ class MainWindow(QMainWindow):
             self.ui.graphicsView,
             self.ui.propertiesLayout,
             self.selection_service,
-            command_service
+            command_service,
         )
-        self.drawing_service = DrawingService(self, self.scene, command_service, self.selection_service)
+        self.drawing_service = DrawingService(
+            self, self.scene, command_service, self.selection_service
+        )
         self.boolean_operations = BooleanOperations(
             self,
             self.scene,
             command_service,
             self.drawing_service,
-            self.selection_service
+            self.selection_service,
         )
         self.transformation_operations = TransformationOperations(
-            self,
-            self.scene,
-            command_service,
-            self.selection_service
+            self, self.scene, command_service, self.selection_service
         )
 
-        self.ui.actionDrawLineByParams.triggered.connect(self.drawing_service.draw_line_by_params)
-        self.ui.actionDrawRectByParams.triggered.connect(self.drawing_service.draw_rect_by_params)
-        self.ui.actionDrawCircleByParams.triggered.connect(self.drawing_service.draw_ellipse_by_params)
-        self.ui.actionDrawCurveByParams.triggered.connect(self.drawing_service.draw_curve_by_params)
-        self.ui.actionDrawParametric.triggered.connect(self.drawing_service.draw_parametric)
+        self.ui.actionDrawLineByParams.triggered.connect(
+            self.drawing_service.draw_line_by_params
+        )
+        self.ui.actionDrawRectByParams.triggered.connect(
+            self.drawing_service.draw_rect_by_params
+        )
+        self.ui.actionDrawCircleByParams.triggered.connect(
+            self.drawing_service.draw_ellipse_by_params
+        )
+        self.ui.actionDrawCurveByParams.triggered.connect(
+            self.drawing_service.draw_curve_by_params
+        )
+        self.ui.actionDrawParametric.triggered.connect(
+            self.drawing_service.draw_parametric
+        )
         self.ui.actionUnion.triggered.connect(self.boolean_operations.perform_union)
-        self.ui.actionDifference.triggered.connect(self.boolean_operations.perform_difference)
-        self.ui.actionIntersection.triggered.connect(self.boolean_operations.perform_intersection)
-        self.ui.actionMirror.triggered.connect(self.transformation_operations.perform_mirror)
-        self.ui.actionRotate.triggered.connect(self.transformation_operations.perform_rotate)
+        self.ui.actionDifference.triggered.connect(
+            self.boolean_operations.perform_difference
+        )
+        self.ui.actionIntersection.triggered.connect(
+            self.boolean_operations.perform_intersection
+        )
+        self.ui.actionMirror.triggered.connect(
+            self.transformation_operations.perform_mirror
+        )
+        self.ui.actionRotate.triggered.connect(
+            self.transformation_operations.perform_rotate
+        )
         self.ui.actionBuildMesh.triggered.connect(self.build_gmsh_mesh)
+        self.ui.actionUploadSSH.triggered.connect(self.upload_to_ssh)
+        self.ui.actionSSHSettings.triggered.connect(self.show_ssh_settings)
+
+        # SSH сервис (путь к директории comsol-ssh)
+        cli_dir = Path(__file__).parent.parent.parent / "data" / "comsol-ssh"
+        self.ssh_client = SSHClientService(cli_dir)
+        self.ssh_config = SSHConfig()
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
@@ -128,12 +157,16 @@ class MainWindow(QMainWindow):
         valid_edges = [edge for edge in self.boundary_edges if edge.scene() is not None]
 
         if not valid_edges:
-            QMessageBox.warning(self, "Ошибка", "Нет рёбер с граничными условиями на сцене!")
+            QMessageBox.warning(
+                self, "Ошибка", "Нет рёбер с граничными условиями на сцене!"
+            )
             return
 
-        if mesh_type == 'structured':
+        if mesh_type == "structured":
             # Прямоугольная структурированная сетка
-            builder = StructuredMeshBuilder(self.grid_spacing, filename='structured_mesh.json')
+            builder = StructuredMeshBuilder(
+                self.grid_spacing, filename="structured_mesh.json"
+            )
             try:
                 mesh_data = builder.build_mesh(valid_edges, dx, dx)
 
@@ -148,10 +181,7 @@ class MainWindow(QMainWindow):
                         seen_bc_ids.add(bc_id)
 
                 output_file = builder.save_to_json(
-                    mesh_data,
-                    self.initial_conditions,
-                    unique_bc,
-                    self.material
+                    mesh_data, self.initial_conditions, unique_bc, self.material
                 )
 
                 # Визуализация сетки
@@ -160,13 +190,15 @@ class MainWindow(QMainWindow):
 
                 QMessageBox.information(
                     self,
-                    'Готово',
-                    f'Структурированная сетка сохранена в {output_file}\n'
-                    f'Размер сетки: {mesh_data["grid"]["shape"]}\n'
-                    f'Узлов домена: {sum(sum(row) for row in mesh_data["mask"])}'
+                    "Готово",
+                    f"Структурированная сетка сохранена в {output_file}\n"
+                    f"Размер сетки: {mesh_data['grid']['shape']}\n"
+                    f"Узлов домена: {sum(sum(row) for row in mesh_data['mask'])}",
                 )
             except Exception as e:
-                QMessageBox.critical(self, 'Ошибка', f'Не удалось построить сетку:\n{str(e)}')
+                QMessageBox.critical(
+                    self, "Ошибка", f"Не удалось построить сетку:\n{str(e)}"
+                )
         else:
             # Треугольная сетка через GMSH
             builder = GmshMeshBuilder(self.grid_spacing)
@@ -175,75 +207,62 @@ class MainWindow(QMainWindow):
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
-        self.ui.projectTree.setContextMenuPolicy(Qt.CustomContextMenu)  # <-- Добавить эту строку
-        self.ui.projectTree.customContextMenuRequested.connect(self.show_tree_context_menu)
+        self.ui.projectTree.setContextMenuPolicy(
+            Qt.CustomContextMenu
+        )  # <-- Добавить эту строку
+        self.ui.projectTree.customContextMenuRequested.connect(
+            self.show_tree_context_menu
+        )
         self.update_project_tree()
 
     def update_project_tree(self):
         self.ui.projectTree.clear()
 
-        material_item = QTreeWidgetItem(['Настройки материала'])
-        material_item.addChild(QTreeWidgetItem([
-            f'ρ: {self.material.rho} кг/м³']
-        ))
-        material_item.addChild(QTreeWidgetItem([
-            f'μ: {self.material.mu} Па·с'
-        ]))
+        material_item = QTreeWidgetItem(["Настройки материала"])
+        material_item.addChild(QTreeWidgetItem([f"ρ: {self.material.rho} кг/м³"]))
+        material_item.addChild(QTreeWidgetItem([f"μ: {self.material.mu} Па·с"]))
 
         # Модель турбулентности
-        turbulence_item = QTreeWidgetItem(['Модель турбулентности'])
-        turbulence_item.addChild(QTreeWidgetItem([
-            f'{self.turbulence_params.model.value}'
-        ]))
+        turbulence_item = QTreeWidgetItem(["Модель турбулентности"])
+        turbulence_item.addChild(
+            QTreeWidgetItem([f"{self.turbulence_params.model.value}"])
+        )
 
         # Начальные условия
-        init_item = QTreeWidgetItem(['Начальные условия'])
-        init_item.addChild(QTreeWidgetItem([
-            f'u: {self.initial_conditions.u} м/с'
-        ]))
-        init_item.addChild(QTreeWidgetItem([
-            f'v: {self.initial_conditions.v} м/с'
-        ]))
-        init_item.addChild(QTreeWidgetItem([
-            f'p: {self.initial_conditions.p} Па'
-        ]))
+        init_item = QTreeWidgetItem(["Начальные условия"])
+        init_item.addChild(QTreeWidgetItem([f"u: {self.initial_conditions.u} м/с"]))
+        init_item.addChild(QTreeWidgetItem([f"v: {self.initial_conditions.v} м/с"]))
+        init_item.addChild(QTreeWidgetItem([f"p: {self.initial_conditions.p} Па"]))
 
         if self.turbulence_params.model != TurbulenceModel.LAMINAR:
-            init_item.addChild(QTreeWidgetItem([
-                f'k: {self.initial_conditions.k} м²/с²'
-            ]))
-            init_item.addChild(QTreeWidgetItem([
-                f'omega: {self.initial_conditions.omega} 1/с'
-            ]))
+            init_item.addChild(
+                QTreeWidgetItem([f"k: {self.initial_conditions.k} м²/с²"])
+            )
+            init_item.addChild(
+                QTreeWidgetItem([f"omega: {self.initial_conditions.omega} 1/с"])
+            )
 
         # Граничные условия
-        bc_item = QTreeWidgetItem(['Граничные условия'])
+        bc_item = QTreeWidgetItem(["Граничные условия"])
         for bc in self.boundary_conditions:
             bc_child = QTreeWidgetItem([bc.type.value])
             bc_child.setData(0, Qt.UserRole, bc)
             # bc_child.addChild(QTreeWidgetItem([f'Type: {bc.bc_type}']))
 
             if isinstance(bc, WallBoundaryConditions):
-                bc_child.addChild(QTreeWidgetItem([
-                    f'wall: {bc.wall.value}'
-                ]))
+                bc_child.addChild(QTreeWidgetItem([f"wall: {bc.wall.value}"]))
             elif isinstance(bc, InletBoundaryConditions):
-                bc_child.addChild(QTreeWidgetItem([
-                    f'u: {bc.u} м/с'
-                ]))
+                bc_child.addChild(QTreeWidgetItem([f"u: {bc.u} м/с"]))
 
-                bc_child.addChild(QTreeWidgetItem([
-                    f'v: {bc.v} м/с'
-                ]))
+                bc_child.addChild(QTreeWidgetItem([f"v: {bc.v} м/с"]))
 
-            if isinstance(bc, (InletBoundaryConditions, OpenBoundaryConditions)) and self.turbulence_params.model != TurbulenceModel.LAMINAR:
-                bc_child.addChild(QTreeWidgetItem([
-                    f'k: {bc.k} м²/с²'
-                ]))
+            if (
+                isinstance(bc, (InletBoundaryConditions, OpenBoundaryConditions))
+                and self.turbulence_params.model != TurbulenceModel.LAMINAR
+            ):
+                bc_child.addChild(QTreeWidgetItem([f"k: {bc.k} м²/с²"]))
 
-                bc_child.addChild(QTreeWidgetItem([
-                    f'omega: {bc.omega} 1/с'
-                ]))
+                bc_child.addChild(QTreeWidgetItem([f"omega: {bc.omega} 1/с"]))
 
             bc_item.addChild(bc_child)
 
@@ -257,24 +276,24 @@ class MainWindow(QMainWindow):
 
         # Для верхнеуровневых элементов
         if not parent:
-            if item.text(0) == 'Настройки материала':
+            if item.text(0) == "Настройки материала":
                 self.edit_material()
-            elif item.text(0) == 'Модель турбулентности':
+            elif item.text(0) == "Модель турбулентности":
                 self.edit_turbulence_model()
-            elif item.text(0) == 'Начальные условия':
+            elif item.text(0) == "Начальные условия":
                 self.edit_initial_conditions()
-            elif item.text(0) == 'Граничные условия':
+            elif item.text(0) == "Граничные условия":
                 self.add_boundary_condition()
             return
 
         # Для дочерних элементов
         parent_text = parent.text(0)
 
-        if parent_text == 'Настройки материала':
+        if parent_text == "Настройки материала":
             self.edit_material()
-        elif parent_text == 'Начальные условия':
+        elif parent_text == "Начальные условия":
             self.edit_initial_conditions()
-        elif parent_text == 'Граничные условия':
+        elif parent_text == "Граничные условия":
             self.edit_boundary_condition(item)
 
     def add_boundary_condition(self):
@@ -297,7 +316,11 @@ class MainWindow(QMainWindow):
 
     def highlight_edges(self):
         for edge in self.boundary_edges:
-            color = Qt.red if edge.boundary_conditions.type == BoundaryConditionType.INLET else Qt.blue
+            color = (
+                Qt.red
+                if edge.boundary_conditions.type == BoundaryConditionType.INLET
+                else Qt.blue
+            )
             edge.setPen(QPen(color, 0))
 
     def edit_material(self):
@@ -320,7 +343,10 @@ class MainWindow(QMainWindow):
 
     def edit_boundary_condition(self, item):
         bc = item.data(0, Qt.UserRole)
-        dialog = BoundaryConditionsDialog([edge for edge in self.boundary_edges if edge.boundary_conditions == bc], self.turbulence_params.model)
+        dialog = BoundaryConditionsDialog(
+            [edge for edge in self.boundary_edges if edge.boundary_conditions == bc],
+            self.turbulence_params.model,
+        )
         if dialog.exec():
             new_bc = dialog.get_data()
             index = self.boundary_conditions.index(bc)
@@ -332,10 +358,12 @@ class MainWindow(QMainWindow):
         item = self.ui.projectTree.itemAt(position)
         menu = QMenu()
 
-        if item and item.text(0) == 'Граничные условия':
-            menu.addAction('Добавить условие', self.add_boundary_condition)
-        elif item and item.parent() and item.parent().text(0) == 'Граничные условия':
-            menu.addAction('Удалить условие', lambda: self.delete_boundary_condition(item))
+        if item and item.text(0) == "Граничные условия":
+            menu.addAction("Добавить условие", self.add_boundary_condition)
+        elif item and item.parent() and item.parent().text(0) == "Граничные условия":
+            menu.addAction(
+                "Удалить условие", lambda: self.delete_boundary_condition(item)
+            )
 
         menu.exec(self.ui.projectTree.viewport().mapToGlobal(position))
 
@@ -349,27 +377,27 @@ class MainWindow(QMainWindow):
 
     def export_json(self):
         data = {
-            'material': {
-                'rho': self.material.rho,
-                'mu': self.material.mu
+            "material": {"rho": self.material.rho, "mu": self.material.mu},
+            "physics": self.turbulence_params.model.value,
+            "init": {
+                "u": self.initial_conditions.u,
+                "v": self.initial_conditions.v,
+                "p": self.initial_conditions.p,
             },
-            'physics': self.turbulence_params.model.value,
-            'init': {
-                'u': self.initial_conditions.u,
-                'v': self.initial_conditions.v,
-                'p': self.initial_conditions.p
-            },
-            'boundary': {}
+            "boundary": {},
         }
 
         if self.turbulence_params.model != TurbulenceModel.LAMINAR:
-            data['init'].update({
-                'k': self.initial_conditions.k,
-                'om': self.initial_conditions.omega
-            })
+            data["init"].update(
+                {"k": self.initial_conditions.k, "om": self.initial_conditions.omega}
+            )
 
         for bc in self.boundary_conditions:
-            bounds = [edge.id for edge in self.boundary_edges if edge.boundary_conditions == bc]
+            bounds = [
+                edge.id
+                for edge in self.boundary_edges
+                if edge.boundary_conditions == bc
+            ]
 
             entry: dict = {"bounds": bounds}
 
@@ -377,8 +405,10 @@ class MainWindow(QMainWindow):
                 entry["u"] = bc.u
                 entry["v"] = bc.v
 
-            if isinstance(bc, (InletBoundaryConditions, OpenBoundaryConditions)) \
-                    and self.turbulence_params.model != TurbulenceModel.LAMINAR:
+            if (
+                isinstance(bc, (InletBoundaryConditions, OpenBoundaryConditions))
+                and self.turbulence_params.model != TurbulenceModel.LAMINAR
+            ):
                 entry["k"] = bc.k
                 entry["om"] = bc.omega
 
@@ -388,14 +418,47 @@ class MainWindow(QMainWindow):
             key = bc.type.name.lower()
             data["boundary"][key] = entry
 
-        out_path = os.path.join(os.getcwd(), 'result_test.json')
-        with open(out_path, 'w', encoding='utf-8') as f:
+        out_path = os.path.join(os.getcwd(), "result_test.json")
+        with open(out_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
-        QMessageBox.information(self, 'Готово', f'Сетка и настройки сохранены в {out_path}')
+        QMessageBox.information(
+            self, "Готово", f"Сетка и настройки сохранены в {out_path}"
+        )
+
+    def upload_to_ssh(self):
+        """Загрузка structured_mesh.json на сервер и выполнение команды."""
+        mesh_file = (
+            Path(__file__).parent.parent.parent / "data" / "structured_mesh.json"
+        )
+
+        if not mesh_file.exists():
+            QMessageBox.warning(
+                self,
+                "Ошибка",
+                f"Файл не найден:\n{mesh_file}\n\nСначала постройте сетку!",
+            )
+            return
+
+        dialog = SSHResultDialog(self)
+        dialog.show()
+
+        from src.dialogs.ssh_result_dialog import SSHWorker
+
+        self.worker = SSHWorker(
+            self.ssh_client, str(mesh_file), self.ssh_config, "ls -la"
+        )
+        self.worker.finished.connect(dialog.set_output)
+        self.worker.start()
+
+    def show_ssh_settings(self):
+        """Диалог настроек SSH подключения."""
+        dialog = SSHConfigDialog(self.ssh_config, self)
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            self.ssh_config = dialog.get_config()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
     window.show()
