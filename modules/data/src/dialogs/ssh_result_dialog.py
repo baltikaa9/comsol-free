@@ -11,17 +11,13 @@ from PySide6.QtWidgets import (
 class SSHWorker(QThread):
     finished = Signal(bool, str)
 
-    def __init__(self, ssh_client, local_file: str, config, command: str):
+    def __init__(self, ssh_client, config):
         super().__init__()
         self.ssh_client = ssh_client
-        self.local_file = local_file
         self.config = config
-        self.command = command
 
     def run(self):
-        success, output = self.ssh_client.upload_and_execute(
-            self.local_file, self.config, self.command
-        )
+        success, output = self.ssh_client.upload_and_execute(self.config)
         self.finished.emit(success, output)
 
 

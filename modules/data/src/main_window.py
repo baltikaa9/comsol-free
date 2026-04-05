@@ -121,7 +121,10 @@ class MainWindow(QMainWindow):
         # SSH сервис (путь к директории comsol-ssh)
         cli_dir = Path(__file__).parent.parent.parent / "data" / "comsol-ssh"
         self.ssh_client = SSHClientService(cli_dir)
-        self.ssh_config = SSHConfig()
+
+        # Файл сетки по умолчанию
+        mesh_file = os.path.join(os.getcwd(), "structured_mesh.json")
+        self.ssh_config = SSHConfig(local_file=mesh_file)
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
@@ -427,27 +430,13 @@ class MainWindow(QMainWindow):
         )
 
     def upload_to_ssh(self):
-        """Загрузка structured_mesh.json на сервер и выполнение команды."""
-        mesh_file = (
-            Path(__file__).parent.parent.parent / "data" / "structured_mesh.json"
-        )
-
-        if not mesh_file.exists():
-            QMessageBox.warning(
-                self,
-                "Ошибка",
-                f"Файл не найден:\n{mesh_file}\n\nСначала постройте сетку!",
-            )
-            return
-
+        """Загрузка файла на сервер через SSH."""
         dialog = SSHResultDialog(self)
         dialog.show()
 
         from src.dialogs.ssh_result_dialog import SSHWorker
 
-        self.worker = SSHWorker(
-            self.ssh_client, str(mesh_file), self.ssh_config, "ls -la"
-        )
+        self.worker = SSHWorker(self.ssh_client, self.ssh_config)
         self.worker.finished.connect(dialog.set_output)
         self.worker.start()
 

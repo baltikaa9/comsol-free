@@ -6,11 +6,19 @@ from pathlib import Path
 
 @dataclass
 class SSHConfig:
-    user: str = ""
-    host: str = ""
-    port: int = 0
+    # Подключение
+    user: str = "vasite-landing"
+    host: str = "ivsand.ru"
+    port: int = 2222
     key_path: str = ""
+
+    # Файлы
+    local_file: str = ""  # Data-файл для загрузки
     remote_dir: str = "/home/bitrix/"
+    local_exe: str = ""  # Локальный exe (загрузится на сервер, опционально)
+
+    # Команда
+    run_command: str = ""  # Команда ({exe} = имя загруженного exe)
 
     def __post_init__(self):
         if not self.key_path:
@@ -23,28 +31,75 @@ class SSHClientService:
         self.cli_path = self._resolve_cli_path()
 
     def _resolve_cli_path(self) -> Path:
-        """Определяет путь к бинарнику в зависимости от ОС."""
         if sys.platform == "win32":
-            cli_path = self.base_path / "comsol-cli.exe"
-        else:
-            cli_path = self.base_path / "comsol-cli"
+            return self.base_path / "comsol-cli.exe"
+        return self.base_path / "comsol-cli"
 
-        return cli_path
-
-    def upload_and_execute(
-        self, local_file: str, config: SSHConfig, command: str = "ls -la"
-    ) -> tuple[bool, str]:
-        """
-        Загружает файл на сервер и выполняет команду.
-
-        Returns:
-            tuple[bool, str]: (успех, вывод stdout/stderr)
-        """
+    def upload_and_execute(self, config: SSHConfig) -> tuple[bool, str]:
         if not self.cli_path.exists():
             return False, f"CLI не найден: {self.cli_path}"
 
-        key_path = config.key_path
+        if not config.local_file:
+            return False, "Не выбран data-файл. Укажите его в настройках SSH."
 
+        full_output = ""
+
+        # 1. Загружаем exe если указан
+        exe_name = None
+        if config.local_exe:
+            if not Path(config.local_exe).exists():
+                return False, f"Локальный exe не найден: {config.local_exe}"
+
+            exe_name = Path(config.local_exe).name
+            exe_args = [
+                str(self.cli_path),
+                "-user",
+                config.user,
+                "-host",
+                config.host,
+                "-port",
+                str(config.port),
+                "-key",
+                config.key_path,
+                "-local",
+                config.local_exe,
+                "-remote",
+                config.remote_dir,
+                "-cmd",
+                "",
+            ]
+            try:
+                result = subprocess.run(
+                    exe_args, capture_output=True, text=True, timeout=120
+                )
+                full_output += "Загрузка exe:\n" + result.stdout + result.stderr
+                if result.returncode != 0:
+                    return False, f"Ошибка загрузки exe:\n{full_output}"
+            except Exception as e:
+                return False, f"Ошибка загрузки exe: {str(e)}"
+
+        # 2. Формируем команду
+        remote_exe_path = None
+        if exe_name:
+            remote_exe_path = config.remote_dir.rstrip("/") + "/" + exe_name
+
+        if config.run_command.strip():
+            cmd = config.run_command.strip()
+            if exe_name:
+                # {exe} = ./имя, {exe_path} = полный путь
+                cmd = cmd.replace("{exe}", f"./{exe_name}").replace(
+                    "{exe_path}", remote_exe_path
+                )
+        elif exe_name:
+            cmd = f"chmod +x {remote_exe_path} && ./{exe_name}"
+        else:
+            cmd = "ls -la"
+
+        # Если exe был загружен, но пользователь задал свою команду без chmod — добавим
+        if exe_name and "chmod" not in cmd:
+            cmd = f"chmod +x {remote_exe_path} && " + cmd
+
+        # 3. Загружаем data-файл и выполняем команду
         args = [
             str(self.cli_path),
             "-user",
@@ -54,21 +109,20 @@ class SSHClientService:
             "-port",
             str(config.port),
             "-key",
-            key_path,
+            config.key_path,
             "-local",
-            local_file,
+            config.local_file,
             "-remote",
             config.remote_dir,
             "-cmd",
-            command,
+            cmd,
         ]
 
         try:
-            result = subprocess.run(args, capture_output=True, text=True, timeout=60)
-            output = result.stdout + result.stderr
-            success = result.returncode == 0
-            return success, output
+            result = subprocess.run(args, capture_output=True, text=True, timeout=120)
+            full_output += "\n" + result.stdout + result.stderr
+            return result.returncode == 0, full_output
         except subprocess.TimeoutExpired:
-            return False, "Превышено время ожидания (60с)"
+            return False, full_output + "\nПревышено время ожидания (120с)"
         except Exception as e:
-            return False, f"Ошибка: {str(e)}"
+            return False, full_output + f"\nОшибка: {str(e)}"
