@@ -2,6 +2,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Callable
 
 
 @dataclass
@@ -35,14 +36,40 @@ class SSHClientService:
             return self.base_path / "comsol-cli.exe"
         return self.base_path / "comsol-cli"
 
-    def upload_and_execute(self, config: SSHConfig) -> tuple[bool, str]:
+    def _run_cli(
+        self, args: list[str], on_output: Callable[[str], None] | None = None
+    ) -> tuple[bool, str]:
+        """Запускает CLI с потоковым выводом."""
+        full_output = ""
+        try:
+            proc = subprocess.Popen(
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                bufsize=1,
+            )
+
+            # Читаем построчно в реальном времени
+            for line in proc.stdout:
+                line = line.rstrip("\n")
+                full_output += line + "\n"
+                if on_output:
+                    on_output(line)
+
+            proc.wait()
+            return proc.returncode == 0, full_output
+        except Exception as e:
+            return False, full_output + f"\nОшибка: {str(e)}"
+
+    def upload_and_execute(
+        self, config: SSHConfig, on_output: Callable[[str], None] | None = None
+    ) -> tuple[bool, str]:
         if not self.cli_path.exists():
             return False, f"CLI не найден: {self.cli_path}"
 
         if not config.local_file:
             return False, "Не выбран data-файл. Укажите его в настройках SSH."
-
-        full_output = ""
 
         # 1. Загружаем exe если указан
         exe_name = None
@@ -68,15 +95,9 @@ class SSHClientService:
                 "-cmd",
                 "",
             ]
-            try:
-                result = subprocess.run(
-                    exe_args, capture_output=True, text=True, timeout=120
-                )
-                full_output += "Загрузка exe:\n" + result.stdout + result.stderr
-                if result.returncode != 0:
-                    return False, f"Ошибка загрузки exe:\n{full_output}"
-            except Exception as e:
-                return False, f"Ошибка загрузки exe: {str(e)}"
+            success, output = self._run_cli(exe_args, on_output)
+            if not success:
+                return False, f"Ошибка загрузки exe:\n{output}"
 
         # 2. Формируем команду
         remote_exe_path = None
@@ -86,7 +107,6 @@ class SSHClientService:
         if config.run_command.strip():
             cmd = config.run_command.strip()
             if exe_name:
-                # {exe} = ./имя, {exe_path} = полный путь
                 cmd = cmd.replace("{exe}", f"./{exe_name}").replace(
                     "{exe_path}", remote_exe_path
                 )
@@ -94,10 +114,6 @@ class SSHClientService:
             cmd = f"chmod +x {remote_exe_path} && ./{exe_name}"
         else:
             cmd = "ls -la"
-
-        # Если exe был загружен, но пользователь задал свою команду без chmod — добавим
-        if exe_name and "chmod" not in cmd:
-            cmd = f"chmod +x {remote_exe_path} && " + cmd
 
         # 3. Загружаем data-файл и выполняем команду
         args = [
@@ -118,11 +134,4 @@ class SSHClientService:
             cmd,
         ]
 
-        try:
-            result = subprocess.run(args, capture_output=True, text=True, timeout=120)
-            full_output += "\n" + result.stdout + result.stderr
-            return result.returncode == 0, full_output
-        except subprocess.TimeoutExpired:
-            return False, full_output + "\nПревышено время ожидания (120с)"
-        except Exception as e:
-            return False, full_output + f"\nОшибка: {str(e)}"
+        return self._run_cli(args, on_output)

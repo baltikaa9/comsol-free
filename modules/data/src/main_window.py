@@ -437,7 +437,8 @@ class MainWindow(QMainWindow):
         from src.dialogs.ssh_result_dialog import SSHWorker
 
         self.worker = SSHWorker(self.ssh_client, self.ssh_config)
-        self.worker.finished.connect(dialog.set_output)
+        self.worker.new_line.connect(dialog.append_line)
+        self.worker.finished.connect(dialog.set_final)
         self.worker.start()
 
     def show_ssh_settings(self):

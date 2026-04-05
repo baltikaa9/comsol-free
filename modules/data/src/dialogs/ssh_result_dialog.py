@@ -9,15 +9,23 @@ from PySide6.QtWidgets import (
 
 
 class SSHWorker(QThread):
+    new_line = Signal(str)
     finished = Signal(bool, str)
 
     def __init__(self, ssh_client, config):
         super().__init__()
         self.ssh_client = ssh_client
         self.config = config
+        self._output = ""
 
     def run(self):
-        success, output = self.ssh_client.upload_and_execute(self.config)
+        def on_output(line: str):
+            self._output += line + "\n"
+            self.new_line.emit(line)
+
+        success, output = self.ssh_client.upload_and_execute(
+            self.config, on_output=on_output
+        )
         self.finished.emit(success, output)
 
 
@@ -44,6 +52,15 @@ class SSHResultDialog(QDialog):
         buttons.rejected.connect(self.reject)
         layout.addWidget(buttons)
 
-    def set_output(self, success: bool, output: str):
-        prefix = "✅ Успешно!\n\n" if success else "❌ Ошибка!\n\n"
-        self.output_text.setText(prefix + output)
+    def append_line(self, line: str):
+        """Добавляет строку в реальном времени."""
+        self.output_text.append(line)
+        # Автопрокрутка вниз
+        scrollbar = self.output_text.verticalScrollBar()
+        scrollbar.setValue(scrollbar.maximum())
+
+    def set_final(self, success: bool, output: str):
+        """Финальный статус."""
+        prefix = "\n\n✅ Успешно!" if success else "\n\n❌ Ошибка!"
+        self.output_text.append(prefix)
+        self.output_text.append("=" * 50)
