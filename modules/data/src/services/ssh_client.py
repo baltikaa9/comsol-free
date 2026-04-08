@@ -15,8 +15,11 @@ class SSHConfig:
 
     # Файлы
     local_file: str = ""  # Data-файл для загрузки
-    remote_dir: str = "/home/bitrix/"
+    remote_dir: str = "/home/bitrix/"  # Базовая удаленная папка
     local_exe: str = ""  # Локальный exe (загрузится на сервер, опционально)
+
+    # Папка проекта
+    project_folder: str = ""  # Имя папки для создания на сервере (опционально)
 
     # Команда
     run_command: str = ""  # Команда ({exe} = имя загруженного exe)
@@ -24,6 +27,14 @@ class SSHConfig:
     def __post_init__(self):
         if not self.key_path:
             self.key_path = str(Path.home() / ".ssh" / "id_rsa")
+
+    @property
+    def effective_remote_dir(self) -> str:
+        """Возвращает путь с учётом project_folder, всегда с / в конце."""
+        base = self.remote_dir.rstrip("/")
+        if self.project_folder:
+            return f"{base}/{self.project_folder}/"
+        return base
 
 
 class SSHClientService:
@@ -50,7 +61,6 @@ class SSHClientService:
                 bufsize=1,
             )
 
-            # Читаем построчно в реальном времени
             for line in proc.stdout:
                 line = line.rstrip("\n")
                 full_output += line + "\n"
@@ -70,6 +80,36 @@ class SSHClientService:
 
         if not config.local_file:
             return False, "Не выбран data-файл. Укажите его в настройках SSH."
+
+        remote_dir = config.effective_remote_dir
+
+        # 0. Создаём папку проекта если указана
+        if config.project_folder:
+            if on_output:
+                on_output(f"📁 Создание папки: {remote_dir}")
+
+            # Просто команда mkdir -p через CLI без загрузки файла
+            mkdir_args = [
+                str(self.cli_path),
+                "-user",
+                config.user,
+                "-host",
+                config.host,
+                "-port",
+                str(config.port),
+                "-key",
+                config.key_path,
+                "-local",
+                "",
+                "-remote",
+                remote_dir,
+                "-cmd",
+                f"mkdir -p {remote_dir}",
+            ]
+            self._run_cli(mkdir_args, on_output)
+
+            if on_output:
+                on_output(f"✅ Папка готова: {remote_dir}")
 
         # 1. Загружаем exe если указан
         exe_name = None
@@ -91,7 +131,7 @@ class SSHClientService:
                 "-local",
                 config.local_exe,
                 "-remote",
-                config.remote_dir,
+                remote_dir,
                 "-cmd",
                 "",
             ]
@@ -102,7 +142,7 @@ class SSHClientService:
         # 2. Формируем команду
         remote_exe_path = None
         if exe_name:
-            remote_exe_path = config.remote_dir.rstrip("/") + "/" + exe_name
+            remote_exe_path = remote_dir.rstrip("/") + "/" + exe_name
 
         if config.run_command.strip():
             cmd = config.run_command.strip()
@@ -129,7 +169,7 @@ class SSHClientService:
             "-local",
             config.local_file,
             "-remote",
-            config.remote_dir,
+            remote_dir,
             "-cmd",
             cmd,
         ]

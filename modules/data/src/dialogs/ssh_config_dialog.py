@@ -87,6 +87,15 @@ class SSHConfigDialog(QDialog):
         row.addWidget(self.remote_dir_edit)
         file_layout.addLayout(row)
 
+        row = QHBoxLayout()
+        row.addWidget(QLabel("Папка проекта:"))
+        self.project_folder_edit = QLineEdit(self.config.project_folder)
+        self.project_folder_edit.setPlaceholderText(
+            "Оставьте пустым или введите имя (будет создана)"
+        )
+        row.addWidget(self.project_folder_edit)
+        file_layout.addLayout(row)
+
         file_group.setLayout(file_layout)
         layout.addWidget(file_group)
 
@@ -157,6 +166,7 @@ class SSHConfigDialog(QDialog):
             key_path=self.key_edit.text(),
             local_file=self.local_file_edit.text(),
             remote_dir=self.remote_dir_edit.text(),
+            project_folder=self.project_folder_edit.text(),
             local_exe=self.local_exe_edit.text(),
             run_command=self.run_command_edit.text(),
         )
