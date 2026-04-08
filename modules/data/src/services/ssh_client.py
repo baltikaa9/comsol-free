@@ -34,7 +34,7 @@ class SSHConfig:
         base = self.remote_dir.rstrip("/")
         if self.project_folder:
             return f"{base}/{self.project_folder}/"
-        return base
+        return f"{base}/"
 
 
 class SSHClientService:

@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from pathlib import Path
 
 from PySide6.QtCore import QEvent, Qt
@@ -46,6 +47,24 @@ from src.widgets.grid_scene import GridScene
 
 
 class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
+        self.grid_spacing = 50
+        self.scene = GridScene(spacing=self.grid_spacing)
+        self.scene.setSceneRect(-5000, -5000, 10000, 10000)
+
+    @staticmethod
+    def _get_comsol_ssh_dir() -> Path:
+        """Возвращает путь к bin/ с comsol-клиентами."""
+        if getattr(sys, "frozen", False):
+            base = Path(sys.executable).parent / "_internal"
+        else:
+            base = Path(__file__).parent.parent.parent.parent
+        return base / "bin"
+
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -119,7 +138,7 @@ class MainWindow(QMainWindow):
         self.ui.actionSSHSettings.triggered.connect(self.show_ssh_settings)
 
         # SSH сервис (путь к директории comsol-ssh)
-        cli_dir = Path(__file__).parent.parent.parent / "data" / "comsol-ssh"
+        cli_dir = self._get_comsol_ssh_dir()
         self.ssh_client = SSHClientService(cli_dir)
 
         # Файл сетки по умолчанию

@@ -171,3 +171,5 @@ snippets
 *.mesh
 *.h5
 *.json
+
+bin/

@@ -2,17 +2,9 @@ import logging
 import math
 
 import numpy as np
-from PySide6.QtCore import QLineF
-from PySide6.QtCore import QPointF
-from PySide6.QtCore import QRectF
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QPainterPath
-from PySide6.QtGui import QPen
-from PySide6.QtWidgets import QDialog
-from PySide6.QtWidgets import QGraphicsItem
-from PySide6.QtWidgets import QGraphicsPathItem
-from PySide6.QtWidgets import QWidget
-
+from PySide6.QtCore import QLineF, QPointF, QRectF, Qt
+from PySide6.QtGui import QPainterPath, QPen
+from PySide6.QtWidgets import QDialog, QGraphicsItem, QGraphicsPathItem, QWidget
 from src.commands.add_command import AddCommand
 from src.dialogs.dialog import Dialog
 from src.dialogs.dialog_factory import DialogFactory
@@ -28,11 +20,11 @@ from src.widgets.grid_scene import GridScene
 
 class DrawingService:
     def __init__(
-            self,
-            parent: QWidget,
-            scene: GridScene,
-            command_service: CommandService,
-            selection_service: SelectionService,
+        self,
+        parent: QWidget,
+        scene: GridScene,
+        command_service: CommandService,
+        selection_service: SelectionService,
     ):
         self.scene = scene
         self.parent = parent
@@ -42,10 +34,12 @@ class DrawingService:
         self.default_pen = QPen(Qt.black, 0)
 
     def draw_line_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('line', self.parent))
+        data = self.__get_data(DialogFactory.create_dialog("line", self.parent))
+        if not data:
+            return
 
         scale = self.scene.spacing
-        line = QLineF(data['start'] * scale, data['end'] * scale)
+        line = QLineF(data["start"] * scale, data["end"] * scale)
         item = LineItem(line)
         item.setPen(self.default_pen)
         item.setFlag(QGraphicsItem.ItemIsSelectable, True)
@@ -55,14 +49,16 @@ class DrawingService:
         logging.info(item)
 
     def draw_rect_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('rect', self.parent))
+        data = self.__get_data(DialogFactory.create_dialog("rect", self.parent))
+        if not data:
+            return
 
         scale = self.scene.spacing
         rect = QRectF(
-            data['top_left_x'] * scale,
-            data['top_left_y'] * scale,
-            data['width'] * scale,
-            data['height'] * scale
+            data["top_left_x"] * scale,
+            data["top_left_y"] * scale,
+            data["width"] * scale,
+            data["height"] * scale,
         )
         rect = RectangleItem(rect)
         rect.setPen(self.default_pen)
@@ -73,14 +69,16 @@ class DrawingService:
         logging.info(rect)
 
     def draw_ellipse_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('ellipse', self.parent))
+        data = self.__get_data(DialogFactory.create_dialog("ellipse", self.parent))
+        if not data:
+            return
 
         scale = self.scene.spacing
         rect = QRectF(
-            data['center'].x() * scale - data['radius_x'] * scale,
-            data['center'].y() * scale - data['radius_y'] * scale,
-            2 * data['radius_x'] * scale,
-            2 * data['radius_y'] * scale
+            data["center"].x() * scale - data["radius_x"] * scale,
+            data["center"].y() * scale - data["radius_y"] * scale,
+            2 * data["radius_x"] * scale,
+            2 * data["radius_y"] * scale,
         )
         item = EllipseItem(rect)
         item.setPen(self.default_pen)
@@ -91,7 +89,9 @@ class DrawingService:
         logging.info(item)
 
     def draw_curve_by_params(self):
-        data = self.__get_data(DialogFactory.create_dialog('bezier', self.parent))
+        data = self.__get_data(DialogFactory.create_dialog("bezier", self.parent))
+        if not data:
+            return
 
         item = EditableBezierCurveItem(data, pen=self.default_pen, scene=self.scene)
         item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
@@ -101,20 +101,25 @@ class DrawingService:
         logging.info(item)
 
     def draw_parametric(self):
-        data = self.__get_data(DialogFactory.create_dialog('parametric', self.parent))
+        data = self.__get_data(DialogFactory.create_dialog("parametric", self.parent))
+        if not data:
+            return
 
-        safe_globals = {
-            'math': math,
-            **{name: getattr(math, name) for name in dir(math) if not name.startswith('_')}
+        safe_globals_ = {
+            "math": math,
+            **{
+                name: getattr(math, name)
+                for name in dir(math)
+                if not name.startswith("_")
+            },
         }
 
-
-        t_vals = np.linspace(data['t_min'], data['t_max'], data['samples'])
+        t_vals = np.linspace(data["t_min"], data["t_max"], data["samples"])
         try:
-            x_vals = [eval(data['x_expr'], {'t': t, **safe_globals}) for t in t_vals]
-            y_vals = [eval(data['y_expr'], {'t': t, **safe_globals}) for t in t_vals]
+            x_vals = [eval(data["x_expr"], {"t": t, **safe_globals_}) for t in t_vals]
+            y_vals = [eval(data["y_expr"], {"t": t, **safe_globals_}) for t in t_vals]
         except Exception as e:
-            print(f'Error in expression: {e}')
+            print(f"Error in expression: {e}")
             return
 
         scale = self.scene.spacing
@@ -134,13 +139,15 @@ class DrawingService:
 
         logging.info(item)
 
-    def __get_data(self, dialog: Dialog) -> dict[str, str | float | int | QPointF] | None:
+    def __get_data(
+        self, dialog: Dialog
+    ) -> dict[str, str | float | int | QPointF] | None:
         if dialog.exec() != QDialog.Accepted:
             return None
 
         data = dialog.get_data()
         if not data:
-            print('Invalid parameters')
+            print("Invalid parameters")
             return None
 
         return data
