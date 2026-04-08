@@ -2,6 +2,7 @@
 """Скрипт сборки FreeFlow. Собирает comsol-cli + PyInstaller."""
 
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -100,7 +101,7 @@ def build_cli():
 
 def main():
     # 1. Собираем comsol-cli если есть Go
-    if subprocess.run(["which", "go"], capture_output=True).returncode == 0:
+    if shutil.which("go"):
         build_cli()
     else:
         print("⚠️ Go не найден, пропускаем comsol-cli")
