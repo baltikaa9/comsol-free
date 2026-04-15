@@ -64,6 +64,14 @@ class SSHConfigDialog(QDialog):
         row.addWidget(btn)
         conn_layout.addLayout(row)
 
+        row = QHBoxLayout()
+        row.addWidget(QLabel("Пароль:"))
+        self.password_edit = QLineEdit(self.config.password)
+        self.password_edit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.password_edit.setPlaceholderText("Оставьте пустым если есть ключ")
+        row.addWidget(self.password_edit)
+        conn_layout.addLayout(row)
+
         conn_group.setLayout(conn_layout)
         layout.addWidget(conn_group)
 
@@ -164,6 +172,7 @@ class SSHConfigDialog(QDialog):
             host=self.host_edit.text(),
             port=self.port_spin.value(),
             key_path=self.key_edit.text(),
+            password=self.password_edit.text(),
             local_file=self.local_file_edit.text(),
             remote_dir=self.remote_dir_edit.text(),
             project_folder=self.project_folder_edit.text(),

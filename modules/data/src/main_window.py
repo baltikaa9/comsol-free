@@ -137,6 +137,10 @@ class MainWindow(QMainWindow):
         self.ui.actionUploadSSH.triggered.connect(self.upload_to_ssh)
         self.ui.actionSSHSettings.triggered.connect(self.show_ssh_settings)
 
+        # Блокируем сворачивание тулбаров
+        for tb in [self.ui.toolBarShapes, self.ui.toolBarOps, self.ui.toolBarMisc]:
+            tb.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+
         # SSH сервис (путь к директории comsol-ssh)
         cli_dir = self._get_comsol_ssh_dir()
         self.ssh_client = SSHClientService(cli_dir)

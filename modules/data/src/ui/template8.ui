@@ -103,15 +103,20 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar" />
-  <widget class="QToolBar" name="mainToolBar">
+
+  <!-- Тулбар: Фигуры -->
+  <widget class="QToolBar" name="toolBarShapes">
    <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
+    <font><pointsize>14</pointsize></font>
    </property>
    <property name="windowTitle">
-    <string>Tools</string>
+    <string>Фигуры</string>
    </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <property name="floatable"><bool>false</bool></property>
+   <property name="movable"><bool>false</bool></property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -123,18 +128,61 @@
    <addaction name="actionDrawCircleByParams" />
    <addaction name="actionDrawCurveByParams" />
    <addaction name="actionDrawParametric" />
+  </widget>
+
+  <!-- Тулбар: Операции -->
+  <widget class="QToolBar" name="toolBarOps">
+   <property name="font">
+    <font><pointsize>14</pointsize></font>
+   </property>
+   <property name="windowTitle">
+    <string>Операции</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <property name="floatable"><bool>false</bool></property>
+   <property name="movable"><bool>false</bool></property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
    <addaction name="actionUnion" />
    <addaction name="actionDifference" />
    <addaction name="actionIntersection" />
    <addaction name="actionMirror" />
    <addaction name="actionRotate" />
+  </widget>
+
+  <!-- Тулбар: Сетка / SSH -->
+  <widget class="QToolBar" name="toolBarMisc">
+   <property name="font">
+    <font><pointsize>14</pointsize></font>
+   </property>
+   <property name="windowTitle">
+    <string>Сетка / SSH</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <property name="floatable"><bool>false</bool></property>
+   <property name="movable"><bool>false</bool></property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
    <addaction name="actionBuildMesh" />
+   <addaction name="separator" />
    <addaction name="actionUploadSSH" />
    <addaction name="actionSSHSettings" />
   </widget>
   <action name="actionDrawLineByParams">
    <property name="text">
-    <string>Прямая</string>
+    <string>Линия</string>
    </property>
   </action>
   <action name="actionDrawRectByParams">

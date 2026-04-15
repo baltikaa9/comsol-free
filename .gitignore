@@ -173,3 +173,4 @@ snippets
 *.json
 
 bin/
+*.tar*

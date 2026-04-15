@@ -12,6 +12,7 @@ class SSHConfig:
     host: str = "ivsand.ru"
     port: int = 2222
     key_path: str = ""
+    password: str = ""  # Пароль (если нет ключа)
 
     # Файлы
     local_file: str = ""  # Data-файл для загрузки
@@ -46,6 +47,31 @@ class SSHClientService:
         if sys.platform == "win32":
             return self.base_path / "comsol-cli.exe"
         return self.base_path / "comsol-cli"
+
+    def _build_cli_args(
+        self, config: SSHConfig, local_file: str, remote_dir: str, cmd: str
+    ) -> list[str]:
+        """Формирует аргументы CLI: -key или -pass."""
+        args = [
+            str(self.cli_path),
+            "-user",
+            config.user,
+            "-host",
+            config.host,
+            "-port",
+            str(config.port),
+            "-local",
+            local_file,
+            "-remote",
+            remote_dir,
+            "-cmd",
+            cmd,
+        ]
+        if config.password:
+            args.extend(["-pass", config.password])
+        else:
+            args.extend(["-key", config.key_path])
+        return args
 
     def _run_cli(
         self, args: list[str], on_output: Callable[[str], None] | None = None
@@ -88,24 +114,12 @@ class SSHClientService:
             if on_output:
                 on_output(f"📁 Создание папки: {remote_dir}")
 
-            # Просто команда mkdir -p через CLI без загрузки файла
-            mkdir_args = [
-                str(self.cli_path),
-                "-user",
-                config.user,
-                "-host",
-                config.host,
-                "-port",
-                str(config.port),
-                "-key",
-                config.key_path,
-                "-local",
-                "",
-                "-remote",
-                remote_dir,
-                "-cmd",
-                f"mkdir -p {remote_dir}",
-            ]
+            mkdir_args = self._build_cli_args(
+                config,
+                local_file="",
+                remote_dir=remote_dir,
+                cmd=f"mkdir -p {remote_dir}",
+            )
             self._run_cli(mkdir_args, on_output)
 
             if on_output:
@@ -118,23 +132,9 @@ class SSHClientService:
                 return False, f"Локальный exe не найден: {config.local_exe}"
 
             exe_name = Path(config.local_exe).name
-            exe_args = [
-                str(self.cli_path),
-                "-user",
-                config.user,
-                "-host",
-                config.host,
-                "-port",
-                str(config.port),
-                "-key",
-                config.key_path,
-                "-local",
-                config.local_exe,
-                "-remote",
-                remote_dir,
-                "-cmd",
-                "",
-            ]
+            exe_args = self._build_cli_args(
+                config, local_file=config.local_exe, remote_dir=remote_dir, cmd=""
+            )
             success, output = self._run_cli(exe_args, on_output)
             if not success:
                 return False, f"Ошибка загрузки exe:\n{output}"
@@ -156,22 +156,8 @@ class SSHClientService:
             cmd = "ls -la"
 
         # 3. Загружаем data-файл и выполняем команду
-        args = [
-            str(self.cli_path),
-            "-user",
-            config.user,
-            "-host",
-            config.host,
-            "-port",
-            str(config.port),
-            "-key",
-            config.key_path,
-            "-local",
-            config.local_file,
-            "-remote",
-            remote_dir,
-            "-cmd",
-            cmd,
-        ]
+        args = self._build_cli_args(
+            config, local_file=config.local_file, remote_dir=remote_dir, cmd=cmd
+        )
 
         return self._run_cli(args, on_output)

@@ -72,6 +72,21 @@ coll = COLLECT(
 root = Path(__file__).parent
 
 
+def update_submodules():
+    """Инициализирует и обновляет git-сабмодули."""
+    gitmodules = root / ".gitmodules"
+    if not gitmodules.exists():
+        return
+    if not (root / ".git").exists():
+        return
+
+    print("🔄 Обновление сабмодулей...")
+    subprocess.run(
+        ["git", "submodule", "update", "--init", "--recursive"], cwd=root, check=True
+    )
+    print("✅ Сабмодули обновлены")
+
+
 def build_cli():
     """Компилирует comsol-cli для Linux и Windows."""
     bin_dir = root / "bin"
@@ -100,6 +115,9 @@ def build_cli():
 
 
 def main():
+    # 0. Обновляем сабмодули
+    update_submodules()
+
     # 1. Собираем comsol-cli если есть Go
     if shutil.which("go"):
         build_cli()
