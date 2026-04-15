@@ -96,12 +96,20 @@ class SSHConfigDialog(QDialog):
         file_layout.addLayout(row)
 
         row = QHBoxLayout()
-        row.addWidget(QLabel("Папка проекта:"))
+        row.addWidget(QLabel("Папка на сервере:"))
         self.project_folder_edit = QLineEdit(self.config.project_folder)
-        self.project_folder_edit.setPlaceholderText(
-            "Оставьте пустым или введите имя (будет создана)"
-        )
+        self.project_folder_edit.setPlaceholderText("test123 (будет создана)")
         row.addWidget(self.project_folder_edit)
+        file_layout.addLayout(row)
+
+        row = QHBoxLayout()
+        row.addWidget(QLabel("Папка проекта:"))
+        self.project_path_edit = QLineEdit(self.config.project_path)
+        self.project_path_edit.setPlaceholderText("Путь к CUDA-проекту")
+        row.addWidget(self.project_path_edit)
+        btn = QPushButton("Обзор...")
+        btn.clicked.connect(self._browse_project_path)
+        row.addWidget(btn)
         file_layout.addLayout(row)
 
         file_group.setLayout(file_layout)
@@ -124,7 +132,7 @@ class SSHConfigDialog(QDialog):
         row = QHBoxLayout()
         row.addWidget(QLabel("Команда:"))
         self.run_command_edit = QLineEdit(self.config.run_command)
-        self.run_command_edit.setPlaceholderText("{exe} или ls -la")
+        self.run_command_edit.setPlaceholderText("по умолчанию: nvcc && ./shock.out")
         row.addWidget(self.run_command_edit)
         exe_layout.addLayout(row)
 
@@ -156,6 +164,19 @@ class SSHConfigDialog(QDialog):
         if path:
             self.local_file_edit.setText(path)
 
+    def _browse_project_path(self):
+        path = QFileDialog.getExistingDirectory(
+            self,
+            "Выберите папку проекта",
+            str(
+                Path(self.config.project_path).parent
+                if self.config.project_path
+                else ""
+            ),
+        )
+        if path:
+            self.project_path_edit.setText(path)
+
     def _browse_local_exe(self):
         path, _ = QFileDialog.getOpenFileName(
             self,
@@ -176,6 +197,7 @@ class SSHConfigDialog(QDialog):
             local_file=self.local_file_edit.text(),
             remote_dir=self.remote_dir_edit.text(),
             project_folder=self.project_folder_edit.text(),
+            project_path=self.project_path_edit.text(),
             local_exe=self.local_exe_edit.text(),
             run_command=self.run_command_edit.text(),
         )
