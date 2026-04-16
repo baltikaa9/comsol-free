@@ -3,11 +3,14 @@
 
 import os
 import shutil
+import string
 import subprocess
 import sys
 from pathlib import Path
 
-SPEC_CONTENT = """# -*- mode: python ; coding: utf-8 -*-
+import cairosvg
+
+SPEC_TEMPLATE = string.Template("""# -*- mode: python ; coding: utf-8 -*-
 block_cipher = None
 
 a = Analysis(
@@ -54,7 +57,7 @@ exe = EXE(
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
-    entitlements_file=None,
+    entitlements_file=None$icon_line
 )
 
 coll = COLLECT(
@@ -67,7 +70,7 @@ coll = COLLECT(
     upx_exclude=[],
     name='freeflow',
 )
-"""
+""")
 
 root = Path(__file__).parent
 
@@ -115,22 +118,39 @@ def build_cli():
 
 
 def main():
-    # 0. Обновляем сабмодули
+    icon_spec_line = ""
+    # 0. Конвертируем иконку только для Windows
+    if sys.platform == "win32":
+        print("🎨 Сборка для Windows, готовим иконку...")
+        icon_svg_path = root / "modules" / "data" / "src" / "assets" / "icon.svg"
+        icon_png_path = root / "modules" / "data" / "src" / "assets" / "icon.png"
+        cairosvg.svg2png(url=str(icon_svg_path), write_to=str(icon_png_path), dpi=96)
+        print(f"✅ Иконка сохранена в {icon_png_path}")
+        icon_spec_line = f",\\n    icon='{icon_png_path.as_posix()}'"
+
+    # 1. Обновляем сабмодули
     update_submodules()
 
-    # 1. Собираем comsol-cli если есть Go
+    # 2. Собираем comsol-cli если есть Go
     if shutil.which("go"):
         build_cli()
     else:
         print("⚠️ Go не найден, пропускаем comsol-cli")
 
-    # 2. Генерируем spec
+    # 3. Генерируем spec
     spec_file = root / "freeflow.spec"
-    if not spec_file.exists():
-        spec_file.write_text(SPEC_CONTENT)
+    spec_content = SPEC_TEMPLATE.substitute(icon_line=icon_spec_line)
+    spec_file.write_text(spec_content)
 
-    # 3. Запускаем PyInstaller
-    cmd = [sys.executable, "-m", "PyInstaller", "--clean", str(spec_file)]
+    # 4. Запускаем PyInstaller
+    cmd = [
+        sys.executable,
+        "-m",
+        "PyInstaller",
+        "--clean",
+        "--noconfirm",
+        str(spec_file),
+    ]
     print(f"🔧 Сборка: {' '.join(cmd)}")
     subprocess.run(cmd, check=True)
 

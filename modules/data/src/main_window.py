@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 from PySide6.QtCore import QEvent, Qt
-from PySide6.QtGui import QKeyEvent, QPainter, QPen
+from PySide6.QtGui import QIcon, QKeyEvent, QPainter, QPen
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -51,6 +51,12 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        # Set window icon
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        icon_path = os.path.join(script_dir, "assets", "icon.svg")
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
 
         self.grid_spacing = 50
         self.scene = GridScene(spacing=self.grid_spacing)
