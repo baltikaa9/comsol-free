@@ -56,24 +56,6 @@ class MainWindow(QMainWindow):
         self.scene = GridScene(spacing=self.grid_spacing)
         self.scene.setSceneRect(-5000, -5000, 10000, 10000)
 
-    @staticmethod
-    def _get_comsol_ssh_dir() -> Path:
-        """Возвращает путь к bin/ с comsol-клиентами."""
-        if getattr(sys, "frozen", False):
-            base = Path(sys.executable).parent / "_internal"
-        else:
-            base = Path(__file__).parent.parent.parent.parent
-        return base / "bin"
-
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-
-        self.grid_spacing = 50
-        self.scene = GridScene(spacing=self.grid_spacing)
-        self.scene.setSceneRect(-5000, -5000, 10000, 10000)
-
         self.ui.graphicsView.setScene(self.scene)
         self.ui.graphicsView.setRenderHints(QPainter.RenderHint.Antialiasing)
         self.ui.graphicsView.scale(1, -1)
@@ -160,6 +142,15 @@ class MainWindow(QMainWindow):
 
         # Инициализация UI
         self.init_turbulence_ui()
+
+    @staticmethod
+    def _get_comsol_ssh_dir() -> Path:
+        """Возвращает путь к bin/ с comsol-клиентами."""
+        if getattr(sys, "frozen", False):
+            base = Path(sys.executable).parent / "_internal"
+        else:
+            base = Path(__file__).parent.parent.parent.parent
+        return base / "bin"
 
     def eventFilter(self, obj, event: QEvent):
         if obj is self.ui.graphicsView.viewport():
@@ -454,15 +445,15 @@ class MainWindow(QMainWindow):
 
     def upload_to_ssh(self):
         """Загрузка файла на сервер через SSH."""
-        dialog = SSHResultDialog(self)
+        from src.dialogs.ssh_result_dialog import SSHResultDialog, SSHWorker
+
+        worker = SSHWorker(self.ssh_client, self.ssh_config)
+        dialog = SSHResultDialog(worker, self)
         dialog.show()
 
-        from src.dialogs.ssh_result_dialog import SSHWorker
-
-        self.worker = SSHWorker(self.ssh_client, self.ssh_config)
-        self.worker.new_line.connect(dialog.append_line)
-        self.worker.finished.connect(dialog.set_final)
-        self.worker.start()
+        worker.new_line.connect(dialog.append_line)
+        worker.finished.connect(dialog.set_final)
+        worker.start()
 
     def show_ssh_settings(self):
         """Диалог настроек SSH подключения."""

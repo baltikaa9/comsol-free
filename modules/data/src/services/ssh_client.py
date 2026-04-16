@@ -46,6 +46,7 @@ class SSHClientService:
     def __init__(self, base_path: str | Path):
         self.base_path = Path(base_path)
         self.cli_path = self._resolve_cli_path()
+        self.proc = None
 
     def _resolve_cli_path(self) -> Path:
         if sys.platform == "win32":
@@ -77,13 +78,18 @@ class SSHClientService:
             args.extend(["-key", config.key_path])
         return args
 
+    def stop_cli(self):
+        """Останавливает запущенный CLI процесс."""
+        if self.proc and self.proc.poll() is None:
+            self.proc.terminate()
+
     def _run_cli(
         self, args: list[str], on_output: Callable[[str], None] | None = None
     ) -> tuple[bool, str]:
         """Запускает CLI с потоковым выводом. Только stdout CLI, без лишних сообщений."""
         full_output = ""
         try:
-            proc = subprocess.Popen(
+            self.proc = subprocess.Popen(
                 args,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
@@ -93,14 +99,14 @@ class SSHClientService:
                 bufsize=1,
             )
 
-            for line in proc.stdout:
+            for line in self.proc.stdout:
                 line = line.rstrip("\n")
                 full_output += line + "\n"
                 if on_output:
                     on_output(line)
 
-            proc.wait()
-            return proc.returncode == 0, full_output
+            self.proc.wait()
+            return self.proc.returncode == 0, full_output
         except Exception as e:
             return False, full_output + f"\nОшибка: {str(e)}"
 

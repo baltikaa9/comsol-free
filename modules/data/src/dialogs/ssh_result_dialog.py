@@ -28,10 +28,18 @@ class SSHWorker(QThread):
         )
         self.finished.emit(success, output)
 
+    def stop(self):
+        """Останавливает выполнение воркера и дочернего процесса."""
+        if self.isRunning():
+            self.ssh_client.stop_cli()
+            self.quit()
+            self.wait()
+
 
 class SSHResultDialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, worker: SSHWorker, parent=None):
         super().__init__(parent)
+        self.worker = worker
         self.setWindowTitle("Результат SSH операции")
         self.setModal(False)
         self.resize(600, 400)
@@ -51,6 +59,12 @@ class SSHResultDialog(QDialog):
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
         buttons.rejected.connect(self.reject)
         layout.addWidget(buttons)
+
+    def reject(self):
+        """Переопределяем, чтобы остановить воркер при закрытии."""
+        if self.worker and self.worker.isRunning():
+            self.worker.stop()
+        super().reject()
 
     def append_line(self, line: str):
         """Добавляет строку в реальном времени."""
