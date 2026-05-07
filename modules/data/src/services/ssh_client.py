@@ -1,25 +1,27 @@
+import json
 import shutil
 import subprocess
 import sys
 import tarfile
 import tempfile
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Callable
 
 
 @dataclass
 class SSHConfig:
+    name: str = "Default"
     # Подключение
-    user: str = "vasite-landing"
-    host: str = "ivsand.ru"
-    port: int = 2222
+    user: str = "baltika"
+    host: str = "localhost"
+    port: int = 22
     key_path: str = ""
     password: str = ""  # Пароль (если нет ключа)
 
     # Файлы
     local_file: str = ""  # Data-файл для загрузки
-    remote_dir: str = "/home/bitrix/"  # Базовая удаленная папка
+    remote_dir: str = ""  # Базовая удаленная папка
     local_exe: str = ""  # Локальный exe (загрузится на сервер, опционально)
 
     # Папка проекта
@@ -31,7 +33,7 @@ class SSHConfig:
 
     def __post_init__(self):
         if not self.key_path:
-            self.key_path = str(Path.home() / ".ssh" / "id_rsa")
+            self.key_path = str(Path.home() / ".ssh" / "id_ed25519")
 
     @property
     def effective_remote_dir(self) -> str:
@@ -40,6 +42,66 @@ class SSHConfig:
         if self.project_folder:
             return f"{base}/{self.project_folder}/"
         return f"{base}/"
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "SSHConfig":
+        return cls(**data)
+
+
+class SSHConfigManager:
+    """Класс для управления списком конфигураций в JSON файле."""
+
+    def __init__(self, config_path: str | Path):
+        self.config_path = Path(config_path)
+        self.configs: list[SSHConfig] = []
+        self.load()
+
+    def load(self):
+        if not self.config_path.exists():
+            self.configs = [SSHConfig()]
+            self.save()
+            return
+
+        try:
+            with open(self.config_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    self.configs = [SSHConfig.from_dict(item) for item in data]
+                else:
+                    self.configs = [SSHConfig()]
+        except Exception:
+            self.configs = [SSHConfig()]
+
+    def save(self):
+        self.config_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(self.config_path, "w", encoding="utf-8") as f:
+            json.dump(
+                [c.to_dict() for c in self.configs], f, indent=4, ensure_ascii=False
+            )
+
+    def add_config(self, config: SSHConfig):
+        self.configs.append(config)
+        self.save()
+
+    def update_config(self, name: str, updated_config: SSHConfig):
+        for i, config in enumerate(self.configs):
+            if config.name == name:
+                self.configs[i] = updated_config
+                break
+        self.save()
+
+    def remove_config(self, name: str):
+        self.configs = [c for c in self.configs if c.name != name]
+        self.save()
+
+    def get_config(self, name: str) -> SSHConfig | None:
+        for c in self.configs:
+            if c.name == name:
+                return c
+        return None
 
 
 class SSHClientService:

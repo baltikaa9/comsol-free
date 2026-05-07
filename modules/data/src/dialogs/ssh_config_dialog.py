@@ -30,6 +30,14 @@ class SSHConfigDialog(QDialog):
     def _init_ui(self):
         layout = QVBoxLayout(self)
 
+        # === Название конфигурации ===
+        name_row = QHBoxLayout()
+        name_row.addWidget(QLabel("Название:"))
+        self.name_edit = QLineEdit(self.config.name)
+        self.name_edit.setPlaceholderText("Например: Рабочий сервер")
+        name_row.addWidget(self.name_edit)
+        layout.addLayout(name_row)
+
         # === Подключение ===
         conn_group = QGroupBox("Подключение")
         conn_layout = QVBoxLayout()
@@ -189,6 +197,7 @@ class SSHConfigDialog(QDialog):
 
     def get_config(self) -> SSHConfig:
         return SSHConfig(
+            name=self.name_edit.text().strip() or "Без имени",
             user=self.user_edit.text(),
             host=self.host_edit.text(),
             port=self.port_spin.value(),

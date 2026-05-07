@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (
     QApplication,
     QDialog,
     QGraphicsView,
+    QInputDialog,
     QMainWindow,
     QMenu,
     QMessageBox,
@@ -18,8 +19,8 @@ from src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
 from src.dialogs.initial_conditions_dialog import InitialConditionsDialog
 from src.dialogs.material_dialog import MaterialDialog
 from src.dialogs.mesh_dialog import MeshDialog
-from src.dialogs.ssh_config_dialog import SSHConfigDialog
-from src.dialogs.ssh_result_dialog import SSHResultDialog
+from src.dialogs.ssh_result_dialog import SSHResultDialog, SSHWorker
+from src.dialogs.ssh_settings_dialog import SSHSettingsDialog
 from src.dialogs.turbulence_dialog import TurbulenceDialog
 from src.event_handler import EventHandler
 from src.operations.boolean_operations import BooleanOperations
@@ -39,7 +40,7 @@ from src.services.command_service import CommandService
 from src.services.drawing_service import DrawingService
 from src.services.gmsh_mesh_builder import GmshMeshBuilder
 from src.services.selection_service import SelectionService
-from src.services.ssh_client import SSHClientService, SSHConfig
+from src.services.ssh_client import SSHClientService, SSHConfig, SSHConfigManager
 from src.services.structured_mesh_builder import StructuredMeshBuilder
 from src.ui.template import Ui_MainWindow
 from src.widgets.edge_item import EdgeItem
@@ -135,7 +136,11 @@ class MainWindow(QMainWindow):
 
         # Файл сетки по умолчанию
         mesh_file = os.path.join(os.getcwd(), "structured_mesh.json")
-        self.ssh_config = SSHConfig(local_file=mesh_file)
+        self.ssh_manager = SSHConfigManager("configs/ssh_configs.json")
+        # Подставляем дефолтный файл сетки если не задан
+        if not self.ssh_manager.configs[0].local_file:
+            self.ssh_manager.configs[0].local_file = mesh_file
+            self.ssh_manager.save()
 
         self.ui.graphicsView.viewport().installEventFilter(self)
 
@@ -450,22 +455,30 @@ class MainWindow(QMainWindow):
         )
 
     def upload_to_ssh(self):
-        """Загрузка файла на сервер через SSH."""
-        from src.dialogs.ssh_result_dialog import SSHResultDialog, SSHWorker
-
-        worker = SSHWorker(self.ssh_client, self.ssh_config)
+        configs = self.ssh_manager.configs
+        if not configs:
+            QMessageBox.warning(self, "SSH", "Нет конфигураций. Добавьте через Настройки SSH.")
+            return
+    
+        names = [c.name for c in configs]
+        name, ok = QInputDialog.getItem(
+            self, "Выбор конфигурации", "Подключиться как:", names, 0, False
+        )
+        if not ok:
+            return
+    
+        cfg = next(c for c in configs if c.name == name)
+        worker = SSHWorker(self.ssh_client, cfg)
         dialog = SSHResultDialog(worker, self)
         dialog.show()
-
         worker.new_line.connect(dialog.append_line)
         worker.finished.connect(dialog.set_final)
         worker.start()
 
     def show_ssh_settings(self):
         """Диалог настроек SSH подключения."""
-        dialog = SSHConfigDialog(self.ssh_config, self)
-        if dialog.exec() == QDialog.DialogCode.Accepted:
-            self.ssh_config = dialog.get_config()
+        dialog = SSHSettingsDialog(self.ssh_manager, self)
+        dialog.exec()
 
 
 if __name__ == "__main__":
