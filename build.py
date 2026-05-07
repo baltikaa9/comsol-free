@@ -126,7 +126,7 @@ def main():
         icon_png_path = root / "modules" / "data" / "src" / "assets" / "icon.png"
         cairosvg.svg2png(url=str(icon_svg_path), write_to=str(icon_png_path), dpi=96)
         print(f"✅ Иконка сохранена в {icon_png_path}")
-        icon_spec_line = f",\\n    icon='{icon_png_path.as_posix()}'"
+        icon_spec_line = f",\n    icon='{icon_png_path.as_posix()}'"
 
     # 1. Обновляем сабмодули
     update_submodules()
