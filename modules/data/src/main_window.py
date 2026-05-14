@@ -138,8 +138,14 @@ class MainWindow(QMainWindow):
         mesh_file = os.path.join(os.getcwd(), "structured_mesh.json")
         self.ssh_manager = SSHConfigManager("configs/ssh_configs.json")
         # Подставляем дефолтный файл сетки если не задан
-        if not self.ssh_manager.configs[0].local_file:
-            self.ssh_manager.configs[0].local_file = mesh_file
+        if not self.ssh_manager.configs:
+            # Создаем дефолтную конфигурацию
+            from src.services.ssh_client import SSHConfig
+
+            default_config = SSHConfig(
+                name="Default", project_path="", remote_dir="/home/baltika/projects"
+            )
+            self.ssh_manager.configs.append(default_config)
             self.ssh_manager.save()
 
         self.ui.graphicsView.viewport().installEventFilter(self)
@@ -457,18 +463,36 @@ class MainWindow(QMainWindow):
     def upload_to_ssh(self):
         configs = self.ssh_manager.configs
         if not configs:
-            QMessageBox.warning(self, "SSH", "Нет конфигураций. Добавьте через Настройки SSH.")
+            QMessageBox.warning(
+                self, "SSH", "Нет конфигураций. Добавьте через Настройки SSH."
+            )
             return
-    
+
+        # Проверяем наличие сетки
+        mesh_file = "structured_mesh.json"
+        if not Path(mesh_file).exists():
+            QMessageBox.warning(
+                self, "Ошибка", "Файл сетки не найден. Постройте сетку перед загрузкой."
+            )
+            return
+
         names = [c.name for c in configs]
         name, ok = QInputDialog.getItem(
             self, "Выбор конфигурации", "Подключиться как:", names, 0, False
         )
         if not ok:
             return
-    
+
         cfg = next(c for c in configs if c.name == name)
-        worker = SSHWorker(self.ssh_client, cfg)
+
+        # Проверяем, что папка проекта указана
+        if not cfg.project_path:
+            QMessageBox.warning(
+                self, "Ошибка", "Не указана папка с CUDA-проектом в настройках SSH."
+            )
+            return
+
+        worker = SSHWorker(self.ssh_client, cfg, mesh_file)
         dialog = SSHResultDialog(worker, self)
         dialog.show()
         worker.new_line.connect(dialog.append_line)

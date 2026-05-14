@@ -11,6 +11,8 @@ from typing import Callable
 
 @dataclass
 class SSHConfig:
+    """Упрощённая конфигурация для CUDA-проектов."""
+
     name: str = "Default"
     # Подключение
     user: str = "baltika"
@@ -19,17 +21,14 @@ class SSHConfig:
     key_path: str = ""
     password: str = ""  # Пароль (если нет ключа)
 
-    # Файлы
-    local_file: str = ""  # Data-файл для загрузки
-    remote_dir: str = ""  # Базовая удаленная папка
-    local_exe: str = ""  # Локальный exe (загрузится на сервер, опционально)
+    # Папка проекта (CUDA-исходники)
+    project_path: str = ""  # Локальная папка с исходниками (например, Project_test)
 
-    # Папка проекта
-    project_folder: str = ""  # Имя папки для создания на сервере (опционально)
-    project_path: str = ""  # Путь к папке проекта (CUDA и т.д.)
+    # Папка на сервере
+    remote_dir: str = "/home/baltika/projects"  # Базовая директория на сервере
 
-    # Команда
-    run_command: str = ""  # Команда ({exe} = имя загруженного exe)
+    # Команда для выполнения (опционально)
+    run_command: str = ""  # Если пусто - используем compile.ini или авто-компиляцию
 
     def __post_init__(self):
         if not self.key_path:
@@ -37,10 +36,8 @@ class SSHConfig:
 
     @property
     def effective_remote_dir(self) -> str:
-        """Возвращает путь с учётом project_folder, всегда с / в конце."""
+        """Возвращает путь к папке проекта на сервере."""
         base = self.remote_dir.rstrip("/")
-        if self.project_folder:
-            return f"{base}/{self.project_folder}/"
         return f"{base}/"
 
     def to_dict(self) -> dict:
@@ -69,7 +66,18 @@ class SSHConfigManager:
             with open(self.config_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 if isinstance(data, list):
-                    self.configs = [SSHConfig.from_dict(item) for item in data]
+                    self.configs = []
+                    for item in data:
+                        # Заполняем дефолтные значения если их нет
+                        item.setdefault("user", "baltika")
+                        item.setdefault("host", "localhost")
+                        item.setdefault("port", 22)
+                        item.setdefault(
+                            "key_path", str(Path.home() / ".ssh" / "id_ed25519")
+                        )
+                        item.setdefault("password", "")
+                        item.setdefault("run_command", "")
+                        self.configs.append(SSHConfig.from_dict(item))
                 else:
                     self.configs = [SSHConfig()]
         except Exception:
@@ -146,9 +154,12 @@ class SSHClientService:
             self.proc.terminate()
 
     def _run_cli(
-        self, args: list[str], on_output: Callable[[str], None] | None = None
+        self,
+        args: list[str],
+        on_output: Callable[[str], None] | None = None,
+        is_retry: bool = False,
     ) -> tuple[bool, str]:
-        """Запускает CLI с потоковым выводом. Только stdout CLI, без лишних сообщений."""
+        """Запускает CLI с потоковым выводом."""
         full_output = ""
         try:
             self.proc = subprocess.Popen(
@@ -168,13 +179,79 @@ class SSHClientService:
                     on_output(line)
 
             self.proc.wait()
-            return self.proc.returncode == 0, full_output
+            returncode = self.proc.returncode
+
+            # Если команда не найдена (exit code 127), пробуем найти её через which
+            # Но только один раз (чтобы избежать бесконечной рекурсии)
+            if returncode == 127 and not is_retry:
+                # Извлекаем команду из вывода
+                for line in full_output.split("\n"):
+                    if "command not found" in line or "not found" in line.lower():
+                        # Ищем имя команды в строке
+                        parts = line.split()
+                        for part in parts:
+                            if (
+                                part
+                                and not part.startswith("-")
+                                and not part.startswith("/")
+                            ):
+                                cmd_name = part.strip()
+                                # Ищем через which
+                                which_cmd = (
+                                    f"which {cmd_name} 2>/dev/null || echo not_found"
+                                )
+                                which_args = self._build_cli_args(
+                                    object(),  # type: ignore
+                                    local_file="",
+                                    remote_dir="/tmp",
+                                    cmd=which_cmd,
+                                )
+                                which_success, which_output = self._run_cli(
+                                    which_args, is_retry=True
+                                )
+                                if (
+                                    which_success
+                                    and which_output.strip() != "not_found"
+                                ):
+                                    # Команда найдена, пробуем выполнить с полным путём
+                                    full_output += f"\nНайдена команда {cmd_name}: {which_output.strip()}\n"
+                                    # Перезапускаем с полным путём
+                                    new_args = self._replace_cmd_in_args(
+                                        args, cmd_name, which_output.strip()
+                                    )
+                                    if new_args:
+                                        return self._run_cli(
+                                            new_args, on_output, is_retry=True
+                                        )
+                                break
+
+            return returncode == 0, full_output
         except Exception as e:
             return False, full_output + f"\nОшибка: {str(e)}"
 
-    def _prepare_project_archive(self, config: SSHConfig) -> tuple[str, str] | None:
+    def _replace_cmd_in_args(
+        self, args: list[str], old_cmd: str, new_cmd: str
+    ) -> list[str] | None:
+        """Заменяет команду в аргументах на новый путь."""
+        try:
+            new_args = args.copy()
+            for i, arg in enumerate(new_args):
+                if arg == "-cmd" and i + 1 < len(new_args):
+                    # Заменяем команду в строке
+                    cmd_str = new_args[i + 1]
+                    # Простая замена - заменяем имя команды в начале строки
+                    if cmd_str.strip().startswith(old_cmd):
+                        new_args[i + 1] = cmd_str.replace(old_cmd, new_cmd, 1)
+                    return new_args
+            return None
+        except:
+            return None
+
+    def _prepare_project_archive(
+        self, config: SSHConfig, mesh_file: str | None = None
+    ) -> tuple[str, str] | None:
         """
-        Создаёт временный архив папки проекта + data-файл внутри.
+        Создаёт временный архив содержимого папки проекта + сетку внутри.
         Возвращает (путь к архиву, имя папки на сервере) или None.
         """
         if not config.project_path:
@@ -189,139 +266,118 @@ class SSHClientService:
         tmp_dir = Path(tempfile.mkdtemp(prefix="freeflow_"))
         archive_path = str(tmp_dir / f"{folder_name}.tar.gz")
 
-        # Копируем папку во временное место
+        # Копируем СОДЕРЖИМОЕ папки во временное место (не саму папку)
         tmp_project = tmp_dir / folder_name
-        shutil.copytree(project_dir, tmp_project)
+        tmp_project.mkdir(parents=True, exist_ok=True)
 
-        # Копируем data-файл внутрь
-        if config.local_file:
-            data_src = Path(config.local_file)
-            if data_src.exists():
-                shutil.copy2(data_src, tmp_project / data_src.name)
+        # Копируем все файлы и папки из project_dir в tmp_project
+        for item in project_dir.iterdir():
+            if item.is_file():
+                shutil.copy2(item, tmp_project / item.name)
+            elif item.is_dir():
+                shutil.copytree(item, tmp_project / item.name)
 
-        # Архивируем
+        # Копируем сетку внутрь папки dat/
+        if mesh_file:
+            mesh_src = Path(mesh_file)
+            if mesh_src.exists():
+                dat_dir = tmp_project / "dat"
+                dat_dir.mkdir(exist_ok=True)
+                shutil.copy2(mesh_src, dat_dir / mesh_src.name)
+                print(f"  Сетка скопирована: {mesh_src.name}")
+
+        # Архивируем содержимое tmp_project - добавляем каждый элемент напрямую
+        # Это важно: файлы попадут в корень архива, а не в папку folder_name
         with tarfile.open(archive_path, "w:gz") as tar:
-            tar.add(tmp_project, arcname=folder_name)
+            for item in tmp_project.iterdir():
+                # arcname=item.name означает, что файл попадёт в корень архива
+                tar.add(item, arcname=item.name)
 
         return archive_path, folder_name
 
     def upload_and_execute(
-        self, config: SSHConfig, on_output: Callable[[str], None] | None = None
+        self,
+        config: SSHConfig,
+        mesh_file: str | None = None,
+        on_output: Callable[[str], None] | None = None,
     ) -> tuple[bool, str]:
+        """
+        Загружает проект и запускает расчёт.
+
+        :param config: Конфигурация SSH
+        :param mesh_file: Путь к файлу сетки (structured_mesh.json)
+        :param on_output: Колбек для вывода
+        :return: (успех, вывод)
+        """
         if not self.cli_path.exists():
             return False, f"CLI не найден: {self.cli_path}"
 
-        archive_info = self._prepare_project_archive(config)
+        if not config.project_path:
+            return False, "Не указана папка с CUDA-исходниками"
 
-        # === РЕЖИМ: Папка проекта ===
-        if archive_info:
-            archive_path, folder_name = archive_info
+        project_dir = Path(config.project_path)
+        if not project_dir.is_dir():
+            return False, f"Папка проекта не найдена: {config.project_path}"
 
-            # Определяем целевую папку
-            if config.project_folder:
-                remote_dir = config.effective_remote_dir
-            else:
-                # Папка не указана → используем имя папки проекта
-                base = config.remote_dir.rstrip("/")
-                remote_dir = f"{base}/{folder_name}/"
+        # Ищем compile.ini для получения команды компиляции
+        compile_ini = project_dir / "compile.ini"
+        compile_cmd = None
+        if compile_ini.exists():
+            with open(compile_ini, "r") as f:
+                compile_cmd = f.read().strip()
+            print(f"  Команда из compile.ini: {compile_cmd}")
 
-            # 1. Создаём папку на сервере
-            mkdir_args = self._build_cli_args(
-                config,
-                local_file="",
-                remote_dir=remote_dir,
-                cmd=f"mkdir -p {remote_dir}",
-            )
-            self._run_cli(mkdir_args, on_output)
+        archive_info = self._prepare_project_archive(config, mesh_file)
+        if not archive_info:
+            return False, "Не удалось подготовить архив проекта"
 
-            # 2. Загружаем архив
-            upload_args = self._build_cli_args(
-                config, local_file=archive_path, remote_dir=remote_dir, cmd=""
-            )
-            success, output = self._run_cli(upload_args, on_output)
-            if not success:
-                return False, f"Ошибка загрузки архива:\n{output}"
-
-            # 3. Распаковываем СОДЕРЖИМОЕ прямо в папку (без обёртки)
-            archive_name = Path(archive_path).name
-            extract_cmd = (
-                f"cd {remote_dir} && "
-                f"tar xzf {archive_name} --strip-components=1 && "
-                f"rm {archive_name}"
-            )
-
-            extract_args = self._build_cli_args(
-                config, local_file="", remote_dir=remote_dir, cmd=extract_cmd
-            )
-            self._run_cli(extract_args, on_output)
-
-            # 4. Компиляция и запуск
-            if config.run_command.strip():
-                cmd = f"cd {remote_dir} && {config.run_command.strip()}"
-            else:
-                # Ищем .cu файл автоматически
-                cu_files = list(Path(config.project_path).glob("*.cu"))
-                if cu_files:
-                    cu_name = cu_files[0].name
-                    out_name = cu_files[0].stem + ".out"
-                    cmd = f"cd {remote_dir} && nvcc {cu_name} -arch=sm_70 -o {out_name} && ./{out_name}"
-                else:
-                    cmd = f"cd {remote_dir} && ls -la"
-
-            run_args = self._build_cli_args(
-                config, local_file="", remote_dir=remote_dir, cmd=cmd
-            )
-            return self._run_cli(run_args, on_output)
-
-        # === РЕЖИМ: Один файл (старый) ===
-        if not config.local_file:
-            return False, "Не выбран файл или папка проекта."
-
+        archive_path = archive_info[0]
         remote_dir = config.effective_remote_dir
 
-        # 0. Создаём папку проекта если указана
-        if config.project_folder:
-            mkdir_args = self._build_cli_args(
-                config,
-                local_file="",
-                remote_dir=remote_dir,
-                cmd=f"mkdir -p {remote_dir}",
-            )
-            self._run_cli(mkdir_args, on_output)
+        print(f"  Загрузка в {remote_dir}...")
 
-        # 1. Загружаем exe если указан
-        exe_name = None
-        if config.local_exe:
-            if not Path(config.local_exe).exists():
-                return False, f"Локальный exe не найден: {config.local_exe}"
-
-            exe_name = Path(config.local_exe).name
-            exe_args = self._build_cli_args(
-                config, local_file=config.local_exe, remote_dir=remote_dir, cmd=""
-            )
-            success, output = self._run_cli(exe_args, on_output)
-            if not success:
-                return False, f"Ошибка загрузки exe:\n{output}"
-
-        # 2. Формируем команду
-        remote_exe_path = None
-        if exe_name:
-            remote_exe_path = remote_dir.rstrip("/") + "/" + exe_name
-
-        if config.run_command.strip():
-            cmd = config.run_command.strip()
-            if exe_name:
-                cmd = cmd.replace("{exe}", f"./{exe_name}").replace(
-                    "{exe_path}", remote_exe_path
-                )
-        elif exe_name:
-            cmd = f"chmod +x {remote_exe_path} && ./{exe_name}"
-        else:
-            cmd = "ls -la"
-
-        # 3. Загружаем data-файл и выполняем команду
-        args = self._build_cli_args(
-            config, local_file=config.local_file, remote_dir=remote_dir, cmd=cmd
+        # 1. Создаём папку на сервере
+        mkdir_args = self._build_cli_args(
+            config,
+            local_file="",
+            remote_dir=remote_dir,
+            cmd=f"mkdir -p {remote_dir}",
         )
+        success, output = self._run_cli(mkdir_args, on_output)
+        if not success:
+            return False, f"Ошибка создания папки:\n{output}"
 
-        return self._run_cli(args, on_output)
+        # 2. Загружаем архив
+        upload_args = self._build_cli_args(
+            config, local_file=archive_path, remote_dir=remote_dir, cmd=""
+        )
+        success, output = self._run_cli(upload_args, on_output)
+        if not success:
+            return False, f"Ошибка загрузки архива:\n{output}"
+
+        # 3. Распаковываем - файлы попадут прямо в remote_dir
+        archive_name = Path(archive_path).name
+        extract_cmd = f"cd {remote_dir} && tar xzf {archive_name} && rm {archive_name}"
+
+        extract_args = self._build_cli_args(
+            config, local_file="", remote_dir=remote_dir, cmd=extract_cmd
+        )
+        success, output = self._run_cli(extract_args, on_output)
+        if not success:
+            return False, f"Ошибка распаковки:\n{output}"
+
+        # 4. Компиляция и запуск
+        if config.run_command.strip():
+            # Используем пользовательскую команду
+            cmd = f"cd {remote_dir} && {config.run_command.strip()}"
+        elif compile_cmd:
+            # Используем команду из compile.ini
+            cmd = f"cd {remote_dir} && {compile_cmd}"
+        else:
+            # Автоматическая компиляция .cu файлов
+            cmd = f"cd {remote_dir} && {nvcc_path} *.cu -arch=sm_70 -o shock.out && ./shock.out"
+
+        run_args = self._build_cli_args(
+            config, local_file="", remote_dir=remote_dir, cmd=cmd
+        )
+        return self._run_cli(run_args, on_output)
