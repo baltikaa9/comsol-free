@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'template8.ui'
+## Form generated from reading UI file 'template.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -57,6 +57,18 @@ class Ui_MainWindow(object):
         self.actionSSHSettings.setObjectName(u"actionSSHSettings")
         icon1 = QIcon(QIcon.fromTheme(u"preferences-system-network"))
         self.actionSSHSettings.setIcon(icon1)
+        self.actionSaveProject = QAction(MainWindow)
+        self.actionSaveProject.setObjectName(u"actionSaveProject")
+        icon2 = QIcon(QIcon.fromTheme(u"document-save"))
+        self.actionSaveProject.setIcon(icon2)
+        self.actionOpenProject = QAction(MainWindow)
+        self.actionOpenProject.setObjectName(u"actionOpenProject")
+        icon3 = QIcon(QIcon.fromTheme(u"document-open"))
+        self.actionOpenProject.setIcon(icon3)
+        self.actionSaveProjectAs = QAction(MainWindow)
+        self.actionSaveProjectAs.setObjectName(u"actionSaveProjectAs")
+        icon4 = QIcon(QIcon.fromTheme(u"document-save-as"))
+        self.actionSaveProjectAs.setIcon(icon4)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -136,6 +148,10 @@ class Ui_MainWindow(object):
         self.toolBarOps.addAction(self.actionRotate)
         self.toolBarMisc.addAction(self.actionBuildMesh)
         self.toolBarMisc.addSeparator()
+        self.toolBarMisc.addAction(self.actionSaveProject)
+        self.toolBarMisc.addAction(self.actionOpenProject)
+        self.toolBarMisc.addAction(self.actionSaveProjectAs)
+        self.toolBarMisc.addSeparator()
         self.toolBarMisc.addAction(self.actionUploadSSH)
         self.toolBarMisc.addAction(self.actionSSHSettings)
 
@@ -159,6 +175,9 @@ class Ui_MainWindow(object):
         self.actionBuildMesh.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0441\u0435\u0442\u043a\u0443", None))
         self.actionUploadSSH.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u043d\u0430 \u0441\u0435\u0440\u0432\u0435\u0440", None))
         self.actionSSHSettings.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 SSH", None))
+        self.actionSaveProject.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u043f\u0440\u043e\u0435\u043a\u0442", None))
+        self.actionOpenProject.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u043f\u0440\u043e\u0435\u043a\u0442", None))
+        self.actionSaveProjectAs.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u043a\u0430\u043a...", None))
         ___qtreewidgetitem = self.projectTree.headerItem()
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0435\u043a\u0442", None));
 

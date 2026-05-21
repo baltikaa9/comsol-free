@@ -3,8 +3,8 @@ import os
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import QEvent, Qt
-from PySide6.QtGui import QIcon, QKeyEvent, QPainter, QPen
+from PySide6.QtCore import QEvent, QLineF, QRectF, Qt
+from PySide6.QtGui import QIcon, QKeyEvent, QPainter, QPainterPath, QPen
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -39,9 +39,14 @@ from src.physics.turbulence_models import (
 from src.services.command_service import CommandService
 from src.services.drawing_service import DrawingService
 from src.services.gmsh_mesh_builder import GmshMeshBuilder
+from src.services.project_service import ProjectSerializer
 from src.services.selection_service import SelectionService
 from src.services.ssh_client import SSHClientService, SSHConfig, SSHConfigManager
 from src.services.structured_mesh_builder import StructuredMeshBuilder
+from src.shapes.ellipse_item import EllipseItem
+from src.shapes.line_item import LineItem
+from src.shapes.parametric_curve_item import ParametricCurveItem
+from src.shapes.rectangle_item import RectangleItem
 from src.ui.template import Ui_MainWindow
 from src.widgets.edge_item import EdgeItem
 from src.widgets.grid_scene import GridScene
@@ -126,6 +131,11 @@ class MainWindow(QMainWindow):
         self.ui.actionUploadSSH.triggered.connect(self.upload_to_ssh)
         self.ui.actionSSHSettings.triggered.connect(self.show_ssh_settings)
 
+        # Подключение действий для работы с проектами
+        self.ui.actionSaveProject.triggered.connect(self.save_project)
+        self.ui.actionOpenProject.triggered.connect(self.open_project)
+        self.ui.actionSaveProjectAs.triggered.connect(self.save_project_as)
+
         # Блокируем сворачивание тулбаров
         for tb in [self.ui.toolBarShapes, self.ui.toolBarOps, self.ui.toolBarMisc]:
             tb.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
@@ -156,6 +166,10 @@ class MainWindow(QMainWindow):
         self.boundary_edges: list[EdgeItem] = []
         self.initial_conditions = InitialConditions()
         self.material = Material()
+
+        # Переменные для работы с проектами
+        self.current_project_path = None  # Путь к текущему проекту
+        self.project_serializer = ProjectSerializer()  # Сериализатор проектов
 
         # Инициализация UI
         self.init_turbulence_ui()
@@ -241,9 +255,7 @@ class MainWindow(QMainWindow):
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
-        self.ui.projectTree.setContextMenuPolicy(
-            Qt.CustomContextMenu
-        )  # <-- Добавить эту строку
+        self.ui.projectTree.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.ui.projectTree.customContextMenuRequested.connect(
             self.show_tree_context_menu
         )
@@ -280,7 +292,7 @@ class MainWindow(QMainWindow):
         bc_item = QTreeWidgetItem(["Граничные условия"])
         for bc in self.boundary_conditions:
             bc_child = QTreeWidgetItem([bc.type.value])
-            bc_child.setData(0, Qt.UserRole, bc)
+            bc_child.setData(0, Qt.ItemDataRole.UserRole, bc)
             # bc_child.addChild(QTreeWidgetItem([f'Type: {bc.bc_type}']))
 
             if isinstance(bc, WallBoundaryConditions):
@@ -351,9 +363,9 @@ class MainWindow(QMainWindow):
     def highlight_edges(self):
         for edge in self.boundary_edges:
             color = (
-                Qt.red
+                Qt.GlobalColor.red
                 if edge.boundary_conditions.type == BoundaryConditionType.INLET
-                else Qt.blue
+                else Qt.GlobalColor.blue
             )
             edge.setPen(QPen(color, 0))
 
@@ -376,7 +388,7 @@ class MainWindow(QMainWindow):
             self.update_project_tree()
 
     def edit_boundary_condition(self, item):
-        bc = item.data(0, Qt.UserRole)
+        bc = item.data(0, Qt.ItemDataRole.UserRole)
         dialog = BoundaryConditionsDialog(
             [edge for edge in self.boundary_edges if edge.boundary_conditions == bc],
             self.turbulence_params.model,
@@ -402,7 +414,7 @@ class MainWindow(QMainWindow):
         menu.exec(self.ui.projectTree.viewport().mapToGlobal(position))
 
     def delete_boundary_condition(self, item):
-        bc = item.data(0, Qt.UserRole)
+        bc = item.data(0, Qt.ItemDataRole.UserRole)
         self.boundary_conditions.remove(bc)
         for edge in self.boundary_edges:
             if edge.boundary_conditions == bc:
@@ -503,6 +515,176 @@ class MainWindow(QMainWindow):
         """Диалог настроек SSH подключения."""
         dialog = SSHSettingsDialog(self.ssh_manager, self)
         dialog.exec()
+
+    def open_project(self):
+        """Открывает проект из файла."""
+        from PySide6.QtWidgets import QFileDialog
+
+        filepath, _ = QFileDialog.getOpenFileName(
+            self,
+            "Открыть проект",
+            "",
+            "Проекты (*.json);;Все файлы (*.*)",
+        )
+
+        if filepath:
+            self._load_from_file(filepath)
+
+    def _restore_geometry(self, geometry_data: dict):
+        for item_data in geometry_data.get("items", []):
+            item_type = item_data.get("type")
+    
+            if item_type == "line":
+                self.drawing_service.restore_line(
+                    QLineF(item_data["x1"], item_data["y1"],
+                           item_data["x2"], item_data["y2"])
+                )
+            elif item_type == "rectangle":
+                self.drawing_service.restore_rect(
+                    QRectF(item_data["x"], item_data["y"],
+                           item_data["width"], item_data["height"])
+                )
+            elif item_type == "ellipse":
+                self.drawing_service.restore_ellipse(
+                    QRectF(item_data["x"], item_data["y"],
+                           item_data["width"], item_data["height"])
+                )
+            elif item_type == "parametric_curve":
+                points = item_data.get("points", [])
+                if not points:
+                    continue
+                path = QPainterPath()
+                path.moveTo(points[0]["x"], points[0]["y"])
+                for p in points[1:]:
+                    path.lineTo(p["x"], p["y"])
+                self.drawing_service.restore_curve(path)
+    
+            elif item_type == "boolean":
+                elements = item_data.get("elements")
+                if not elements:
+                    continue
+            
+                path = QPainterPath()
+                for e in elements:
+                    if e["t"] == 0:
+                        path.moveTo(e["x"], e["y"])
+                    elif e["t"] == 1:
+                        path.lineTo(e["x"], e["y"])
+                    elif e["t"] == 2:
+                        path.cubicTo(
+                            e["c1x"], e["c1y"],
+                            e["c2x"], e["c2y"],
+                            e["x"], e["y"],
+                        )
+            
+                edges_data = item_data.get("edges", [])
+                self.drawing_service.restore_boolean(path, edges_data)
+
+    def _save_to_file(self, filepath: str) -> bool:
+        """Сохраняет проект в указанный файл."""
+        try:
+            # Передаём актуальные параметры в сериализатор
+            self.project_serializer.material = self.material
+            self.project_serializer.initial_conditions = self.initial_conditions
+            self.project_serializer.turbulence_model = self.turbulence_params.model
+            # BC не передаём — они живут на рёбрах сцены и сохраняются через serialize_scene
+
+            return self.project_serializer.save_project(filepath, self.scene)
+
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка", f"Ошибка при сохранении: {str(e)}")
+            return False
+
+    def save_project(self):
+        """Сохраняет текущий проект."""
+        if self.current_project_path:
+            if self._save_to_file(self.current_project_path):
+                QMessageBox.information(self, "Сохранение", "Проект успешно сохранён!")
+        else:
+            self.save_project_as()
+
+    def save_project_as(self):
+        """Сохраняет проект с выбором имени файла."""
+        from PySide6.QtWidgets import QFileDialog
+
+        filepath, _ = QFileDialog.getSaveFileName(
+            self,
+            "Сохранить проект",
+            "",
+            "Проекты (*.json);;Все файлы (*.*)",
+        )
+        if not filepath:
+            return
+
+        if not filepath.endswith(".json"):
+            filepath += ".json"
+
+        if self._save_to_file(filepath):
+            self.current_project_path = filepath
+            self.setWindowTitle(f"Comsol-FreeFDD - {Path(filepath).name}")
+            QMessageBox.information(self, "Сохранение", "Проект успешно сохранён!")
+
+    def _load_from_file(self, filepath: str):
+        """Загружает проект из указанного файла."""
+        try:
+            project_data = self.project_serializer.load_project(filepath)
+            if not project_data:
+                QMessageBox.warning(self, "Ошибка", "Не удалось загрузить проект.")
+                return
+
+            # 1. Очищаем текущее состояние
+            self.scene.clear()
+            self.boundary_conditions.clear()
+            self.boundary_edges.clear()
+
+            # 2. Восстанавливаем физику (материал, IC, модель турбулентности)
+            if "physics" in project_data:
+                self.project_serializer.deserialize_physics(project_data["physics"])
+                self.material = self.project_serializer.material
+                self.initial_conditions = self.project_serializer.initial_conditions
+                self.turbulence_params.model = self.project_serializer.turbulence_model
+
+            # 3. Восстанавливаем геометрию (фигуры добавляются на сцену)
+            geometry = project_data.get("geometry", {})
+            if geometry.get("items"):
+                self._restore_geometry(geometry)
+
+            # 4. Восстанавливаем BC на рёбрах сцены.
+            #    Метод сам заполняет self.boundary_edges и self.boundary_conditions.
+            if geometry.get("edges"):
+                self.project_serializer.apply_edge_boundary_conditions(
+                    edges_data=geometry["edges"],
+                    scene=self.scene,
+                    boundary_edges_out=self.boundary_edges,
+                    boundary_conditions_out=self.boundary_conditions,
+                )
+
+            # 5. Перекрашиваем рёбра в соответствии с типом BC
+            self.highlight_edges()
+
+            # 6. Предупреждаем о булевых формах
+            boolean_count = sum(
+                1 for i in geometry.get("items", [])
+                if i.get("type") == "boolean" and not i.get("elements")
+            )
+            if boolean_count > 0:
+                QMessageBox.warning(
+                    self,
+                    "Внимание",
+                    f"В проекте найдено {boolean_count} булевой(ых) форм(ы).\n"
+                    "Они не могут быть восстановлены автоматически.\n"
+                    "Пожалуйста, пересоздайте их вручную.",
+                )
+
+            # 7. Обновляем дерево проекта
+            self.update_project_tree()
+
+            self.current_project_path = filepath
+            self.setWindowTitle(f"Comsol-FreeFDD - {Path(filepath).name}")
+            QMessageBox.information(self, "Загрузка", "Проект успешно загружен!")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка", f"Ошибка при загрузке: {str(e)}")
 
 
 if __name__ == "__main__":

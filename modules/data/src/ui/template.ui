@@ -177,6 +177,10 @@
    </attribute>
    <addaction name="actionBuildMesh" />
    <addaction name="separator" />
+   <addaction name="actionSaveProject" />
+   <addaction name="actionOpenProject" />
+   <addaction name="actionSaveProjectAs" />
+   <addaction name="separator" />
    <addaction name="actionUploadSSH" />
    <addaction name="actionSSHSettings" />
   </widget>
@@ -249,6 +253,30 @@
    </property>
    <property name="icon">
     <iconset theme="preferences-system-network" />
+   </property>
+  </action>
+  <action name="actionSaveProject">
+   <property name="text">
+    <string>Сохранить проект</string>
+   </property>
+   <property name="icon">
+    <iconset theme="document-save" />
+   </property>
+  </action>
+  <action name="actionOpenProject">
+   <property name="text">
+    <string>Открыть проект</string>
+   </property>
+   <property name="icon">
+    <iconset theme="document-open" />
+   </property>
+  </action>
+  <action name="actionSaveProjectAs">
+   <property name="text">
+    <string>Сохранить как...</string>
+   </property>
+   <property name="icon">
+    <iconset theme="document-save-as" />
    </property>
   </action>
  </widget>

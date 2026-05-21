@@ -1,30 +1,31 @@
 from PySide6.QtCore import QPointF
 from PySide6.QtGui import QPainterPath
-from PySide6.QtWidgets import QGraphicsEllipseItem
-from PySide6.QtWidgets import QGraphicsItem
-from PySide6.QtWidgets import QGraphicsLineItem
-from PySide6.QtWidgets import QGraphicsPathItem
-from PySide6.QtWidgets import QGraphicsRectItem
-from PySide6.QtWidgets import QMessageBox
-from PySide6.QtWidgets import QWidget
-
+from PySide6.QtWidgets import (
+    QGraphicsEllipseItem,
+    QGraphicsItem,
+    QGraphicsLineItem,
+    QGraphicsPathItem,
+    QGraphicsRectItem,
+    QMessageBox,
+    QWidget,
+)
 from src.commands.add_command import AddCommand
 from src.commands.delete_command import DeleteCommand
-from src.shapes.boolean_item import BooleanShapeItem
-from src.widgets.grid_scene import GridScene
 from src.services.command_service import CommandService
 from src.services.drawing_service import DrawingService
 from src.services.selection_service import SelectionService
+from src.shapes.boolean_item import BooleanShapeItem
+from src.widgets.grid_scene import GridScene
 
 
 class BooleanOperations:
     def __init__(
-            self,
-            parent: QWidget,
-            scene: GridScene,
-            command_service: CommandService,
-            drawing_service: DrawingService,
-            selection_service: SelectionService
+        self,
+        parent: QWidget,
+        scene: GridScene,
+        command_service: CommandService,
+        drawing_service: DrawingService,
+        selection_service: SelectionService,
     ):
         self.parent = parent
         self.scene = scene
@@ -33,21 +34,22 @@ class BooleanOperations:
         self.selection_service = selection_service
 
     def perform_union(self):
-        self.__boolean_operation('union')
+        self.__boolean_operation("union")
 
     def perform_difference(self):
-        self.__boolean_operation('difference')
+        self.__boolean_operation("difference")
 
     def perform_intersection(self):
-        self.__boolean_operation('intersection')
+        self.__boolean_operation("intersection")
 
     def __boolean_operation(self, op_type: str):
         sel = self.selection_service.bool_selection
         if len(sel) != 2:
             QMessageBox.warning(
                 self.parent,
-                'Ошибка',
-                'Выберите сначала первую фигуру, потом вторую с зажатым Ctrl!')
+                "Ошибка",
+                "Выберите сначала первую фигуру, потом вторую с зажатым Ctrl!",
+            )
             return
 
         p1 = self.__item_to_scene_path(sel[0])
@@ -56,20 +58,21 @@ class BooleanOperations:
         if p1 is None or p2 is None:
             QMessageBox.warning(
                 self.parent,
-                'Ошибка',
-                'Булевы операции поддерживаются только для линий, прямоугольников, эллипсов и путей.')
+                "Ошибка",
+                "Булевы операции поддерживаются только для линий, прямоугольников, эллипсов и путей.",
+            )
             return
 
-        if op_type == 'union':
+        if op_type == "union":
             result = p1.united(p2)
-        elif op_type == 'difference':
+        elif op_type == "difference":
             result = p1.subtracted(p2)
         else:  # 'intersection'
             result = p1.intersected(p2)
 
-        new_item = BooleanShapeItem(result, sel[0], sel[1])
+        new_item = BooleanShapeItem(result, sel[0], sel[1], op_type)
         new_item.setPen(self.drawing_service.default_pen)
-        new_item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
+        new_item.setFlag(QGraphicsPathItem.GraphicsItemFlag.ItemIsSelectable, True)
         self.command_service.execute(AddCommand(self.scene, new_item))
 
         self.command_service.execute(DeleteCommand(self.scene, sel))
@@ -105,7 +108,7 @@ class BooleanOperations:
         if not path.isEmpty():
             # первая точка
             e0 = path.elementAt(0)
-            start = QPointF(e0.x, e0.y)
+            start = QPointF(float(e0.x), float(e0.y))
             end = path.currentPosition()
             if start != end:
                 path.closeSubpath()

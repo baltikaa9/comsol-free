@@ -151,3 +151,39 @@ class DrawingService:
             return None
 
         return data
+
+    def restore_line(self, line: QLineF) -> LineItem:
+        item = LineItem(line)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        self.command_service.execute(AddCommand(self.scene, item))
+        return item
+    
+    def restore_rect(self, rect: QRectF) -> RectangleItem:
+        item = RectangleItem(rect)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        self.command_service.execute(AddCommand(self.scene, item))
+        return item
+    
+    def restore_ellipse(self, rect: QRectF) -> EllipseItem:
+        item = EllipseItem(rect)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        self.command_service.execute(AddCommand(self.scene, item))
+        return item
+    
+    def restore_curve(self, path: QPainterPath) -> ParametricCurveItem:
+        item = ParametricCurveItem(path)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsPathItem.ItemIsSelectable, True)
+        self.command_service.execute(AddCommand(self.scene, item))
+        return item
+
+    def restore_boolean(self, path: QPainterPath, edges_data: list):
+        from src.shapes.boolean_item import BooleanShapeItem
+        item = BooleanShapeItem.from_path(path, edges_data)
+        item.setPen(self.default_pen)
+        item.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        self.command_service.execute(AddCommand(self.scene, item))
+        return item

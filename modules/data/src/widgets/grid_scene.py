@@ -1,13 +1,8 @@
 import math
 
-from PySide6.QtCore import QPointF
-from PySide6.QtCore import QRectF
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont
-from PySide6.QtGui import QPen
-from PySide6.QtWidgets import QGraphicsItem
-from PySide6.QtWidgets import QGraphicsScene
-from PySide6.QtWidgets import QGraphicsTextItem
+from PySide6.QtCore import QPointF, QRectF, Qt
+from PySide6.QtGui import QFont, QPen
+from PySide6.QtWidgets import QGraphicsItem, QGraphicsScene, QGraphicsTextItem
 
 
 class GridScene(QGraphicsScene):
@@ -19,7 +14,7 @@ class GridScene(QGraphicsScene):
         self.spacing = spacing
         self.grid_pen = QPen(Qt.lightGray, 0)
         self.axis_pen = QPen(Qt.black, 0)
-        self.font = QFont("Arial",  20)  # размер шрифта для меток
+        self.font = QFont("Arial", 20)  # размер шрифта для меток
         self._labels = []
         # Как только изменяется область сцены, перерисуем все метки:
         self.sceneRectChanged.connect(self.update_labels)
@@ -34,7 +29,7 @@ class GridScene(QGraphicsScene):
         # целевая «сырая» величина
         raw = span_units / 10.0
         exp = math.floor(math.log10(raw))
-        base = raw / (10 ** exp)
+        base = raw / (10**exp)
         if base < 1.5:
             nice = 1
         elif base < 3:
@@ -43,8 +38,7 @@ class GridScene(QGraphicsScene):
             nice = 4
         else:
             nice = 10
-        return nice * (10 ** exp)
-
+        return nice * (10**exp)
 
     def drawBackground(self, painter, rect: QRectF):
         left, top, right, bottom = rect.left(), rect.top(), rect.right(), rect.bottom()
@@ -79,9 +73,14 @@ class GridScene(QGraphicsScene):
         painter.drawLine(0, top - 1, 0, bottom + 1)
 
     def update_labels(self, rect: QRectF):
-        # Удаляем старые метки
+        # Удаляем старые метки (проверяем, что они ещё существуют)
         for lab in self._labels:
-            self.removeItem(lab)
+            if lab is not None:
+                try:
+                    self.removeItem(lab)
+                except RuntimeError:
+                    # Объект уже удалён, пропускаем
+                    pass
         self._labels.clear()
 
         left, top, right, bottom = rect.left(), rect.top(), rect.right(), rect.bottom()
@@ -91,7 +90,7 @@ class GridScene(QGraphicsScene):
         step_x = self._nice_step(span_x)
         step_y = self._nice_step(span_y)
 
-        zero_lab = QGraphicsTextItem('0')
+        zero_lab = QGraphicsTextItem("0")
         zero_lab.setFont(self.font)
         zero_lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
         zero_lab.setPos(QPointF(0, 0))
@@ -104,7 +103,7 @@ class GridScene(QGraphicsScene):
         while i * self.spacing <= right:
             pos = i * self.spacing
             if abs(pos) > 1e-3:
-                lab = QGraphicsTextItem(f'{i:.2}' if isinstance(i, float) else str(i))
+                lab = QGraphicsTextItem(f"{i:.2}" if isinstance(i, float) else str(i))
                 lab.setFont(self.font)
                 lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
                 lab.setPos(QPointF(pos, 0))
@@ -118,7 +117,7 @@ class GridScene(QGraphicsScene):
         while j * self.spacing <= bottom:
             pos = j * self.spacing
             if abs(pos) > 1e-3:
-                lab = QGraphicsTextItem(f'{j:.2}' if isinstance(j, float) else str(j))
+                lab = QGraphicsTextItem(f"{j:.2}" if isinstance(j, float) else str(j))
                 lab.setFont(self.font)
                 lab.setFlag(QGraphicsTextItem.ItemIgnoresTransformations, True)
                 lab.setPos(QPointF(0, pos))
@@ -157,6 +156,6 @@ class GridScene(QGraphicsScene):
     def find_edge_by_id(self, edge_id: str) -> QGraphicsItem | None:
         """Находит ребро на сцене по его ID."""
         for item in self.items():
-            if hasattr(item, 'id') and item.id == edge_id:
+            if hasattr(item, "id") and item.id == edge_id:
                 return item
         return None
