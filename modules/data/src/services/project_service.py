@@ -140,13 +140,6 @@ class ProjectSerializer:
             ]
             return {"type": "parametric_curve", "points": points}
         elif isinstance(item, BooleanShapeItem):
-            print(f"[serialize boolean] edges count: {len(item.edges)}")
-            for edge in item.edges:
-                p = edge.path()
-                print(f"  edge {edge.id}: elementCount={p.elementCount()}, boundingRect={p.boundingRect()}")
-                sp = edge.sceneTransform().map(p)
-                print(f"  edge {edge.id} scene path: elementCount={sp.elementCount()}, boundingRect={sp.boundingRect()}")
-            # Сохраняем путь фигуры
             path = item.path()
             elements = []
             i = 0
@@ -159,7 +152,7 @@ class ProjectSerializer:
                 elif t == 1:
                     elements.append({"t": 1, "x": float(elem.x), "y": float(elem.y)})
                     i += 1
-                elif t == 2:  # CurveTo — три элемента подряд
+                elif t == 2:
                     c1 = path.elementAt(i)
                     c2 = path.elementAt(i + 1)
                     ep = path.elementAt(i + 2)
@@ -173,13 +166,13 @@ class ProjectSerializer:
                 else:
                     i += 1
         
-            # Сохраняем рёбра с их путями и ID
             edges_info = []
             for edge in item.edges:
-                ep = edge.path()
+                # Сохраняем путь в координатах сцены
+                scene_path = edge.sceneTransform().map(edge.path())
                 edge_elems = []
-                for j in range(ep.elementCount()):
-                    ee = ep.elementAt(j)
+                for j in range(scene_path.elementCount()):
+                    ee = scene_path.elementAt(j)
                     edge_elems.append({
                         "t": ee.type.value,
                         "x": float(ee.x),

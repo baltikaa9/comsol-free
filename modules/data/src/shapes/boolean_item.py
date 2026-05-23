@@ -12,7 +12,6 @@ class BooleanShapeItem(QGraphicsPathItem):
 
     @classmethod
     def from_path(cls, path: QPainterPath, edges_data: list) -> "BooleanShapeItem":
-        """Восстановление из сохранённого пути без исходных фигур."""
         instance = cls.__new__(cls)
         QGraphicsPathItem.__init__(instance, path)
         instance.op_type = "restored"
@@ -20,17 +19,36 @@ class BooleanShapeItem(QGraphicsPathItem):
     
         for ed in edges_data:
             edge_path = QPainterPath()
-            for elem in ed["path"]:
-                if elem["t"] == 0:
+            elems = ed["path"]
+            i = 0
+            while i < len(elems):
+                elem = elems[i]
+                t = elem["t"]
+    
+                if t == 0:  # MoveTo
                     edge_path.moveTo(elem["x"], elem["y"])
-                elif elem["t"] == 1:
+                    i += 1
+                elif t == 1:  # LineTo
                     edge_path.lineTo(elem["x"], elem["y"])
+                    i += 1
+                elif t == 2:  # CurveTo — Qt хранит три отдельных элемента: ctrl1, ctrl2, end
+                    # Следующие два элемента должны быть CurveToData (t==3)
+                    if i + 2 < len(elems) and elems[i+1]["t"] == 3 and elems[i+2]["t"] == 3:
+                        edge_path.cubicTo(
+                            elem["x"],        elem["y"],        # ctrl1
+                            elems[i+1]["x"],  elems[i+1]["y"],  # ctrl2
+                            elems[i+2]["x"],  elems[i+2]["y"],  # end
+                        )
+                        i += 3
+                    else:
+                        i += 1  # повреждённые данные — пропускаем
+                else:
+                    i += 1  # CurveToData (t==3) без предшествующего CurveTo — пропускаем
     
             edge = EdgeItem(edge_path)
             edge.id = ed["id"]
             edge.setParentItem(instance)
             edge.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, True)
-            print(f"[restore] edge {ed['id']} boundingRect: {edge.boundingRect()}")
             instance.edges.append(edge)
     
         return instance
