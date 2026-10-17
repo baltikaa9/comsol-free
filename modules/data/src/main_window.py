@@ -1,13 +1,15 @@
 import json
 import os
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 from PySide6.QtCore import QEvent, QLineF, QRectF, Qt
-from PySide6.QtGui import QIcon, QKeyEvent, QPainter, QPainterPath, QPen
+from PySide6.QtGui import QAction, QIcon, QKeyEvent, QPainter, QPainterPath, QPen
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
+    QFileDialog,
     QGraphicsView,
     QInputDialog,
     QMainWindow,
@@ -19,6 +21,7 @@ from src.dialogs.boundary_conditions_dialog import BoundaryConditionsDialog
 from src.dialogs.initial_conditions_dialog import InitialConditionsDialog
 from src.dialogs.material_dialog import MaterialDialog
 from src.dialogs.mesh_dialog import MeshDialog
+from src.dialogs.muscl_case_dialog import MusclCaseDialog
 from src.dialogs.ssh_result_dialog import SSHResultDialog, SSHWorker
 from src.dialogs.ssh_settings_dialog import SSHSettingsDialog
 from src.dialogs.turbulence_dialog import TurbulenceDialog
@@ -39,6 +42,8 @@ from src.physics.turbulence_models import (
 from src.services.command_service import CommandService
 from src.services.drawing_service import DrawingService
 from src.services.gmsh_mesh_builder import GmshMeshBuilder
+from src.services.muscl_case_exporter import MusclCaseExporter
+from src.services.muscl_geometry_adapter import MusclGeometryAdapter
 from src.services.project_service import ProjectSerializer
 from src.services.selection_service import SelectionService
 from src.services.ssh_client import SSHClientService, SSHConfig, SSHConfigManager
@@ -128,6 +133,9 @@ class MainWindow(QMainWindow):
             self.transformation_operations.perform_rotate
         )
         self.ui.actionBuildMesh.triggered.connect(self.build_gmsh_mesh)
+        self.actionExportMuscl = QAction("Экспорт кейса MUSCL...", self)
+        self.actionExportMuscl.triggered.connect(self.export_muscl_case)
+        self.ui.toolBarMisc.addAction(self.actionExportMuscl)
         self.ui.actionUploadSSH.triggered.connect(self.upload_to_ssh)
         self.ui.actionSSHSettings.triggered.connect(self.show_ssh_settings)
 
@@ -252,6 +260,49 @@ class MainWindow(QMainWindow):
             builder = GmshMeshBuilder(self.grid_spacing)
             builder.build_mesh(valid_edges, dx)
             self.export_json()
+
+    def export_muscl_case(self):
+        try:
+            domain, solids, boundary_codes = MusclGeometryAdapter(
+                self.scene, self.grid_spacing, self.boundary_edges
+            ).convert()
+        except ValueError as error:
+            QMessageBox.critical(self, "Ошибка геометрии MUSCL", str(error))
+            return
+
+        dialog = MusclCaseDialog(domain, self)
+        if dialog.exec() != QDialog.DialogCode.Accepted:
+            return
+
+        output_dir = QFileDialog.getExistingDirectory(
+            self, "Папка входного кейса MUSCL", str(Path.cwd())
+        )
+        if not output_dir:
+            return
+
+        try:
+            case = dialog.get_case()
+            case = replace(
+                case,
+                boundary_x_left=boundary_codes[0],
+                boundary_x_right=boundary_codes[1],
+                boundary_y_bottom=boundary_codes[2],
+                boundary_y_top=boundary_codes[3],
+                solids=solids,
+            )
+            MusclCaseExporter.export(case, output_dir)
+        except (OSError, ValueError) as error:
+            QMessageBox.critical(self, "Ошибка экспорта MUSCL", str(error))
+            return
+
+        QMessageBox.information(
+            self,
+            "Кейс MUSCL создан",
+            f"Кейс MUSCL записан в:\\n{output_dir}\\n"
+            f"Область: [{case.xmin:g}, {case.xmax:g}] × "
+            f"[{case.ymin:g}, {case.ymax:g}]\\n"
+            f"Число препятствий: {len(case.solids)}",
+        )
 
     def init_turbulence_ui(self):
         self.ui.projectTree.itemClicked.connect(self.on_tree_item_clicked)
@@ -533,21 +584,33 @@ class MainWindow(QMainWindow):
     def _restore_geometry(self, geometry_data: dict):
         for item_data in geometry_data.get("items", []):
             item_type = item_data.get("type")
-    
+
             if item_type == "line":
                 self.drawing_service.restore_line(
-                    QLineF(item_data["x1"], item_data["y1"],
-                           item_data["x2"], item_data["y2"])
+                    QLineF(
+                        item_data["x1"],
+                        item_data["y1"],
+                        item_data["x2"],
+                        item_data["y2"],
+                    )
                 )
             elif item_type == "rectangle":
                 self.drawing_service.restore_rect(
-                    QRectF(item_data["x"], item_data["y"],
-                           item_data["width"], item_data["height"])
+                    QRectF(
+                        item_data["x"],
+                        item_data["y"],
+                        item_data["width"],
+                        item_data["height"],
+                    )
                 )
             elif item_type == "ellipse":
                 self.drawing_service.restore_ellipse(
-                    QRectF(item_data["x"], item_data["y"],
-                           item_data["width"], item_data["height"])
+                    QRectF(
+                        item_data["x"],
+                        item_data["y"],
+                        item_data["width"],
+                        item_data["height"],
+                    )
                 )
             elif item_type == "parametric_curve":
                 points = item_data.get("points", [])
@@ -558,12 +621,12 @@ class MainWindow(QMainWindow):
                 for p in points[1:]:
                     path.lineTo(p["x"], p["y"])
                 self.drawing_service.restore_curve(path)
-    
+
             elif item_type == "boolean":
                 elements = item_data.get("elements")
                 if not elements:
                     continue
-            
+
                 path = QPainterPath()
                 for e in elements:
                     if e["t"] == 0:
@@ -572,11 +635,14 @@ class MainWindow(QMainWindow):
                         path.lineTo(e["x"], e["y"])
                     elif e["t"] == 2:
                         path.cubicTo(
-                            e["c1x"], e["c1y"],
-                            e["c2x"], e["c2y"],
-                            e["x"], e["y"],
+                            e["c1x"],
+                            e["c1y"],
+                            e["c2x"],
+                            e["c2y"],
+                            e["x"],
+                            e["y"],
                         )
-            
+
                 edges_data = item_data.get("edges", [])
                 self.drawing_service.restore_boolean(path, edges_data)
 
@@ -664,7 +730,8 @@ class MainWindow(QMainWindow):
 
             # 6. Предупреждаем о булевых формах
             boolean_count = sum(
-                1 for i in geometry.get("items", [])
+                1
+                for i in geometry.get("items", [])
                 if i.get("type") == "boolean" and not i.get("elements")
             )
             if boolean_count > 0:
