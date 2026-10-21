@@ -39,15 +39,38 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
+      - name: Install Cairo (Windows)
+        if: runner.os == 'Windows'
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: mingw-w64-x86_64-cairo
+
+      - name: Configure Cairo DLL path (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $cairoPath = "C:\msys64\mingw64\bin"
+          if (-not (Test-Path "$cairoPath\libcairo-2.dll")) {
+            throw "Cairo DLL not found at $cairoPath"
+          }
+          Add-Content -Path $env:GITHUB_PATH -Value $cairoPath
+          Add-Content -Path $env:GITHUB_ENV `
+            -Value "CAIROCFFI_DLL_DIRECTORIES=$cairoPath"
+
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.21"
 
+      - name: Verify Cairo (Windows)
+        if: runner.os == 'Windows'
+        run: uv run python -c "import cairocffi; print(cairocffi.cairo_version_string())"
+
       - name: Build with custom script
         env:
           TARGET_PLATFORM: ${{ matrix.target }}
-        run: uv run python build.py
+        run: uv run build.py
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
