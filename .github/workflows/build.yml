@@ -41,19 +41,29 @@ jobs:
 
       - name: Install Cairo (Windows)
         if: runner.os == 'Windows'
+        id: msys2
         uses: msys2/setup-msys2@v2
         with:
+          msystem: MINGW64
           update: true
           install: mingw-w64-x86_64-cairo
 
       - name: Configure Cairo DLL path (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
+        env:
+          MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
         run: |
-          $cairoPath = "C:\msys64\mingw64\bin"
-          if (-not (Test-Path "$cairoPath\libcairo-2.dll")) {
-            throw "Cairo DLL not found at $cairoPath"
+          $cairoPath = Join-Path $env:MSYS2_LOCATION "mingw64\bin"
+          $dll = Join-Path $cairoPath "libcairo-2.dll"
+
+          if (-not (Test-Path $dll)) {
+            Write-Host "Cairo DLL not found. Searching MSYS2..."
+            Get-ChildItem $env:MSYS2_LOCATION -Filter "libcairo-2.dll" -Recurse |
+              Select-Object -ExpandProperty FullName
+            throw "Cairo DLL not found"
           }
+
           Add-Content -Path $env:GITHUB_PATH -Value $cairoPath
           Add-Content -Path $env:GITHUB_ENV `
             -Value "CAIROCFFI_DLL_DIRECTORIES=$cairoPath"
