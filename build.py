@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Скрипт сборки FreeFlow. Собирает comsol-cli + PyInstaller."""
 
 import os
@@ -118,9 +117,12 @@ def build_cli():
 
 
 def main():
+    # Определяем целевую платформу из переменной окружения или автоматически
+    target_platform = os.environ.get("TARGET_PLATFORM", sys.platform)
+
     icon_spec_line = ""
     # 0. Конвертируем иконку только для Windows
-    if sys.platform == "win32":
+    if target_platform == "win32":
         print("🎨 Сборка для Windows, готовим иконку...")
         icon_svg_path = root / "modules" / "data" / "src" / "assets" / "icon.svg"
         icon_png_path = root / "modules" / "data" / "src" / "assets" / "icon.png"
