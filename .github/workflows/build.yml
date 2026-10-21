@@ -9,6 +9,9 @@ on:
 
 jobs:
   build:
+    env:
+      PYTHONUTF8: "1"
+
     strategy:
       matrix:
         include:
